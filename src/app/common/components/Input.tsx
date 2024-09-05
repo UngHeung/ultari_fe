@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export interface BaseInputOptions {
-  id: string;
-  name: string;
-  type: 'text' | 'password' | 'email' | 'number';
-  placeholder?: string;
-  value?: string;
-  setValue?: React.Dispatch<React.SetStateAction<string>>;
+  id: string
+  name: string
+  type: 'text' | 'password' | 'email' | 'number'
+  placeholder?: string
+  value?: string
+  setValue?: React.Dispatch<React.SetStateAction<string>>
 }
 
 /**
@@ -17,15 +17,19 @@ export interface BaseInputOptions {
  * @param setValue?
  */
 const BaseInput = (props: BaseInputOptions) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('')
   return (
-    <input 
+    <input
       name={props.name}
-      id={props.id} 
-      type={props.type} 
-      placeholder={props.placeholder} 
-      onChange={(event) => props.setValue?props.setValue(event.target.value):setValue!(event.target.value)}
-      value={props.value??value}
+      id={props.id}
+      type={props.type}
+      placeholder={props.placeholder}
+      onChange={(event) =>
+        props.setValue
+          ? props.setValue(event.target.value)
+          : setValue!(event.target.value)
+      }
+      value={props.value ?? value}
     />
   )
 }
