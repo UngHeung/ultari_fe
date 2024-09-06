@@ -1,6 +1,6 @@
-import BaseInput from '@/app/common/components/elements/BaseInput';
-import style from '../styles/input.module.css';
-import { BaseInputOptions } from '@/app/common/constants/BaseElementsInterfaces';
+import BaseInput from '../common/BaseInput';
+import style from './styles/input.module.css';
+import { BaseInputOptions } from '@/components/common/constants/BaseElementsInterfaces';
 
 export interface AuthInputOptions extends BaseInputOptions {
   labelValue: string;

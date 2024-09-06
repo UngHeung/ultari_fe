@@ -1,5 +1,5 @@
-import { BaseInputOptions } from '../../constants/BaseElementsInterfaces';
 import { useState } from 'react';
+import { BaseInputOptions } from './constants/BaseElementsInterfaces';
 
 /**
  * @param id? string

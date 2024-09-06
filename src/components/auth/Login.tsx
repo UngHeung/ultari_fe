@@ -1,27 +1,27 @@
-import React, { FormEvent, MouseEvent } from 'react'
-import BaseButton from '@/app/common/components/BaseButton'
-import AuthInput from './AuthInput'
-import style from '../styles/button.module.css'
+import React, { FormEvent, MouseEvent } from 'react';
+import AuthInput from './AuthInput';
+import BaseButton from '../common/BaseButton';
+import style from './styles/button.module.css';
 
 const Login = () => {
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const formData = new FormData(event.currentTarget)
+    const formData = new FormData(event.currentTarget);
     const data = {
       account: formData.get('account'),
       password: formData.get('password'),
       phone: formData.get('phone'),
       email: formData.get('email'),
-    }
+    };
 
-    console.log(data)
-  }
+    console.log(data);
+  };
 
   const handleSignUp = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    console.log('회원가입')
-  }
+    event.preventDefault();
+    console.log('회원가입');
+  };
 
   return (
     <form onSubmit={handleLogin}>
@@ -55,7 +55,7 @@ const Login = () => {
         <BaseButton type={'button'} value={'회원가입'} onClick={handleSignUp} />
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
