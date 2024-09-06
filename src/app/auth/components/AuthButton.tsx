@@ -1,4 +1,4 @@
-import BaseButton from '@/app/common/components/BaseButton';
+import BaseButton from '@/app/common/components/elements/BaseButton';
 import style from '../styles/button.module.css';
 import { BaseButtonOptions } from '@/app/common/constants/BaseElementsInterfaces';
 

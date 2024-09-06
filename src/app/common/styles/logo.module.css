@@ -1,0 +1,12 @@
+.basicLogo,
+.smallLogo {
+  object-fit: contain;
+}
+
+.basicLogo {
+  height: 100px;
+}
+
+.smallLogo {
+  height: 100px;
+}

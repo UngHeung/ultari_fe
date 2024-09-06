@@ -1,0 +1,12 @@
+.mainHeader {
+  position: fixed;
+  top: 0;
+  width: var(--width-header);
+  height: var(--height-header);
+  background-color: var(--background-color-header);
+}
+
+.mainHeader>a {
+  position: absolute;
+  left: 0;
+}
