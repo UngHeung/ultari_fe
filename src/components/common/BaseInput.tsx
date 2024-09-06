@@ -11,7 +11,7 @@ import { BaseInputOptions } from './constants/BaseElementsInterfaces';
  * @param setValue? React.Dispatch<React.SetStateActions<string>>
  */
 const BaseInput = (props: BaseInputOptions) => {
-  const [baseValue, setBaseValue] = useState('');
+  const [baseValue, setBaseValue] = useState<string>('');
 
   return (
     <input
