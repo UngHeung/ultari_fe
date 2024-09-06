@@ -1,24 +1,25 @@
-import { MouseEvent, MouseEventHandler } from 'react'
-
-export interface BaseButtonOptions {
-  id?: string
-  type: 'submit' | 'button'
-  value: string
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
-}
+import { BaseButtonOptions } from '../constants/BaseElementsInterfaces';
 
 /**
- * @param id?
- * @param type
- * @param value
- * @param onClick
+ * @param id? string
+ * @param className? string
+ * @param type submit | button
+ * @param value string
+ * @param styleClass? string
+ * @param onClick (event: MouseEvent<HTMLButtonElements>) => void;
  */
 const BaseButton = (props: BaseButtonOptions) => {
+
   return (
-    <button id={props.id} type={props.type} onClick={props.onClick}>
+    <button
+      id={props.id}
+      className={`${props.className} ${props.styleClass}`}
+      type={props.type}
+      onClick={props.onClick}
+    >
       {props.value}
     </button>
-  )
-}
+  );
+};
 
-export default BaseButton
+export default BaseButton;
