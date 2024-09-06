@@ -1,19 +1,19 @@
 import React from 'react';
-import Logo from './Logo';
 import Link from 'next/link';
+import style from '../../styles/nav.module.css';
 
 const Nav = () => {
   return (
-    <nav>
+    <nav className={style.mainNav}>
       <ul>
         <li>
-          <Link href={'/'}>home</Link>
+          <Link href={'/'}>메인</Link>
         </li>
         <li>
-          <Link href={'/auth'}>auth</Link>
+          <Link href={'/auth'}>회원</Link>
         </li>
         <li>
-          <Link href={'/post'}>post</Link>
+          <Link href={'/post'}>게시판</Link>
         </li>
       </ul>
     </nav>
