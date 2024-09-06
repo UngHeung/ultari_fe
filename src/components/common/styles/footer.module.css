@@ -1,0 +1,14 @@
+.mainFooter {
+  position: fixed;
+  bottom: 0;
+  width: var(--width-footer);
+  height: var(--height-footer);
+  background-color: var(--background-color-footer);
+}
+
+.footerWrap {
+  width: 100%;
+  max-width: var(--max-width-1280);
+  height: 100%;
+  margin: 0 auto;
+}

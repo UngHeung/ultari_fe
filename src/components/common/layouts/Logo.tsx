@@ -6,10 +6,14 @@ import { generateLogoImgOptions } from '../functions/generateLogoImgOptions';
 export interface LogoOptions {
   type: 'basic' | 'small';
   id?: string;
+  scale: number;
 }
 
 const Logo = (props: LogoOptions) => {
-  const { src, className, width, height } = generateLogoImgOptions(props.type);
+  const { src, className, width, height } = generateLogoImgOptions(
+    props.type,
+    props.scale,
+  );
 
   return (
     <Link href={'/'}>
@@ -20,6 +24,7 @@ const Logo = (props: LogoOptions) => {
         alt={'울타리_로고'}
         width={width}
         height={height}
+        priority
       />
     </Link>
   );
