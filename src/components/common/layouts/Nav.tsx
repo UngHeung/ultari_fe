@@ -10,7 +10,13 @@ const Nav = () => {
           <Link href={'/'}>메인</Link>
         </li>
         <li>
-          <Link href={'/auth'}>회원</Link>
+          <Link href={'/sign'}>회원가입</Link>
+        </li>
+        <li>
+          <Link href={'/login'}>로그인</Link>
+        </li>
+        <li>
+          <Link href={'/forgot'}>아이디/비밀번호</Link>
         </li>
         <li>
           <Link href={'/post'}>게시판</Link>
