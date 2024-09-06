@@ -6,7 +6,7 @@ export interface BaseButtonOptions {
   type: 'submit' | 'button';
   value: string;
   styleClass?: string;
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface BaseInputOptions {

@@ -1,4 +1,4 @@
-import { BaseInputOptions } from '../constants/BaseElementsInterfaces';
+import { BaseInputOptions } from '../../constants/BaseElementsInterfaces';
 import { useState } from 'react';
 
 /**
