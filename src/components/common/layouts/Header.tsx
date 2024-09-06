@@ -6,8 +6,10 @@ import style from '../styles/header.module.css';
 const Header = () => {
   return (
     <header className={style.mainHeader}>
-      <Logo type={'basic'} />
-      <Nav />
+      <div className={style.headerWrap}>
+        <Logo type={'basic'} scale={66.6} />
+        <Nav />
+      </div>
     </header>
   );
 };
