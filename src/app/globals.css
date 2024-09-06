@@ -5,6 +5,12 @@
 
   --font-family-basic: 'wanted sans';
 
+  --max-width-1280: 1280px;
+  --max-width-1024: 1024px;
+  --max-width-800: 800px;
+
+  --min-width: 344px;
+
   --width-header: 100%;
   --width-footer: 100%;
 
@@ -51,6 +57,9 @@ body {
   font-family: var(--font-family-basic);
   color: var(--font-color-basic);
 
-  margin-top: 100px;
+  max-width: 100%;
+  min-width: var(--min-width);
+  width: 100%;
+  margin: 100px auto;
   padding-top: 30px;
 }
