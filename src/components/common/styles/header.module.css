@@ -6,12 +6,20 @@
   background-color: var(--background-color-header);
 }
 
-.mainHeader>a {
+.headerWrap {
+  position: relative;
+  width: 100%;
+  max-width: var(--max-width-1280);
+  height: 100%;
+  margin: 0 auto;
+}
+
+.headerWrap>a {
   position: absolute;
   left: 0;
 }
 
-.mainHeader li {
+.headerWrap nav li {
   font-size: 1.3rem;
   font-weight: 600;
 }
