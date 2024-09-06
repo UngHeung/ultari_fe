@@ -1,0 +1,15 @@
+.mainNav {
+  width: 100%;
+  height: var(--height-header);
+}
+
+.mainNav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.mainNav ul>li {
+  line-height: var(--height-header);
+}
