@@ -1,10 +1,9 @@
-'use client'
-
-import BaseInput, { BaseInputOptions } from '@/app/common/components/BaseInput'
-import style from '../styles/input.module.css'
+import BaseInput from '@/app/common/components/BaseInput';
+import style from '../styles/input.module.css';
+import { BaseInputOptions } from '@/app/common/constants/BaseElementsInterfaces';
 
 export interface AuthInputOptions extends BaseInputOptions {
-  labelValue: string
+  labelValue: string;
 }
 
 /**
@@ -20,11 +19,12 @@ const AuthInput = (props: AuthInputOptions) => {
       <BaseInput
         name={props.name}
         id={props.id}
+        className={`${props.className} ${props.styleClass}`}
         type={props.type}
         placeholder={props.placeholder}
       />
     </div>
-  )
-}
+  );
+};
 
-export default AuthInput
+export default AuthInput;
