@@ -1,7 +1,7 @@
 import React, { FormEvent, MouseEvent } from 'react';
 import AuthInput from './AuthInput';
-import style from '../styles/button.module.css';
-import BaseButton from '@/app/common/components/elements/BaseButton';
+import BaseButton from '../common/BaseButton';
+import style from './styles/button.module.css';
 
 const Login = () => {
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {

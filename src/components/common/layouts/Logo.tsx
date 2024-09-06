@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { generateLogoImgOptions } from '../../functions/generateLogoImgOptions';
+import { generateLogoImgOptions } from '../functions/generateLogoImgOptions';
 
 export interface LogoOptions {
   type: 'basic' | 'small';

@@ -10,3 +10,8 @@
   position: absolute;
   left: 0;
 }
+
+.mainHeader li {
+  font-size: 1.3rem;
+  font-weight: 600;
+}

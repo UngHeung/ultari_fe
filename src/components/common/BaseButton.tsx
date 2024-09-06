@@ -1,4 +1,4 @@
-import { BaseButtonOptions } from '../../constants/BaseElementsInterfaces';
+import { BaseButtonOptions } from './constants/BaseElementsInterfaces';
 
 /**
  * @param id? string
@@ -9,7 +9,6 @@ import { BaseButtonOptions } from '../../constants/BaseElementsInterfaces';
  * @param onClick? (event: MouseEvent<HTMLButtonElements>) => void;
  */
 const BaseButton = (props: BaseButtonOptions) => {
-
   return (
     <button
       id={props.id}
