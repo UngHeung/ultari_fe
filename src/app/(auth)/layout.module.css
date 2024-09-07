@@ -1,0 +1,13 @@
+.authWrap {
+  width: 100%;
+  max-width: var(--max-width-1280);
+  margin: 0 auto;
+}
+
+.authWrap>h2 {
+  width: 100%;
+  margin-bottom: var(--title-gap-basic);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-title);
+  text-align: center;
+}
