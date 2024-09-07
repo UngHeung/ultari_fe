@@ -2,13 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: var(--content-gap-basic);
+  gap: var(--margin-content);
   width: 100%;
-  max-width: 600px;
-  margin: var(--container-gap-basic) auto;
+  max-width: 300px;
+  margin: 0 auto;
+  padding-top: var(--padding-wrapper)
 }
 
-.buttonWrap button {
-  width: 100px;
-  height: 30px;
+.authButton {
+  display: block;
+  width: 50%;
+  height: 40px;
+  background-color: var(--background-color-button);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-button);
+  transition: filter .3s;
+}
+
+.authButton:hover {
+  filter: var(--filter-button-hover);
 }

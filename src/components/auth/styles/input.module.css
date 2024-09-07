@@ -4,29 +4,52 @@
   margin: 0 auto;
 }
 
-.inputWrap label {
+.inputWrap .inputLabel {
   display: block;
   width: 100%;
-  margin-bottom: var(--content-gap-basic);
+  margin-bottom: var(--margin-content);
   text-align: center;
 }
 
-.inputWrap input {
+.inputWrap .authInput {
   display: block;
   width: 100%;
   max-width: 300px;
   height: 30px;
-  margin: 0 auto var(--content-gap-basic);
+  margin: 0 auto;
   background-color: var(--background-color-input);
   border-bottom: 2px solid var(--border-color-input);
   color: var(--font-color-input);
-  font-size: var(--font-size-content);
-  font-weight: var(--font-weight-content);
+  font-size: var(--font-size-input);
+  font-weight: var(--font-weight-input);
   text-align: center;
   transition: border-color .3s;
+}
+
+.authInput::placeholder {
+  font-size: var(--font-size-input-message);
+  color: var(--color-placeholder);
 }
 
 .inputWrap input:focus,
 .inputWrap input:not(:placeholder-shown) {
   border-bottom-color: var(--focus-outline-basic);
+}
+
+.messageWrap {
+  display: block;
+  width: 100%;
+  height: 20px;
+  max-width: 300px;
+  margin: 5px auto var(--content-gap-basic);
+  font-size: var(--font-size-input-message);
+  text-align: left;
+}
+
+.success {
+  color: var(--color-success)
+}
+
+.failure {
+  color: var(--color-failure)
 }

@@ -1,28 +1,11 @@
-import React, { FormEvent, MouseEvent } from 'react';
 import AuthInput from './AuthInput';
 import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';
+import { useRouter } from 'next/navigation';
+import { handleSignUp } from './handlers/hendleSignUp';
 
 const SignUp = () => {
-  const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const data = {
-      account: formData.get('account'),
-      password: formData.get('password'),
-      phone: formData.get('phone'),
-      email: formData.get('email'),
-    };
-
-    console.log(data);
-  };
-
-  const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    console.log('이전 페이지로 이동');
-  };
+  const router = useRouter();
 
   return (
     <form onSubmit={handleSignUp}>
@@ -48,6 +31,13 @@ const SignUp = () => {
         placeholder={' '}
       />
       <AuthInput
+        name={'name'}
+        id={'auth_name'}
+        type={'text'}
+        labelValue={'이름'}
+        placeholder={' '}
+      />
+      <AuthInput
         name={'phone'}
         id={'auth_phone'}
         type={'text'}
@@ -63,8 +53,17 @@ const SignUp = () => {
       />
 
       <div className={style.buttonWrap}>
-        <BaseButton type={'submit'} value={'가입하기'} />
-        <BaseButton type={'button'} value={'취소'} onClick={handleButton} />
+        <BaseButton
+          styleClass={style.authButton}
+          type={'submit'}
+          value={'가입하기'}
+        />
+        <BaseButton
+          styleClass={style.authButton}
+          type={'button'}
+          value={'취소'}
+          onClick={() => router.back()}
+        />
       </div>
     </form>
   );

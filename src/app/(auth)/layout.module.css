@@ -1,12 +1,15 @@
 .authWrap {
   width: 100%;
   max-width: var(--max-width-1280);
+  height: calc(100vh - (var(--height-header) + var(--height-footer)));
   margin: 0 auto;
+  padding: var(--padding-container) 0;
+  overflow-y: scroll
 }
 
-.authWrap>h2 {
+.authTitle {
   width: 100%;
-  margin-bottom: var(--title-gap-basic);
+  margin-bottom: var(--margin-title);
   font-size: var(--font-size-title);
   font-weight: var(--font-weight-title);
   text-align: center;

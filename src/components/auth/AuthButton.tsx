@@ -1,19 +1,15 @@
 import BaseButton from '../common/BaseButton';
-import style from '../styles/button.module.css';
-import { BaseButtonOptions } from '@/components/common/constants/BaseElementsInterfaces';
+import { BaseButtonOptions } from '@/components/common/constants/baseElementsInterfaces';
 
 export interface AuthButtonOptions extends BaseButtonOptions {}
 
-/**
- * @param BaseButtonOptions - id?, type, value, onClick?
- */
 const AuthButton = (props: AuthButtonOptions) => {
   return (
     <BaseButton
       id={props.id}
       type={props.type}
       value={props.value}
-      styleClass={style.button}
+      styleClass={props.styleClass}
       onClick={props.onClick}
     />
   );
