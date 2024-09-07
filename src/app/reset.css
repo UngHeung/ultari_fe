@@ -10,7 +10,8 @@ h3,
 h4,
 h5,
 h6 {
-  all: unset;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 li {
@@ -20,4 +21,20 @@ li {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+input,
+button {
+  background-color: inherit;
+  border: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: inherit;
 }
