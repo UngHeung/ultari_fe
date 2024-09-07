@@ -1,24 +1,32 @@
-import Header from '@/components/common/layouts/Header';
-import Footer from '@/components/common/layouts/Footer';
-import '@/app/reset.css';
-import '@/app/globals.css';
+'use client';
 
-export default function AuthLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: {
-    tag: string;
-    item: string;
-  };
-}) {
-  console.log(params.tag, ' ', params.item);
+import style from './layout.module.css';
+import { usePathname } from 'next/navigation';
+
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = usePathname();
+  const title = getTitle(router);
+
   return (
     <>
-      <h1>{params.item}</h1>
-      {children}
-      <h1>{params.item}</h1>
+      <section className={style.authWrap}>
+        <h2>{title}</h2>
+        {children}
+      </section>
     </>
   );
-}
+};
+
+export const getTitle = (router: string) => {
+  const type = router.slice(1);
+
+  if (type === 'sign') {
+    return '회원가입';
+  } else if (type === 'login') {
+    return '로그인';
+  } else if (type === 'forgot') {
+    return '비밀번호 찾기';
+  }
+};
+
+export default AuthLayout;
