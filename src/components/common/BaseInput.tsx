@@ -1,15 +1,6 @@
 import { useState } from 'react';
-import { BaseInputOptions } from './constants/BaseElementsInterfaces';
+import { BaseInputOptions } from './constants/baseElementsInterfaces';
 
-/**
- * @param id? string
- * @param className? string
- * @param name string
- * @param type text | password | email | number
- * @param placeholder? string
- * @param value? string
- * @param setValue? React.Dispatch<React.SetStateActions<string>>
- */
 const BaseInput = (props: BaseInputOptions) => {
   const [baseValue, setBaseValue] = useState<string>('');
 

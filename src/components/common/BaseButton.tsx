@@ -1,13 +1,5 @@
-import { BaseButtonOptions } from './constants/BaseElementsInterfaces';
+import { BaseButtonOptions } from './constants/baseElementsInterfaces';
 
-/**
- * @param id? string
- * @param className? string
- * @param type submit | button
- * @param value string
- * @param styleClass? string
- * @param onClick? (event: MouseEvent<HTMLButtonElements>) => void;
- */
 const BaseButton = (props: BaseButtonOptions) => {
   return (
     <button
