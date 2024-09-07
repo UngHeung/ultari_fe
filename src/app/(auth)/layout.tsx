@@ -10,7 +10,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <section className={style.authWrap}>
-        <h2>{title}</h2>
+        <h2 className={style.authTitle}>{title}</h2>
         {children}
       </section>
     </>
