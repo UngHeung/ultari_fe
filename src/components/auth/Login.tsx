@@ -28,12 +28,14 @@ const Login = () => {
         id={'login_account'}
         type={'text'}
         labelValue={'아이디'}
+        placeholder={' '}
       />
       <AuthInput
         name={'password'}
         id={'login_password'}
         type={'password'}
         labelValue={'비밀번호'}
+        placeholder={' '}
       />
 
       <div className={style.buttonWrap}>
