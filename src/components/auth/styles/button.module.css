@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: var(--content-gap-basic);
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
+  margin: var(--container-gap-basic) auto;
 }
 
 .buttonWrap button {
