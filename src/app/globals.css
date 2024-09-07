@@ -3,6 +3,15 @@
 :root {
   color-scheme: light dark;
 
+  --color-main-red: #fe3f42;
+  --color-main-green: #67ab70;
+  --color-success: #67ab70;
+  --color-failure: #dc3636;
+
+  --color-placeholder: #bdbdbd;
+
+  --focus-outline-basic: #939393;
+
   --max-width-1280: 1280px;
   --max-width-1024: 1024px;
   --max-width-800: 800px;
@@ -15,9 +24,11 @@
   --height-header: 100px;
   --height-footer: 100px;
 
-  --container-gap-basic: 50px;
-  --title-gap-basic: 40px;
-  --content-gap-basic: 20px;
+  --margin-container: 50px;
+  --margin-title: 40px;
+  --margin-content: 20px;
+  --padding-container: 30px;
+  --padding-wrapper: 20px;
 
   --font-family-basic: 'wanted sans';
 
@@ -34,9 +45,14 @@
   --font-size-title: var(--font-size-24);
   --font-size-content: var(--font-size-16);
   --font-size-comment: var(--font-size-14);
+  --font-size-button: var(--font-size-16);
+  --font-size-input: var(--font-size-16);
+  --font-size-input-message: var(--font-size-14);
 
   --font-weight-title: 600;
   --font-weight-content: 100;
+  --font-weight-button: 500;
+  --font-weight-input: 500;
 }
 
 @media (prefers-color-scheme: light) {
@@ -45,10 +61,11 @@
     --background-color-header: #ececec;
     --background-color-footer: #ececec;
     --background-color-input: #f9f9f9;
+    --background-color-button: #eaeaea;
 
-    --border-color-input: #6f6f6f;
+    --filter-button-hover: brightness(90%);
 
-    --focus-outline-basic: #3472f6;
+    --border-color-input: #d1d1d1;
 
     --font-color-basic: #121212;
     --font-color-input: #121212;
@@ -61,10 +78,11 @@
     --background-color-header: #212121;
     --background-color-footer: #212121;
     --background-color-input: #121212;
+    --background-color-button: #202020;
 
-    --border-color-input: #4a4a4a;
+    --filter-button-hover: brightness(140%);
 
-    --focus-outline-basic: #9dfdff;
+    --border-color-input: #3a3a3a;
 
     --font-color-basic: #f9f9f9;
     --font-color-input: #f9f9f9;
@@ -81,10 +99,20 @@ body {
   background-color: var(--background-color-body);
   font-family: var(--font-family-basic);
   color: var(--font-color-basic);
+}
 
+main {
   max-width: 100%;
   min-width: var(--min-width);
   width: 100%;
-  margin: 100px auto;
-  padding-top: 30px;
+  margin: 0 auto;
+  padding: var(--height-header) 0 var(--height-footer) 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-main-red);
 }
