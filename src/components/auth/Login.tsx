@@ -1,28 +1,21 @@
-import React, { FormEvent, MouseEvent } from 'react';
+'use client';
+
 import AuthInput from './AuthInput';
 import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';
+import { useRouter } from 'next/navigation';
+import { handleLogin } from './handlers/handleLogin';
 
 const Login = () => {
-  const handleLogin = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const data = {
-      account: formData.get('account'),
-      password: formData.get('password'),
-    };
-
-    console.log(data);
-  };
-
-  const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    console.log('회원가입으로 이동');
-  };
+  const router = useRouter();
 
   return (
-    <form onSubmit={handleLogin}>
+    <form
+      onSubmit={async event => {
+        const { success, message } = await handleLogin(event);
+        success && router.replace('/');
+      }}
+    >
       <AuthInput
         name={'account'}
         id={'login_account'}
@@ -39,8 +32,17 @@ const Login = () => {
       />
 
       <div className={style.buttonWrap}>
-        <BaseButton type={'submit'} value={'로그인'} />
-        <BaseButton type={'button'} value={'회원가입'} onClick={handleButton} />
+        <BaseButton
+          styleClass={style.authButton}
+          type={'submit'}
+          value={'로그인'}
+        />
+        <BaseButton
+          styleClass={style.authButton}
+          type={'button'}
+          value={'회원가입'}
+          onClick={() => router.push('/sign')}
+        />
       </div>
     </form>
   );
