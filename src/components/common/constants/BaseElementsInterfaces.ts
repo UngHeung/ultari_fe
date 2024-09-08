@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent } from 'react';
 
 export interface BaseButtonOptions {
   id?: string;
@@ -6,6 +6,7 @@ export interface BaseButtonOptions {
   type: 'submit' | 'button';
   value: string;
   styleClass?: string;
+  disabled?: boolean;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
