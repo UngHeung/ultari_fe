@@ -69,6 +69,7 @@
 
     --font-color-basic: #121212;
     --font-color-input: #121212;
+    --font-color-disabled: #b7b7b7;
   }
 }
 
@@ -86,6 +87,7 @@
 
     --font-color-basic: #f9f9f9;
     --font-color-input: #f9f9f9;
+    --font-color-disabled: #4f4f4f;
   }
 }
 
