@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from '@/components/common/constants/pathConst';
-import { requestInterceptors } from './functions/requestInterceptors';
-import { responseInterceptors } from './functions/responseInterceptors';
+import { ACCESS_TOKEN } from '@/components/auth/constants/accessToken';
+import { reissueAccessToken } from './functions/reissueToken';
 
 export const fileUploadAxios = axios.create({
   baseURL: BASE_URL,
@@ -11,7 +11,39 @@ export const fileUploadAxios = axios.create({
   },
 });
 
-(async () => {
-  await requestInterceptors(fileUploadAxios);
-  await responseInterceptors(fileUploadAxios);
-})();
+fileUploadAxios.interceptors.request.use(
+  config => {
+    const accessToken = ACCESS_TOKEN.accessToken;
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  },
+);
+
+fileUploadAxios.interceptors.response.use(
+  response => {
+    if (response.status === 404) {
+      console.log('404 Page');
+    }
+
+    return response;
+  },
+  async error => {
+    if (error.response?.status === 401) {
+      // isTokenExpired()
+      console.log(ACCESS_TOKEN.accessToken);
+      ACCESS_TOKEN.accessToken = await reissueAccessToken();
+      console.log(ACCESS_TOKEN.accessToken);
+      // isTokenExpired() && await reissueToken();
+      error.config.headers = {
+        Authorization: `Bearer ${ACCESS_TOKEN.accessToken}`,
+      };
+
+      const response = await axios.request(error.config);
+      return response;
+    }
+    return Promise.reject(error);
+  },
+);

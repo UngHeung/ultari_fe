@@ -7,6 +7,7 @@ const BaseButton = (props: BaseButtonOptions) => {
       className={`${props.className} ${props.styleClass}`}
       type={props.type}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.value}
     </button>

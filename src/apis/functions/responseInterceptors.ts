@@ -1,9 +1,10 @@
+import { ACCESS_TOKEN } from '@/components/auth/constants/accessToken';
 import { AxiosInstance } from 'axios';
 
-export const responseInterceptors = async (axiosInstance: AxiosInstance) => {
+const responseInterceptors = async (axiosInstance: AxiosInstance) => {
   axiosInstance.interceptors.request.use(
     config => {
-      const accessToken = localStorage.getItem('accessToken');
+      const accessToken = ACCESS_TOKEN.accessToken;
 
       config.headers['Authorization'] = `Bearer ${accessToken}`;
 
@@ -14,3 +15,5 @@ export const responseInterceptors = async (axiosInstance: AxiosInstance) => {
     },
   );
 };
+
+export default responseInterceptors;

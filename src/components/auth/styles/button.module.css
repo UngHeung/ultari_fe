@@ -22,3 +22,13 @@
 .authButton:hover {
   filter: var(--filter-button-hover);
 }
+
+.authButton:disabled {
+  text-decoration: line-through 2px solid;
+  color: var(--font-color-disabled);
+  cursor: default;
+}
+
+.authButton:disabled:hover {
+  filter: none;
+}

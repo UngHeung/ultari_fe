@@ -1,11 +1,18 @@
 import axios from 'axios';
 import { BASE_URL } from '@/components/common/constants/pathConst';
-import { requestInterceptors } from './functions/requestInterceptors';
 
 export const refreshAxios = axios.create({
   baseURL: BASE_URL,
 });
 
-(async () => {
-  await requestInterceptors(refreshAxios);
-})();
+refreshAxios.interceptors.request.use(
+  config => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    config.headers['Authorization'] = `Bearer ${refreshToken}`;
+    return config;
+  },
+  error => {
+    console.log('axiosReissue : ', error);
+    return Promise.reject(error);
+  },
+);
