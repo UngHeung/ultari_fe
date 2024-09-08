@@ -6,8 +6,6 @@ import axios from 'axios';
 import { FormEvent } from 'react';
 
 export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-
   const formData = new FormData(event.currentTarget);
   const account = formData.get('account');
   const password = formData.get('password');
