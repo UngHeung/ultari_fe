@@ -21,6 +21,9 @@ const Nav = () => {
         <li>
           <Link href={'/post'}>게시판</Link>
         </li>
+        <li>
+          <Link href={'/logout'}>로그아웃</Link>
+        </li>
       </ul>
     </nav>
   );
