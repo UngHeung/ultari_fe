@@ -5,15 +5,24 @@ import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
 import { handleLogin } from './handlers/handleLogin';
+import { useState } from 'react';
 
 const Login = () => {
   const router = useRouter();
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   return (
     <form
       onSubmit={async event => {
-        const { success, message } = await handleLogin(event);
-        success && router.replace('/');
+        event.preventDefault();
+
+        setDisabled(true);
+
+        const { status, success, message } = await handleLogin(event);
+        success && router.back();
+
+        console.log(message);
+        setDisabled(false);
       }}
     >
       <AuthInput
@@ -36,11 +45,13 @@ const Login = () => {
           styleClass={style.authButton}
           type={'submit'}
           value={'로그인'}
+          disabled={disabled}
         />
         <BaseButton
           styleClass={style.authButton}
           type={'button'}
           value={'회원가입'}
+          disabled={disabled}
           onClick={() => router.push('/sign')}
         />
       </div>
