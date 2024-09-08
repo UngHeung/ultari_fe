@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 import { reissueAccessToken } from './reissueToken';
+import { ACCESS_TOKEN } from '@/components/auth/constants/accessToken';
 
-export const requestInterceptors = async (axiosInstance: AxiosInstance) => {
+const requestInterceptors = async (axiosInstance: AxiosInstance) => {
   axiosInstance.interceptors.response.use(
     response => {
       if (response.status === 404) {
@@ -13,10 +14,10 @@ export const requestInterceptors = async (axiosInstance: AxiosInstance) => {
     async error => {
       if (error.response?.status === 401) {
         // isTokenExpired()
-        const newAccessToken = await reissueAccessToken();
+        ACCESS_TOKEN.accessToken = await reissueAccessToken();
         // isTokenExpired() && await reissueToken();
         error.config.headers = {
-          Authorization: `Bearer ${newAccessToken}`,
+          Authorization: `Bearer ${ACCESS_TOKEN.accessToken}`,
         };
 
         const response = await axios.request(error.config);
@@ -26,3 +27,5 @@ export const requestInterceptors = async (axiosInstance: AxiosInstance) => {
     },
   );
 };
+
+export default requestInterceptors;

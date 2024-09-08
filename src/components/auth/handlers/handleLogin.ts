@@ -1,7 +1,8 @@
-import { BASE_URL, LOGIN_PATH } from '@/components/common/constants/pathConst';
 import axios from 'axios';
+import { BASE_URL, LOGIN_PATH } from '@/components/common/constants/pathConst';
 import { FormEvent } from 'react';
 import { TokenPrefixEnum } from '../constants/tokenEnum';
+import { ACCESS_TOKEN } from '../constants/accessToken';
 
 export enum LoginOptionsEnum {
   ACCOUNT = 'account',
@@ -9,8 +10,6 @@ export enum LoginOptionsEnum {
 }
 
 export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-
   const formData = new FormData(event.currentTarget);
   const account = formData.get(LoginOptionsEnum.ACCOUNT);
   const password = formData.get(LoginOptionsEnum.PASSWORD);
@@ -30,17 +29,19 @@ export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
       },
     });
 
-    localStorage.setItem('accessToken', response.data.accessToken);
+    ACCESS_TOKEN.accessToken = response.data.accessToken;
     localStorage.setItem('refreshToken', response.data.refreshToken);
 
     return {
+      status: response.status,
       success: true,
       message: '로그인 성공!',
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
+      status: error.status,
       success: false,
-      message: `로그인 실패\n${error}`,
+      message: `로그인 실패\n${error.response.data.message}`,
     };
   }
 };
