@@ -2,7 +2,7 @@ import AuthInput from './AuthInput';
 import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
-import { handleSignUp } from './handlers/hendleSignUp';
+import { handleSignUp } from './handlers/handleSignUp';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setModal } from '../stores/reducer/modalRducer';
@@ -52,7 +52,7 @@ const SignUp = () => {
           placeholder={' '}
         />
         <AuthInput
-          name={'password_check'}
+          name={'checkPassword'}
           id={'auth_password_check'}
           type={'password'}
           labelValue={'비밀번호 확인'}
