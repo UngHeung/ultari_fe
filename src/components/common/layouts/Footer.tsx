@@ -7,9 +7,9 @@ const Footer = () => {
     <footer className={style.mainFooter}>
       <div className={style.footerWrap}>
         <section className={style.logoWrap}>
-          <Logo type={'small'} />
+          <Logo type={'small'} width={'50px'} />
         </section>
-        {'푸터입니다.'}
+        <section className={style.contentWrap}>{'푸터입니다.'}</section>
       </div>
     </footer>
   );

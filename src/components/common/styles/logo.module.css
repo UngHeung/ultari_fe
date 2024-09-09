@@ -1,4 +1,10 @@
-.logoImage {
+.logoLink {
+  display: block;
   width: 100%;
-  height: auto;
+  height: var(--height-header);
+  text-align: center;
+}
+
+.logoImage {
+  max-height: 100%;
 }
