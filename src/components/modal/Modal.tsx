@@ -1,46 +1,69 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './styles/modal.module.css';
 import Image from 'next/image';
+import modalSuccess from '@/public/images/modal_success.png';
+import modalCloseButton from '@/public/images/modal_close_button.png';
 import { PUBLIC_IMAGE_PATH } from '../common/constants/pathConst';
 import { useRouter } from 'next/navigation';
-import modalSuccess from '@/public/images/modal_success.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetModal } from '../stores/reducer/modalRducer';
+import { SliceOptions } from '../stores/constants/stateOptions';
+import { modalType } from './constants/modalConst';
 
-const Modal = ({
-  title,
-  type,
-  success,
-  message,
-  path,
-  modalIsShow,
-  setModalIsShow,
-}: {
-  title: string;
-  type: 'alert' | 'confirm' | 'prompt';
-  success?: boolean;
-  message: string;
-  path?: string;
-  modalIsShow: boolean;
-  setModalIsShow: Dispatch<SetStateAction<boolean>>;
-}) => {
+const Modal = () => {
   const router = useRouter();
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const { title, type, success, message, path } = useSelector(
+    (state: SliceOptions) => state?.modal,
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', event => {
+        if (event.matches) {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      });
+  }, []);
 
   return (
     <>
-      <div
-        className={`${style.modalCover} ${modalIsShow ? style.isShow : style.isNotShow}`}
-      >
+      <div className={`${style.modalCover}`}>
         <article className={style.modalWrap}>
-          <header>
+          <header className={style.modalHeader}>
             <h2 className={'a11y-hidden'}>{title}</h2>
-            <button onClick={() => setModalIsShow(false)}>닫기</button>
+            <button
+              className={style.modalCloseButton}
+              onClick={() => dispatch(resetModal())}
+            >
+              <Image
+                src={modalCloseButton}
+                alt={'모달 닫기'}
+                width={30}
+                height={15}
+                style={{ objectPosition: theme === 'dark' ? -15 : 0 }}
+              />
+            </button>
           </header>
-          <h3>
-            <Image src={modalSuccess} width={300} height={150} alt="" />
-          </h3>
-          <p>{message}</p>
-          <footer>
+          <section className={style.imageWrap}>
+            <Image
+              src={modalSuccess}
+              width={100}
+              height={50}
+              style={{ objectPosition: success ? 0 : -50 }}
+              alt={success ? '모달 성공 이미지' : '모달 실패 이미지'}
+            />
+          </section>
+          <section className={style.messageWrap}>
+            <p>{message}</p>
+          </section>
+          <footer className={style.modalFooter}>
             {path && (
               <button onClick={() => router.push(`${path}`)}>이동</button>
             )}
@@ -51,7 +74,7 @@ const Modal = ({
   );
 };
 
-export const getModalImage = (type: 'alert' | 'confirm' | 'prompt'): string => {
+export const getModalImage = (type: modalType): string => {
   if (type === 'alert') {
     return `${PUBLIC_IMAGE_PATH}/modal_success.png`;
   } else if (type === 'confirm') {

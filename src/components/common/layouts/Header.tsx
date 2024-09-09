@@ -8,7 +8,7 @@ const Header = () => {
     <header className={style.mainHeader}>
       <div className={style.headerWrap}>
         <section className={style.logoWrap}>
-          <Logo type={'basic'} />
+          <Logo type={'basic'} height={'100%'} />
         </section>
         <section className={style.navWrap}>
           <Nav />

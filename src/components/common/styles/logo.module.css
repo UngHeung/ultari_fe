@@ -1,10 +1,10 @@
-.basicLogo,
-.smallLogo {}
-
-.basicLogo {
-  height: auto;
+.logoLink {
+  display: block;
+  width: 100%;
+  height: var(--height-header);
+  text-align: center;
 }
 
-.smallLogo {
-  height: auto;
+.logoImage {
+  max-height: 100%;
 }

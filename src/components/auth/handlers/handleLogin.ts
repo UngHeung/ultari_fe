@@ -41,7 +41,7 @@ export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     return {
       status: error.status,
       success: false,
-      message: `로그인 실패\n${error.response.data.message}`,
+      message: `${error.response.data.message}`,
     };
   }
 };
