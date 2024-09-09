@@ -7,6 +7,7 @@ export interface BaseButtonOptions {
   value: string;
   styleClass?: string;
   disabled?: boolean;
+  autoFocus?: boolean;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 

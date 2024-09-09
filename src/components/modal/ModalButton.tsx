@@ -8,6 +8,7 @@ const ModalButton = ({
   type,
   value,
   styleClass,
+  autoFocus,
   onClick,
 }: ModalButtonOptions) => {
   return (
@@ -17,6 +18,7 @@ const ModalButton = ({
       value={value}
       styleClass={styleClass}
       onClick={onClick}
+      autoFocus={autoFocus}
     />
   );
 };
