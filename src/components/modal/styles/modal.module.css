@@ -1,4 +1,5 @@
 .modalCover {
+  display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -7,14 +8,6 @@
   width: 100%;
   height: 100vh;
   background-color: var(--background-color-cover);
-}
-
-.isShow {
-  display: flex;
-}
-
-.isNotShow {
-  display: none;
 }
 
 .modalWrap {
