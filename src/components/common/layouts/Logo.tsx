@@ -1,29 +1,25 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { generateLogoImgOptions } from '../functions/generateLogoImgOptions';
+import { getImageClassAndSrc } from '../functions/generateLogoImgOptions';
 
 export interface LogoOptions {
-  type: 'basic' | 'small';
   id?: string;
-  scale: number;
+  type: 'basic' | 'small';
 }
 
-const Logo = (props: LogoOptions) => {
-  const { src, className, width, height } = generateLogoImgOptions(
-    props.type,
-    props.scale,
-  );
+const Logo = ({ id, type }: LogoOptions) => {
+  const { className, src } = getImageClassAndSrc(type);
 
   return (
     <Link href={'/'}>
       <Image
-        id={props.id}
+        id={id}
         className={className}
         src={src}
-        alt={'울타리_로고'}
-        width={width}
-        height={height}
+        alt={'울타리_로고 메인으로 이동'}
+        layout="responsive"
+        placeholder="blur"
         priority
       />
     </Link>

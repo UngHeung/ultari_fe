@@ -8,18 +8,21 @@
 
 .headerWrap {
   position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--margin-container);
   width: 100%;
   max-width: var(--max-width-1280);
   height: 100%;
   margin: 0 auto;
 }
 
-.headerWrap>a {
-  position: absolute;
+.logoWrap {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
   left: 0;
 }
 
-.headerWrap nav li {
-  font-size: 1.3rem;
-  font-weight: 600;
-}
+/* .navWrap {} */

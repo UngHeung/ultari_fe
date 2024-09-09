@@ -7,8 +7,12 @@ const Header = () => {
   return (
     <header className={style.mainHeader}>
       <div className={style.headerWrap}>
-        <Logo type={'basic'} scale={66.6} />
-        <Nav />
+        <section className={style.logoWrap}>
+          <Logo type={'basic'} />
+        </section>
+        <section className={style.navWrap}>
+          <Nav />
+        </section>
       </div>
     </header>
   );

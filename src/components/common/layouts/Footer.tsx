@@ -6,7 +6,9 @@ const Footer = () => {
   return (
     <footer className={style.mainFooter}>
       <div className={style.footerWrap}>
-        <Logo type={'small'} scale={30} />
+        <section className={style.logoWrap}>
+          <Logo type={'small'} />
+        </section>
         {'푸터입니다.'}
       </div>
     </footer>
