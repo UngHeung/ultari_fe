@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { getImageClassAndSrc } from '../functions/generateLogoImgOptions';
+import { getImageClassAndSrc } from '../functions/getImageClassAndSrc';
 
 export interface LogoOptions {
   id?: string;

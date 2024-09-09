@@ -1,7 +1,5 @@
 .basicLogo,
-.smallLogo {
-  object-fit: contain;
-}
+.smallLogo {}
 
 .basicLogo {
   height: auto;
