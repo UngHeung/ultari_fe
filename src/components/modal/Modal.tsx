@@ -5,6 +5,7 @@ import style from './styles/modal.module.css';
 import Image from 'next/image';
 import modalSuccess from '@/public/images/modal_success.png';
 import modalCloseButton from '@/public/images/modal_close_button.png';
+import ModalButton from './ModalButton';
 import { PUBLIC_IMAGE_PATH } from '../common/constants/pathConst';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +15,11 @@ import { modalType } from './constants/modalConst';
 
 const Modal = () => {
   const router = useRouter();
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light',
+  );
   const { title, type, success, message, path } = useSelector(
     (state: SliceOptions) => state?.modal,
   );
@@ -64,9 +69,29 @@ const Modal = () => {
             <p>{message}</p>
           </section>
           <footer className={style.modalFooter}>
-            {path && (
-              <button onClick={() => router.push(`${path}`)}>이동</button>
-            )}
+            <div className={style.buttonWrap}>
+              {type === 'confirm' && (
+                <ModalButton
+                  type={'button'}
+                  value={'확인'}
+                  styleClass={`${style.modalButton} ${style.buttonConfirm}`}
+                  onClick={() => {
+                    dispatch(resetModal());
+                    path && router.push(`${path}`);
+                  }}
+                />
+              )}
+              {type === 'alert' && (
+                <ModalButton
+                  type={'button'}
+                  value={'취소'}
+                  styleClass={`${style.modalButton} ${style.buttonFailure}`}
+                  onClick={() => {
+                    dispatch(resetModal());
+                  }}
+                />
+              )}
+            </div>
           </footer>
         </article>
       </div>
