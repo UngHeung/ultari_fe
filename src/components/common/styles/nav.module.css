@@ -3,13 +3,15 @@
   height: var(--height-header);
 }
 
-.mainNav ul {
+.mainNavUl {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
 
-.mainNav ul>li {
+.mainNavUl>li {
+  font-size: 1.3rem;
+  font-weight: 600;
   line-height: var(--height-header);
 }

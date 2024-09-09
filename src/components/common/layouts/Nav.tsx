@@ -5,7 +5,7 @@ import style from '../styles/nav.module.css';
 const Nav = () => {
   return (
     <nav className={style.mainNav}>
-      <ul>
+      <ul className={style.mainNavUl}>
         <li>
           <Link href={'/'}>메인</Link>
         </li>
