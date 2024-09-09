@@ -24,13 +24,15 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
     });
 
     return {
+      status: response.status,
       success: true,
       message: '회원가입 성공!',
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
+      status: error.status,
       success: false,
-      message: `회원가입 실패\n${error}`,
+      message: `${error.response.data.message}`,
     };
   }
 };
