@@ -1,11 +1,12 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import style from './styles/modal.module.css';
 import Image from 'next/image';
+import modalSuccess from '@/public/images/modal_success.png';
+import modalCloseButton from '@/public/images/modal_close_button.png';
 import { PUBLIC_IMAGE_PATH } from '../common/constants/pathConst';
 import { useRouter } from 'next/navigation';
-import modalSuccess from '@/public/images/modal_success.png';
 
 const Modal = ({
   title,
@@ -25,6 +26,19 @@ const Modal = ({
   setModalIsShow: Dispatch<SetStateAction<boolean>>;
 }) => {
   const router = useRouter();
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', event => {
+        if (event.matches) {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      });
+  }, []);
 
   return (
     <>
@@ -32,15 +46,35 @@ const Modal = ({
         className={`${style.modalCover} ${modalIsShow ? style.isShow : style.isNotShow}`}
       >
         <article className={style.modalWrap}>
-          <header>
+          <header className={style.modalHeader}>
             <h2 className={'a11y-hidden'}>{title}</h2>
-            <button onClick={() => setModalIsShow(false)}>닫기</button>
+            <button
+              className={style.modalCloseButton}
+              onClick={() => setModalIsShow(false)}
+            >
+              <Image
+                src={modalCloseButton}
+                alt={'모달 닫기'}
+                width={30}
+                height={15}
+                style={{ objectPosition: theme === 'dark' ? -15 : 0 }}
+              />
+            </button>
           </header>
-          <h3>
-            <Image src={modalSuccess} width={300} height={150} alt="" />
-          </h3>
-          <p>{message}</p>
-          <footer>
+          <section className={style.imageWrap}>
+            <Image
+              src={modalSuccess}
+              width={100}
+              height={50}
+              layout="fixed"
+              style={{ objectPosition: success ? 0 : -50 }}
+              alt={success ? '모달 성공 이미지' : '모달 실패 이미지'}
+            />
+          </section>
+          <section className={style.messageWrap}>
+            <p>{message}</p>
+          </section>
+          <footer className={style.modalFooter}>
             {path && (
               <button onClick={() => router.push(`${path}`)}>이동</button>
             )}

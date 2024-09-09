@@ -19,6 +19,42 @@
 
 .modalWrap {
   width: 300px;
-  height: 300px;
+  padding: var(--margin-content);
+  padding-top: 0;
   background-color: var(--background-color-modal);
+  border-radius: 10px;
 }
+
+.modalHeader {
+  position: relative;
+  left: calc(var(--margin-content) * -1);
+  width: calc(100% + var(--margin-content) * 2);
+  height: 30px;
+  padding: 0 var(--margin-content);
+  background-color: var(--background-color-modal-header);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: right;
+  line-height: 33px;
+}
+
+.modalCloseButton {
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+}
+
+.imageWrap {
+  width: 50px;
+  height: auto;
+  margin: var(--margin-content) auto;
+  overflow: hidden;
+}
+
+.messageWrap {
+  margin-bottom: var(--margin-content);
+  padding-top: var(--margin-content);
+  text-align: center;
+}
+
+.modalFooter {}
