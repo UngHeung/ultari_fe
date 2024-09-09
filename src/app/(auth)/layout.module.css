@@ -3,7 +3,7 @@
   max-width: var(--max-width-1280);
   height: calc(100vh - (var(--height-header) + var(--height-footer)));
   margin: 0 auto;
-  padding: var(--padding-container) 0;
+  padding: var(--margin-container) 0;
   overflow-y: scroll
 }
 
