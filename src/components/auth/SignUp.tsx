@@ -4,14 +4,12 @@ import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
 import { handleSignUp } from './handlers/hendleSignUp';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { SliceOptions } from '../stores/constants/stateOptions';
+import { useDispatch } from 'react-redux';
 import { setModal } from '../stores/reducer/modalRducer';
 
 const SignUp = () => {
   const router = useRouter();
   const [disabled, setDisabled] = useState<boolean>(false);
-  const modal = useSelector((state: SliceOptions) => state.modal);
   const dispatch = useDispatch();
 
   return (
@@ -23,7 +21,6 @@ const SignUp = () => {
           setDisabled(true);
 
           const { status, success, message } = await handleSignUp(event);
-          console.log(success, message);
 
           dispatch(
             setModal({
