@@ -3,7 +3,7 @@ import { BASE_URL, LOGIN_PATH } from '@/components/common/constants/pathConst';
 import { FormEvent } from 'react';
 import { TokenPrefixEnum } from '../constants/tokenEnum';
 import { ACCESS_TOKEN } from '../constants/accessToken';
-import { loginValidators } from '../validators/authValidators';
+import { validateLogin } from '../validators/authValidators';
 import { LoginOptionsEnum } from '../constants/authEnum';
 
 export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
@@ -11,7 +11,7 @@ export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
   const account = formData.get(LoginOptionsEnum.ACCOUNT) as string;
   const password = formData.get(LoginOptionsEnum.PASSWORD) as string;
 
-  const validationLoginData = loginValidators({ account, password });
+  const validationLoginData = validateLogin({ account, password });
 
   if (!validationLoginData.success) {
     return {

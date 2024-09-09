@@ -8,6 +8,6 @@ export interface SignUpOptions {
   password?: string;
   checkPassword?: string;
   name?: string;
-  phoen?: string;
+  phone?: string;
   email?: string;
 }
