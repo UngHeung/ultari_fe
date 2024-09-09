@@ -70,27 +70,28 @@ const Modal = () => {
           </section>
           <footer className={style.modalFooter}>
             <div className={style.buttonWrap}>
-              {type === 'confirm' && (
+              {type === 'confirm' ? (
                 <ModalButton
                   type={'button'}
                   value={'확인'}
                   styleClass={`${style.modalButton} ${style.buttonConfirm}`}
+                  autoFocus={true}
                   onClick={() => {
                     dispatch(resetModal());
                     path && router.push(`${path}`);
                   }}
                 />
-              )}
-              {type === 'alert' && (
+              ) : type === 'alert' ? (
                 <ModalButton
                   type={'button'}
                   value={'취소'}
                   styleClass={`${style.modalButton} ${style.buttonFailure}`}
+                  autoFocus={true}
                   onClick={() => {
                     dispatch(resetModal());
                   }}
                 />
-              )}
+              ) : null}
             </div>
           </footer>
         </article>
