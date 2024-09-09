@@ -24,7 +24,6 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     setModal: (state, action) => {
-      console.log('payload : ', action.payload);
       Object.assign(state, action.payload);
     },
     resetModal: () => initialState,

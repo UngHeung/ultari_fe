@@ -3,18 +3,14 @@ import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
 import { handleLogin } from './handlers/handleLogin';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ModalState, setModal } from '../stores/reducer/modalRducer';
-import { SliceOptions } from '../stores/constants/stateOptions';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setModal } from '../stores/reducer/modalRducer';
 
 const Login = () => {
   const router = useRouter();
   const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const modal = useSelector((state: SliceOptions) => state.modal);
-
-  useEffect(() => console.log(modal), [modal]);
 
   return (
     <form
@@ -24,7 +20,6 @@ const Login = () => {
         setDisabled(true);
 
         const { status, success, message } = await handleLogin(event);
-        console.log('response : ', success, message);
 
         dispatch(
           setModal({
@@ -36,8 +31,6 @@ const Login = () => {
             path: '/',
           }),
         );
-
-        // success && router.back();
 
         setDisabled(false);
       }}
