@@ -5,11 +5,18 @@ import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
 import { handleLogin } from './handlers/handleLogin';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ModalState, setModal } from '../stores/reducer/modalRducer';
+import { SliceOptions } from '../stores/constants/stateOptions';
 
 const Login = () => {
   const router = useRouter();
   const [disabled, setDisabled] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const modal = useSelector((state: SliceOptions) => state.modal);
+
+  useEffect(() => console.log(modal), [modal]);
 
   return (
     <form
@@ -19,9 +26,21 @@ const Login = () => {
         setDisabled(true);
 
         const { status, success, message } = await handleLogin(event);
-        success && router.back();
+        console.log('response : ', success, message);
 
-        console.log(message);
+        dispatch(
+          setModal({
+            title: success ? '로그인 성공' : '로그인 실패',
+            success: success,
+            message: message,
+            modalIsShow: true,
+            type: 'alert',
+            path: '/',
+          }),
+        );
+
+        // success && router.back();
+
         setDisabled(false);
       }}
     >

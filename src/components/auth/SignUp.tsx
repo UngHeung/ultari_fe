@@ -4,10 +4,15 @@ import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
 import { handleSignUp } from './handlers/hendleSignUp';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SliceOptions } from '../stores/constants/stateOptions';
+import { setModal } from '../stores/reducer/modalRducer';
 
 const SignUp = () => {
   const router = useRouter();
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const modal = useSelector((state: SliceOptions) => state.modal);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -16,9 +21,22 @@ const SignUp = () => {
           event.preventDefault();
 
           setDisabled(true);
-          const { success, message } = await handleSignUp(event);
 
-          success && router.replace('/login');
+          const { status, success, message } = await handleSignUp(event);
+          console.log(success, message);
+
+          dispatch(
+            setModal({
+              title: success ? '가입 성공' : '가입 실패',
+              success: success,
+              message: message,
+              modalIsShow: true,
+              type: 'alert',
+              path: '/',
+            }),
+          );
+
+          // success && router.replace('/login');
           setDisabled(false);
         }}
       >
