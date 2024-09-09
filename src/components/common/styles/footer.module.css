@@ -12,3 +12,10 @@
   height: 100%;
   margin: 0 auto;
 }
+
+.logoWrap {
+  position: relative;
+  width: 100%;
+  max-width: 50px;
+  left: 0;
+}

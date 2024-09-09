@@ -10,6 +10,8 @@
 
   --color-placeholder: #bdbdbd;
 
+  --background-color-cover: rgba(0, 0, 0, .5);
+
   --focus-outline-basic: #939393;
 
   --max-width-1280: 1280px;
@@ -62,6 +64,7 @@
     --background-color-footer: #ececec;
     --background-color-input: #f9f9f9;
     --background-color-button: #eaeaea;
+    --background-color-modal: #f1f1f1;
 
     --filter-button-hover: brightness(90%);
 
@@ -80,6 +83,7 @@
     --background-color-footer: #212121;
     --background-color-input: #121212;
     --background-color-button: #202020;
+    --background-color-modal: #191919;
 
     --filter-button-hover: brightness(140%);
 
@@ -109,6 +113,17 @@ main {
   width: 100%;
   margin: 0 auto;
   padding: var(--height-header) 0 var(--height-footer) 0;
+}
+
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
 }
 
 ::-webkit-scrollbar {
