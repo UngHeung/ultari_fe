@@ -34,7 +34,7 @@ const Login = () => {
             success: success,
             message: message,
             modalIsShow: true,
-            type: 'alert',
+            type: success ? 'confirm' : 'alert',
             path: '/',
           }),
         );
