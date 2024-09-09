@@ -31,8 +31,8 @@ const SignUp = () => {
               success: success,
               message: message,
               modalIsShow: true,
-              type: 'alert',
-              path: '/',
+              type: success ? 'confirm' : 'alert',
+              path: '/login',
             }),
           );
 
