@@ -66,7 +66,6 @@ const Modal = ({
               src={modalSuccess}
               width={100}
               height={50}
-              layout="fixed"
               style={{ objectPosition: success ? 0 : -50 }}
               alt={success ? '모달 성공 이미지' : '모달 실패 이미지'}
             />
