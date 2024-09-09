@@ -1,10 +1,4 @@
-.basicLogo,
-.smallLogo {}
-
-.basicLogo {
-  height: auto;
-}
-
-.smallLogo {
+.logoImage {
+  width: 100%;
   height: auto;
 }
