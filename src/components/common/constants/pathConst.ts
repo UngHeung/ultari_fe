@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = process.env.DB_HOST;
 
 export const REISSUE_ACCESS = 'auth/reissue/access';
 export const REISSUE_REFRESH = 'auth/reissue/refresh';

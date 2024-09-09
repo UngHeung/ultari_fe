@@ -64,7 +64,7 @@
   width: 40px;
   padding: var(--padding-button);
   font-size: var(--font-size-button);
-  border-bottom: 3px solid transparent;
+  border-bottom: 3px solid var(--color-no-focus);
   transition: border-bottom-color .3s
 }
 

@@ -8,6 +8,7 @@ const BaseButton = (props: BaseButtonOptions) => {
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}
+      autoFocus={props.autoFocus}
     >
       {props.value}
     </button>

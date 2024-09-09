@@ -1,5 +1,3 @@
-'use client';
-
 import AuthInput from './AuthInput';
 import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';

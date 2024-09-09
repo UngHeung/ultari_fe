@@ -7,6 +7,7 @@
   --color-main-green: #67ab70;
   --color-success: #67ab70;
   --color-failure: #dc3636;
+  --color-no-focus: #c5c5c5;
 
   --color-placeholder: #bdbdbd;
 
@@ -29,6 +30,8 @@
   --margin-container: 50px;
   --margin-title: 40px;
   --margin-content: 20px;
+
+  --padding-button: 3px;
 
   --font-family-basic: 'Wanted Sans';
 
