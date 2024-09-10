@@ -9,7 +9,7 @@
   --color-failure: #dc3636;
   --color-no-focus: #c5c5c5;
 
-  --color-placeholder: #bdbdbd;
+  --color-placeholder: #838383;
 
   --background-color-cover: rgba(0, 0, 0, .5);
 
@@ -46,6 +46,7 @@
   --font-size-28: 1.75rem;
 
   --font-size-title: var(--font-size-24);
+  --font-size-sub-title: var(--font-size-20);
   --font-size-content: var(--font-size-16);
   --font-size-comment: var(--font-size-14);
   --font-size-button: var(--font-size-16);
@@ -71,6 +72,8 @@
     --filter-button-hover: brightness(90%);
 
     --border-color-input: #d1d1d1;
+    --border-color-container: #d1d1d1;
+    --border-color-content: #d1d1d1;
 
     --font-color-basic: #121212;
     --font-color-input: #121212;
@@ -91,6 +94,8 @@
     --filter-button-hover: brightness(140%);
 
     --border-color-input: #3a3a3a;
+    --border-color-container: #3a3a3a;
+    --border-color-content: #3a3a3a;
 
     --font-color-basic: #f9f9f9;
     --font-color-input: #f9f9f9;
