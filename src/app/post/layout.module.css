@@ -10,3 +10,23 @@
   margin-bottom: var(--margin-title);
   text-align: center;
 }
+
+.buttonWrap {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.buttonWrap>a {
+  display: inline-block;
+  margin-left: var(--margin-content);
+  margin-bottom: var(--margin-container);
+  font-size: var(--font-size-content);
+  border-bottom: 3px solid transparent;
+  transition: border-color .3s;
+}
+
+.buttonWrap>a:hover {
+  border-bottom-color: var(--font-color-basic);
+}
