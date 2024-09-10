@@ -10,7 +10,9 @@ const Detail = () => {
       <section className={style.titleWrap}>
         <h2 className={style.title}>{post.title}</h2>
         <span>{`작성일 : ${getDate(post?.createAt.toString())}`}</span>
-        <span>{`수정일 : ${getDate(post?.updateAt.toString())}`}</span>
+        {post?.createAt !== post.updateAt && (
+          <span>{`수정일 : ${getDate(post?.updateAt.toString())}`}</span>
+        )}
       </section>
       <section className={style.contentWrap}>
         <pre className={style.content}>{post.content}</pre>
@@ -25,7 +27,7 @@ const Detail = () => {
 const getDate = (inputDate: string): string => {
   const [date, time] = inputDate?.split('T');
 
-  return `${date} ${time.split('.')[0]}`;
+  return `${date} ${time?.split('.')[0]}`;
 };
 
 export default Detail;
