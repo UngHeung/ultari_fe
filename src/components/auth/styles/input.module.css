@@ -1,17 +1,11 @@
 .inputWrap {
+  position: relative;
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 300px;
+  margin: var(--margin-content) auto;
 }
 
-.inputWrap .inputLabel {
-  display: block;
-  width: 100%;
-  margin-bottom: var(--margin-content);
-  text-align: center;
-}
-
-.inputWrap .authInput {
+.authInput {
   display: block;
   width: 100%;
   max-width: 300px;
@@ -31,9 +25,28 @@
   color: var(--color-placeholder);
 }
 
-.inputWrap input:focus,
-.inputWrap input:not(:placeholder-shown) {
+.authInput:focus,
+.authInput:not(:placeholder-shown) {
   border-bottom-color: var(--focus-outline-basic);
+}
+
+.inputLabel {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  display: inline-block;
+  margin-bottom: var(--margin-content);
+  text-align: center;
+  color: vaR(--color-placeholder);
+  transition: top, left, font-size, color .3s, .3s, .3s, .3s;
+}
+
+.authInput:focus+.inputLabel,
+.authInput:not(:placeholder-shown)+.inputLabel {
+  top: -15px;
+  left: 0;
+  font-size: var(--font-size-input-message);
+  color: var(--font-color-basic);
 }
 
 .messageWrap {
