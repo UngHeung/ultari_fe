@@ -1,11 +1,40 @@
 'use client';
 
 import style from './layout.module.css';
-import { usePathname } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { usePathname, useRouter } from 'next/navigation';
+import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import { useEffect, useState } from 'react';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const router = usePathname();
-  const title = getTitle(router);
+  const pathname = usePathname();
+  const router = useRouter();
+  const [title, setTitle] = useState<string>('');
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state?.user?.isLoggedIn ?? false,
+  );
+
+  useEffect(() => {
+    const type = pathname.slice(1);
+
+    if (isLoggedIn) {
+      if (type === 'sign') {
+        router.replace('/');
+      } else if (type === 'login') {
+        router.replace('/');
+      } else if (type === 'forgot') {
+        setTitle('아이디 & 비밀번호 찾기');
+      }
+    } else {
+      if (type === 'forgot') {
+        router.replace('/login');
+      } else if (type === 'sign') {
+        setTitle('회원 가입');
+      } else if (type === 'login') {
+        setTitle('로그인');
+      }
+    }
+  }, [pathname]);
 
   return (
     <>
@@ -15,18 +44,6 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       </section>
     </>
   );
-};
-
-export const getTitle = (router: string) => {
-  const type = router.slice(1);
-
-  if (type === 'sign') {
-    return '회원가입';
-  } else if (type === 'login') {
-    return '로그인';
-  } else if (type === 'forgot') {
-    return '비밀번호 찾기';
-  }
 };
 
 export default AuthLayout;
