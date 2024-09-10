@@ -1,5 +1,5 @@
-import style from './styles/post.module.css';
-import PostItem from './PostItem';
+import style from './styles/list.module.css';
+import ListItem from './ListItem';
 import { PostOptions } from './interfaces/postInterfaces';
 
 const PostList = ({ posts }: { posts: PostOptions[] }) => {
@@ -7,7 +7,7 @@ const PostList = ({ posts }: { posts: PostOptions[] }) => {
     <ul className={style.postList}>
       {posts ? (
         posts.map((post: PostOptions, idx: number) => {
-          return <PostItem {...post} key={idx} />;
+          return <ListItem {...post} key={idx} />;
         })
       ) : (
         <li>게시물이 없습니다.</li>

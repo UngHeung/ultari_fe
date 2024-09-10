@@ -19,7 +19,7 @@ const Nav = () => {
           <Link href={'/forgot'}>아이디/비밀번호</Link>
         </li>
         <li>
-          <Link href={'/post'}>게시판</Link>
+          <Link href={'/post/list'}>게시판</Link>
         </li>
         <li>
           <Link href={'/logout'}>로그아웃</Link>
