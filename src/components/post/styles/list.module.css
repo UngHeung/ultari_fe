@@ -19,7 +19,7 @@
 
 .title {
   display: block;
-  font-size: var(--font-size-title);
+  font-size: var(--font-size-sub-title);
   font-weight: var(--font-weight-title);
   padding-bottom: 5px;
   text-align: left;
