@@ -41,15 +41,18 @@
   width: 100%;
   height: 20px;
   max-width: 300px;
-  margin: 5px auto var(--content-gap-basic);
+  margin: 5px auto;
   font-size: var(--font-size-input-message);
+  color: var(--color-placeholder);
   text-align: left;
+  transition: color .3s;
 }
 
+/* 
 .success {
   color: var(--color-success)
 }
 
 .failure {
   color: var(--color-failure)
-}
+} */

@@ -43,6 +43,7 @@ const SignUp = () => {
           type={'text'}
           labelValue={'아이디'}
           placeholder={' '}
+          description={'6 ~ 15자, 영문 소문자, 숫자'}
         />
         <AuthInput
           name={'password'}
@@ -50,6 +51,7 @@ const SignUp = () => {
           type={'password'}
           labelValue={'비밀번호'}
           placeholder={' '}
+          description={'8 ~ 20자, 영문 대소문자, 숫자, 특수문자 포함'}
         />
         <AuthInput
           name={'checkPassword'}
@@ -57,6 +59,7 @@ const SignUp = () => {
           type={'password'}
           labelValue={'비밀번호 확인'}
           placeholder={' '}
+          description={''}
         />
         <AuthInput
           name={'name'}
@@ -64,6 +67,7 @@ const SignUp = () => {
           type={'text'}
           labelValue={'이름'}
           placeholder={' '}
+          description={'2 ~ 10자, 영문, 한글'}
         />
         <AuthInput
           name={'phone'}
@@ -71,6 +75,7 @@ const SignUp = () => {
           type={'text'}
           labelValue={'핸드폰번호'}
           placeholder={' '}
+          description={'000-000-0000, 000-0000-0000'}
         />
         <AuthInput
           name={'email'}
@@ -78,6 +83,7 @@ const SignUp = () => {
           type={'email'}
           labelValue={'이메일'}
           placeholder={' '}
+          description={'XXX@XXX.XXX'}
         />
 
         <div className={style.buttonWrap}>
