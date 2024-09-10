@@ -1,0 +1,23 @@
+.titleWrap {
+  padding-bottom: var(--margin-content);
+  border-bottom: 1px solid var(--border-color-content);
+}
+
+.titleWrap>span {
+  display: inline-block;
+  width: 100%;
+  font-size: var(--font-size-comment);
+  text-align: right;
+  color: var(--color-placeholder);
+}
+
+.title {
+  font-size: var(--font-size-sub-title);
+  font-weight: var(--font-weight-title);
+  margin-bottom: var(--margin-content);
+}
+
+.content {
+  padding-top: var(--margin-content);
+  font-size: var(--font-size-content);
+}

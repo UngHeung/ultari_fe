@@ -13,12 +13,8 @@
   margin: var(--margin-content) 0;
 }
 
-.mainContentWrap {
+.contentWrap {
   width: calc(60% - var(--margin-content) / 2);
-}
-
-.subContentWrap {
-  width: calc(40% - var(--margin-content) / 2);
 }
 
 .title {
@@ -33,6 +29,10 @@
   display: block;
   font-size: var(--font-size-content);
   font-weight: var(--font-weight-content);
+}
+
+.informationWrap {
+  width: calc(40% - var(--margin-content) / 2);
 }
 
 .typesWrap,
