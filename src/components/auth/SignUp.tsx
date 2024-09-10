@@ -1,4 +1,4 @@
-import AuthInput from './AuthInput';
+import AuthInput from './elements/AuthInput';
 import BaseButton from '../common/BaseButton';
 import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
