@@ -1,18 +1,30 @@
 'use client';
 
+import React, { useEffect } from 'react';
 import handleLogout from '@/components/auth/handlers/handleLogout';
 import { setModal } from '@/components/stores/reducer/modalRducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetUser } from '@/components/stores/reducer/userReducer';
+import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 const logout = () => {
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.user?.isLoggedIn ?? false,
+  );
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      router.back();
+      return;
+    }
+
     (async () => {
       const { status, success, message } = await handleLogout();
+
+      dispatch(resetUser());
 
       dispatch(
         setModal({
