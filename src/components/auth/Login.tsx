@@ -6,6 +6,8 @@ import { handleLogin } from './handlers/handleLogin';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setModal } from '../stores/reducer/modalRducer';
+import { setUser } from '../stores/reducer/userReducer';
+import { getMyInfo } from './functions/getMyInfo';
 
 const Login = () => {
   const router = useRouter();
@@ -20,6 +22,13 @@ const Login = () => {
         setDisabled(true);
 
         const { status, success, message } = await handleLogin(event);
+
+        dispatch(
+          setUser({
+            ...(await getMyInfo()).data,
+            isLoggedIn: true,
+          }),
+        );
 
         dispatch(
           setModal({
