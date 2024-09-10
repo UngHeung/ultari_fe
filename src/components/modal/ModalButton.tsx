@@ -1,5 +1,5 @@
 import BaseButton from '../common/BaseButton';
-import { BaseButtonOptions } from '../common/constants/BaseElementsInterfaces';
+import { BaseButtonOptions } from '../common/interfaces/BaseElementsInterfaces';
 
 export interface ModalButtonOptions extends BaseButtonOptions {}
 

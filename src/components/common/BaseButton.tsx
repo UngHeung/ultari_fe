@@ -1,4 +1,4 @@
-import { BaseButtonOptions } from './constants/BaseElementsInterfaces';
+import { BaseButtonOptions } from './interfaces/BaseElementsInterfaces';
 
 const BaseButton = (props: BaseButtonOptions) => {
   return (
