@@ -1,16 +1,42 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import style from './styles/write.module.css';
 import PostButton from './elements/PostButton';
 import PostInput from './elements/PostInput';
+import { authAxios } from '@/apis/axiosAuth';
+import { BASE_URL } from '../common/constants/pathConst';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setModal } from '../stores/reducer/modalRducer';
 
 const Write = () => {
+  const router = useRouter();
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   return (
     <>
       <form
-        onSubmit={event => {
+        onSubmit={async event => {
           event.preventDefault();
+
+          setDisabled(true);
+
+          const { status, success, message } = await handleUploadPost(event);
+
+          dispatch(
+            setModal({
+              title: success ? '등록 성공' : '등록 실패',
+              success: success,
+              message: message,
+              modalIsShow: true,
+              type: success ? 'confirm' : 'alert',
+              path: `/post/list`,
+            }),
+          );
+
+          setDisabled(false);
         }}
       >
         <section className={style.titleWrap}>
@@ -33,17 +59,48 @@ const Write = () => {
           <PostButton
             styleClass={`${style.button}`}
             type={'submit'}
+            disabled={disabled}
             value={'등록'}
           />
           <PostButton
             styleClass={`${style.button}`}
             type={'button'}
+            disabled={disabled}
             value={'취소'}
+            onClick={() => router.back()}
           />
         </section>
       </form>
     </>
   );
+};
+
+export const handleUploadPost = async (event: FormEvent<HTMLFormElement>) => {
+  const formData = new FormData(event.currentTarget);
+  const title = formData.get('title');
+  const content = formData.get('content');
+
+  const data = { title, content };
+
+  const url = `${BASE_URL}/${'post'}`;
+  try {
+    const response = await authAxios.post(url, data);
+
+    console.log(response.data);
+
+    return {
+      data: response.data,
+      status: response.status,
+      success: true,
+      message: '게시물 등록 성공',
+    };
+  } catch (error: any) {
+    return {
+      status: error.status,
+      success: false,
+      message: error.response.data.message,
+    };
+  }
 };
 
 export default Write;
