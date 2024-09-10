@@ -14,10 +14,11 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
         <h2 className={style.postTitle}>{title}</h2>
         {children}
       </section>
-      <footer>
-        <Link href={'/post/list'}>목록</Link>
-        <Link href={'/post/write'}>글쓰기</Link>
-      </footer>
+      <section className={style.buttonWrap}>
+        {title.endsWith('수정') && <Link href={'/post/update'}>수정</Link>}
+        {!title.endsWith('목록') && <Link href={'/post/list'}>목록</Link>}
+        {!title.endsWith('작성') && <Link href={'/post/write'}>글쓰기</Link>}
+      </section>
     </>
   );
 };

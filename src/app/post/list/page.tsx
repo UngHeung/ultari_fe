@@ -9,11 +9,16 @@ import { useRouter } from 'next/navigation';
 const post = () => {
   const router = useRouter();
   const [postList, setPostList] = useState<PostOptions[]>([]);
+  const [currentPath, setCurrentPath] = useState<string>('');
+  const [findOptions, setFindOptions] = useState<string>('');
 
   useEffect(() => {
     (async () => {
       try {
-        setPostList(await getPosts());
+        const { data, next } = await getPosts(findOptions, currentPath);
+
+        setCurrentPath(next);
+        setPostList(data);
       } catch (error: any) {
         if (error.status === 401) {
           router.push('/login');
@@ -22,7 +27,7 @@ const post = () => {
         }
       }
     })();
-  }, []);
+  }, [findOptions]);
 
   return (
     <>
