@@ -1,0 +1,44 @@
+.postList {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.postItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--margin-content);
+  margin: var(--margin-content) 0;
+}
+
+.mainContentWrap {
+  width: calc(60% - var(--margin-content) / 2);
+}
+
+.subContentWrap {
+  width: calc(40% - var(--margin-content) / 2);
+}
+
+.title {
+  display: block;
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-title);
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.content {
+  display: block;
+  font-size: var(--font-size-content);
+  font-weight: var(--font-weight-content);
+}
+
+.typesWrap,
+.countsWrap,
+.author {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
