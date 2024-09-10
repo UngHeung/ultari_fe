@@ -1,4 +1,4 @@
-import BaseButton from '../common/BaseButton';
+import BaseButton from '../../common/BaseButton';
 import { BaseButtonOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
 
 export interface AuthButtonOptions extends BaseButtonOptions {}
