@@ -8,9 +8,8 @@ export interface PostOptions {
   type: string;
   likeCount: number;
   viewCount: number;
-  author: {
-    name: string;
-  };
+  author: any;
   images?: string[];
-  commets?: string[];
+  createAt: Date | string;
+  updateAt: Date | string;
 }
