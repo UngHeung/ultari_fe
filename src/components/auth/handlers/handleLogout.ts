@@ -22,7 +22,7 @@ const handleLogout = async () => {
     return {
       status: error.status,
       success: false,
-      message: `로그아웃 실패\n${error.response.data.message}`,
+      message: error.response.data.message,
     };
   }
 };
