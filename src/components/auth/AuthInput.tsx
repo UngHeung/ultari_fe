@@ -4,6 +4,7 @@ import { BaseInputOptions } from '@/components/common/constants/BaseElementsInte
 
 export interface AuthInputOptions extends BaseInputOptions {
   labelValue: string;
+  description?: string;
 }
 
 const AuthInput = (props: AuthInputOptions) => {
@@ -19,7 +20,9 @@ const AuthInput = (props: AuthInputOptions) => {
         type={props.type}
         placeholder={props.placeholder}
       />
-      <span className={`${style.messageWrap} ${style.failure}`}></span>
+      <span className={`${style.messageWrap} ${style.failure}`}>
+        {props.description}
+      </span>
     </div>
   );
 };
