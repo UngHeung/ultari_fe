@@ -1,5 +1,8 @@
 .titleWrap,
-.contentWrap {
+.contentWrap,
+.buttonWrap {
+  width: 100%;
+  max-width: 600px;
   padding: var(--margin-content);
 }
 
@@ -18,7 +21,6 @@
 
 .title {
   width: 100%;
-  max-width: 600px;
   margin-bottom: var(--margin-content);
   padding: 5px 10px;
   background-color: var(--background-color-input);
@@ -32,7 +34,6 @@
 
 .content {
   width: 100%;
-  max-width: 600px;
   height: 300px;
   padding: 5px 10px;
   background-color: var(--background-color-input);
@@ -43,4 +44,32 @@
   font-weight: var(--font-weight-content);
   color: var(--font-color-input);
   resize: none;
+}
+
+.buttonWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--margin-content);
+}
+
+.button {
+  width: 50%;
+  height: 40px;
+  background-color: var(--background-color-button);
+  padding: var(--padding-button);
+}
+
+.button:hover {
+  filter: var(--filter-button-hover);
+}
+
+.button:disabled {
+  text-decoration: line-through 2px solid;
+  color: var(--font-color-disabled);
+  cursor: default;
+}
+
+.button:disabled:hover {
+  filter: none;
 }
