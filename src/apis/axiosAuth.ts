@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from '@/components/common/constants/pathConst';
-import { ACCESS_TOKEN } from '@/components/auth/constants/accessToken';
-import { reissueAccessToken } from './functions/reissueToken';
+import { getAccessToken } from '@/components/auth/functions/tokenInteract';
+import { reissueToken } from '@/components/auth/functions/reissueToken';
 
 export const authAxios = axios.create({
   baseURL: BASE_URL,
@@ -13,7 +13,7 @@ export const authAxios = axios.create({
 
 authAxios.interceptors.request.use(
   config => {
-    const accessToken = ACCESS_TOKEN.accessToken;
+    const accessToken = getAccessToken();
     config.headers['Authorization'] = `Bearer ${accessToken}`;
     return config;
   },
@@ -32,11 +32,14 @@ authAxios.interceptors.response.use(
   },
   async error => {
     if (error.response?.status === 401) {
-      // isTokenExpired()
-      ACCESS_TOKEN.accessToken = await reissueAccessToken();
-      // isTokenExpired() && await reissueToken();
+      try {
+        await reissueToken(true);
+      } catch (error: any) {
+        return Promise.reject(error);
+      }
+
       error.config.headers = {
-        Authorization: `Bearer ${ACCESS_TOKEN.accessToken}`,
+        Authorization: `Bearer ${getAccessToken()}`,
       };
 
       const response = await axios.request(error.config);
