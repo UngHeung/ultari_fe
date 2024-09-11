@@ -1,14 +1,14 @@
 'use client';
 
-import React, { FormEvent, useState } from 'react';
-import style from './styles/write.module.css';
+import { authAxios } from '@/apis/axiosAuth';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { BASE_URL } from '../common/constants/pathConst';
+import { setModal } from '../stores/reducer/modalRducer';
 import PostButton from './elements/PostButton';
 import PostInput from './elements/PostInput';
-import { authAxios } from '@/apis/axiosAuth';
-import { BASE_URL } from '../common/constants/pathConst';
-import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
-import { setModal } from '../stores/reducer/modalRducer';
+import style from './styles/write.module.css';
 
 const Write = () => {
   const router = useRouter();

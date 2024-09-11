@@ -1,10 +1,10 @@
 'use client';
 
-import style from './styles/list.module.css';
 import Link from 'next/link';
-import { PostOptions } from './interfaces/postInterfaces';
 import { useDispatch } from 'react-redux';
 import { setPost } from '../stores/reducer/postReducer';
+import { PostOptions } from './interfaces/postInterfaces';
+import style from './styles/list.module.css';
 
 const ListItem = (props: PostOptions, key: number) => {
   const dispatch = useDispatch();
@@ -15,7 +15,6 @@ const ListItem = (props: PostOptions, key: number) => {
           href={`/post/${props.id}`}
           className={style.postItem}
           onClick={() => {
-            console.log(props);
             dispatch(setPost(props));
           }}
         >

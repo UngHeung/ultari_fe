@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import handleLogout from '@/components/auth/handlers/handleLogout';
-import { setModal } from '@/components/stores/reducer/modalRducer';
-import { useDispatch, useSelector } from 'react-redux';
-import { resetUser } from '@/components/stores/reducer/userReducer';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import { setModal } from '@/components/stores/reducer/modalRducer';
+import { resetUser } from '@/components/stores/reducer/userReducer';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const logout = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
-import style from './styles/list.module.css';
 import ListItem from './ListItem';
 import { PostOptions } from './interfaces/postInterfaces';
+import style from './styles/list.module.css';
 
 const PostList = ({ posts }: { posts: PostOptions[] }) => {
   return (

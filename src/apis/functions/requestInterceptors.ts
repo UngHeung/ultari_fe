@@ -1,6 +1,6 @@
+import { ACCESS_TOKEN } from '@/components/auth/constants/accessToken';
 import axios, { AxiosInstance } from 'axios';
 import { reissueAccessToken } from './reissueToken';
-import { ACCESS_TOKEN } from '@/components/auth/constants/accessToken';
 
 const requestInterceptors = async (axiosInstance: AxiosInstance) => {
   axiosInstance.interceptors.response.use(

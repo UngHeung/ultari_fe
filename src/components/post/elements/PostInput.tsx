@@ -1,5 +1,5 @@
-import BaseInput from '../../common/BaseInput';
 import { BaseInputOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
+import BaseInput from '../../common/BaseInput';
 
 export interface PostInputOptions extends BaseInputOptions {}
 

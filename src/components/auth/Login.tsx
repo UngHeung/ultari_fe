@@ -1,13 +1,13 @@
-import AuthInput from './elements/AuthInput';
-import BaseButton from '../common/BaseButton';
-import style from './styles/button.module.css';
 import { useRouter } from 'next/navigation';
-import { handleLogin } from './handlers/handleLogin';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import BaseButton from '../common/BaseButton';
 import { setModal } from '../stores/reducer/modalRducer';
 import { setUser } from '../stores/reducer/userReducer';
+import AuthInput from './elements/AuthInput';
 import { getMyInfo } from './functions/getMyInfo';
+import { handleLogin } from './handlers/handleLogin';
+import style from './styles/button.module.css';
 
 const Login = () => {
   const router = useRouter();
@@ -21,13 +21,19 @@ const Login = () => {
 
         setDisabled(true);
 
-        const { status, success, message } = await handleLogin(event);
+        const { success, message } = await handleLogin(event);
+        const { data } = await getMyInfo();
 
         dispatch(
           setUser({
-            ...(await getMyInfo()).data,
+            ...data,
             isLoggedIn: true,
           }),
+        );
+
+        localStorage.setItem(
+          'myInfo',
+          JSON.stringify({ ...data, isLoggedIn: true }),
         );
 
         dispatch(

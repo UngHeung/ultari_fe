@@ -1,10 +1,11 @@
-import React from 'react';
-import style from './styles/detail.module.css';
-import { useSelector } from 'react-redux';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetPost } from '../stores/reducer/postReducer';
+import style from './styles/detail.module.css';
 
 const Detail = () => {
   const post = useSelector((state: SliceOptions) => state.post);
+
   return (
     <>
       <section className={style.titleWrap}>

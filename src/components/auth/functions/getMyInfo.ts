@@ -1,9 +1,9 @@
 import { authAxios } from '@/apis/axiosAuth';
-import { BASE_URL } from '@/components/common/constants/pathConst';
+import { BASE_URL, MY_INFO } from '@/components/common/constants/pathConst';
 
 export const getMyInfo = async () => {
   try {
-    const response = await authAxios.get(`${BASE_URL}/user/myinfo`);
+    const response = await authAxios.get(`${BASE_URL}/${MY_INFO}`);
     return {
       status: response.status,
       success: true,
