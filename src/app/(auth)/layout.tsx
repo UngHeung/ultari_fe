@@ -1,10 +1,10 @@
 'use client';
 
-import style from './layout.module.css';
-import { useSelector } from 'react-redux';
-import { usePathname, useRouter } from 'next/navigation';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import style from './layout.module.css';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -19,15 +19,15 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
     if (isLoggedIn) {
       if (type === 'sign') {
-        router.replace('/');
+        // router.replace('/');
       } else if (type === 'login') {
-        router.replace('/');
+        // router.replace('/');
       } else if (type === 'forgot') {
         setTitle('아이디 & 비밀번호 찾기');
       }
     } else {
       if (type === 'forgot') {
-        router.replace('/login');
+        // router.replace('/login');
       } else if (type === 'sign') {
         setTitle('회원 가입');
       } else if (type === 'login') {
