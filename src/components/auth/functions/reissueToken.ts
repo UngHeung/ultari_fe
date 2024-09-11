@@ -13,9 +13,10 @@ import { setAccessToken, setRefreshToken } from './tokenInteract';
  */
 export const reissueToken = async (isAccess: boolean) => {
   const reissuePath = isAccess ? REISSUE_ACCESS : REISSUE_REFRESH;
+  const url = `${BASE_URL}/${reissuePath}`;
 
   try {
-    const response = await refreshAxios.post(`${BASE_URL}/${reissuePath}`);
+    const response = await refreshAxios.post(url);
 
     if (isAccess) {
       setAccessToken(response.data.accessToken);
