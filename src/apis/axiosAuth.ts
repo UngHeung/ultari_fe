@@ -1,7 +1,11 @@
-import axios from 'axios';
 import { BASE_URL } from '@/components/common/constants/pathConst';
-import { getAccessToken } from '@/components/auth/functions/tokenInteract';
-import { reissueToken } from '@/components/auth/functions/reissueToken';
+import axios from 'axios';
+import {
+  callbackRequestConfig,
+  callbackRequestError,
+  callbackResponse,
+  callbackResponseError,
+} from './functions/axiosInterceptorCallbacks';
 
 export const authAxios = axios.create({
   baseURL: BASE_URL,
@@ -12,39 +16,11 @@ export const authAxios = axios.create({
 });
 
 authAxios.interceptors.request.use(
-  config => {
-    const accessToken = getAccessToken();
-    config.headers['Authorization'] = `Bearer ${accessToken}`;
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  },
+  config => callbackRequestConfig(config, true),
+  error => callbackRequestError(error),
 );
 
 authAxios.interceptors.response.use(
-  response => {
-    if (response.status === 404) {
-      console.log('404 Page');
-    }
-
-    return response;
-  },
-  async error => {
-    if (error.response?.status === 401) {
-      try {
-        await reissueToken(true);
-      } catch (error: any) {
-        return Promise.reject(error);
-      }
-
-      error.config.headers = {
-        Authorization: `Bearer ${getAccessToken()}`,
-      };
-
-      const response = await axios.request(error.config);
-      return response;
-    }
-    return Promise.reject(error);
-  },
+  response => callbackResponse(response),
+  async error => callbackResponseError(error),
 );
