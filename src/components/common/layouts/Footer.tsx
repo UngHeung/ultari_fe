@@ -1,4 +1,3 @@
-import React from 'react';
 import style from '../styles/footer.module.css';
 import Logo from './Logo';
 

@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import modalRducer from './reducer/modalRducer';
 import postReducer from './reducer/postReducer';
 import userReducer from './reducer/userReducer';

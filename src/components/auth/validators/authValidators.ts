@@ -1,4 +1,4 @@
-import { LoginOptions, SignUpOptions } from '../constants/authConst';
+import { LoginOptions, SignUpOptions } from '../constants/authInterface';
 
 export interface ValidationResultOptions {
   success: boolean;

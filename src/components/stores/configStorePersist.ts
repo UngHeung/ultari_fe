@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import persistReducer from 'redux-persist/es/persistReducer';
+import storage from 'redux-persist/lib/storage';
 import modalRducer from './reducer/modalRducer';
 import postReducer from './reducer/postReducer';
 import userReducer from './reducer/userReducer';
-import persistReducer from 'redux-persist/es/persistReducer';
-import storage from 'redux-persist/lib/storage';
 
 const reducers = combineReducers({
   modal: modalRducer,

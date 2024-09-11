@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import style from '../styles/logo.module.css';
 import { getImageSrc } from '../functions/getImageSrc';
+import style from '../styles/logo.module.css';
 
 export interface LogoOptions {
   id?: string;

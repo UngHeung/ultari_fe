@@ -1,6 +1,6 @@
+import { BASE_URL, LOGOUT_PATH } from '@/components/common/constants/pathConst';
 import axios from 'axios';
 import { ACCESS_TOKEN } from '../constants/accessToken';
-import { BASE_URL, LOGOUT_PATH } from '@/components/common/constants/pathConst';
 
 const handleLogout = async () => {
   const url = `${BASE_URL}/${LOGOUT_PATH}`;

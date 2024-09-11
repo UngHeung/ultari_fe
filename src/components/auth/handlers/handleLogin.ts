@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { BASE_URL, LOGIN_PATH } from '@/components/common/constants/pathConst';
+import axios from 'axios';
 import { FormEvent } from 'react';
-import { TokenPrefixEnum } from '../constants/tokenEnum';
-import { ACCESS_TOKEN } from '../constants/accessToken';
-import { validateLogin } from '../validators/authValidators';
 import { LoginOptionsEnum } from '../constants/authEnum';
+import { TokenPrefixEnum } from '../constants/tokenEnum';
 import { setAccessToken, setRefreshToken } from '../functions/tokenInteract';
+import { validateLogin } from '../validators/authValidators';
 
 export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
   const formData = new FormData(event.currentTarget);

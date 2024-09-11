@@ -1,8 +1,8 @@
-import axios from 'axios';
 import {
   BASE_URL,
   SIGN_UP_PATH,
 } from '@/components/common/constants/pathConst';
+import axios from 'axios';
 import { FormEvent } from 'react';
 import { SignUpOptionsEnum } from '../constants/authEnum';
 import { validateSignUp } from '../validators/authValidators';

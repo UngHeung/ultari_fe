@@ -1,17 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import style from './styles/modal.module.css';
-import Image from 'next/image';
-import modalSuccess from '@/public/images/modal_success.png';
 import modalCloseButton from '@/public/images/modal_close_button.png';
-import ModalButton from './ModalButton';
-import { PUBLIC_IMAGE_PATH } from '../common/constants/pathConst';
+import modalSuccess from '@/public/images/modal_success.png';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetModal } from '../stores/reducer/modalRducer';
+import { PUBLIC_IMAGE_PATH } from '../common/constants/pathConst';
 import { SliceOptions } from '../stores/constants/stateOptions';
+import { resetModal } from '../stores/reducer/modalRducer';
 import { modalType } from './constants/modalConst';
+import ModalButton from './ModalButton';
+import style from './styles/modal.module.css';
 
 const Modal = () => {
   const router = useRouter();
