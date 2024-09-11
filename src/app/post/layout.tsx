@@ -1,11 +1,11 @@
 'use client';
 
+import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import Link from 'next/link';
-import style from './layout.module.css';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import style from './layout.module.css';
 
 const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -16,21 +16,17 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      router.push('/login');
+    const type = pathname.slice(1).split('/')[1];
+    if (type === 'list') {
+      setTitle('게시물 목록');
+    } else if (type === 'write') {
+      setTitle('게시물 작성');
+    } else if (type === 'update') {
+      setTitle('게시물 수정');
     } else {
-      const type = pathname.slice(1).split('/')[1];
-      if (type === 'list') {
-        setTitle('게시물 목록');
-      } else if (type === 'write') {
-        setTitle('게시물 작성');
-      } else if (type === 'update') {
-        setTitle('게시물 수정');
-      } else {
-        setTitle('게시물');
-      }
+      setTitle('게시물');
     }
-  });
+  }, []);
 
   return (
     <>
