@@ -1,9 +1,8 @@
-import React from 'react';
+import style from '../styles/header.module.css';
 import Logo from './Logo';
 import Nav from './Nav';
-import style from '../styles/header.module.css';
 
-const Header = () => {
+const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <header className={style.mainHeader}>
       <div className={style.headerWrap}>
