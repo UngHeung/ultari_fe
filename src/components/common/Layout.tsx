@@ -1,21 +1,37 @@
-import React from 'react';
-import Header from './layouts/Header';
-import Footer from './layouts/Footer';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMyInfo } from '../auth/functions/getMyInfo';
 import Modal from '../modal/Modal';
-import { useSelector } from 'react-redux';
 import { SliceOptions } from '../stores/constants/stateOptions';
+import { setUser } from '../stores/reducer/userReducer';
+import Footer from './layouts/Footer';
+import Header from './layouts/Header';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.user.isLoggedIn,
+  );
   const modalIsShow = useSelector(
     (state: SliceOptions) => state.modal?.modalIsShow,
   );
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      return;
+    }
+
+    const checkUser = async () => {
+      const data = await getMyInfo();
+      dispatch(setUser({ ...data, isLoggedIn: true }));
+    };
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       {children}
       <Footer />
-      {/* <Modal /> */}
       {modalIsShow && <Modal />}
     </>
   );
