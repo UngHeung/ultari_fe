@@ -2,7 +2,7 @@ import { modalType } from '@/components/modal/constants/modalConst';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface ModalState {
-  title: string;
+  title?: string;
   type: modalType;
   success?: boolean;
   message: string;
