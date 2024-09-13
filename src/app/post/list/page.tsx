@@ -6,7 +6,7 @@ import { getPosts } from '@/components/post/functions/getPosts';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { useRouter } from 'next/navigation';
 
-const post = () => {
+const listPage = () => {
   const router = useRouter();
   const [postList, setPostList] = useState<PostOptions[]>([]);
   const [currentPath, setCurrentPath] = useState<string>('');
@@ -31,9 +31,26 @@ const post = () => {
 
   return (
     <>
+      <ul>
+        <button
+          onClick={() => {
+            setFindOptions('order__createAt=DESC');
+          }}
+        >
+          최신순
+        </button>{' '}
+        |{' '}
+        <button
+          onClick={() => {
+            setFindOptions('order__createAt=ASC');
+          }}
+        >
+          과거순
+        </button>
+      </ul>
       <PostList posts={postList} />
     </>
   );
 };
 
-export default post;
+export default listPage;
