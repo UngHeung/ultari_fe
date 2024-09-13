@@ -7,13 +7,14 @@ export const getMyInfo = async () => {
     return {
       status: response.status,
       success: true,
-      data: response.data,
+      message: '내 정보를 불러왔습니다.',
+      data: response?.data,
     };
   } catch (error: any) {
     return {
-      status: error.status,
+      status: error?.status,
       success: false,
-      message: error.response.data.message,
+      message: error?.response.data.message,
     };
   }
 };
