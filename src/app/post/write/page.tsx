@@ -1,7 +1,7 @@
 import Write from '@/components/post/Write';
 import React from 'react';
 
-const write = () => {
+const writePage = () => {
   return (
     <div>
       <Write />
@@ -9,4 +9,4 @@ const write = () => {
   );
 };
 
-export default write;
+export default writePage;
