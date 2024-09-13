@@ -20,8 +20,10 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
     if (type === 'list') {
       setTitle('게시물 목록');
     } else if (type === 'write') {
+      if (!isLoggedIn) router.push('/login');
       setTitle('게시물 작성');
     } else if (type === 'update') {
+      if (!isLoggedIn) router.push('/login');
       setTitle('게시물 수정');
     } else {
       setTitle('게시물');
