@@ -22,19 +22,22 @@ const Login = () => {
         setDisabled(true);
 
         const { success, message } = await handleLogin(event);
-        const { data } = await getMyInfo();
 
-        dispatch(
-          setUser({
-            ...data,
-            isLoggedIn: true,
-          }),
-        );
+        if (success) {
+          const { data } = await getMyInfo();
 
-        localStorage.setItem(
-          'myInfo',
-          JSON.stringify({ ...data, isLoggedIn: true }),
-        );
+          dispatch(
+            setUser({
+              ...data,
+              isLoggedIn: true,
+            }),
+          );
+
+          localStorage.setItem(
+            'myInfo',
+            JSON.stringify({ ...data, isLoggedIn: true }),
+          );
+        }
 
         dispatch(
           setModal({
