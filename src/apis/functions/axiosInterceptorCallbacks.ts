@@ -1,4 +1,4 @@
-import { reissueToken } from '@/components/auth/functions/reissueToken';
+import { refreshToken } from '@/components/auth/functions/refreshToken';
 import {
   getAccessToken,
   getRefreshToken,
@@ -39,13 +39,17 @@ export const callbackResponse = (response: AxiosResponse) => {
   return response;
 };
 
-export const callbackResponseError = async (error: any) => {
+export const callbackResponseError = async (error: any, isAccess: boolean) => {
   if (error.response?.status === 401) {
     try {
-      await reissueToken(true);
+      const refreshTokenResponse = await refreshToken(isAccess);
+
+      if (!refreshTokenResponse.success) {
+        return refreshTokenResponse;
+      }
 
       error.config.header = {
-        Authorization: `Bearer ${getAccessToken()}`,
+        Authorization: `Bearer ${isAccess ? getAccessToken() : getRefreshToken()}`,
       };
 
       const response = await authAxios.request(error.config);
