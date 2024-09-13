@@ -1,0 +1,17 @@
+import { getMyInfo } from '@/components/auth/functions/getMyInfo';
+import { setUser } from '@/components/stores/reducer/userReducer';
+import { Dispatch } from '@reduxjs/toolkit';
+
+export const checkUser = async (dispatch: Dispatch) => {
+  if (!localStorage.getItem('refreshToken')) return;
+
+  try {
+    const response = await getMyInfo();
+
+    if (response.success) {
+      dispatch(setUser({ ...response.data, isLoggedIn: true }));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
