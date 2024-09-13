@@ -1,13 +1,13 @@
 'use client';
 
-import { authAxios } from '@/apis/axiosAuth';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { BASE_URL } from '../common/constants/pathConst';
-import { setModal } from '../stores/reducer/modalRducer';
+import { showModal } from '../common/functions/showModal';
+import { ModalState } from '../stores/reducer/modalRducer';
 import PostButton from './elements/PostButton';
 import PostInput from './elements/PostInput';
+import { handleUploadPost } from './handlers/handleUploadPost';
 import style from './styles/write.module.css';
 
 const Write = () => {
@@ -23,19 +23,18 @@ const Write = () => {
 
           setDisabled(true);
 
-          const { status, success, message } = await handleUploadPost(event);
+          const { success, message } = await handleUploadPost(event);
 
-          dispatch(
-            setModal({
-              title: success ? '등록 성공' : '등록 실패',
-              success: success,
-              message: message,
-              modalIsShow: true,
-              type: success ? 'confirm' : 'alert',
-              path: `/post/list`,
-            }),
-          );
+          const modalData: ModalState = {
+            title: success ? '게시물 등록 성공' : '게시물 등록 실패',
+            success,
+            message,
+            modalIsShow: true,
+            type: success ? 'confirm' : 'alert',
+            path: '/post/list',
+          };
 
+          showModal(dispatch, modalData);
           setDisabled(false);
         }}
       >
@@ -73,34 +72,6 @@ const Write = () => {
       </form>
     </>
   );
-};
-
-export const handleUploadPost = async (event: FormEvent<HTMLFormElement>) => {
-  const formData = new FormData(event.currentTarget);
-  const title = formData.get('title');
-  const content = formData.get('content');
-
-  const data = { title, content };
-
-  const url = `${BASE_URL}/${'post'}`;
-  try {
-    const response = await authAxios.post(url, data);
-
-    console.log(response.data);
-
-    return {
-      data: response.data,
-      status: response.status,
-      success: true,
-      message: '게시물 등록 성공',
-    };
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: false,
-      message: error.response.data.message,
-    };
-  }
 };
 
 export default Write;
