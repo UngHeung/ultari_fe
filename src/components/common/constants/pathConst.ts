@@ -6,5 +6,7 @@ export const LOGIN_PATH = 'auth/login/account';
 export const SIGN_UP_PATH = 'auth/signup';
 export const LOGOUT_PATH = 'auth/logout';
 export const MY_INFO = 'user/myinfo';
+export const POST_BASIC = 'post';
+export const POST_LIST = 'post/list';
 
 export const PUBLIC_IMAGE_PATH = '@/public/images';
