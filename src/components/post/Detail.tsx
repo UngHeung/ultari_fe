@@ -1,6 +1,5 @@
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
-import { useDispatch, useSelector } from 'react-redux';
-import { resetPost } from '../stores/reducer/postReducer';
+import { useSelector } from 'react-redux';
 import style from './styles/detail.module.css';
 
 const Detail = () => {
