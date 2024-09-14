@@ -46,7 +46,7 @@ const Login = () => {
           message,
           modalIsShow: true,
           type: success ? 'confirm' : 'alert',
-          path: '/',
+          path: success ? '/back' : '',
         };
 
         showModal(dispatch, modalData);
