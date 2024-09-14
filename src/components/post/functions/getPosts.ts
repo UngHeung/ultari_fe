@@ -4,8 +4,6 @@ import { BASE_URL } from '@/components/common/constants/pathConst';
 export const getPosts = async (findOptions: string, path: string) => {
   let url = '';
 
-  console.log(findOptions);
-
   if (findOptions.length) {
     url = `${BASE_URL}/post?${findOptions}`;
   } else {
