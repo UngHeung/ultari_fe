@@ -29,7 +29,7 @@ const SignUp = () => {
               message: message,
               modalIsShow: true,
               type: success ? 'confirm' : 'alert',
-              path: '/login',
+              path: success ? '/login' : '',
             }),
           );
 
