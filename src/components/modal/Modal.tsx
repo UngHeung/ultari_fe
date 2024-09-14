@@ -15,6 +15,7 @@ import style from './styles/modal.module.css';
 
 const Modal = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [theme, setTheme] = useState<'dark' | 'light'>(
     window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
@@ -23,7 +24,6 @@ const Modal = () => {
   const { title, type, success, message, path } = useSelector(
     (state: SliceOptions) => state?.modal,
   );
-  const dispatch = useDispatch();
 
   useEffect(() => {
     window
@@ -78,7 +78,11 @@ const Modal = () => {
                   autoFocus={true}
                   onClick={() => {
                     dispatch(resetModal());
-                    path && router.push(`${path}`);
+                    if (path === '/back') {
+                      router.back();
+                    } else if (path?.length) {
+                      router.push(`${path}`);
+                    }
                   }}
                 />
               ) : type === 'alert' ? (
@@ -89,6 +93,7 @@ const Modal = () => {
                   autoFocus={true}
                   onClick={() => {
                     dispatch(resetModal());
+                    path && router.push(`${path}`);
                   }}
                 />
               ) : null}
