@@ -5,7 +5,7 @@ import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import { ModalState, setModal } from '@/components/stores/reducer/modalRducer';
 import { resetPost } from '@/components/stores/reducer/postReducer';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
@@ -13,7 +13,6 @@ import style from './layout.module.css';
 const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
-  const router = useRouter();
   const userId = useSelector((state: SliceOptions) => state.user.id);
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state.user?.isLoggedIn ?? false,
