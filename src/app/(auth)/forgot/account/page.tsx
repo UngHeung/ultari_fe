@@ -1,14 +1,13 @@
 'use client';
 
-import ForgotAccount from '@/components/auth/ForgotAccount';
-import React from 'react';
+import ForgotMenu from '@/components/auth/ForgotMenu';
 
-const forgotAccount = () => {
+const forgotAccountPage = () => {
   return (
     <>
-      <ForgotAccount />
+      <ForgotMenu />
     </>
   );
 };
 
-export default forgotAccount;
+export default forgotAccountPage;
