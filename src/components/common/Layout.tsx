@@ -9,12 +9,12 @@ import {
   setAccessToken,
   setRefreshToken,
 } from '../auth/functions/tokenInteract';
-import { getUserDataFromToken } from '../auth/Login';
 import Modal from '../modal/Modal';
 import { SliceOptions } from '../stores/constants/stateOptions';
 import { setUser } from '../stores/reducer/userReducer';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
+import { getUserDataFromToken } from '../auth/functions/getUserDataFromToken';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
