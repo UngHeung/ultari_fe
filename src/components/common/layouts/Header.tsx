@@ -2,7 +2,13 @@ import style from '../styles/header.module.css';
 import Logo from './Logo';
 import Nav from './Nav';
 
-const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const Header = ({
+  isLoggedIn,
+  userName,
+}: {
+  isLoggedIn: boolean;
+  userName: string;
+}) => {
   return (
     <header className={style.mainHeader}>
       <div className={style.headerWrap}>
@@ -11,6 +17,9 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         </section>
         <section className={style.navWrap}>
           <Nav />
+        </section>
+        <section>
+          <span>{isLoggedIn && `${userName}님`}</span>
         </section>
       </div>
     </header>
