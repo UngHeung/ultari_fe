@@ -63,6 +63,7 @@ const listPage = () => {
           setFindOptions('order__createAt=DESC');
         }}
       />
+      <> | </>
       <BaseButton
         type={'button'}
         value={'날짜순'}
