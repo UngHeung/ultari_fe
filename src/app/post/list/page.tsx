@@ -1,68 +1,124 @@
 'use client';
 
+import { authAxios } from '@/apis/axiosAuth';
+import BaseButton from '@/components/common/BaseButton';
+import { BASE_URL } from '@/components/common/constants/pathConst';
 import PostList from '@/components/post/PostList';
-import { getPosts } from '@/components/post/functions/getPosts';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import {
+  setPostListOrderByAsc,
+  setPostListOrderByDesc,
+} from '@/components/stores/reducer/PostListReducer';
+import { Dispatch } from '@reduxjs/toolkit';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const listPage = () => {
-  const router = useRouter();
-  const [postList, setPostList] = useState<PostOptions[]>([]);
-  const [currentPath, setCurrentPath] = useState<string>('');
+  const dispatch = useDispatch();
+  const [getPostpath, setGetPostPath] = useState<string>('');
   const [findOptions, setFindOptions] = useState<string>('');
+  const [posts, setPosts] = useState<PostOptions[]>([]);
+  const [orderBy, setOrderBy] = useState<'ASC' | 'DESC'>('DESC');
+  const listOrderByDesc = useSelector(
+    (state: SliceOptions) => state.postList.desc,
+  );
+  const listOrderByAsc = useSelector(
+    (state: SliceOptions) => state.postList.asc,
+  );
 
   useEffect(() => {
-    getPostsProcess(
-      findOptions,
-      setPostList,
-      currentPath,
-      setCurrentPath,
-      router,
-    );
-  }, [findOptions]);
+    (async () => {
+      if (orderBy === 'DESC' && listOrderByDesc.count > 0) {
+        setPosts(listOrderByDesc.list);
+        setGetPostPath(listOrderByDesc.next);
+      } else if (orderBy === 'ASC' && listOrderByAsc.count > 0) {
+        setPosts(listOrderByAsc.list);
+        setGetPostPath(listOrderByAsc.next);
+      } else {
+        const { postList, nextPath } = await getPostList(
+          findOptions,
+          getPostpath,
+          orderBy,
+        );
+
+        setPosts(postList);
+        savePostList(dispatch, orderBy, postList, getPostpath);
+        setGetPostPath(nextPath);
+      }
+    })();
+  }, [orderBy]);
 
   return (
     <>
-      <ul>
-        <button
-          onClick={() => {
-            setFindOptions('order__createAt=DESC');
-          }}
-        >
-          최신순
-        </button>{' '}
-        |{' '}
-        <button
-          onClick={() => {
-            setFindOptions('order__createAt=ASC');
-          }}
-        >
-          과거순
-        </button>
-      </ul>
-      <PostList posts={postList} />
+      <BaseButton
+        type={'button'}
+        value={'최신순'}
+        onClick={() => {
+          setOrderBy('DESC');
+          setFindOptions('order__createAt=DESC');
+        }}
+      />
+      <BaseButton
+        type={'button'}
+        value={'날짜순'}
+        onClick={() => {
+          setOrderBy('ASC');
+          setFindOptions('order__createAt=ASC');
+        }}
+      />
+      <PostList posts={posts} />
     </>
   );
 };
 
-async function getPostsProcess(
+async function getPostList(
   findOptions: string,
-  setPostList: React.Dispatch<React.SetStateAction<PostOptions[]>>,
-  currentPath: string,
-  setCurrentPath: React.Dispatch<React.SetStateAction<string>>,
-  router: AppRouterInstance,
+  path: string,
+  orderBy: 'DESC' | 'ASC',
 ) {
-  try {
-    const { data, next } = await getPosts(findOptions, currentPath);
+  let url = '';
 
-    setCurrentPath(next);
-    setPostList(data);
-  } catch (error: any) {
-    if (error.status === 401) {
-      router.push('/login');
-    }
+  if (findOptions.length) {
+    url = `${BASE_URL}/post?${findOptions}`;
+  } else {
+    url = path.length ? path : `${BASE_URL}/post?order__createAt=${orderBy}`;
+  }
+
+  const response = await authAxios.get(url);
+
+  return {
+    postList: response.data.data,
+    nextPath: response.data.next,
+  };
+}
+
+function savePostList(
+  dispatch: Dispatch,
+  orderBy: 'DESC' | 'ASC',
+  postList: PostOptions[],
+  nextPath: string,
+) {
+  if (orderBy === 'DESC') {
+    dispatch(
+      setPostListOrderByDesc({
+        desc: {
+          data: postList,
+          next: nextPath,
+          count: postList.length,
+        },
+      }),
+    );
+  } else if (orderBy === 'ASC') {
+    dispatch(
+      setPostListOrderByAsc({
+        asc: {
+          data: [...postList],
+          next: nextPath,
+          count: postList.length,
+        },
+      }),
+    );
   }
 }
 
