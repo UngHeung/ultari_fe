@@ -70,6 +70,7 @@
     --background-color-modal-header: #d7d7d7;
 
     --filter-button-hover: brightness(90%);
+    --filter-list-hover: brightness(97%);
 
     --border-color-input: #d1d1d1;
     --border-color-container: #d1d1d1;
@@ -92,6 +93,7 @@
     --background-color-modal-header: #272727;
 
     --filter-button-hover: brightness(140%);
+    --filter-list-hover: brightness(140%);
 
     --border-color-input: #3a3a3a;
     --border-color-container: #3a3a3a;
