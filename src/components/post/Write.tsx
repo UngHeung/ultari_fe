@@ -31,7 +31,7 @@ const Write = () => {
             message,
             modalIsShow: true,
             type: success ? 'confirm' : 'alert',
-            path: '/post/list',
+            path: success ? '/post/list' : '',
           };
 
           showModal(dispatch, modalData);
