@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const logout = () => {
+const logoutPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const isLoggedIn = useSelector(
@@ -46,4 +46,4 @@ async function logoutProcess(dispatch: Dispatch) {
   showModal(dispatch, modalData);
 }
 
-export default logout;
+export default logoutPage;

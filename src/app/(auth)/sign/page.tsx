@@ -2,7 +2,7 @@
 
 import SignUp from '@/components/auth/SignUp';
 
-const sign = () => {
+const signUpPage = () => {
   return (
     <>
       <SignUp />
@@ -10,4 +10,4 @@ const sign = () => {
   );
 };
 
-export default sign;
+export default signUpPage;

@@ -1,11 +1,10 @@
 'use client';
 
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import style from './layout.module.css';
-import { useRouter } from 'next/navigation';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
