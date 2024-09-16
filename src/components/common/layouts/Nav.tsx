@@ -15,7 +15,7 @@ const Nav = () => {
           <Link href={'/login'}>로그인</Link>
         </li>
         <li>
-          <Link href={'/forgot'}>아이디/비밀번호</Link>
+          <Link href={'/forgot/password'}>아이디/비밀번호</Link>
         </li>
         <li>
           <Link href={'/post/list'}>게시판</Link>
