@@ -54,8 +54,6 @@ async function handleReload(dispatch: Dispatch, isLoggedIn: boolean) {
 
     const userData = getUserDataFromToken();
 
-    console.log('handler -> ', userData);
-
     dispatch(setUser({ ...userData, isLoggedIn: true }));
   } catch (error) {
     console.log(error);
