@@ -7,6 +7,8 @@ import PostList from '@/components/post/PostList';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import {
+  OrderTypes,
+  setPostListOrderBy,
   setPostListOrderByAsc,
   setPostListOrderByDesc,
 } from '@/components/stores/reducer/PostListReducer';
@@ -19,12 +21,14 @@ const listPage = () => {
   const [getPostpath, setGetPostPath] = useState<string>('');
   const [findOptions, setFindOptions] = useState<string>('');
   const [posts, setPosts] = useState<PostOptions[]>([]);
-  const [orderBy, setOrderBy] = useState<'ASC' | 'DESC'>('DESC');
   const listOrderByDesc = useSelector(
     (state: SliceOptions) => state.postList.desc,
   );
   const listOrderByAsc = useSelector(
     (state: SliceOptions) => state.postList.asc,
+  );
+  const orderBy: OrderTypes = useSelector(
+    (state: SliceOptions) => state.postList.orderBy.type,
   );
 
   useEffect(() => {
@@ -55,7 +59,7 @@ const listPage = () => {
         type={'button'}
         value={'최신순'}
         onClick={() => {
-          setOrderBy('DESC');
+          dispatch(setPostListOrderBy({ type: 'DESC' }));
           setFindOptions('order__createAt=DESC');
         }}
       />
@@ -63,7 +67,7 @@ const listPage = () => {
         type={'button'}
         value={'날짜순'}
         onClick={() => {
-          setOrderBy('ASC');
+          dispatch(setPostListOrderBy({ type: 'ASC' }));
           setFindOptions('order__createAt=ASC');
         }}
       />
