@@ -5,18 +5,37 @@ import { useDispatch } from 'react-redux';
 import { setPost } from '../stores/reducer/postReducer';
 import { PostOptions } from './interfaces/postInterfaces';
 import style from './styles/list.module.css';
+import Image from 'next/image';
+import viewAndLike from '@/public/images/viewAndLike.png';
+import { useEffect, useState } from 'react';
 
 const ListItem = (props: PostOptions, key: number) => {
   const dispatch = useDispatch();
+  const [theme, setTheme] = useState<'dark' | 'light'>(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light',
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', event => {
+        if (event.matches) {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      });
+  }, []);
+
   return (
     <>
       <li key={key}>
         <Link
           href={`/post/${props.id}`}
           className={style.postItem}
-          onClick={() => {
-            dispatch(setPost(props));
-          }}
+          onClick={() => dispatch(setPost(props))}
         >
           <section className={style.contentWrap}>
             <strong className={style.title}>{props.title}</strong>
@@ -24,18 +43,39 @@ const ListItem = (props: PostOptions, key: number) => {
           </section>
 
           <section className={style.informationWrap}>
-            <div className={style.typesWrap}>
+            <section className={style.typesWrap}>
               <span className={style.visibility}>
                 {getVisibilityType(props.visibility)}
               </span>
-              <> & </>
               <span className={style.type}>{getPostType(props.type)}</span>
-            </div>
+            </section>
 
-            <div className={style.countsWrap}>
-              <span className={style.likeCount}>{props.likeCount}</span>
-              <span className={style.viewCount}>{props.viewCount}</span>
-            </div>
+            <section className={style.countsWrap}>
+              <div className={style.likeCount}>
+                <span className={style.iconWrap}>
+                  <Image
+                    src={viewAndLike}
+                    width={60}
+                    height={15}
+                    alt="좋아요 개수"
+                    style={{ objectPosition: theme === 'dark' ? -30 : -45 }}
+                  />
+                </span>
+                <span className={style.countNumber}>{props.likeCount}</span>
+              </div>
+              <div className={style.viewCount}>
+                <span className={style.iconWrap}>
+                  <Image
+                    src={viewAndLike}
+                    width={60}
+                    height={15}
+                    alt="조회수"
+                    style={{ objectPosition: theme === 'dark' ? 0 : -15 }}
+                  />
+                </span>
+                <span className={style.countNumber}>{props.viewCount}</span>
+              </div>
+            </section>
 
             <strong className={style.author}>{props.author.name}</strong>
           </section>

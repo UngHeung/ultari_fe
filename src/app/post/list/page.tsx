@@ -55,23 +55,30 @@ const listPage = () => {
 
   return (
     <>
-      <BaseButton
-        type={'button'}
-        value={'최신순'}
-        onClick={() => {
-          dispatch(setPostListOrderBy({ type: 'DESC' }));
-          setFindOptions('order__createAt=DESC');
-        }}
-      />
-      <> | </>
-      <BaseButton
-        type={'button'}
-        value={'날짜순'}
-        onClick={() => {
-          dispatch(setPostListOrderBy({ type: 'ASC' }));
-          setFindOptions('order__createAt=ASC');
-        }}
-      />
+      <menu>
+        <ul>
+          <li>
+            <BaseButton
+              type={'button'}
+              value={'최신순'}
+              onClick={() => {
+                dispatch(setPostListOrderBy({ type: 'DESC' }));
+                setFindOptions('order__createAt=DESC');
+              }}
+            />
+          </li>
+          <li>
+            <BaseButton
+              type={'button'}
+              value={'날짜순'}
+              onClick={() => {
+                dispatch(setPostListOrderBy({ type: 'ASC' }));
+                setFindOptions('order__createAt=ASC');
+              }}
+            />
+          </li>
+        </ul>
+      </menu>
       <PostList posts={posts} />
     </>
   );
@@ -80,12 +87,17 @@ const listPage = () => {
 async function getPostList(
   findOptions: string,
   path: string,
-  orderBy: 'DESC' | 'ASC',
+  orderBy: OrderTypes,
 ) {
   let url = '';
 
+  if (orderBy !== 'ASC' && orderBy !== 'DESC') {
+    orderBy = 'ASC';
+  }
+
   if (findOptions.length) {
     url = `${BASE_URL}/post?${findOptions}`;
+    console.log('fo -> ', url);
   } else {
     url = path.length ? path : `${BASE_URL}/post?order__createAt=${orderBy}`;
   }
@@ -100,7 +112,7 @@ async function getPostList(
 
 function savePostList(
   dispatch: Dispatch,
-  orderBy: 'DESC' | 'ASC',
+  orderBy: OrderTypes,
   postList: PostOptions[],
   nextPath: string,
 ) {
