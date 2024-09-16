@@ -1,32 +1,68 @@
+import { Dispatch } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getRefreshToken } from '../auth/functions/tokenInteract';
 import Modal from '../modal/Modal';
 import { SliceOptions } from '../stores/constants/stateOptions';
-import { checkUser } from './functions/checkUser';
+import { setUser, UserOptions } from '../stores/reducer/userReducer';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.user.isLoggedIn,
-  );
   const modalIsShow = useSelector(
     (state: SliceOptions) => state.modal?.modalIsShow,
   );
+  const user = useSelector((state: SliceOptions) => state.user);
 
   useEffect(() => {
-    !isLoggedIn && checkUser(dispatch);
+    window.addEventListener('beforeunload', event => {
+      event.preventDefault();
+      handleUnload(dispatch, user);
+    });
+
+    return () => {
+      window.removeEventListener('beforeunload', event => {
+        event.preventDefault();
+        handleUnload(dispatch, user);
+      });
+    };
   }, []);
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header userName={user.name} isLoggedIn={user.isLoggedIn} />
       {children}
       <Footer />
       {modalIsShow && <Modal />}
     </>
   );
 };
+
+function saveUserInStorage(user: UserOptions) {
+  localStorage.setItem('myInfo', JSON.stringify(user));
+}
+
+function getUserInStorage() {
+  return localStorage.getItem('myInfo')?.toString();
+}
+
+function removeUserInStorage() {
+  localStorage.removeItem('myInfo');
+}
+
+async function handleUnload(dispatch: Dispatch, user: UserOptions) {
+  if (!getRefreshToken()) return;
+
+  console.log('dr -> ', user);
+
+  if (user.isLoggedIn) {
+    saveUserInStorage(user);
+  } else {
+    const user = getUserInStorage();
+    dispatch(setUser(user));
+    removeUserInStorage();
+  }
+}
 
 export default Layout;

@@ -3,7 +3,6 @@
 import { deletePost } from '@/components/post/functions/deletePost';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import { ModalState, setModal } from '@/components/stores/reducer/modalRducer';
-import { resetPost } from '@/components/stores/reducer/postReducer';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -39,10 +38,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       };
 
       dispatch(setModal(modalData));
-    }
-
-    if (postId !== parseInt(type)) {
-      dispatch(resetPost());
     }
   }, [pathname]);
 

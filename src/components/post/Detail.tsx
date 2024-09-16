@@ -1,9 +1,18 @@
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetPost } from '../stores/reducer/postReducer';
 import style from './styles/detail.module.css';
 
 const Detail = () => {
+  const dispatch = useDispatch();
   const post = useSelector((state: SliceOptions) => state.post);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetPost());
+    };
+  }, []);
 
   return (
     <>
@@ -24,10 +33,10 @@ const Detail = () => {
   );
 };
 
-const getDate = (inputDate: string): string => {
+function getDate(inputDate: string) {
   const [date, time] = inputDate?.split('T');
 
   return `${date} ${time?.split('.')[0]}`;
-};
+}
 
 export default Detail;
