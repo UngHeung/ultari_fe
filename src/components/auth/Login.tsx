@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import BaseButton from '../common/BaseButton';
 import { showModal } from '../common/functions/showModal';
 import { ModalState } from '../stores/reducer/modalRducer';
-import { setUser } from '../stores/reducer/userReducer';
+import { setUser, UserState } from '../stores/reducer/userReducer';
 import AuthInput from './elements/AuthInput';
-import { getMyInfo } from './functions/getMyInfo';
+import { getAccessToken } from './functions/tokenInteract';
 import { handleLogin } from './handlers/handleLogin';
 import style from './styles/button.module.css';
 
@@ -25,11 +25,12 @@ const Login = () => {
         const { success, message } = await handleLogin(event);
 
         if (success) {
-          const { data } = await getMyInfo();
+          const userData: Omit<UserState, 'isLoggedIn'> =
+            getUserDataFromToken();
 
           dispatch(
             setUser({
-              ...data,
+              ...userData,
               isLoggedIn: true,
             }),
           );
@@ -81,5 +82,18 @@ const Login = () => {
     </form>
   );
 };
+
+export function getUserDataFromToken() {
+  const payload = getAccessToken().split('.')[1];
+  const buffer = Buffer.from(payload, 'base64');
+  const dataString = buffer.toString().replaceAll(/['"]/g, '');
+  const dataParts = dataString.split(',');
+
+  return {
+    id: +dataParts[0].split(':')[1],
+    name: dataParts[1].split(':')[1],
+    role: dataParts[2].split(':')[1],
+  };
+}
 
 export default Login;
