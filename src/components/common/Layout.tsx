@@ -1,10 +1,18 @@
+import {
+  reissueAccessToken,
+  reissueRefreshToken,
+} from '@/apis/functions/reissueToken';
 import { Dispatch } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRefreshToken } from '../auth/functions/tokenInteract';
+import {
+  setAccessToken,
+  setRefreshToken,
+} from '../auth/functions/tokenInteract';
+import { getUserDataFromToken } from '../auth/Login';
 import Modal from '../modal/Modal';
 import { SliceOptions } from '../stores/constants/stateOptions';
-import { setUser, UserOptions } from '../stores/reducer/userReducer';
+import { setUser } from '../stores/reducer/userReducer';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 
@@ -13,25 +21,20 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const modalIsShow = useSelector(
     (state: SliceOptions) => state.modal?.modalIsShow,
   );
-  const user = useSelector((state: SliceOptions) => state.user);
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.user.isLoggedIn ?? false,
+  );
+  const userName = useSelector((state: SliceOptions) => state.user.name);
 
   useEffect(() => {
-    window.addEventListener('beforeunload', event => {
-      event.preventDefault();
-      handleUnload(dispatch, user);
-    });
-
-    return () => {
-      window.removeEventListener('beforeunload', event => {
-        event.preventDefault();
-        handleUnload(dispatch, user);
-      });
-    };
+    (async () => {
+      await handleReload(dispatch, isLoggedIn);
+    })();
   }, []);
 
   return (
     <>
-      <Header userName={user.name} isLoggedIn={user.isLoggedIn} />
+      <Header userName={userName} isLoggedIn={isLoggedIn} />
       {children}
       <Footer />
       {modalIsShow && <Modal />}
@@ -39,29 +42,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-function saveUserInStorage(user: UserOptions) {
-  localStorage.setItem('myInfo', JSON.stringify(user));
-}
+async function handleReload(dispatch: Dispatch, isLoggedIn: boolean) {
+  if (isLoggedIn) return;
 
-function getUserInStorage() {
-  return localStorage.getItem('myInfo')?.toString();
-}
+  try {
+    const accessToken = await reissueAccessToken();
+    const refreshToken = await reissueRefreshToken();
 
-function removeUserInStorage() {
-  localStorage.removeItem('myInfo');
-}
+    setAccessToken(accessToken);
+    setRefreshToken(refreshToken);
 
-async function handleUnload(dispatch: Dispatch, user: UserOptions) {
-  if (!getRefreshToken()) return;
+    const userData = getUserDataFromToken();
 
-  console.log('dr -> ', user);
+    console.log('handler -> ', userData);
 
-  if (user.isLoggedIn) {
-    saveUserInStorage(user);
-  } else {
-    const user = getUserInStorage();
-    dispatch(setUser(user));
-    removeUserInStorage();
+    dispatch(setUser({ ...userData, isLoggedIn: true }));
+  } catch (error) {
+    console.log(error);
   }
 }
 

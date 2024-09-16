@@ -11,13 +11,12 @@ export interface UserOptions {
   isLoggedIn: boolean;
 }
 
-const initialState: UserOptions = {
+export interface UserState
+  extends Pick<UserOptions, 'id' | 'name' | 'role' | 'isLoggedIn'> {}
+
+const initialState: UserState = {
   id: -1,
-  account: '',
   name: '',
-  phone: '',
-  email: '',
-  profile: '',
   role: '',
   isLoggedIn: false,
 };
