@@ -81,7 +81,7 @@ const Modal = () => {
                     if (path === '/back') {
                       router.back();
                     } else if (path?.length) {
-                      router.push(`${path}`);
+                      router.push(path);
                     }
                   }}
                 />
@@ -93,7 +93,7 @@ const Modal = () => {
                   autoFocus={true}
                   onClick={() => {
                     dispatch(resetModal());
-                    path && router.push(`${path}`);
+                    path && router.push(path);
                   }}
                 />
               ) : null}
