@@ -33,11 +33,6 @@ const Login = () => {
               isLoggedIn: true,
             }),
           );
-
-          localStorage.setItem(
-            'myInfo',
-            JSON.stringify({ ...data, isLoggedIn: true }),
-          );
         }
 
         const modalData: ModalState = {
