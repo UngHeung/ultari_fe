@@ -1,18 +1,30 @@
+import { authAxios } from '@/apis/axiosAuth';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetPost } from '../stores/reducer/postReducer';
-import style from './styles/detail.module.css';
 import { BASE_URL, POST_INCREASE_VIEWS } from '../common/constants/pathConst';
-import { authAxios } from '@/apis/axiosAuth';
+import { resetPost, setPost } from '../stores/reducer/postReducer';
+import style from './styles/detail.module.css';
 
 const Detail = () => {
   const dispatch = useDispatch();
+  const pathname = usePathname();
   const post = useSelector((state: SliceOptions) => state.post);
   const authorId = useSelector((state: SliceOptions) => state.post.author?.id);
   const userId = useSelector((state: SliceOptions) => state.user.id);
 
   useEffect(() => {
+    (async () => {
+      const postId = pathname.split('/')[2];
+
+      if (post.id === -1) {
+        const postData = await getPost(+postId);
+        console.log(postData);
+        dispatch(setPost(postData));
+      }
+    })();
+
     if (authorId && authorId !== userId) {
       increaseViewCount(post.id);
     }
@@ -51,6 +63,18 @@ async function increaseViewCount(id: number) {
   const url = `${BASE_URL}/post/${id}/${POST_INCREASE_VIEWS}`;
   try {
     const response = await authAxios.patch(url);
+  } catch (error: any) {
+    console.log(error.response.data.message);
+  }
+}
+
+async function getPost(id: number) {
+  const url = `${BASE_URL}/post/${id}`;
+
+  try {
+    const response = await authAxios.get(url);
+    console.log(response);
+    return response.data;
   } catch (error: any) {
     console.log(error.response.data.message);
   }
