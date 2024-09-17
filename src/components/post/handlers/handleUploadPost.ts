@@ -14,16 +14,11 @@ export const handleUploadPost = async (
   const data = { title, content };
   const url = `${BASE_URL}/post/${type === 'update' ? updatePostId : ''}`;
 
-  console.log('post id : ', updatePostId);
-  console.log('url : ', url);
-
   try {
     const response: any =
       type === 'new'
         ? await authAxios.post(url, data)
         : await authAxios.patch(url, data);
-
-    console.log(response);
 
     if (Math.round(response.status / 100) === 2) {
       return {

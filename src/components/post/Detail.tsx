@@ -20,7 +20,6 @@ const Detail = () => {
 
       if (post.id === -1) {
         const postData = await getPost(+postId);
-        console.log(postData);
         dispatch(setPost(postData));
       }
     })();
@@ -62,7 +61,7 @@ function getDate(inputDate: string) {
 async function increaseViewCount(id: number) {
   const url = `${BASE_URL}/post/${id}/${POST_INCREASE_VIEWS}`;
   try {
-    const response = await authAxios.patch(url);
+    await authAxios.patch(url);
   } catch (error: any) {
     console.log(error.response.data.message);
   }
@@ -73,7 +72,6 @@ async function getPost(id: number) {
 
   try {
     const response = await authAxios.get(url);
-    console.log(response);
     return response.data;
   } catch (error: any) {
     console.log(error.response.data.message);
