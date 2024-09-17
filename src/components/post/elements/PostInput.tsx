@@ -12,6 +12,7 @@ const PostInput = (props: PostInputOptions) => {
         className={`${props.className} ${props.styleClass}`}
         type={props.type}
         placeholder={props.placeholder}
+        value={props.value}
       />
     </div>
   );

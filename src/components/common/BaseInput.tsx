@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BaseInputOptions } from './interfaces/BaseElementsInterfaces';
 
 const BaseInput = (props: BaseInputOptions) => {
-  const [baseValue, setBaseValue] = useState<string>('');
+  const [baseValue, setBaseValue] = useState<string>(props.value ?? '');
 
   return (
     <input
@@ -16,7 +16,7 @@ const BaseInput = (props: BaseInputOptions) => {
           ? props.setValue(event.target.value)
           : setBaseValue!(event.target.value)
       }
-      value={props.value ?? baseValue}
+      value={baseValue}
     />
   );
 };
