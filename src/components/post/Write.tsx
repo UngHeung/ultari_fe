@@ -22,8 +22,7 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
   const dispatch = useDispatch();
   const post =
     type === 'update' && useSelector((state: SliceOptions) => state.post);
-  const user =
-    type === 'update' && useSelector((state: SliceOptions) => state.user);
+  const user = useSelector((state: SliceOptions) => state.user);
 
   return (
     <>
