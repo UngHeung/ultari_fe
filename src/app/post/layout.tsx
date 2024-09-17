@@ -1,6 +1,5 @@
 'use client';
 
-import { deletePost } from '@/components/post/functions/deletePost';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import { ModalState, setModal } from '@/components/stores/reducer/modalRducer';
 import Link from 'next/link';
@@ -8,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
+
+export type PostPageType = 'list' | 'write' | 'update';
 
 const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
-    const type = pathname.slice(1).split('/')[1] as 'list' | 'write' | 'update';
+    const type: PostPageType = pathname.slice(1).split('/')[1] as PostPageType;
 
     setTitle(getTitle(type, isLoggedIn));
 
@@ -34,7 +35,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
         success: false,
         message: '로그인 후 사용 가능합니다.',
         modalIsShow: true,
-        path: '/login',
+        leftPath: '/login',
       };
 
       dispatch(setModal(modalData));
@@ -51,19 +52,18 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
         {!title.endsWith('목록') && <Link href={'/post/list'}>목록</Link>}
         {title.endsWith('게시물') && postAuthorId === userId && userId > -1 && (
           <>
-            <Link href={'/post/update'}>수정</Link>
+            <Link href={`/post/update/${postId}`}>수정</Link>
             <Link
-              href={''}
-              onClick={async () => {
-                const { success, message } = await deletePost(postId);
+              href={'#'}
+              onClick={async event => {
+                event.preventDefault();
 
                 const modalData: ModalState = {
-                  title: success ? '게시물 삭제 성공' : '게시물 삭제 실패',
-                  type: success ? 'confirm' : 'alert',
-                  success,
-                  message,
+                  title: '삭제 확인',
+                  type: 'prompt',
+                  message: '정말 삭제하시겠습니까?',
                   modalIsShow: true,
-                  path: '/post/list',
+                  leftPath: `/post/delete/${postId}`,
                 };
 
                 dispatch(setModal(modalData));
@@ -92,7 +92,7 @@ function getTitle(type: 'list' | 'write' | 'update', isLoggedIn: boolean) {
 }
 
 function checkAuth(type: 'list' | 'write' | 'update', isLoggedIn: boolean) {
-  if ((!isLoggedIn && type === 'write') || type === 'update') {
+  if ((!isLoggedIn && type === 'write') || (!isLoggedIn && type === 'update')) {
     return false;
   }
 
