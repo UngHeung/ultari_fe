@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BaseButton from '../common/BaseButton';
-import { setModal } from '../stores/reducer/modalRducer';
+import { ModalState, setModal } from '../stores/reducer/modalRducer';
 import AuthInput from './elements/AuthInput';
 import { handleSignUp } from './handlers/handleSignUp';
 import style from './styles/button.module.css';
@@ -20,20 +20,19 @@ const SignUp = () => {
 
           setDisabled(true);
 
-          const { status, success, message } = await handleSignUp(event);
+          const { success, message } = await handleSignUp(event);
 
-          dispatch(
-            setModal({
-              title: success ? '가입 성공' : '가입 실패',
-              success: success,
-              message: message,
-              modalIsShow: true,
-              type: success ? 'confirm' : 'alert',
-              path: success ? '/login' : '',
-            }),
-          );
+          const modalData: ModalState = {
+            title: success ? '가입 성공' : '가입 실패',
+            success: success,
+            message: message,
+            modalIsShow: true,
+            type: success ? 'confirm' : 'alert',
+            leftPath: success ? '/login' : '',
+          };
 
-          // success && router.replace('/login');
+          dispatch(setModal(modalData));
+
           setDisabled(false);
         }}
       >

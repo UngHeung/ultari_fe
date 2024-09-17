@@ -34,7 +34,7 @@ export async function handleSubmit(
     message,
     modalIsShow: true,
     type: success ? 'confirm' : 'alert',
-    path: success ? '/back' : '',
+    leftPath: success ? '/back' : '',
   };
 
   showModal(dispatch, modalData);
