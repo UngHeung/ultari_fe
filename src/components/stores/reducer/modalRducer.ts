@@ -6,16 +6,18 @@ export interface ModalState {
   type: modalType;
   success?: boolean;
   message: string;
-  path?: string;
+  leftPath?: string;
+  rightPath?: string;
   modalIsShow: boolean;
 }
 
 const initialState: ModalState = {
   title: '',
   type: 'alert',
-  success: false,
+  success: undefined,
   message: '',
-  path: '',
+  leftPath: '',
+  rightPath: '',
   modalIsShow: false,
 };
 
