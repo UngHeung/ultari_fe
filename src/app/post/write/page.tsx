@@ -3,9 +3,9 @@ import React from 'react';
 
 const writePage = () => {
   return (
-    <div>
-      <Write />
-    </div>
+    <>
+      <Write type={'new'} />
+    </>
   );
 };
 

@@ -49,10 +49,8 @@ function getDate(inputDate: string) {
 
 async function increaseViewCount(id: number) {
   const url = `${BASE_URL}/post/${id}/${POST_INCREASE_VIEWS}`;
-  console.log(url);
   try {
     const response = await authAxios.patch(url);
-    console.log('res => ', response);
   } catch (error: any) {
     console.log(error.response.data.message);
   }
