@@ -21,9 +21,8 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useDispatch();
   const post =
-    type === 'update' && useSelector((state: SliceOptions) => state.post);
-  const user =
-    type === 'update' && useSelector((state: SliceOptions) => state.user);
+    type === 'update' ? useSelector((state: SliceOptions) => state.post) : null;
+  const user = useSelector((state: SliceOptions) => state.user);
 
   return (
     <>
@@ -68,6 +67,7 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
             styleClass={style.title}
             type={'text'}
             placeholder={'제목'}
+            value={type === 'update' ? post?.title : ''}
           />
         </section>
         <section className={style.contentWrap}>
@@ -76,6 +76,7 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
             id=""
             className={style.content}
             placeholder={'내용'}
+            defaultValue={type === 'update' ? post?.content : ''}
           />
         </section>
         <section className={style.buttonWrap}>

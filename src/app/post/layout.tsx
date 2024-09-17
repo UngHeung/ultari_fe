@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
+import { resetPost } from '@/components/stores/reducer/postReducer';
 
 export type PostPageType = 'list' | 'write' | 'update';
 
@@ -41,6 +42,12 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       dispatch(setModal(modalData));
     }
   }, [pathname]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetPost());
+    };
+  }, []);
 
   return (
     <>
