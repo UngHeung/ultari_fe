@@ -19,12 +19,12 @@ const logoutPage = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      router.back();
+      router.replace('/login');
       return;
     }
 
     logoutProcess(dispatch);
-  });
+  }, []);
 
   return <></>;
 };
@@ -40,7 +40,7 @@ async function logoutProcess(dispatch: Dispatch) {
     message: message,
     modalIsShow: true,
     type: success ? 'confirm' : 'alert',
-    path: '/login',
+    leftPath: '/login',
   };
 
   showModal(dispatch, modalData);
