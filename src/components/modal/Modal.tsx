@@ -21,7 +21,7 @@ const Modal = () => {
       ? 'dark'
       : 'light',
   );
-  const { title, type, success, message, path } = useSelector(
+  const { title, type, success, message, leftPath, rightPath } = useSelector(
     (state: SliceOptions) => state?.modal,
   );
 
@@ -59,10 +59,19 @@ const Modal = () => {
           <section className={style.imageWrap}>
             <Image
               src={modalSuccess}
-              width={100}
+              width={150}
               height={50}
-              style={{ objectPosition: success ? 0 : -50 }}
-              alt={success ? '모달 성공 이미지' : '모달 실패 이미지'}
+              style={{
+                objectPosition:
+                  success === undefined ? -100 : success ? 0 : -50,
+              }}
+              alt={
+                success === undefined
+                  ? '모달 의사 확인 이미지'
+                  : success
+                    ? '모달 성공 이미지'
+                    : '모달 실패 이미지'
+              }
             />
           </section>
           <section className={style.messageWrap}>
@@ -70,7 +79,7 @@ const Modal = () => {
           </section>
           <footer className={style.modalFooter}>
             <div className={style.buttonWrap}>
-              {type === 'confirm' ? (
+              {(type === 'confirm' || type === 'prompt') && (
                 <ModalButton
                   type={'button'}
                   value={'확인'}
@@ -78,14 +87,16 @@ const Modal = () => {
                   autoFocus={true}
                   onClick={() => {
                     dispatch(resetModal());
-                    if (path === '/back') {
-                      router.back();
-                    } else if (path?.length) {
-                      router.push(path);
+
+                    if (leftPath) {
+                      leftPath === '/back'
+                        ? router.back()
+                        : router.push(leftPath);
                     }
                   }}
                 />
-              ) : type === 'alert' ? (
+              )}
+              {(type === 'alert' || type === 'prompt') && (
                 <ModalButton
                   type={'button'}
                   value={'취소'}
@@ -93,10 +104,15 @@ const Modal = () => {
                   autoFocus={true}
                   onClick={() => {
                     dispatch(resetModal());
-                    path && router.push(path);
+
+                    if (type === 'alert') {
+                      leftPath && router.push(leftPath);
+                    } else if (type === 'prompt') {
+                      rightPath && router.push(rightPath);
+                    }
                   }}
                 />
-              ) : null}
+              )}
             </div>
           </footer>
         </article>
