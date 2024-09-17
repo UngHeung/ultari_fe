@@ -22,7 +22,8 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
   const dispatch = useDispatch();
   const post =
     type === 'update' && useSelector((state: SliceOptions) => state.post);
-  console.log(post);
+  const user =
+    type === 'update' && useSelector((state: SliceOptions) => state.user);
 
   return (
     <>
@@ -38,7 +39,7 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
             +updatePostId,
           );
 
-          dispatch(setPost(data));
+          dispatch(setPost({ ...data, author: user }));
 
           const postId = data?.id;
 
