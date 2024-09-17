@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL, POST_INCREASE_VIEWS } from '../common/constants/pathConst';
-import { resetPost, setPost } from '../stores/reducer/postReducer';
+import { setPost } from '../stores/reducer/postReducer';
 import style from './styles/detail.module.css';
 
 const Detail = () => {
@@ -24,13 +24,9 @@ const Detail = () => {
       }
     })();
 
-    if (authorId && authorId !== userId) {
+    if (authorId !== -1 && userId !== -1 && authorId !== userId) {
       increaseViewCount(post.id);
     }
-
-    return () => {
-      dispatch(resetPost());
-    };
   }, []);
 
   return (
