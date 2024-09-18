@@ -5,6 +5,7 @@ import {
 import { Dispatch } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserDataFromToken } from '../auth/functions/getUserDataFromToken';
 import {
   setAccessToken,
   setRefreshToken,
@@ -14,7 +15,6 @@ import { SliceOptions } from '../stores/constants/stateOptions';
 import { setUser } from '../stores/reducer/userReducer';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
-import { getUserDataFromToken } from '../auth/functions/getUserDataFromToken';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
