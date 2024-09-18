@@ -9,7 +9,6 @@ import {
 
 export const fileUploadAxios = axios.create({
   baseURL: BASE_URL,
-  timeout: 1000,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
@@ -22,5 +21,5 @@ fileUploadAxios.interceptors.request.use(
 
 fileUploadAxios.interceptors.response.use(
   response => callbackResponse(response),
-  async error => callbackResponseError(error),
+  async error => callbackResponseError(error, true),
 );
