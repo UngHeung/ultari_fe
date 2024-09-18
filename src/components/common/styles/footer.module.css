@@ -4,6 +4,7 @@
   width: var(--width-footer);
   height: var(--height-footer);
   background-color: var(--background-color-footer);
+  z-index: 99999;
 }
 
 .footerWrap {

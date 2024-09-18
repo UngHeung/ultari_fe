@@ -4,6 +4,7 @@
   width: var(--width-header);
   height: var(--height-header);
   background-color: var(--background-color-header);
+  z-index: 99999;
 }
 
 .headerWrap {

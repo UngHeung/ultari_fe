@@ -1,3 +1,5 @@
+import { ImageOptions } from '@/components/common/ImagesSlider';
+
 export interface PostAuthor {}
 
 export interface PostOptions {
@@ -9,7 +11,7 @@ export interface PostOptions {
   likeCount: number;
   viewCount: number;
   author: any;
-  images?: string[];
+  images?: ImageOptions[];
   createAt: Date | string;
   updateAt: Date | string;
 }

@@ -1,9 +1,11 @@
 import { authAxios } from '@/apis/axiosAuth';
+import slideStyle from '@/components/common/styles/imageSlider.module.css';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL, POST_INCREASE_VIEWS } from '../common/constants/pathConst';
+import ImagesSlider from '../common/ImagesSlider';
 import { setPost } from '../stores/reducer/postReducer';
 import style from './styles/detail.module.css';
 
@@ -39,6 +41,13 @@ const Detail = () => {
         )}
       </section>
       <section className={style.contentWrap}>
+        <ImagesSlider
+          folder={'post'}
+          images={post.images!}
+          width={600}
+          height={400}
+          styleModule={slideStyle}
+        />
         <pre className={style.content}>{post.content}</pre>
       </section>
       <section className={style.buttonWrap}>
