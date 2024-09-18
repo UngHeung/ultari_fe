@@ -2,13 +2,14 @@
 
 import modalCloseButton from '@/public/images/modal_close_button.png';
 import modalSuccess from '@/public/images/modal_success.png';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PUBLIC_IMAGE_PATH } from '../common/constants/pathConst';
 import { SliceOptions } from '../stores/constants/stateOptions';
-import { resetModal } from '../stores/reducer/modalRducer';
+import { resetModal, RouterType } from '../stores/reducer/modalRducer';
 import { modalType } from './constants/modalConst';
 import ModalButton from './ModalButton';
 import style from './styles/modal.module.css';
@@ -21,9 +22,8 @@ const Modal = () => {
       ? 'dark'
       : 'light',
   );
-  const { title, type, success, message, leftPath, rightPath } = useSelector(
-    (state: SliceOptions) => state?.modal,
-  );
+  const { title, type, success, message, routerType, leftPath, rightPath } =
+    useSelector((state: SliceOptions) => state?.modal);
 
   useEffect(() => {
     window
@@ -88,11 +88,7 @@ const Modal = () => {
                   onClick={() => {
                     dispatch(resetModal());
 
-                    if (leftPath) {
-                      leftPath === '/back'
-                        ? router.back()
-                        : router.push(leftPath);
-                    }
+                    routerMapper(router, routerType, leftPath ?? '');
                   }}
                 />
               )}
@@ -106,9 +102,9 @@ const Modal = () => {
                     dispatch(resetModal());
 
                     if (type === 'alert') {
-                      leftPath && router.push(leftPath);
+                      routerMapper(router, routerType, leftPath ?? '');
                     } else if (type === 'prompt') {
-                      rightPath && router.push(rightPath);
+                      routerMapper(router, routerType, rightPath ?? '');
                     }
                   }}
                 />
@@ -132,5 +128,19 @@ export const getModalImage = (type: modalType): string => {
     return '';
   }
 };
+
+function routerMapper(
+  router: AppRouterInstance,
+  routerType: RouterType,
+  path: string,
+) {
+  if (routerType === 'back') {
+    router.back();
+  } else if (routerType === 'push') {
+    router.push(path);
+  } else if (routerType === 'replace') {
+    router.replace(path);
+  }
+}
 
 export default Modal;
