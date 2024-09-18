@@ -1,0 +1,32 @@
+.imageSlider {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-top: var(--margin-content);
+  overflow: hidden;
+}
+
+.imageList {
+  display: flex;
+  position: relative;
+  transition: left .3s
+}
+
+.image {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.buttonWrap {
+  position: absolute;
+  bottom: var(--margin-content);
+  left: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--margin-content);
+  transform: translateX(-50%);
+  z-index: 1;
+}
