@@ -27,6 +27,7 @@ const SignUp = () => {
             success: success,
             message: message,
             modalIsShow: true,
+            routerType: 'replace',
             type: success ? 'confirm' : 'alert',
             leftPath: success ? '/login' : '',
           };

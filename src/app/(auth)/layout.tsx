@@ -18,15 +18,15 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     const type = pathname.slice(1);
 
     if (type === 'sign') {
-      !isLoggedIn ? setTitle('회원 가입') : router.replace('/');
+      !isLoggedIn ? setTitle('회원 가입') : router.back();
     } else if (type === 'login') {
-      !isLoggedIn ? setTitle('로그인') : router.replace('/');
+      !isLoggedIn ? setTitle('로그인') : router.back();
     } else if (type === 'forgot/account') {
       isLoggedIn ? setTitle('아이디 찾기') : router.replace('/');
     } else if (type === 'forgot/password') {
       isLoggedIn ? setTitle('비밀번호 찾기') : router.replace('/');
     }
-  }, [pathname]);
+  }, [pathname, isLoggedIn]);
 
   return (
     <>
