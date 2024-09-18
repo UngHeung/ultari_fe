@@ -36,6 +36,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
         success: false,
         message: '로그인 후 사용 가능합니다.',
         modalIsShow: true,
+        routerType: 'push',
         leftPath: '/login',
       };
 
@@ -70,6 +71,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
                   type: 'prompt',
                   message: '정말 삭제하시겠습니까?',
                   modalIsShow: true,
+                  routerType: 'replace',
                   leftPath: `/post/delete/${postId}`,
                 };
 
