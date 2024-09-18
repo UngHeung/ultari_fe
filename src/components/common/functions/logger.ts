@@ -1,12 +1,26 @@
-import pino from 'pino';
+import pino, { Logger } from 'pino';
+
+export type LoggerType =
+  | 'trace'
+  | 'debug'
+  | 'info'
+  | 'warn'
+  | 'error'
+  | 'fatal';
 
 const logger = {
-  trace: pino({ level: 'trace' }).trace,
-  debug: pino({ level: 'debug' }).debug,
-  info: pino({ level: 'info' }).info,
-  warn: pino({ level: 'warn' }).warn,
-  error: pino({ level: 'error' }).error,
-  fatal: pino({ level: 'fatal' }).fatal,
+  trace: getLogger('trace').trace,
+  debug: getLogger('debug').debug,
+  info: getLogger('info').info,
+  warn: getLogger('warn').warn,
+  error: getLogger('error').error,
+  fatal: getLogger('fatal').fatal,
 };
+
+function getLogger(level: LoggerType): Logger {
+  return pino({
+    level,
+  });
+}
 
 export default logger;

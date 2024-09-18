@@ -6,16 +6,20 @@ export interface ModalState {
   type: modalType;
   success?: boolean;
   message: string;
+  routerType: RouterType;
   leftPath?: string;
   rightPath?: string;
   modalIsShow: boolean;
 }
+
+export type RouterType = 'push' | 'replace' | 'back' | undefined;
 
 const initialState: ModalState = {
   title: '',
   type: 'alert',
   success: undefined,
   message: '',
+  routerType: undefined,
   leftPath: '',
   rightPath: '',
   modalIsShow: false,
