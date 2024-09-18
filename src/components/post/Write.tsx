@@ -10,6 +10,7 @@ import { setPost } from '../stores/reducer/postReducer';
 import PostButton from './elements/PostButton';
 import PostInput from './elements/PostInput';
 import { handleUploadPost } from './handlers/handleUploadPost';
+import ImageUploadForm from './ImageUploadForm';
 import style from './styles/write.module.css';
 
 export type PostWriteTypes = 'new' | 'update';
@@ -19,6 +20,7 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
   const pathname = usePathname();
   const updatePostId = type === 'update' && pathname.split('/')[3];
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
   const dispatch = useDispatch();
   const post =
     type === 'update' ? useSelector((state: SliceOptions) => state.post) : null;
@@ -26,15 +28,19 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
 
   return (
     <>
+      <ImageUploadForm setSelectedFilenames={setSelectedFilenames} />
       <form
         onSubmit={async event => {
           event.preventDefault();
 
           setDisabled(true);
 
+          console.log(selectedFilenames);
+
           const { data, success, message } = await handleUploadPost(
             event,
             type,
+            selectedFilenames,
             +updatePostId,
           );
 
