@@ -39,6 +39,7 @@ async function postDeleteProcess(dispatch: Dispatch, postId: number) {
     success,
     message,
     modalIsShow: true,
+    routerType: 'replace',
     leftPath: '/post/list',
   };
 
