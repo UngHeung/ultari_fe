@@ -40,7 +40,8 @@ async function logoutProcess(dispatch: Dispatch) {
     message: message,
     modalIsShow: true,
     type: success ? 'confirm' : 'alert',
-    leftPath: '/login',
+    routerType: 'replace',
+    leftPath: '/',
   };
 
   showModal(dispatch, modalData);
