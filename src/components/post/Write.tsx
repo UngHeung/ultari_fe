@@ -50,6 +50,7 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
             message,
             modalIsShow: true,
             type: success ? 'confirm' : 'alert',
+            routerType: 'replace',
             leftPath: success
               ? type === 'new'
                 ? `/post/${postId}`
