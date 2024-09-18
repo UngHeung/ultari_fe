@@ -6,12 +6,14 @@ import { PostWriteTypes } from '../Write';
 export const handleUploadPost = async (
   event: FormEvent<HTMLFormElement>,
   type: PostWriteTypes,
+  images?: string[],
   updatePostId?: number,
 ) => {
   const formData = new FormData(event.currentTarget);
   const title = formData.get('title');
   const content = formData.get('content');
-  const data = { title, content };
+  const data = { title, content, images };
+  console.log('postupload : ', data);
   const url = `${BASE_URL}/post/${type === 'update' ? updatePostId : ''}`;
 
   try {
