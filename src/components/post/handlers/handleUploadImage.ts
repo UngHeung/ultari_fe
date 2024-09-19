@@ -1,7 +1,7 @@
 import { fileUploadAxios } from '@/apis/axiosUploadFile';
 import { BASE_URL } from '@/components/common/constants/pathConst';
 
-export const handleUploadImage = async (files: FileList) => {
+const handleUploadImage = async (files: FileList) => {
   const formData = new FormData();
 
   for (let i = 0; i < files.length; i++) {
@@ -26,3 +26,5 @@ export const handleUploadImage = async (files: FileList) => {
     };
   }
 };
+
+export default handleUploadImage;

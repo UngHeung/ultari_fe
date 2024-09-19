@@ -97,7 +97,6 @@ async function getPostList(
 
   if (findOptions.length) {
     url = `${BASE_URL}/post?${findOptions}`;
-    console.log('fo -> ', url);
   } else {
     url = path.length ? path : `${BASE_URL}/post?order__createAt=${orderBy}`;
   }

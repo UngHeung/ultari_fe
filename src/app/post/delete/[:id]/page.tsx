@@ -1,24 +1,23 @@
 'use client';
 
-import { deletePost } from '@/components/post/functions/deletePost';
+import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
+import handleDeletePost from '@/components/post/handlers/handleDeletePost';
 import { SliceOptions } from '@/components/stores/constants/stateOptions';
 import { ModalState, setModal } from '@/components/stores/reducer/modalRducer';
 import { Dispatch } from '@reduxjs/toolkit';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const deletePage = () => {
+const deletePage = ({ params }: ParamsOptions) => {
+  const postId = params[':id'];
   const dispatch = useDispatch();
   const router = useRouter();
-  const pathname = usePathname();
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state.user?.isLoggedIn ?? false,
   );
 
   useEffect(() => {
-    const postId = +pathname.split('/')[3];
-
     if (!isLoggedIn) {
       router.back();
       return;
@@ -31,7 +30,7 @@ const deletePage = () => {
 };
 
 async function postDeleteProcess(dispatch: Dispatch, postId: number) {
-  const { success, message } = await deletePost(postId);
+  const { status, success, message } = await handleDeletePost(postId);
 
   const secondModalData: ModalState = {
     title: success ? '게시물 삭제 성공' : '게시물 삭제 실패',

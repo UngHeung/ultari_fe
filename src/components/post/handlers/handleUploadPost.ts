@@ -3,7 +3,7 @@ import { BASE_URL } from '@/components/common/constants/pathConst';
 import { FormEvent } from 'react';
 import { PostWriteTypes } from '../Write';
 
-export const handleUploadPost = async (
+const handleUploadPost = async (
   event: FormEvent<HTMLFormElement>,
   type: PostWriteTypes,
   images?: string[],
@@ -13,7 +13,6 @@ export const handleUploadPost = async (
   const title = formData.get('title');
   const content = formData.get('content');
   const data = { title, content, images };
-  console.log('postupload : ', data);
   const url = `${BASE_URL}/post/${type === 'update' ? updatePostId : ''}`;
 
   try {
@@ -44,3 +43,5 @@ export const handleUploadPost = async (
     };
   }
 };
+
+export default handleUploadPost;

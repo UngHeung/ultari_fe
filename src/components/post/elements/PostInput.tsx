@@ -1,7 +1,5 @@
-import { BaseInputOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
 import BaseInput from '../../common/BaseInput';
-
-export interface PostInputOptions extends BaseInputOptions {}
+import { PostInputOptions } from '../interfaces/postInterfaces';
 
 const PostInput = (props: PostInputOptions) => {
   return (

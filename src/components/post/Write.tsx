@@ -9,7 +9,7 @@ import { ModalState } from '../stores/reducer/modalRducer';
 import { setPost } from '../stores/reducer/postReducer';
 import PostButton from './elements/PostButton';
 import PostInput from './elements/PostInput';
-import { handleUploadPost } from './handlers/handleUploadPost';
+import handleUploadPost from './handlers/handleUploadPost';
 import ImageUploadForm from './ImageUploadForm';
 import style from './styles/write.module.css';
 
@@ -34,8 +34,6 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
           event.preventDefault();
 
           setDisabled(true);
-
-          console.log(selectedFilenames);
 
           const { data, success, message } = await handleUploadPost(
             event,

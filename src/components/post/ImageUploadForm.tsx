@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import PostButton from './elements/PostButton';
-import { handleUploadImage } from './handlers/handleUploadImage';
-import style from './styles/write.module.css';
-import { ModalState } from '../stores/reducer/modalRducer';
-import { showModal } from '../common/functions/showModal';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { showModal } from '../common/functions/showModal';
+import { ModalState } from '../stores/reducer/modalRducer';
+import PostButton from './elements/PostButton';
+import handleUploadImage from './handlers/handleUploadImage';
+import style from './styles/write.module.css';
 
 const ImageUploadForm = ({
   setSelectedFilenames,
@@ -54,7 +54,10 @@ const ImageUploadForm = ({
               name={'images'}
               id={'imageUpload'}
               accept={'image/png, image/jpeg, image/jpg, image/gif'}
-              onChange={event => postFileHandler(event, setSelectedFiles)}
+              onChange={event => {
+                event.preventDefault();
+                setSelectedFiles(event.target.files);
+              }}
               style={{ display: 'none' }}
               multiple
             />
@@ -86,13 +89,5 @@ const ImageUploadForm = ({
     </>
   );
 };
-
-function postFileHandler(
-  event: ChangeEvent<HTMLInputElement>,
-  setSelectedFiles: any,
-) {
-  event.preventDefault();
-  setSelectedFiles(event.target.files);
-}
 
 export default ImageUploadForm;

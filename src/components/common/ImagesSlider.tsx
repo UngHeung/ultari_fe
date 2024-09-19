@@ -1,4 +1,6 @@
-import { MouseEventHandler, useEffect, useState } from 'react';
+'use client';
+
+import { useEffect, useState } from 'react';
 import ImageItem, { ImageFolderTypes } from './ImageSlideItem';
 import style from './styles/imageSlider.module.css';
 
@@ -27,7 +29,7 @@ const ImagesSlider = ({
   styleModule: any;
 }) => {
   const [imagePosition, setImagePosition] = useState<number>(0);
-  const imageCount: number = images.length;
+  const imageCount: number = images?.length;
   const slideWidth: number = -(width * imageCount);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ const ImagesSlider = ({
             width: slideWidth,
           }}
         >
-          {images.map(image => {
+          {images?.map(image => {
             const filename = image.path.split('/')[3];
 
             return (
