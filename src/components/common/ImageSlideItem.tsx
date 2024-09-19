@@ -1,6 +1,5 @@
 import Image from 'next/image';
-
-export type ImageFolderTypes = 'post' | 'profile';
+import { ImageFolderTypes } from './constants/commonConst';
 
 const ImageSlideItem = ({
   folder,

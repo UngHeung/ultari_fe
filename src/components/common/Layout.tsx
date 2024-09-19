@@ -5,13 +5,13 @@ import {
 import { Dispatch } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDataFromToken } from '../auth/functions/getUserDataFromToken';
+import getUserDataFromToken from '../auth/functions/getUserDataFromToken';
 import {
   setAccessToken,
   setRefreshToken,
 } from '../auth/functions/tokenInteract';
 import Modal from '../modal/Modal';
-import { SliceOptions } from '../stores/constants/stateOptions';
+import { SliceOptions } from '../stores/interfaces/stateInterface';
 import { setUser } from '../stores/reducer/userReducer';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';

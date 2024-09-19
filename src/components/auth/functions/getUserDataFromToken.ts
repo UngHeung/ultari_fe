@@ -1,6 +1,6 @@
 import { getAccessToken } from './tokenInteract';
 
-export function getUserDataFromToken() {
+function getUserDataFromToken() {
   const payload = getAccessToken().split('.')[1];
   const buffer = Buffer.from(payload, 'base64');
   const dataString = buffer.toString().replaceAll(/['"]/g, '');
@@ -12,3 +12,5 @@ export function getUserDataFromToken() {
     role: dataParts[2].split(':')[1],
   };
 }
+
+export default getUserDataFromToken;

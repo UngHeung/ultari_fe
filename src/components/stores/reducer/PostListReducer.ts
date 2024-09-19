@@ -1,27 +1,7 @@
-import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { createSlice } from '@reduxjs/toolkit';
+import { PostListState } from '../interfaces/stateInterface';
 
-export type OrderTypes = 'DESC' | 'ASC';
-
-export interface PostListOptions {
-  asc: {
-    list: PostOptions[];
-    count: number;
-    lastIndex: number;
-    next: string;
-  };
-  desc: {
-    list: PostOptions[];
-    count: number;
-    lastIndex: number;
-    next: string;
-  };
-  orderBy: {
-    type: OrderTypes;
-  };
-}
-
-const initialState: PostListOptions = {
+const initialState: PostListState = {
   asc: {
     list: [],
     count: 0,

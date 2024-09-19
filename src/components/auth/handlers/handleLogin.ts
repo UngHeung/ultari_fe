@@ -6,7 +6,7 @@ import { TokenPrefixEnum } from '../constants/tokenEnum';
 import { setAccessToken, setRefreshToken } from '../functions/tokenInteract';
 import { validateLogin } from '../validators/authValidators';
 
-export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
   const formData = new FormData(event.currentTarget);
   const data = {
     account: formData.get(LoginOptionsEnum.ACCOUNT) as string,
@@ -22,11 +22,10 @@ export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     };
   }
 
-  const prefix = TokenPrefixEnum.BASIC;
-  const base64String = Buffer.from(`${data.account}:${data.password}`).toString(
-    'base64',
+  const basicToken = getBasicTokenByAccountAndPassword(
+    data.account,
+    data.password,
   );
-  const basicToken = `${prefix} ${base64String}`;
 
   const url = `${BASE_URL}/${LOGIN_PATH}`;
 
@@ -52,3 +51,13 @@ export const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     };
   }
 };
+
+function getBasicTokenByAccountAndPassword(account: string, password: string) {
+  const prefix = TokenPrefixEnum.BASIC;
+  const base64String = Buffer.from(`${account}:${password}`).toString('base64');
+  const basicToken = `${prefix} ${base64String}`;
+
+  return basicToken;
+}
+
+export default handleLogin;

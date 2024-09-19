@@ -7,21 +7,22 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PUBLIC_IMAGE_PATH } from '../common/constants/pathConst';
-import { SliceOptions } from '../stores/constants/stateOptions';
-import { resetModal, RouterType } from '../stores/reducer/modalRducer';
-import { modalType } from './constants/modalConst';
+import { RouterType } from '../stores/constants/stateOptions';
+import { SliceOptions } from '../stores/interfaces/stateInterface';
+import { resetModal } from '../stores/reducer/modalRducer';
 import ModalButton from './ModalButton';
 import style from './styles/modal.module.css';
 
 const Modal = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const [theme, setTheme] = useState<'dark' | 'light'>(
     window.matchMedia('(prefers-color-scheme: dark)').matches
       ? 'dark'
       : 'light',
   );
+
   const { title, type, success, message, routerType, leftPath, rightPath } =
     useSelector((state: SliceOptions) => state?.modal);
 
@@ -115,18 +116,6 @@ const Modal = () => {
       </div>
     </>
   );
-};
-
-export const getModalImage = (type: modalType): string => {
-  if (type === 'alert') {
-    return `${PUBLIC_IMAGE_PATH}/modal_success.png`;
-  } else if (type === 'confirm') {
-    return 'confirm';
-  } else if (type === 'prompt') {
-    return 'prompt';
-  } else {
-    return '';
-  }
 };
 
 function routerMapper(

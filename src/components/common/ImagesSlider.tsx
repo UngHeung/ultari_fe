@@ -1,19 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import ImageItem, { ImageFolderTypes } from './ImageSlideItem';
+import { ImageFolderTypes } from './constants/commonConst';
+import ImageItem from './ImageSlideItem';
+import { ImageOptions } from './interfaces/commonInterface';
 import style from './styles/imageSlider.module.css';
-
-export type ImageTypes = 'postImage' | 'profileImage';
-
-export interface ImageOptions {
-  id: number;
-  order: number;
-  type: ImageTypes;
-  path: string;
-  createAt: Date;
-  updateAt: Date;
-}
 
 const ImagesSlider = ({
   folder,

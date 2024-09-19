@@ -1,7 +1,7 @@
 import { authAxios } from '@/apis/axiosAuth';
 import { BASE_URL, MY_INFO } from '@/components/common/constants/pathConst';
 
-export const getMyInfo = async () => {
+const handleGetMyInfo = async () => {
   try {
     const response = await authAxios.get(`${BASE_URL}/${MY_INFO}`);
     return {
@@ -18,3 +18,5 @@ export const getMyInfo = async () => {
     };
   }
 };
+
+export default handleGetMyInfo;

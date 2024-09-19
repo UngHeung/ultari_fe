@@ -1,7 +1,5 @@
 import BaseButton from '../common/BaseButton';
-import { BaseButtonOptions } from '../common/interfaces/BaseElementsInterfaces';
-
-export interface ModalButtonOptions extends BaseButtonOptions {}
+import { ModalButtonOptions } from './interfaces/modalInterface';
 
 const ModalButton = ({
   id,

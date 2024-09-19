@@ -1,28 +1,33 @@
 'use client';
 
-import { SliceOptions } from '@/components/stores/constants/stateOptions';
-import { ModalState, setModal } from '@/components/stores/reducer/modalRducer';
+import {
+  ModalState,
+  SliceOptions,
+} from '@/components/stores/interfaces/stateInterface';
+import { setModal } from '@/components/stores/reducer/modalRducer';
+import { resetPost } from '@/components/stores/reducer/postReducer';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
-import { resetPost } from '@/components/stores/reducer/postReducer';
 
 export type PostPageType = 'list' | 'write' | 'update';
 
 const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const [title, setTitle] = useState<string>('');
+
   const userId = useSelector((state: SliceOptions) => state.user.id);
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state.user?.isLoggedIn ?? false,
   );
+
   const postId = useSelector((state: SliceOptions) => state.post.id);
   const postAuthorId = useSelector(
     (state: SliceOptions) => state.post.author?.id,
   );
-  const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
     const type: PostPageType = pathname.slice(1).split('/')[1] as PostPageType;

@@ -1,7 +1,7 @@
-import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { createSlice } from '@reduxjs/toolkit';
+import { PostState } from '../interfaces/stateInterface';
 
-const initialState: PostOptions = {
+const initialState: PostState = {
   id: -1,
   title: '',
   content: '',

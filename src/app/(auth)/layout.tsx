@@ -1,15 +1,16 @@
 'use client';
 
-import { SliceOptions } from '@/components/stores/constants/stateOptions';
+import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import style from './layout.module.css';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const [title, setTitle] = useState<string>('');
   const pathname = usePathname();
   const router = useRouter();
+  const [title, setTitle] = useState<string>('');
+
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state?.user?.isLoggedIn ?? false,
   );

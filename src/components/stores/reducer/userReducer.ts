@@ -1,18 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface UserOptions {
-  id: number;
-  account: string;
-  name: string;
-  phone: string;
-  email: string;
-  profile?: string;
-  role: string;
-  isLoggedIn: boolean;
-}
-
-export interface UserState
-  extends Pick<UserOptions, 'id' | 'name' | 'role' | 'isLoggedIn'> {}
+import { UserState } from '../interfaces/stateInterface';
 
 const initialState: UserState = {
   id: -1,
