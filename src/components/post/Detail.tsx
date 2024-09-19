@@ -18,13 +18,15 @@ const Detail = async ({ postId }: { postId: number }) => {
         )}
       </section>
       <section className={style.contentWrap}>
-        <ImagesSlider
-          folder={'post'}
-          images={postData?.images!}
-          width={600}
-          height={400}
-          styleModule={slideStyle}
-        />
+        {postData && (
+          <ImagesSlider
+            folder={'post'}
+            images={postData?.images!}
+            width={600}
+            height={400}
+            styleModule={slideStyle}
+          />
+        )}
         <pre className={style.content}>{postData?.content}</pre>
       </section>
       <DetailLikeCount
