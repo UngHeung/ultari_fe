@@ -1,11 +1,12 @@
-'use client';
-
+import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
 import Detail from '../../../components/post/Detail';
 
-const postPage = () => {
+const postPage = ({ params }: ParamsOptions) => {
+  const postId = params[':id'];
+
   return (
     <>
-      <Detail />
+      <Detail postId={postId} />
     </>
   );
 };
