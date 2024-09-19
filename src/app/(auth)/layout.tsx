@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux';
 import style from './layout.module.css';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+  const [title, setTitle] = useState<string>('');
   const pathname = usePathname();
   const router = useRouter();
-  const [title, setTitle] = useState<string>('');
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state?.user?.isLoggedIn ?? false,
   );

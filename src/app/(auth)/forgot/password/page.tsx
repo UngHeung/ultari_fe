@@ -1,5 +1,6 @@
+'use client';
+
 import ForgotPassword from '@/components/auth/ForgotPassword';
-import React from 'react';
 
 const forgotPasswordPage = () => {
   return (
