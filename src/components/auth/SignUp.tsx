@@ -2,15 +2,17 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BaseButton from '../common/BaseButton';
-import { ModalState, setModal } from '../stores/reducer/modalRducer';
+import { ModalState } from '../stores/interfaces/stateInterface';
+import { setModal } from '../stores/reducer/modalRducer';
 import AuthInput from './elements/AuthInput';
 import { handleSignUp } from './handlers/handleSignUp';
 import style from './styles/button.module.css';
 
 const SignUp = () => {
   const router = useRouter();
-  const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useDispatch();
+
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   return (
     <>

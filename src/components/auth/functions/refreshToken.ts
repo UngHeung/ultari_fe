@@ -9,7 +9,7 @@ import { setAccessToken, setRefreshToken } from './tokenInteract';
  * access token : true
  * refresh token : false
  */
-export const refreshToken = async (isAccess: boolean) => {
+const refreshToken = async (isAccess: boolean) => {
   try {
     if (isAccess) {
       const newAccessToken = await reissueAccessToken();
@@ -30,3 +30,5 @@ export const refreshToken = async (isAccess: boolean) => {
     };
   }
 };
+
+export default refreshToken;

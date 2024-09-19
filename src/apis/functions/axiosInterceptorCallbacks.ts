@@ -1,10 +1,10 @@
-import { refreshToken } from '@/components/auth/functions/refreshToken';
 import {
   getAccessToken,
   getRefreshToken,
 } from '@/components/auth/functions/tokenInteract';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { authAxios } from '../axiosAuth';
+import refreshToken from '@/components/auth/functions/refreshToken';
 
 /**
  * @param config

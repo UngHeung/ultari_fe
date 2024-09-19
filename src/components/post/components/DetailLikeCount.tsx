@@ -1,26 +1,27 @@
 'use client';
 
-import { useState } from 'react';
-
 import { authAxios } from '@/apis/axiosAuth';
 import { BASE_URL } from '@/components/common/constants/pathConst';
-import { SliceOptions } from '@/components/stores/constants/stateOptions';
-import { ModalState, setModal } from '@/components/stores/reducer/modalRducer';
+import {
+  ModalState,
+  SliceOptions,
+} from '@/components/stores/interfaces/stateInterface';
+import { setModal } from '@/components/stores/reducer/modalRducer';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DetailLikeCountOptions } from '../interfaces/postInterfaces';
 import style from '../styles/detail.module.css';
 
 const DetailLikeCount = ({
   authorId,
   postId,
   likeCount,
-}: {
-  authorId: number;
-  postId: number;
-  likeCount: number;
-}) => {
-  const userId = useSelector((state: SliceOptions) => state.user.id);
-  const [countState, setCountState] = useState<number>(likeCount);
+}: DetailLikeCountOptions) => {
   const dispatch = useDispatch();
+
+  const [countState, setCountState] = useState<number>(likeCount);
+
+  const userId = useSelector((state: SliceOptions) => state.user.id);
 
   return (
     <>

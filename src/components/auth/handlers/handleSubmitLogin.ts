@@ -1,10 +1,13 @@
-import { showModal } from '@/components/common/functions/showModal';
-import { ModalState } from '@/components/stores/reducer/modalRducer';
-import { UserState, setUser } from '@/components/stores/reducer/userReducer';
+import showModal from '@/components/common/functions/showModal';
+import {
+  ModalState,
+  UserState,
+} from '@/components/stores/interfaces/stateInterface';
+import { setUser } from '@/components/stores/reducer/userReducer';
 import { Dispatch } from '@reduxjs/toolkit';
 import { FormEvent } from 'react';
-import { getUserDataFromToken } from '../functions/getUserDataFromToken';
-import { handleLogin } from './handleLogin';
+import getUserDataFromToken from '../functions/getUserDataFromToken';
+import handleLogin from './handleLogin';
 
 export async function handleSubmit(
   event: FormEvent<HTMLFormElement>,
@@ -29,7 +32,6 @@ export async function handleSubmit(
   }
 
   const modalData: ModalState = {
-    title: success ? '로그인 성공' : '로그인 실패',
     success,
     message,
     modalIsShow: true,

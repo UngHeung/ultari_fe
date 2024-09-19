@@ -1,12 +1,12 @@
 import slideStyle from '@/components/common/styles/imageSlider.module.css';
 import ImagesSlider from '../common/ImagesSlider';
+import { PostState } from '../stores/interfaces/stateInterface';
 import DetailLikeCount from './components/DetailLikeCount';
 import handleGetPost from './handlers/handleGetPost';
-import { PostOptions } from './interfaces/postInterfaces';
 import style from './styles/detail.module.css';
 
 const Detail = async ({ postId }: { postId: number }) => {
-  const postData: PostOptions = await handleGetPost(postId);
+  const postData: PostState = (await handleGetPost(postId)).data!;
 
   return (
     <>

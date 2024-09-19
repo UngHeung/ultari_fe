@@ -1,6 +1,9 @@
-import { ModalState, setModal } from '@/components/stores/reducer/modalRducer';
+import { ModalState } from '@/components/stores/interfaces/stateInterface';
+import { setModal } from '@/components/stores/reducer/modalRducer';
 import { Dispatch } from '@reduxjs/toolkit';
 
-export const showModal = (dispatch: Dispatch, modalData: ModalState) => {
+const showModal = (dispatch: Dispatch, modalData: ModalState) => {
   dispatch(setModal(modalData));
 };
+
+export default showModal;

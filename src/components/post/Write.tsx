@@ -3,17 +3,15 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { showModal } from '../common/functions/showModal';
-import { SliceOptions } from '../stores/constants/stateOptions';
-import { ModalState } from '../stores/reducer/modalRducer';
+import showModal from '../common/functions/showModal';
+import { ModalState, SliceOptions } from '../stores/interfaces/stateInterface';
 import { setPost } from '../stores/reducer/postReducer';
+import { PostWriteTypes } from './constants/postInterface';
 import PostButton from './elements/PostButton';
 import PostInput from './elements/PostInput';
 import handleUploadPost from './handlers/handleUploadPost';
 import ImageUploadForm from './ImageUploadForm';
 import style from './styles/write.module.css';
-
-export type PostWriteTypes = 'new' | 'update';
 
 const Write = ({ type }: { type: PostWriteTypes }) => {
   const router = useRouter();

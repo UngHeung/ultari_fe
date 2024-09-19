@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { showModal } from '../common/functions/showModal';
-import { ModalState } from '../stores/reducer/modalRducer';
+import showModal from '../common/functions/showModal';
+import { ModalState } from '../stores/interfaces/stateInterface';
 import PostButton from './elements/PostButton';
 import handleUploadImage from './handlers/handleUploadImage';
 import style from './styles/write.module.css';

@@ -1,18 +1,5 @@
-import { modalType } from '@/components/modal/constants/modalConst';
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface ModalState {
-  title?: string;
-  type: modalType;
-  success?: boolean;
-  message: string;
-  routerType: RouterType;
-  leftPath?: string;
-  rightPath?: string;
-  modalIsShow: boolean;
-}
-
-export type RouterType = 'push' | 'replace' | 'back' | undefined;
+import { ModalState } from '../interfaces/stateInterface';
 
 const initialState: ModalState = {
   title: '',

@@ -1,9 +1,8 @@
-import { LoginOptions, SignUpOptions } from '../constants/authInterface';
-
-export interface ValidationResultOptions {
-  success: boolean;
-  message?: string;
-}
+import {
+  LoginOptions,
+  SignUpOptions,
+  ValidationResultOptions,
+} from '../interfaces/authInterface';
 
 export const validateLogin = ({ account, password }: LoginOptions) => {
   const result: ValidationResultOptions = {
