@@ -21,3 +21,33 @@
   padding-top: var(--margin-content);
   font-size: var(--font-size-content);
 }
+
+.likeWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--margin-content);
+  width: 100%;
+  max-width: 600px;
+  margin: var(--margin-container) auto;
+  text-align: center;
+}
+
+.likeButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.likeButton {
+  background-color: var(--color-main-green);
+}
+
+.likeImage>path {
+  fill: #f1f1f1;
+}
+
+.likeCount {
+  font-size: var(--font-size-title);
+  font-weight: 900
+}
