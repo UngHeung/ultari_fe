@@ -1,13 +1,11 @@
-'use client';
-
+import viewAndLike from '@/public/images/viewAndLike.png';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPost } from '../stores/reducer/postReducer';
 import { PostOptions } from './interfaces/postInterfaces';
 import style from './styles/list.module.css';
-import Image from 'next/image';
-import viewAndLike from '@/public/images/viewAndLike.png';
-import { useEffect, useState } from 'react';
 
 const ListItem = (props: PostOptions, key: number) => {
   const dispatch = useDispatch();
@@ -77,7 +75,7 @@ const ListItem = (props: PostOptions, key: number) => {
               </div>
             </section>
 
-            <strong className={style.author}>{props.author.name}</strong>
+            <strong className={style.author}>{props.author!.name}</strong>
           </section>
         </Link>
       </li>

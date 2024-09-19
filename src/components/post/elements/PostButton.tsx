@@ -1,7 +1,5 @@
-import { BaseButtonOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
 import BaseButton from '../../common/BaseButton';
-
-export interface PostButtonOptions extends BaseButtonOptions {}
+import { PostButtonOptions } from '../interfaces/postInterfaces';
 
 const PostButton = (props: PostButtonOptions) => {
   return (

@@ -1,6 +1,14 @@
 import { ImageOptions } from '@/components/common/ImagesSlider';
+import {
+  BaseButtonOptions,
+  BaseInputOptions,
+} from '@/components/common/interfaces/BaseElementsInterfaces';
+import { UserOptions } from '@/components/stores/reducer/userReducer';
 
-export interface PostAuthor {}
+export interface PostInputOptions extends BaseInputOptions {}
+export interface PostButtonOptions extends BaseButtonOptions {}
+
+export interface PostAuthor extends UserOptions {}
 
 export interface PostOptions {
   id: number;
@@ -10,7 +18,7 @@ export interface PostOptions {
   type: string;
   likeCount: number;
   viewCount: number;
-  author: any;
+  author: UserOptions | null;
   images?: ImageOptions[];
   createAt: Date | string;
   updateAt: Date | string;

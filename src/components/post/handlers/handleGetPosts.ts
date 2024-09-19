@@ -1,7 +1,7 @@
 import { authAxios } from '@/apis/axiosAuth';
 import { BASE_URL } from '@/components/common/constants/pathConst';
 
-export const getPosts = async (
+const handleGetPosts = async (
   findOptions: string,
   path: string,
   orderBy: boolean,
@@ -23,3 +23,5 @@ export const getPosts = async (
     next: response.data.next,
   };
 };
+
+export default handleGetPosts;
