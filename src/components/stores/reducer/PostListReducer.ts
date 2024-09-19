@@ -28,7 +28,6 @@ export const postListSlice = createSlice({
       Object.assign(state.desc, actions.payload);
     },
     setPostListOrderBy: (state, actions) => {
-      console.log(actions.payload);
       Object.assign(state.orderBy, actions.payload);
     },
     resetPostList: () => initialState,
