@@ -25,6 +25,15 @@ export interface PostOptions {
   updateAt: Date | string;
 }
 
+export interface getPostOptions {
+  postList: PostOptions[];
+  cursor: { after: number };
+  count: number;
+  nextPath: string;
+}
+
+export type PostWriteTypes = 'new' | 'update';
+
 export interface DetailLikeCountOptions {
   authorId: number;
   postId: number;
