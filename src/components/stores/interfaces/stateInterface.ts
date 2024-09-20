@@ -1,7 +1,7 @@
-import { PostOptions } from '@/components/post/interfaces/postInterfaces';
-import { modalType } from '@/components/modal/constants/modalConst';
-import { OrderTypes, RouterType } from '../constants/stateOptions';
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
+import { modalType } from '@/components/modal/constants/modalConst';
+import { PostOptions } from '@/components/post/interfaces/postInterfaces';
+import { RouterType } from '../constants/stateOptions';
 
 export interface SliceOptions {
   modal: ModalState;
@@ -23,25 +23,18 @@ export interface ModalState {
 
 export interface PostState extends PostOptions {}
 
+export interface OrderdPostState {
+  list: PostState[];
+  count: number;
+  next: string;
+  firstLoad: true;
+}
+
 export interface PostListState {
-  asc: {
-    list: PostState[];
-    count: number;
-    lastIndex: number;
-    next: string;
-  };
-  desc: {
-    list: PostState[];
-    count: number;
-    lastIndex: number;
-    next: string;
-  };
-  likes: {
-    list: PostState[];
-    count: number;
-    lastIndex: number;
-    next: string;
-  };
+  asc: OrderdPostState;
+  desc: OrderdPostState;
+  likes: OrderdPostState;
+  views: OrderdPostState;
 }
 
 export interface UserState

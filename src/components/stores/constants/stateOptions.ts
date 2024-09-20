@@ -1,2 +1,2 @@
 export type RouterType = 'push' | 'replace' | 'back' | undefined;
-export type OrderTypes = 'DESC' | 'ASC' | 'LIKES';
+export type OrderTypes = 'DESC' | 'ASC' | 'LIKES' | 'VIEWS';
