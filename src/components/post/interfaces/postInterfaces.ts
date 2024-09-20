@@ -1,9 +1,9 @@
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
-import { ImageOptions } from '@/components/common/ImagesSlider';
 import {
   BaseButtonOptions,
   BaseInputOptions,
 } from '@/components/common/interfaces/BaseElementsInterfaces';
+import { ImageOptions } from '@/components/common/interfaces/commonInterface';
 
 export interface PostInputOptions extends BaseInputOptions {}
 export interface PostButtonOptions extends BaseButtonOptions {}
@@ -17,6 +17,7 @@ export interface PostOptions {
   visibility: string;
   type: string;
   likeCount: number;
+  likers: UserOptions[];
   viewCount: number;
   author: UserOptions | null;
   images?: ImageOptions[];

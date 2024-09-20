@@ -36,8 +36,11 @@ export interface PostListState {
     lastIndex: number;
     next: string;
   };
-  orderBy: {
-    type: OrderTypes;
+  likes: {
+    list: PostState[];
+    count: number;
+    lastIndex: number;
+    next: string;
   };
 }
 
