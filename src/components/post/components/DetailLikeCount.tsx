@@ -7,10 +7,11 @@ import {
   SliceOptions,
 } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DetailLikeCountOptions } from '../interfaces/postInterfaces';
 import style from '../styles/detail.module.css';
+import { UserOptions } from '@/components/auth/interfaces/authInterface';
 
 const DetailLikeCount = ({
   authorId,
@@ -20,8 +21,19 @@ const DetailLikeCount = ({
   const dispatch = useDispatch();
 
   const [countState, setCountState] = useState<number>(likeCount);
+  const [aleadyLiked, setAleadyLiked] = useState<boolean>(false);
 
+  const likers = useSelector((state: SliceOptions) => state.post.likers);
   const userId = useSelector((state: SliceOptions) => state.user.id);
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.user.isLoggedIn,
+  );
+
+  useEffect(() => {
+    const isAleadyLiked = checkAleadyLiked(likers, userId);
+    console.log(isAleadyLiked);
+    setAleadyLiked(isAleadyLiked);
+  }, []);
 
   return (
     <>
@@ -32,7 +44,13 @@ const DetailLikeCount = ({
           onClick={async () => {
             let status, success, newCount, message;
 
-            if (userId !== authorId) {
+            if (!isLoggedIn) {
+              success = false;
+              message = '로그인이 필요합니다.';
+            } else if (userId === authorId) {
+              success = false;
+              message = '내가 쓴 글에 좋아요를 누를 수 없습니다.';
+            } else {
               const response = await handleUpdateLikeCount(postId);
 
               status = response.status;
@@ -43,9 +61,6 @@ const DetailLikeCount = ({
               if (success) {
                 setCountState(newCount);
               }
-            } else {
-              success = false;
-              message = '본인의 글에 좋아요를 누를 수 없습니다.';
             }
 
             const modalData: ModalState = {
@@ -95,6 +110,17 @@ async function handleUpdateLikeCount(postId: number) {
       message: error.response.data.message || '서버에 문제 발생!',
     };
   }
+}
+
+function checkAleadyLiked(likers: UserOptions[], userId: number) {
+  console.log(likers);
+
+  likers.forEach(liker => {
+    if (liker.id === userId) {
+      return true;
+    }
+  });
+  return false;
 }
 
 export default DetailLikeCount;

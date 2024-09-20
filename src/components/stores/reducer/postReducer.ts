@@ -7,6 +7,7 @@ const initialState: PostState = {
   content: '',
   visibility: '',
   type: '',
+  likers: [],
   likeCount: 0,
   viewCount: 0,
   author: null,

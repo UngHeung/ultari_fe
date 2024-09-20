@@ -5,16 +5,27 @@ const initialState: PostListState = {
   asc: {
     list: [],
     count: 0,
-    lastIndex: 0,
     next: '',
+    firstLoad: true,
   },
   desc: {
     list: [],
     count: 0,
-    lastIndex: 0,
     next: '',
+    firstLoad: true,
   },
-  orderBy: { type: 'DESC' },
+  likes: {
+    list: [],
+    count: 0,
+    next: '',
+    firstLoad: true,
+  },
+  views: {
+    list: [],
+    count: 0,
+    next: '',
+    firstLoad: true,
+  },
 };
 
 export const postListSlice = createSlice({
@@ -27,9 +38,11 @@ export const postListSlice = createSlice({
     setPostListOrderByDesc: (state, actions) => {
       Object.assign(state.desc, actions.payload);
     },
-    setPostListOrderBy: (state, actions) => {
-      console.log(actions.payload);
-      Object.assign(state.orderBy, actions.payload);
+    setPostListOrderByLikes: (state, actions) => {
+      Object.assign(state.likes, actions.payload);
+    },
+    setPostListOrderByViews: (state, actions) => {
+      Object.assign(state.likes, actions.payload);
     },
     resetPostList: () => initialState,
   },
@@ -38,7 +51,8 @@ export const postListSlice = createSlice({
 export const {
   setPostListOrderByAsc,
   setPostListOrderByDesc,
-  setPostListOrderBy,
+  setPostListOrderByLikes,
+  setPostListOrderByViews,
   resetPostList,
 } = postListSlice.actions;
 export default postListSlice.reducer;
