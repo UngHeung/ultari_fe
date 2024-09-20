@@ -5,11 +5,15 @@ import PostList from '@/components/post/PostList';
 import handleGetPostList from '@/components/post/handlers/handleGetPostList';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
-import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
 import {
-  setPostListOrderBy,
+  OrderdPostState,
+  SliceOptions,
+} from '@/components/stores/interfaces/stateInterface';
+import {
   setPostListOrderByAsc,
   setPostListOrderByDesc,
+  setPostListOrderByLikes,
+  setPostListOrderByViews,
 } from '@/components/stores/reducer/PostListReducer';
 import { Dispatch } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
@@ -18,9 +22,9 @@ import { useDispatch, useSelector } from 'react-redux';
 const listPage = () => {
   const dispatch = useDispatch();
 
-  const [getPostpath, setGetPostPath] = useState<string>('');
+  const [nextPath, setNextPath] = useState<string>('');
   const [findOptions, setFindOptions] = useState<string>('');
-  const [posts, setPosts] = useState<PostOptions[]>([]);
+  const [postList, setPostList] = useState<PostOptions[]>([]);
 
   const listOrderByDesc = useSelector(
     (state: SliceOptions) => state.postList.desc,
@@ -28,64 +32,138 @@ const listPage = () => {
   const listOrderByAsc = useSelector(
     (state: SliceOptions) => state.postList.asc,
   );
-  const orderBy: OrderTypes = useSelector(
-    (state: SliceOptions) => state.postList.orderBy.type,
+  const listOrderByLikes = useSelector(
+    (state: SliceOptions) => state.postList.likes,
   );
 
   useEffect(() => {
-    (async () => {
-      if (orderBy === 'DESC' && listOrderByDesc.count > 0) {
-        setPosts(listOrderByDesc.list);
-        setGetPostPath(listOrderByDesc.next);
-      } else if (orderBy === 'ASC' && listOrderByAsc.count > 0) {
-        setPosts(listOrderByAsc.list);
-        setGetPostPath(listOrderByAsc.next);
-      } else {
-        const { status, success, data } = await handleGetPostList(
-          findOptions,
-          getPostpath,
-          orderBy,
-        );
+    if (listOrderByDesc.count) {
+      const postList = listOrderByDesc.list;
+      const nextPath = listOrderByDesc.next;
 
-        if (success) {
-          setPosts(data?.postList);
-          dispatchPostList(dispatch, orderBy, data?.postList, getPostpath);
-          setGetPostPath(data?.nextPath);
+      setPostList(postList);
+      setNextPath(nextPath);
+    } else {
+      (async () => {
+        const { status, success, data } = await handleGetPostList(true);
+
+        if (success && data) {
+          setPostList(data.postList);
+          setNextPath(data.nextPath);
+
+          dispatchPostList(dispatch, 'DESC', data.postList, data.nextPath);
         }
-      }
-    })();
-  }, [orderBy]);
+      })();
+    }
+  }, []);
 
   return (
     <>
       <menu>
         <ul>
-          <li>
+          <li key={'btndesc'}>
             <BaseButton
               type={'button'}
               value={'최신순'}
-              onClick={() => {
-                dispatch(setPostListOrderBy({ type: 'DESC' }));
-                setFindOptions('order__createAt=DESC');
+              onClick={async () => {
+                const aleadyPost = await useOwnedPostList(
+                  dispatch,
+                  listOrderByDesc,
+                  'DESC',
+                );
+
+                setPostList(aleadyPost.postList!);
+                setNextPath(aleadyPost.nextPath!);
               }}
             />
           </li>
-          <li>
+          <li key={'btnasc'}>
             <BaseButton
               type={'button'}
               value={'날짜순'}
-              onClick={() => {
-                dispatch(setPostListOrderBy({ type: 'ASC' }));
-                setFindOptions('order__createAt=ASC');
+              onClick={async () => {
+                const aleadyPost = await useOwnedPostList(
+                  dispatch,
+                  listOrderByAsc,
+                  'ASC',
+                );
+
+                setPostList(aleadyPost.postList!);
+                setNextPath(aleadyPost.nextPath!);
+              }}
+            />
+          </li>
+          <li key={'btnlk'}>
+            <BaseButton
+              type={'button'}
+              value={'좋아요'}
+              onClick={async () => {
+                const aleadyPost = await useOwnedPostList(
+                  dispatch,
+                  listOrderByLikes,
+                  'LIKES',
+                  'order__likeCount=DESC',
+                );
+
+                setPostList(aleadyPost.postList!);
+                setNextPath(aleadyPost.nextPath!);
+              }}
+            />
+          </li>
+          <li key={'btnvw'}>
+            <BaseButton
+              type={'button'}
+              value={'조회수'}
+              onClick={async () => {
+                const aleadyPost = await useOwnedPostList(
+                  dispatch,
+                  listOrderByLikes,
+                  'VIEWS',
+                  'order__viewCount=DESC',
+                );
+
+                setPostList(aleadyPost.postList!);
+                setNextPath(aleadyPost.nextPath!);
               }}
             />
           </li>
         </ul>
       </menu>
-      <PostList posts={posts} />
+      <PostList postList={postList} />
     </>
   );
 };
+
+async function useOwnedPostList(
+  dispatch: Dispatch,
+  postState: OrderdPostState,
+  orderBy?: OrderTypes,
+  findOptions?: string,
+) {
+  const postList = postState.list;
+  const nextPath = postState.next;
+  const postCount = postState.count;
+
+  if (postCount) {
+    return {
+      postList: postList,
+      nextPath: nextPath,
+    };
+  } else {
+    const { status, success, data } = await handleGetPostList(
+      true,
+      orderBy,
+      findOptions,
+    );
+
+    dispatchPostList(dispatch, orderBy!, data!.postList, data!.nextPath);
+
+    return {
+      postList: data!.postList,
+      nextPath: data!.nextPath,
+    };
+  }
+}
 
 function dispatchPostList(
   dispatch: Dispatch,
@@ -93,27 +171,22 @@ function dispatchPostList(
   postList: PostOptions[],
   nextPath: string,
 ) {
-  if (orderBy === 'DESC') {
-    dispatch(
-      setPostListOrderByDesc({
-        desc: {
-          data: postList,
-          next: nextPath,
-          count: postList.length,
-        },
-      }),
-    );
-  } else if (orderBy === 'ASC') {
-    dispatch(
-      setPostListOrderByAsc({
-        asc: {
-          data: [...postList],
-          next: nextPath,
-          count: postList.length,
-        },
-      }),
-    );
-  }
+  const dispatchData = {
+    list: postList,
+    count: postList.length,
+    next: nextPath,
+    firstLoad: false,
+  };
+
+  dispatch(
+    orderBy === 'DESC'
+      ? setPostListOrderByDesc(dispatchData)
+      : orderBy === 'ASC'
+        ? setPostListOrderByAsc(dispatchData)
+        : orderBy === 'LIKES'
+          ? setPostListOrderByLikes(dispatchData)
+          : setPostListOrderByViews(dispatchData),
+  );
 }
 
 export default listPage;
