@@ -36,7 +36,7 @@ export async function handleSubmit(
     message,
     modalIsShow: true,
     type: success ? 'confirm' : 'alert',
-    routerType: 'back',
+    routerType: success ? 'back' : undefined,
   };
 
   showModal(dispatch, modalData);

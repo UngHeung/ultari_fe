@@ -19,9 +19,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     const type = pathname.slice(1);
 
     if (type === 'sign') {
-      !isLoggedIn ? setTitle('회원 가입') : router.back();
+      !isLoggedIn ? setTitle('회원 가입') : router.replace('/');
     } else if (type === 'login') {
-      !isLoggedIn ? setTitle('로그인') : router.back();
+      !isLoggedIn ? setTitle('로그인') : router.replace('/');
     } else if (type === 'forgot/account') {
       isLoggedIn ? setTitle('아이디 찾기') : router.replace('/');
     } else if (type === 'forgot/password') {
