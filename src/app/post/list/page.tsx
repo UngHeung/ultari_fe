@@ -120,6 +120,34 @@ const listPage = () => {
         </ul>
       </menu>
       <PostList postList={postList} />
+      {nextPath && (
+        <button
+          type={'button'}
+          onClick={async () => {
+            const orderBy = listOrderBy.value;
+            const postData = await moreFetchData(orderBy, nextPath);
+
+            setPostList([...postList, ...postData.list!]);
+            setNextPath(postData.next!);
+
+            if (orderBy === 'DESC') {
+              dispatch(setPostListOrderByDesc({ ...postData, list: postList }));
+            } else if (orderBy === 'ASC') {
+              dispatch(setPostListOrderByAsc({ ...postData, list: postList }));
+            } else if (orderBy === 'LIKES') {
+              dispatch(
+                setPostListOrderByLikes({ ...postData, list: postList }),
+              );
+            } else if (orderBy === 'VIEWS') {
+              dispatch(
+                setPostListOrderByViews({ ...postData, list: postList }),
+              );
+            }
+          }}
+        >
+          더보기
+        </button>
+      )}
     </>
   );
 };
@@ -154,6 +182,17 @@ async function fetchDataFromStoreOrServer(
       next: data!.nextPath.split('?')[1],
     };
   }
+}
+
+async function moreFetchData(orderBy: OrderTypes, nextPath: string) {
+  console.log(nextPath);
+  const { status, success, data } = await handleGetPostList(orderBy, nextPath);
+
+  return {
+    list: data?.postList,
+    next: data?.nextPath,
+    count: data?.count,
+  };
 }
 
 export default listPage;
