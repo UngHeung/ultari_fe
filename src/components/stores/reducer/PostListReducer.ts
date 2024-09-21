@@ -42,7 +42,7 @@ export const postListSlice = createSlice({
       Object.assign(state.likes, actions.payload);
     },
     setPostListOrderByViews: (state, actions) => {
-      Object.assign(state.likes, actions.payload);
+      Object.assign(state.views, actions.payload);
     },
     resetPostList: () => initialState,
   },
