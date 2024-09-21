@@ -32,7 +32,7 @@ const Detail = async ({ postId }: { postId: number }) => {
       <DetailLikeCount
         authorId={postData?.author!.id}
         postId={postData?.id}
-        likeCount={postData?.likeCount}
+        likers={postData?.likers}
       />
     </>
   );

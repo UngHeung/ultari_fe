@@ -5,35 +5,41 @@ import { BASE_URL } from '@/components/common/constants/pathConst';
 import {
   ModalState,
   SliceOptions,
+  UserState,
 } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { useEffect, useState } from 'react';
+import { setPost } from '@/components/stores/reducer/postReducer';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DetailLikeCountOptions } from '../interfaces/postInterfaces';
 import style from '../styles/detail.module.css';
-import { UserOptions } from '@/components/auth/interfaces/authInterface';
 
 const DetailLikeCount = ({
   authorId,
   postId,
-  likeCount,
+  likers,
 }: DetailLikeCountOptions) => {
   const dispatch = useDispatch();
+  const defaultBg = 'var(--color-placeholder)';
+  const aleadyBg = 'var(--color-main-green)';
 
-  const [countState, setCountState] = useState<number>(likeCount);
-  const [aleadyLiked, setAleadyLiked] = useState<boolean>(false);
-
-  const likers = useSelector((state: SliceOptions) => state.post.likers);
+  const orderBy = useSelector(
+    (state: SliceOptions) => state.postList.orderType,
+  );
   const userId = useSelector((state: SliceOptions) => state.user.id);
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state.user.isLoggedIn,
   );
 
-  useEffect(() => {
-    const isAleadyLiked = checkAleadyLiked(likers, userId);
-    console.log(isAleadyLiked);
-    setAleadyLiked(isAleadyLiked);
-  }, []);
+  const [countState, setCountState] = useState<number>(likers.length);
+  const [aleadyLiked, setAleadyLiked] = useState<boolean>(
+    checkAleadyLiked(likers, userId),
+  );
+  const [likeButtonColor, setLikeButtonColor] = useState<string>(
+    aleadyLiked ? aleadyBg : defaultBg,
+  );
+
+  const currentLikeCount = countState;
 
   return (
     <>
@@ -54,9 +60,19 @@ const DetailLikeCount = ({
               const response = await handleUpdateLikeCount(postId);
 
               status = response.status;
-              success = response.success;
               newCount = response.data;
+              success = response.success;
               message = response.message;
+
+              if (currentLikeCount < newCount) {
+                setAleadyLiked(true);
+                setLikeButtonColor(aleadyBg);
+              } else if (currentLikeCount > newCount) {
+                setAleadyLiked(false);
+                setLikeButtonColor(defaultBg);
+              }
+
+              // dispatch();
 
               if (success) {
                 setCountState(newCount);
@@ -72,6 +88,9 @@ const DetailLikeCount = ({
             };
 
             dispatch(setModal(modalData));
+          }}
+          style={{
+            backgroundColor: likeButtonColor,
           }}
         >
           <svg
@@ -107,19 +126,18 @@ async function handleUpdateLikeCount(postId: number) {
     return {
       status: error.status,
       success: false,
-      message: error.response.data.message || '서버에 문제 발생!',
+      message: (error.response.data.message as string) ?? '서버에 문제 발생!',
     };
   }
 }
 
-function checkAleadyLiked(likers: UserOptions[], userId: number) {
-  console.log(likers);
-
-  likers.forEach(liker => {
+function checkAleadyLiked(likers: UserState[], userId: number) {
+  for (let liker of likers) {
     if (liker.id === userId) {
       return true;
     }
-  });
+  }
+
   return false;
 }
 

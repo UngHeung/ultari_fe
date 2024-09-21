@@ -4,6 +4,7 @@ import {
   BaseInputOptions,
 } from '@/components/common/interfaces/BaseElementsInterfaces';
 import { ImageOptions } from '@/components/common/interfaces/commonInterface';
+import { UserState } from '@/components/stores/interfaces/stateInterface';
 
 export interface PostInputOptions extends BaseInputOptions {}
 export interface PostButtonOptions extends BaseButtonOptions {}
@@ -37,5 +38,5 @@ export type PostWriteTypes = 'new' | 'update';
 export interface DetailLikeCountOptions {
   authorId: number;
   postId: number;
-  likeCount: number;
+  likers: UserState[];
 }
