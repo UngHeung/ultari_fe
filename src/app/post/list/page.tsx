@@ -23,7 +23,6 @@ const listPage = () => {
   const dispatch = useDispatch();
 
   const [nextPath, setNextPath] = useState<string>('');
-  const [findOptions, setFindOptions] = useState<string>('');
   const [postList, setPostList] = useState<PostOptions[]>([]);
 
   const listOrderByDesc = useSelector(
@@ -34,6 +33,9 @@ const listPage = () => {
   );
   const listOrderByLikes = useSelector(
     (state: SliceOptions) => state.postList.likes,
+  );
+  const listOrderByViews = useSelector(
+    (state: SliceOptions) => state.postList.views,
   );
 
   useEffect(() => {
@@ -117,7 +119,7 @@ const listPage = () => {
               onClick={async () => {
                 const aleadyPost = await useOwnedPostList(
                   dispatch,
-                  listOrderByLikes,
+                  listOrderByViews,
                   'VIEWS',
                   'order__viewCount=DESC',
                 );
@@ -142,9 +144,9 @@ async function useOwnedPostList(
 ) {
   const postList = postState.list;
   const nextPath = postState.next;
-  const postCount = postState.count;
+  const postFirstLoad = postState.firstLoad;
 
-  if (postCount) {
+  if (!postFirstLoad) {
     return {
       postList: postList,
       nextPath: nextPath,
@@ -178,15 +180,16 @@ function dispatchPostList(
     firstLoad: false,
   };
 
-  dispatch(
-    orderBy === 'DESC'
-      ? setPostListOrderByDesc(dispatchData)
-      : orderBy === 'ASC'
-        ? setPostListOrderByAsc(dispatchData)
-        : orderBy === 'LIKES'
-          ? setPostListOrderByLikes(dispatchData)
-          : setPostListOrderByViews(dispatchData),
-  );
+  if (orderBy === 'DESC') {
+    dispatch(setPostListOrderByDesc(dispatchData));
+  } else if (orderBy === 'ASC') {
+    dispatch(setPostListOrderByAsc(dispatchData));
+  } else if (orderBy === 'LIKES') {
+    dispatch(setPostListOrderByLikes(dispatchData));
+  } else if (orderBy === 'VIEWS') {
+    console.log('views save');
+    dispatch(setPostListOrderByViews(dispatchData));
+  }
 }
 
 export default listPage;
