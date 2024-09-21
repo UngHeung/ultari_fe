@@ -3,14 +3,10 @@ import { BASE_URL } from '@/components/common/constants/pathConst';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import { getPostOptions } from '../interfaces/postInterfaces';
 
-async function handleGetPostList(
-  firstLoad: boolean,
-  orderBy?: OrderTypes,
-  findOptions?: string,
-) {
+async function handleGetPostList(orderBy?: OrderTypes, findOptions?: string) {
   let url = '';
 
-  if (firstLoad && !findOptions?.length) {
+  if (!findOptions?.length) {
     url = `${BASE_URL}/post?order__createAt=${orderBy ?? 'DESC'}`;
   } else {
     url = `${BASE_URL}/post?${findOptions}`;

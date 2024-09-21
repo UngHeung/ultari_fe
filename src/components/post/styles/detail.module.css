@@ -40,7 +40,7 @@
 }
 
 .likeButton {
-  background-color: var(--color-main-green);
+  /* background-color: var(--color-main-green); */
 }
 
 .likeImage>path {

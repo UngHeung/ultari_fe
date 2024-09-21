@@ -6,24 +6,22 @@ import handleGetPostList from '@/components/post/handlers/handleGetPostList';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import {
-  OrderdPostState,
+  OrderdPostListState,
   SliceOptions,
 } from '@/components/stores/interfaces/stateInterface';
 import {
+  resetPostList,
+  setPostListOrderBy,
   setPostListOrderByAsc,
   setPostListOrderByDesc,
   setPostListOrderByLikes,
   setPostListOrderByViews,
 } from '@/components/stores/reducer/PostListReducer';
-import { Dispatch } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const listPage = () => {
   const dispatch = useDispatch();
-
-  const [nextPath, setNextPath] = useState<string>('');
-  const [postList, setPostList] = useState<PostOptions[]>([]);
 
   const listOrderByDesc = useSelector(
     (state: SliceOptions) => state.postList.desc,
@@ -37,27 +35,43 @@ const listPage = () => {
   const listOrderByViews = useSelector(
     (state: SliceOptions) => state.postList.views,
   );
+  const listOrderBy = useSelector(
+    (state: SliceOptions) => state.postList.orderType,
+  );
+
+  const [nextPath, setNextPath] = useState<string>('');
+  const [postList, setPostList] = useState<PostOptions[]>([]);
 
   useEffect(() => {
-    if (listOrderByDesc.count) {
-      const postList = listOrderByDesc.list;
-      const nextPath = listOrderByDesc.next;
-
-      setPostList(postList);
-      setNextPath(nextPath);
-    } else {
-      (async () => {
-        const { status, success, data } = await handleGetPostList(true);
-
-        if (success && data) {
-          setPostList(data.postList);
-          setNextPath(data.nextPath);
-
-          dispatchPostList(dispatch, 'DESC', data.postList, data.nextPath);
-        }
-      })();
-    }
+    (async () => {
+      postListProcess(listOrderBy.value);
+    })();
   }, []);
+
+  async function postListProcess(orderBy: OrderTypes) {
+    let postData: { list: PostOptions[]; count: number; next: string } = {
+      list: [],
+      count: 0,
+      next: '',
+    };
+
+    if (orderBy === 'DESC') {
+      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByDesc);
+      dispatch(setPostListOrderByDesc(postData));
+    } else if (orderBy === 'ASC') {
+      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByAsc);
+      dispatch(setPostListOrderByAsc(postData));
+    } else if (orderBy === 'LIKES') {
+      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByLikes);
+      dispatch(setPostListOrderByLikes(postData));
+    } else if (orderBy === 'VIEWS') {
+      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByViews);
+      dispatch(setPostListOrderByViews(postData));
+    }
+
+    setPostList(postData.list);
+    setNextPath(postData.next);
+  }
 
   return (
     <>
@@ -68,14 +82,8 @@ const listPage = () => {
               type={'button'}
               value={'최신순'}
               onClick={async () => {
-                const aleadyPost = await useOwnedPostList(
-                  dispatch,
-                  listOrderByDesc,
-                  'DESC',
-                );
-
-                setPostList(aleadyPost.postList!);
-                setNextPath(aleadyPost.nextPath!);
+                dispatch(setPostListOrderBy({ value: 'DESC' }));
+                postListProcess('DESC');
               }}
             />
           </li>
@@ -84,14 +92,8 @@ const listPage = () => {
               type={'button'}
               value={'날짜순'}
               onClick={async () => {
-                const aleadyPost = await useOwnedPostList(
-                  dispatch,
-                  listOrderByAsc,
-                  'ASC',
-                );
-
-                setPostList(aleadyPost.postList!);
-                setNextPath(aleadyPost.nextPath!);
+                dispatch(setPostListOrderBy({ value: 'ASC' }));
+                postListProcess('ASC');
               }}
             />
           </li>
@@ -100,15 +102,8 @@ const listPage = () => {
               type={'button'}
               value={'좋아요'}
               onClick={async () => {
-                const aleadyPost = await useOwnedPostList(
-                  dispatch,
-                  listOrderByLikes,
-                  'LIKES',
-                  'order__likeCount=DESC',
-                );
-
-                setPostList(aleadyPost.postList!);
-                setNextPath(aleadyPost.nextPath!);
+                dispatch(setPostListOrderBy({ value: 'LIKES' }));
+                postListProcess('LIKES');
               }}
             />
           </li>
@@ -117,79 +112,87 @@ const listPage = () => {
               type={'button'}
               value={'조회수'}
               onClick={async () => {
-                const aleadyPost = await useOwnedPostList(
-                  dispatch,
-                  listOrderByViews,
-                  'VIEWS',
-                  'order__viewCount=DESC',
-                );
-
-                setPostList(aleadyPost.postList!);
-                setNextPath(aleadyPost.nextPath!);
+                dispatch(setPostListOrderBy({ value: 'VIEWS' }));
+                postListProcess('VIEWS');
               }}
             />
           </li>
         </ul>
       </menu>
       <PostList postList={postList} />
+      {nextPath && (
+        <button
+          type={'button'}
+          onClick={async () => {
+            const orderBy = listOrderBy.value;
+            const postData = await moreFetchData(orderBy, nextPath);
+
+            setPostList([...postList, ...postData.list!]);
+            setNextPath(postData.next!);
+
+            if (orderBy === 'DESC') {
+              dispatch(setPostListOrderByDesc({ ...postData, list: postList }));
+            } else if (orderBy === 'ASC') {
+              dispatch(setPostListOrderByAsc({ ...postData, list: postList }));
+            } else if (orderBy === 'LIKES') {
+              dispatch(
+                setPostListOrderByLikes({ ...postData, list: postList }),
+              );
+            } else if (orderBy === 'VIEWS') {
+              dispatch(
+                setPostListOrderByViews({ ...postData, list: postList }),
+              );
+            }
+          }}
+        >
+          더보기
+        </button>
+      )}
     </>
   );
 };
 
-async function useOwnedPostList(
-  dispatch: Dispatch,
-  postState: OrderdPostState,
-  orderBy?: OrderTypes,
-  findOptions?: string,
+async function fetchDataFromStoreOrServer(
+  orderBy: OrderTypes,
+  listOrderType: OrderdPostListState,
 ) {
-  const postList = postState.list;
-  const nextPath = postState.next;
-  const postFirstLoad = postState.firstLoad;
+  const likeCountQuery = 'order__likeCount=DESC';
+  const viewCountQuery = 'order__viewCount=DESC';
 
-  if (!postFirstLoad) {
+  if (listOrderType.count) {
     return {
-      postList: postList,
-      nextPath: nextPath,
+      list: listOrderType.list,
+      count: listOrderType.list.length,
+      next: listOrderType.next,
     };
   } else {
+    console.log('first fetching!');
     const { status, success, data } = await handleGetPostList(
-      true,
       orderBy,
-      findOptions,
+      orderBy === 'LIKES'
+        ? likeCountQuery
+        : orderBy === 'VIEWS'
+          ? viewCountQuery
+          : '',
     );
 
-    dispatchPostList(dispatch, orderBy!, data!.postList, data!.nextPath);
-
     return {
-      postList: data!.postList,
-      nextPath: data!.nextPath,
+      list: data!.postList,
+      count: data!.count,
+      next: data!.nextPath.split('?')[1],
     };
   }
 }
 
-function dispatchPostList(
-  dispatch: Dispatch,
-  orderBy: OrderTypes,
-  postList: PostOptions[],
-  nextPath: string,
-) {
-  const dispatchData = {
-    list: postList,
-    count: postList.length,
-    next: nextPath,
-    firstLoad: false,
-  };
+async function moreFetchData(orderBy: OrderTypes, nextPath: string) {
+  console.log(nextPath);
+  const { status, success, data } = await handleGetPostList(orderBy, nextPath);
 
-  if (orderBy === 'DESC') {
-    dispatch(setPostListOrderByDesc(dispatchData));
-  } else if (orderBy === 'ASC') {
-    dispatch(setPostListOrderByAsc(dispatchData));
-  } else if (orderBy === 'LIKES') {
-    dispatch(setPostListOrderByLikes(dispatchData));
-  } else if (orderBy === 'VIEWS') {
-    console.log('views save');
-    dispatch(setPostListOrderByViews(dispatchData));
-  }
+  return {
+    list: data?.postList,
+    next: data?.nextPath,
+    count: data?.count,
+  };
 }
 
 export default listPage;
