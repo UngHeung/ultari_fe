@@ -1,6 +1,7 @@
 'use client';
 
 import BaseButton from '@/components/common/BaseButton';
+import { BASE_URL } from '@/components/common/constants/pathConst';
 import PostList from '@/components/post/PostList';
 import handleGetPostList from '@/components/post/handlers/handleGetPostList';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
@@ -10,7 +11,6 @@ import {
   SliceOptions,
 } from '@/components/stores/interfaces/stateInterface';
 import {
-  resetPostList,
   setPostListOrderBy,
   setPostListOrderByAsc,
   setPostListOrderByDesc,
@@ -97,7 +97,7 @@ const listPage = () => {
               }}
             />
           </li>
-          <li key={'btnlk'}>
+          {/* <li key={'btnlk'}>
             <BaseButton
               type={'button'}
               value={'좋아요'}
@@ -116,7 +116,7 @@ const listPage = () => {
                 postListProcess('VIEWS');
               }}
             />
-          </li>
+          </li> */}
         </ul>
       </menu>
       <PostList postList={postList} />
@@ -167,7 +167,7 @@ async function fetchDataFromStoreOrServer(
     };
   } else {
     console.log('first fetching!');
-    const { status, success, data } = await handleGetPostList(
+    const url = composeUrlQuery(
       orderBy,
       orderBy === 'LIKES'
         ? likeCountQuery
@@ -175,6 +175,7 @@ async function fetchDataFromStoreOrServer(
           ? viewCountQuery
           : '',
     );
+    const { status, success, data } = await handleGetPostList(url);
 
     return {
       list: data!.postList,
@@ -185,14 +186,28 @@ async function fetchDataFromStoreOrServer(
 }
 
 async function moreFetchData(orderBy: OrderTypes, nextPath: string) {
-  console.log(nextPath);
-  const { status, success, data } = await handleGetPostList(orderBy, nextPath);
+  const url = composeUrlQuery(orderBy, nextPath);
+  const { status, success, data } = await handleGetPostList(url);
 
   return {
     list: data?.postList,
     next: data?.nextPath,
     count: data?.count,
   };
+}
+
+export function composeUrlQuery(orderBy?: OrderTypes, findOptions?: string) {
+  const orderByCreateAt =
+    orderBy === 'ASC' || orderBy === 'DESC' ? orderBy : '';
+  let url = `${BASE_URL}/post?order__createAt=${orderByCreateAt || 'DESC'}`;
+
+  if (findOptions) {
+    const appendQuery = `&${findOptions}`;
+
+    url += appendQuery;
+  }
+
+  return url;
 }
 
 export default listPage;

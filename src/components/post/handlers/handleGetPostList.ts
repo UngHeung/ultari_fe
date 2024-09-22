@@ -1,17 +1,7 @@
 import { authAxios } from '@/apis/axiosAuth';
-import { BASE_URL } from '@/components/common/constants/pathConst';
-import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import { getPostOptions } from '../interfaces/postInterfaces';
 
-async function handleGetPostList(orderBy?: OrderTypes, findOptions?: string) {
-  let url = '';
-
-  if (!findOptions?.length) {
-    url = `${BASE_URL}/post?order__createAt=${orderBy ?? 'DESC'}`;
-  } else {
-    url = `${BASE_URL}/post?${findOptions}`;
-  }
-
+async function handleGetPostList(url: string) {
   try {
     const response = await authAxios.get(url);
 
