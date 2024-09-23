@@ -1,21 +1,14 @@
 import slideStyle from '@/components/common/styles/imageSlider.module.css';
 import ImagesSlider from '../common/ImagesSlider';
 import { PostState } from '../stores/interfaces/stateInterface';
-import DetailLikeCount from './components/DetailLikeCount';
-import handleGetPost from './handlers/handleGetPost';
 import style from './styles/detail.module.css';
 
-const Detail = async ({ postId }: { postId: number }) => {
-  const postData: PostState = (await handleGetPost(postId)).data!;
-
+const Detail = ({ postData }: { postData: PostState }) => {
   return (
     <>
       <section className={style.titleWrap}>
         <h2 className={style.title}>{postData?.title}</h2>
         <span>{`작성일 : ${getDate(postData?.createAt.toString())}`}</span>
-        {postData?.createAt !== postData?.updateAt && (
-          <span>{`수정일 : ${getDate(postData?.updateAt.toString())}`}</span>
-        )}
       </section>
       <section className={style.contentWrap}>
         {postData && (
@@ -29,11 +22,6 @@ const Detail = async ({ postId }: { postId: number }) => {
         )}
         <pre className={style.content}>{postData?.content}</pre>
       </section>
-      <DetailLikeCount
-        authorId={postData?.author!.id}
-        postId={postData?.id}
-        likers={postData?.likers}
-      />
     </>
   );
 };
