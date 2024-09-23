@@ -1,7 +1,7 @@
 import { authAxios } from '@/apis/axiosAuth';
 import { BASE_URL } from '@/components/common/constants/pathConst';
 import { FormEvent } from 'react';
-import { PostWriteTypes } from '../Write';
+import { PostWriteTypes } from '../interfaces/postInterfaces';
 
 const handleUploadPost = async (
   event: FormEvent<HTMLFormElement>,
