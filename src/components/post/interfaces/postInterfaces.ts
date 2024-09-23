@@ -33,6 +33,12 @@ export interface getPostOptions {
   nextPath: string;
 }
 
+export interface getPostListOptions {
+  list: PostOptions[];
+  count: number;
+  next: string;
+}
+
 export type PostWriteTypes = 'new' | 'update';
 
 export interface DetailLikeCountOptions {
