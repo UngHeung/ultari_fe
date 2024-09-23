@@ -4,7 +4,10 @@ import BaseButton from '@/components/common/BaseButton';
 import { BASE_URL } from '@/components/common/constants/pathConst';
 import PostList from '@/components/post/PostList';
 import handleGetPostList from '@/components/post/handlers/handleGetPostList';
-import { PostOptions } from '@/components/post/interfaces/postInterfaces';
+import {
+  getPostListOptions,
+  PostOptions,
+} from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import {
   OrderdPostListState,
@@ -48,8 +51,17 @@ const listPage = () => {
     })();
   }, []);
 
+  const mapDispatchToProps = {
+    desc: (data: getPostListOptions) => dispatch(setPostListOrderByDesc(data)),
+    asc: (data: getPostListOptions) => dispatch(setPostListOrderByAsc(data)),
+    likes: (data: getPostListOptions) =>
+      dispatch(setPostListOrderByLikes(data)),
+    views: (data: getPostListOptions) =>
+      dispatch(setPostListOrderByViews(data)),
+  };
+
   async function postListProcess(orderBy: OrderTypes) {
-    let postData: { list: PostOptions[]; count: number; next: string } = {
+    let postData: getPostListOptions = {
       list: [],
       count: 0,
       next: '',
@@ -57,16 +69,16 @@ const listPage = () => {
 
     if (orderBy === 'DESC') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByDesc);
-      dispatch(setPostListOrderByDesc(postData));
+      mapDispatchToProps.desc(postData);
     } else if (orderBy === 'ASC') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByAsc);
-      dispatch(setPostListOrderByAsc(postData));
+      mapDispatchToProps.asc(postData);
     } else if (orderBy === 'LIKES') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByLikes);
-      dispatch(setPostListOrderByLikes(postData));
+      mapDispatchToProps.likes(postData);
     } else if (orderBy === 'VIEWS') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByViews);
-      dispatch(setPostListOrderByViews(postData));
+      mapDispatchToProps.views(postData);
     }
 
     setPostList(postData.list);
@@ -126,22 +138,24 @@ const listPage = () => {
           onClick={async () => {
             const orderBy = listOrderBy.value;
             const postData = await moreFetchData(orderBy, nextPath);
+            const composeList = [...postList, ...postData.list!];
+            const dispatchData = {
+              list: composeList,
+              count: composeList.length,
+              next: postData.next ?? '',
+            };
 
-            setPostList([...postList, ...postData.list!]);
+            setPostList(composeList);
             setNextPath(postData.next!);
 
             if (orderBy === 'DESC') {
-              dispatch(setPostListOrderByDesc({ ...postData, list: postList }));
+              mapDispatchToProps.desc(dispatchData);
             } else if (orderBy === 'ASC') {
-              dispatch(setPostListOrderByAsc({ ...postData, list: postList }));
+              mapDispatchToProps.asc(dispatchData);
             } else if (orderBy === 'LIKES') {
-              dispatch(
-                setPostListOrderByLikes({ ...postData, list: postList }),
-              );
+              mapDispatchToProps.likes(dispatchData);
             } else if (orderBy === 'VIEWS') {
-              dispatch(
-                setPostListOrderByViews({ ...postData, list: postList }),
-              );
+              mapDispatchToProps.views(dispatchData);
             }
           }}
         >
@@ -155,7 +169,7 @@ const listPage = () => {
 async function fetchDataFromStoreOrServer(
   orderBy: OrderTypes,
   listOrderType: OrderdPostListState,
-) {
+): Promise<getPostListOptions> {
   const likeCountQuery = 'order__likeCount=DESC';
   const viewCountQuery = 'order__viewCount=DESC';
 
@@ -168,6 +182,7 @@ async function fetchDataFromStoreOrServer(
   } else {
     console.log('first fetching!');
     const url = composeUrlQuery(
+      true,
       orderBy,
       orderBy === 'LIKES'
         ? likeCountQuery
@@ -178,33 +193,45 @@ async function fetchDataFromStoreOrServer(
     const { status, success, data } = await handleGetPostList(url);
 
     return {
-      list: data!.postList,
-      count: data!.count,
-      next: data!.nextPath.split('?')[1],
+      list: data?.postList ?? [],
+      count: data?.count ?? -1,
+      next: data?.nextPath.split('?')[1] || '',
     };
   }
 }
 
-async function moreFetchData(orderBy: OrderTypes, nextPath: string) {
-  const url = composeUrlQuery(orderBy, nextPath);
+async function moreFetchData(
+  orderBy: OrderTypes,
+  nextPath: string,
+): Promise<getPostListOptions> {
+  const url = composeUrlQuery(false, orderBy, nextPath);
   const { status, success, data } = await handleGetPostList(url);
 
   return {
-    list: data?.postList,
-    next: data?.nextPath,
-    count: data?.count,
+    list: data?.postList || [],
+    count: data?.count || -1,
+    next: data?.nextPath || '',
   };
 }
 
-export function composeUrlQuery(orderBy?: OrderTypes, findOptions?: string) {
+export function composeUrlQuery(
+  isFirstFetch: boolean,
+  orderBy?: OrderTypes,
+  findOptions?: string,
+): string {
   const orderByCreateAt =
     orderBy === 'ASC' || orderBy === 'DESC' ? orderBy : '';
-  let url = `${BASE_URL}/post?order__createAt=${orderByCreateAt || 'DESC'}`;
 
-  if (findOptions) {
-    const appendQuery = `&${findOptions}`;
+  let url = '';
 
-    url += appendQuery;
+  if (isFirstFetch) {
+    url = `${BASE_URL}/post?order__createAt=${orderByCreateAt || 'DESC'}`;
+
+    if (findOptions) {
+      url += `&${findOptions}`;
+    }
+  } else {
+    url = `${BASE_URL}/post?${findOptions}`;
   }
 
   return url;
