@@ -1,28 +1,17 @@
 'use client';
 
-import mapDispatchToProps from '@/apis/functions/mapDispatchToProps';
 import BaseButton from '@/components/common/BaseButton';
-import { BASE_URL } from '@/components/common/constants/pathConst';
 import PostList from '@/components/post/PostList';
 import fetchDataFromStoreOrServer from '@/components/post/functions/fetchDataFromStoreOrServer';
+import mapDispatchToProps from '@/components/post/functions/mapDispatchToProps';
 import moreFetchData from '@/components/post/functions/moreFetchData';
-import handleGetPostList from '@/components/post/handlers/handleGetPostList';
 import {
   getPostListOptions,
   PostOptions,
 } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
-import {
-  OrderdPostListState,
-  SliceOptions,
-} from '@/components/stores/interfaces/stateInterface';
-import {
-  setPostListOrderBy,
-  setPostListOrderByAsc,
-  setPostListOrderByDesc,
-  setPostListOrderByLikes,
-  setPostListOrderByViews,
-} from '@/components/stores/reducer/PostListReducer';
+import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
+import { setPostListOrderBy } from '@/components/stores/reducer/PostListReducer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
