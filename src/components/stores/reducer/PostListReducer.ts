@@ -43,7 +43,6 @@ export const postListSlice = createSlice({
       Object.assign(state.views, actions.payload);
     },
     setPostListOrderBy: (state, actions) => {
-      console.log(actions.payload);
       Object.assign(state.orderType, actions.payload);
     },
     setPostListFirstLoad: (state, actions) => {
