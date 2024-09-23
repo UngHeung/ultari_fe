@@ -1,5 +1,3 @@
-'use client';
-
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,16 +7,20 @@ import { setPost } from '../stores/reducer/postReducer';
 import PostButton from './elements/PostButton';
 import PostInput from './elements/PostInput';
 import handleUploadPost from './handlers/handleUploadPost';
-import ImageUploadForm from './ImageUploadForm';
-import style from './styles/write.module.css';
 import { PostWriteTypes } from './interfaces/postInterfaces';
+import style from './styles/write.module.css';
 
-const Write = ({ type }: { type: PostWriteTypes }) => {
+const WriteForm = ({
+  type,
+  selectedFilenames,
+}: {
+  type: PostWriteTypes;
+  selectedFilenames: string[];
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const updatePostId = type === 'update' && pathname.split('/')[3];
   const [disabled, setDisabled] = useState<boolean>(false);
-  const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
   const dispatch = useDispatch();
   const post =
     type === 'update' ? useSelector((state: SliceOptions) => state.post) : null;
@@ -26,7 +28,6 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
 
   return (
     <>
-      <ImageUploadForm setSelectedFilenames={setSelectedFilenames} />
       <form
         onSubmit={async event => {
           event.preventDefault();
@@ -107,4 +108,4 @@ const Write = ({ type }: { type: PostWriteTypes }) => {
   );
 };
 
-export default Write;
+export default WriteForm;
