@@ -11,7 +11,10 @@ import {
 } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
-import { setPostListOrderBy } from '@/components/stores/reducer/PostListReducer';
+import {
+  resetPostList,
+  setPostListOrderBy,
+} from '@/components/stores/reducer/PostListReducer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,12 +27,6 @@ const listPage = () => {
   const listOrderByAsc = useSelector(
     (state: SliceOptions) => state.postList.asc,
   );
-  const listOrderByLikes = useSelector(
-    (state: SliceOptions) => state.postList.likes,
-  );
-  const listOrderByViews = useSelector(
-    (state: SliceOptions) => state.postList.views,
-  );
   const listOrderBy = useSelector(
     (state: SliceOptions) => state.postList.orderType,
   );
@@ -41,6 +38,10 @@ const listPage = () => {
     (async () => {
       postListProcess(listOrderBy.value);
     })();
+
+    return () => {
+      dispatch(resetPostList());
+    };
   }, []);
 
   async function postListProcess(orderBy: OrderTypes) {
@@ -56,12 +57,6 @@ const listPage = () => {
     } else if (orderBy === 'ASC') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByAsc);
       mapDispatchToProps.asc(dispatch, postData);
-    } else if (orderBy === 'LIKES') {
-      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByLikes);
-      mapDispatchToProps.likes(dispatch, postData);
-    } else if (orderBy === 'VIEWS') {
-      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByViews);
-      mapDispatchToProps.views(dispatch, postData);
     }
 
     setPostList(postData.list);
@@ -92,26 +87,6 @@ const listPage = () => {
               }}
             />
           </li>
-          {/* <li key={'btnlk'}>
-            <BaseButton
-              type={'button'}
-              value={'좋아요'}
-              onClick={async () => {
-                dispatch(setPostListOrderBy({ value: 'LIKES' }));
-                postListProcess('LIKES');
-              }}
-            />
-          </li>
-          <li key={'btnvw'}>
-            <BaseButton
-              type={'button'}
-              value={'조회수'}
-              onClick={async () => {
-                dispatch(setPostListOrderBy({ value: 'VIEWS' }));
-                postListProcess('VIEWS');
-              }}
-            />
-          </li> */}
         </ul>
       </menu>
       <PostList postList={postList} />
@@ -135,10 +110,6 @@ const listPage = () => {
               mapDispatchToProps.desc(dispatch, dispatchData);
             } else if (orderBy === 'ASC') {
               mapDispatchToProps.asc(dispatch, dispatchData);
-            } else if (orderBy === 'LIKES') {
-              mapDispatchToProps.likes(dispatch, dispatchData);
-            } else if (orderBy === 'VIEWS') {
-              mapDispatchToProps.views(dispatch, dispatchData);
             }
           }}
         >
