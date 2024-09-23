@@ -18,7 +18,7 @@ export interface PostOptions {
   visibility: string;
   type: string;
   likeCount: number;
-  likers: UserOptions[];
+  likers: UserOptions[] | UserState[];
   viewCount: number;
   author: UserOptions | null;
   images?: ImageOptions[];
@@ -31,6 +31,12 @@ export interface getPostOptions {
   cursor: { after: number };
   count: number;
   nextPath: string;
+}
+
+export interface getPostListOptions {
+  list: PostOptions[];
+  count: number;
+  next: string;
 }
 
 export type PostWriteTypes = 'new' | 'update';
