@@ -18,7 +18,7 @@ export interface PostOptions {
   visibility: string;
   type: string;
   likeCount: number;
-  likers: UserOptions[];
+  likers: UserOptions[] | UserState[];
   viewCount: number;
   author: UserOptions | null;
   images?: ImageOptions[];

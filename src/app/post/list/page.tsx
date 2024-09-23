@@ -1,8 +1,11 @@
 'use client';
 
+import mapDispatchToProps from '@/apis/functions/mapDispatchToProps';
 import BaseButton from '@/components/common/BaseButton';
 import { BASE_URL } from '@/components/common/constants/pathConst';
 import PostList from '@/components/post/PostList';
+import fetchDataFromStoreOrServer from '@/components/post/functions/fetchDataFromStoreOrServer';
+import moreFetchData from '@/components/post/functions/moreFetchData';
 import handleGetPostList from '@/components/post/handlers/handleGetPostList';
 import {
   getPostListOptions,
@@ -51,15 +54,6 @@ const listPage = () => {
     })();
   }, []);
 
-  const mapDispatchToProps = {
-    desc: (data: getPostListOptions) => dispatch(setPostListOrderByDesc(data)),
-    asc: (data: getPostListOptions) => dispatch(setPostListOrderByAsc(data)),
-    likes: (data: getPostListOptions) =>
-      dispatch(setPostListOrderByLikes(data)),
-    views: (data: getPostListOptions) =>
-      dispatch(setPostListOrderByViews(data)),
-  };
-
   async function postListProcess(orderBy: OrderTypes) {
     let postData: getPostListOptions = {
       list: [],
@@ -69,16 +63,16 @@ const listPage = () => {
 
     if (orderBy === 'DESC') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByDesc);
-      mapDispatchToProps.desc(postData);
+      mapDispatchToProps.desc(dispatch, postData);
     } else if (orderBy === 'ASC') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByAsc);
-      mapDispatchToProps.asc(postData);
+      mapDispatchToProps.asc(dispatch, postData);
     } else if (orderBy === 'LIKES') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByLikes);
-      mapDispatchToProps.likes(postData);
+      mapDispatchToProps.likes(dispatch, postData);
     } else if (orderBy === 'VIEWS') {
       postData = await fetchDataFromStoreOrServer(orderBy, listOrderByViews);
-      mapDispatchToProps.views(postData);
+      mapDispatchToProps.views(dispatch, postData);
     }
 
     setPostList(postData.list);
@@ -149,13 +143,13 @@ const listPage = () => {
             setNextPath(postData.next!);
 
             if (orderBy === 'DESC') {
-              mapDispatchToProps.desc(dispatchData);
+              mapDispatchToProps.desc(dispatch, dispatchData);
             } else if (orderBy === 'ASC') {
-              mapDispatchToProps.asc(dispatchData);
+              mapDispatchToProps.asc(dispatch, dispatchData);
             } else if (orderBy === 'LIKES') {
-              mapDispatchToProps.likes(dispatchData);
+              mapDispatchToProps.likes(dispatch, dispatchData);
             } else if (orderBy === 'VIEWS') {
-              mapDispatchToProps.views(dispatchData);
+              mapDispatchToProps.views(dispatch, dispatchData);
             }
           }}
         >
@@ -165,76 +159,5 @@ const listPage = () => {
     </>
   );
 };
-
-async function fetchDataFromStoreOrServer(
-  orderBy: OrderTypes,
-  listOrderType: OrderdPostListState,
-): Promise<getPostListOptions> {
-  const likeCountQuery = 'order__likeCount=DESC';
-  const viewCountQuery = 'order__viewCount=DESC';
-
-  if (listOrderType.count) {
-    return {
-      list: listOrderType.list,
-      count: listOrderType.list.length,
-      next: listOrderType.next,
-    };
-  } else {
-    console.log('first fetching!');
-    const url = composeUrlQuery(
-      true,
-      orderBy,
-      orderBy === 'LIKES'
-        ? likeCountQuery
-        : orderBy === 'VIEWS'
-          ? viewCountQuery
-          : '',
-    );
-    const { status, success, data } = await handleGetPostList(url);
-
-    return {
-      list: data?.postList ?? [],
-      count: data?.count ?? -1,
-      next: data?.nextPath.split('?')[1] || '',
-    };
-  }
-}
-
-async function moreFetchData(
-  orderBy: OrderTypes,
-  nextPath: string,
-): Promise<getPostListOptions> {
-  const url = composeUrlQuery(false, orderBy, nextPath);
-  const { status, success, data } = await handleGetPostList(url);
-
-  return {
-    list: data?.postList || [],
-    count: data?.count || -1,
-    next: data?.nextPath || '',
-  };
-}
-
-export function composeUrlQuery(
-  isFirstFetch: boolean,
-  orderBy?: OrderTypes,
-  findOptions?: string,
-): string {
-  const orderByCreateAt =
-    orderBy === 'ASC' || orderBy === 'DESC' ? orderBy : '';
-
-  let url = '';
-
-  if (isFirstFetch) {
-    url = `${BASE_URL}/post?order__createAt=${orderByCreateAt || 'DESC'}`;
-
-    if (findOptions) {
-      url += `&${findOptions}`;
-    }
-  } else {
-    url = `${BASE_URL}/post?${findOptions}`;
-  }
-
-  return url;
-}
 
 export default listPage;
