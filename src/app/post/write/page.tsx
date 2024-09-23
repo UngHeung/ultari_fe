@@ -1,9 +1,16 @@
-import Write from '@/components/post/Write';
+'use client';
+
+import ImageUploadForm from '@/components/post/ImageUploadForm';
+import WriteForm from '@/components/post/WriteForm';
+import { useState } from 'react';
 
 const writePage = () => {
+  const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
+
   return (
     <>
-      <Write type={'new'} />
+      <ImageUploadForm setSelectedFilenames={setSelectedFilenames} />
+      <WriteForm type={'new'} selectedFilenames={selectedFilenames} />
     </>
   );
 };

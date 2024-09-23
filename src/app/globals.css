@@ -138,8 +138,10 @@ main {
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-main-red);
+  cursor: pointer;
 }
