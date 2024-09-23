@@ -13,7 +13,6 @@ import {
 import Modal from '../modal/Modal';
 import { SliceOptions } from '../stores/interfaces/stateInterface';
 import { setUser } from '../stores/reducer/userReducer';
-import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -36,7 +35,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Header userName={userName} isLoggedIn={isLoggedIn} />
       {children}
-      <Footer />
+      {/* <Footer /> */}
       {modalIsShow && <Modal />}
     </>
   );
