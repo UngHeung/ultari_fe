@@ -1,0 +1,27 @@
+.previewImageWrap {
+  width: fit-content;
+  max-width: 600px;
+  overflow-x: auto;
+}
+
+.previewImageList {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.previewImage {
+  position: relative;
+  border-radius: 4px;
+  font-size: 0;
+  overflow: hidden;
+}
+
+.previewImage::after {}
+
+.previewImage:hover::after {}
+
+.previewImage * {
+  font-size: inherit;
+}
