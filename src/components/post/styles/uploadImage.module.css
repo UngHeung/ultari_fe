@@ -5,10 +5,31 @@
 }
 
 .previewImageList {
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
+}
+
+.previewImageList::after {
+  content: '확정 완료';
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 100%;
+  height: 20px;
+  background-color: var(--background-color-body);
+  color: var(--font-color-basic);
+  font-size: var(--font-size-comment);
+  text-align: center;
+  line-height: 20px;
+  transition: top .3s;
+}
+
+.previewImageList.readOnly::after {
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .previewImage {
