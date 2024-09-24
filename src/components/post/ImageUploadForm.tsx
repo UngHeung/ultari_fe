@@ -78,7 +78,7 @@ const ImageUploadForm = ({
           <section>
             {selectedFiles?.length! > 0 ? (
               <SelectedImageConfirmButton
-                type={'button'}
+                type={'submit'}
                 onClick={() => setConfirmedImages(prev => !prev)}
                 confirmedImages={confirmedImages}
               />
