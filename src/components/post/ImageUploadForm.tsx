@@ -1,14 +1,9 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useState,
-} from 'react';
+import { ChangeEvent, FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import BaseButton from '../common/BaseButton';
 import showModal from '../common/functions/showModal';
 import { ModalState } from '../stores/interfaces/stateInterface';
+import ImageInput from './elements/ImageInput';
+import SelectedImageConfirmButton from './elements/SelectedImageConfirmButton';
 import handleUploadImage from './handlers/handleUploadImage';
 import ImageBlobList from './ImageBlobList';
 import style from './styles/write.module.css';
@@ -23,6 +18,7 @@ const ImageUploadForm = ({
   const [uploadDisabled, setUploadDisabled] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>();
   const [selectedImageBlobs, setSelectedImageBlobs] = useState<string[]>([]);
+  const [confirmedImages, setConfirmedImages] = useState<boolean>(false);
 
   async function submitUploadPost(event: FormEvent) {
     event.preventDefault();
@@ -52,40 +48,39 @@ const ImageUploadForm = ({
       <form onSubmit={submitUploadPost}>
         <section className={style.imageWrap}>
           <section className={style.fileInputWrap}>
-            <label htmlFor="imageUpload" className={style.selectButton}>
-              {addImageButtonIcon}
-            </label>
-            <input
-              type={'file'}
+            <ImageInput
+              useLabel={true}
+              isMultiple={true}
+              labelStyleClass={style.selectButton}
+              labelValue={addImageButtonIcon}
               name={'images'}
               id={'imageUpload'}
-              accept={'image/png, image/jpeg, image/jpg, image/gif'}
-              onChange={event => {
+              accept={['image/png', 'image/jpeg', 'image/jpg', 'image/gif']}
+              onChange={event =>
                 handleImageBlob(
                   event,
                   selectedFiles!,
                   setSelectedFiles,
                   setSelectedImageBlobs,
-                );
-              }}
-              style={{ display: 'none' }}
-              multiple
+                )
+              }
+              disabeld={confirmedImages}
             />
           </section>
-          {/* <ImageBlobList selectedImageBlobs={selectedImageBlobs} /> */}
           <ImageBlobList
             selectedImageBlobs={selectedImageBlobs}
             setSelectedImageBlobs={setSelectedImageBlobs}
             selectedFiles={selectedFiles}
             setSelectedFiles={setSelectedFiles}
+            readOnly={confirmedImages}
           />
           <section className={'fileUploadButtonWrap'}></section>
           <section>
             {selectedFiles?.length! > 0 ? (
-              <BaseButton
-                className={style.submitButton}
-                type={'submit'}
-                value={'확정하기'}
+              <SelectedImageConfirmButton
+                type={'button'}
+                onClick={() => setConfirmedImages(prev => !prev)}
+                confirmedImages={confirmedImages}
               />
             ) : (
               <p className={style.descriptionImageUpload}>
@@ -102,8 +97,8 @@ const ImageUploadForm = ({
 function handleImageBlob(
   event: ChangeEvent<HTMLInputElement>,
   selectedFiles: File[],
-  setSelectedFiles: Dispatch<any>,
-  setSelectedImageBlob: Dispatch<SetStateAction<string[]>>,
+  setSelectedFiles: React.Dispatch<File[]>,
+  setSelectedImageBlob: React.Dispatch<SetStateAction<string[]>>,
 ) {
   event.preventDefault();
   const files = event.target.files;
