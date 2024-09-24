@@ -6,15 +6,19 @@ const ImageBlobList = ({
   setSelectedImageBlobs,
   selectedFiles,
   setSelectedFiles,
+  readOnly,
 }: {
   selectedImageBlobs: string[];
   setSelectedImageBlobs: React.Dispatch<string[]>;
   selectedFiles: File[] | undefined;
   setSelectedFiles: React.Dispatch<File[]>;
+  readOnly: boolean;
 }) => {
   return (
     <section className={style.previewImageWrap}>
-      <ul className={style.previewImageList}>
+      <ul
+        className={`${style.previewImageList} ${readOnly ? style.readOnly : ''}`}
+      >
         {selectedImageBlobs &&
           selectedImageBlobs.map((image, idx) => {
             return (
@@ -27,6 +31,7 @@ const ImageBlobList = ({
                 setSelectedImageBlobs={setSelectedImageBlobs}
                 selectedFiles={selectedFiles}
                 setSelectedFiles={setSelectedFiles}
+                readOnly={readOnly}
               />
             );
           })}

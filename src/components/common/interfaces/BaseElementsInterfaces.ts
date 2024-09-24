@@ -4,7 +4,7 @@ export interface BaseButtonOptions {
   id?: string;
   className?: string;
   type: 'submit' | 'button';
-  value: string;
+  value: string | JSX.Element;
   styleClass?: string;
   disabled?: boolean;
   autoFocus?: boolean;

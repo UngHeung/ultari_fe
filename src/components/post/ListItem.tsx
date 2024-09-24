@@ -15,16 +15,24 @@ const ListItem = (props: PostOptions, key: number) => {
       : 'light',
   );
 
+  function changeTheme(event: MediaQueryListEvent) {
+    if (event.matches) {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  }
+
   useEffect(() => {
     window
       .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', event => {
-        if (event.matches) {
-          setTheme('dark');
-        } else {
-          setTheme('light');
-        }
-      });
+      .addEventListener('change', changeTheme);
+
+    return () => {
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .removeEventListener('change', changeTheme);
+    };
   }, []);
 
   return (
