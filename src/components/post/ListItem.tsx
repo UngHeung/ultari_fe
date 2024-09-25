@@ -53,7 +53,9 @@ const ListItem = (props: PostOptions, key: number) => {
               <span className={style.visibility}>
                 {getVisibilityType(props.visibility)}
               </span>
-              <span className={style.type}>{getPostType(props.type)}</span>
+              <span className={style.type}>
+                {getPostType(props.contentType)}
+              </span>
             </section>
 
             <section className={style.countsWrap}>
@@ -102,8 +104,8 @@ function getVisibilityType(visibility: string) {
   }
 }
 
-function getPostType(type: string) {
-  switch (type) {
+function getPostType(contentType: string) {
+  switch (contentType) {
     case 'TYPE_FREE':
       return '자유';
     case 'TYPE_SHARE':

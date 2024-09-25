@@ -1,4 +1,3 @@
-import slideStyle from '@/components/common/styles/imageSlider.module.css';
 import ImagesSlider from '../common/ImagesSlider';
 import { PostState } from '../stores/interfaces/stateInterface';
 import style from './styles/detail.module.css';
@@ -17,7 +16,6 @@ const Detail = ({ postData }: { postData: PostState }) => {
             images={postData?.images!}
             width={600}
             height={400}
-            styleModule={slideStyle}
           />
         )}
         <pre className={style.content}>{postData?.content}</pre>
