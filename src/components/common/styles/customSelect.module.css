@@ -1,0 +1,74 @@
+.selectButton:focus {
+  outline: none;
+}
+
+.select {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100px;
+  background-color: var(--background-color-select);
+  border-bottom: 3px solid var(--border-color-select);
+  color: var(--font-color-basic);
+  font-size: var(--font-size-comment);
+  overflow: hidden;
+  transition: height .1s;
+  z-index: 100;
+}
+
+.selectLabel {
+  position: relative;
+  text-align: left;
+  text-indent: 10px;
+  border-bottom: 3px solid var(--border-color-select);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.selectLabel:focus {
+  outline: none;
+}
+
+.arrowWrap {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  display: block;
+  width: 10px;
+  height: 6px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  z-index: 101;
+  font-size: 0;
+  line-height: initial;
+  text-indent: initial;
+}
+
+.arrowImage {
+  object-fit: contain;
+  width: 100%;
+  transition: transform .3s;
+}
+
+.arrowImage.active {
+  transform: rotate(180deg);
+}
+
+.option {
+  background-color: var(--background-color-select);
+  text-align: center;
+  cursor: pointer;
+}
+
+.option:hover {
+  filter: var(--filter-select-hover);
+}
+
+.selectLabel,
+.option {
+  display: block;
+  width: 100%;
+  height: 30px;
+  color: inherit;
+  line-height: 30px;
+}
