@@ -11,13 +11,11 @@ const ImagesSlider = ({
   images,
   width,
   height,
-  styleModule,
 }: {
   folder: ImageFolderTypes;
   images: ImageOptions[];
   width: number;
   height: number;
-  styleModule: any;
 }) => {
   const [imagePosition, setImagePosition] = useState<number>(0);
   const imageCount: number = images?.length;
@@ -33,9 +31,9 @@ const ImagesSlider = ({
 
   return (
     <>
-      <div className={`${styleModule?.imageSlider} ${style.imageSlider}`}>
+      <div className={style.imageSlider}>
         <ul
-          className={`${styleModule?.imageList} ${style.imageList}`}
+          className={style.imageList}
           style={{
             left: imagePosition,
             width: slideWidth,
@@ -47,20 +45,20 @@ const ImagesSlider = ({
             return (
               <li
                 key={image.id}
-                className={`${styleModule?.imageItem} ${style.image}`}
+                className={`${style.imageItem} ${style.image}`}
               >
                 <ImageItem
                   path={filename}
                   folder={folder}
                   width={width}
                   height={height}
-                  styleClass={styleModule?.image}
+                  styleClass={style.image}
                 />
               </li>
             );
           })}
         </ul>
-        <section className={styleModule?.buttonWrap}>
+        <section className={style.buttonWrap}>
           <button onClick={() => setImagePosition(imagePosition + width)}>
             {'<'}
           </button>
