@@ -12,7 +12,9 @@ const handleUploadPost = async (
   const formData = new FormData(event.currentTarget);
   const title = formData.get('title');
   const content = formData.get('content');
-  const data = { title, content, images };
+  const visibility = formData.get('visibility');
+  const contentType = formData.get('contentType');
+  const data = { title, content, images, visibility, contentType };
   const url = `${BASE_URL}/post/${type === 'update' ? updatePostId : ''}`;
 
   try {
