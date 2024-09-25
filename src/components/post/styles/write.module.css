@@ -19,6 +19,9 @@
   color: var(--color-placeholder)
 }
 
+.titleWrap {
+  position: relative;
+}
 
 .title {
   width: 100%;
@@ -31,6 +34,18 @@
   font-size: var(--font-size-content);
   font-weight: var(--font-weight-title);
   color: var(--font-color-input)
+}
+
+.selectVisibility {
+  position: absolute;
+  top: 22px;
+  right: var(--margin-content);
+}
+
+.selectType {
+  position: absolute;
+  top: 22px;
+  right: calc(var(--margin-content) + 100px);
 }
 
 .content {
