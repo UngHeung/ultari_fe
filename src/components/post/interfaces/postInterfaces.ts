@@ -15,8 +15,8 @@ export interface PostOptions {
   id: number;
   title: string;
   content: string;
-  visibility: string;
-  type: string;
+  visibility: visibilityOptions;
+  contentType: contentTypeOptions;
   likeCount: number;
   likers: UserOptions[] | UserState[];
   viewCount: number;
@@ -25,6 +25,17 @@ export interface PostOptions {
   createAt: Date | string;
   updateAt: Date | string;
 }
+
+export type visibilityOptions =
+  | 'SCOPE_PUBLIC'
+  | 'SCOPE_TEAM'
+  | 'SCOPE_PERSONAL';
+
+export type contentTypeOptions =
+  | 'TYPE_THANKS'
+  | 'TYPE_PRAYER'
+  | 'TYPE_SHARE'
+  | 'TYPE_FREE';
 
 export interface getPostOptions {
   postList: PostOptions[];
