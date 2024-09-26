@@ -1,5 +1,7 @@
 import ImagesSlider from '../common/ImagesSlider';
 import { PostState } from '../stores/interfaces/stateInterface';
+import mapContentType from './functions/mapContentType';
+import mapVisibility from './functions/mapVisibility';
 import style from './styles/detail.module.css';
 
 const Detail = ({ postData }: { postData: PostState }) => {
@@ -7,7 +9,9 @@ const Detail = ({ postData }: { postData: PostState }) => {
     <>
       <section className={style.titleWrap}>
         <h2 className={style.title}>{postData?.title}</h2>
-        <span>{`작성일 : ${getDate(postData?.createAt.toString())}`}</span>
+        <span>{mapContentType(postData.contentType)}</span>
+        <span>{mapVisibility(postData.visibility)}</span>
+        <span>{getDate(postData?.createAt.toString())}</span>
       </section>
       <section className={style.contentWrap}>
         {postData && (
