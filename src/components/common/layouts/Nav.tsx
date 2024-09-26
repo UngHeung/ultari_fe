@@ -30,7 +30,7 @@ const Nav = () => {
           <Link href={'/team/list'}>팀목록</Link>
         </li>
         <li>
-          <Link href={'/team/detail/1'}>디테일</Link>
+          <Link href={'/team/detail/2'}>디테일</Link>
         </li>
       </ul>
     </nav>
