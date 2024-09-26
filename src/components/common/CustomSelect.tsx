@@ -19,7 +19,7 @@ export interface CustomSelectOptions {
 const CustomSelect = (props: CustomSelectOptions) => {
   const { selectOptions, selectId, name, styleClass } = props;
   const defaultOption = selectOptions[0].option;
-  const defaultData = selectOptions[0].option;
+  const defaultData = selectOptions[0].data;
 
   const [selectedOption, setselectedOption] = useState<string>(defaultOption);
   const [selectedData, setSelectedData] = useState<string>(defaultData);
@@ -52,13 +52,6 @@ const CustomSelect = (props: CustomSelectOptions) => {
               />
             </span>
           </button>
-          <input
-            type="text"
-            value={selectedData}
-            name={name}
-            readOnly
-            style={{ display: 'none' }}
-          />
         </li>
         {selectOptions.map((selectOption, idx) => {
           const { option, data } = selectOption;
