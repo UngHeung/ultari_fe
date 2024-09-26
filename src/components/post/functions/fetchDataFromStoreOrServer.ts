@@ -28,12 +28,13 @@ async function fetchDataFromStoreOrServer(
           ? viewCountQuery
           : '',
     );
+
     const { status, success, data } = await handleGetPostList(url);
 
     return {
       list: data?.postList ?? [],
       count: data?.count ?? -1,
-      next: data?.nextPath.split('?')[1] || '',
+      next: data?.nextPath?.split('?')[1] || '',
     };
   }
 }
