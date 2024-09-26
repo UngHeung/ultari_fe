@@ -5,12 +5,12 @@ const Nav = () => {
   return (
     <nav className={style.mainNav}>
       <ul className={style.mainNavUl}>
-        <li>
+        {/* <li>
           <Link href={'/'}>메인</Link>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <Link href={'/sign'}>회원가입</Link>
-        </li>
+        </li> */}
         <li>
           <Link href={'/login'}>로그인</Link>
         </li>
@@ -20,8 +20,17 @@ const Nav = () => {
         <li>
           <Link href={'/post/list'}>게시판</Link>
         </li>
-        <li>
+        {/* <li>
           <Link href={'/logout'}>로그아웃</Link>
+        </li> */}
+        <li>
+          <Link href={'/team/create'}>팀생성</Link>
+        </li>
+        <li>
+          <Link href={'/team/list'}>팀목록</Link>
+        </li>
+        <li>
+          <Link href={'/team/detail/1'}>디테일</Link>
         </li>
       </ul>
     </nav>
