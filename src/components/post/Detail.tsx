@@ -1,5 +1,6 @@
 import ImagesSlider from '../common/ImagesSlider';
 import { PostState } from '../stores/interfaces/stateInterface';
+import { getDate } from '../team/TeamList';
 import mapContentType from './functions/mapContentType';
 import mapVisibility from './functions/mapVisibility';
 import style from './styles/detail.module.css';
@@ -11,7 +12,7 @@ const Detail = ({ postData }: { postData: PostState }) => {
         <h2 className={style.title}>{postData?.title}</h2>
         <span>{mapContentType(postData.contentType)}</span>
         <span>{mapVisibility(postData.visibility)}</span>
-        <span>{getDate(postData?.createAt.toString())}</span>
+        <span>{getDate(postData?.createAt)}</span>
       </section>
       <section className={style.contentWrap}>
         {postData && (
@@ -27,14 +28,6 @@ const Detail = ({ postData }: { postData: PostState }) => {
     </>
   );
 };
-
-function getDate(inputDate: string) {
-  if (!inputDate) return;
-
-  const [date, time] = inputDate?.split('T');
-
-  return `${date} ${time?.split('.')[0]}`;
-}
 
 export default Detail;
 

@@ -1,0 +1,12 @@
+.teamWrap {
+  width: 100%;
+  max-width: 600px;
+  margin: var(--margin-container) auto;
+}
+
+.teamTitle {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-title);
+  margin-bottom: var(--margin-title);
+  text-align: center;
+}

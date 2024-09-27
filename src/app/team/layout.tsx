@@ -1,12 +1,19 @@
 'use client';
 
-import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
+import {
+  ModalState,
+  SliceOptions,
+} from '@/components/stores/interfaces/stateInterface';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
+import { setModal } from '@/components/stores/reducer/modalRducer';
+
+export type TeamPageType = 'list' | 'create';
 
 const TeamLayout = ({ children }: { children: React.ReactNode }) => {
+  const dispatch = useDispatch();
   const pathname = usePathname();
   const router = useRouter();
   const [title, setTitle] = useState<string>('');
@@ -16,13 +23,25 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   );
 
   useEffect(() => {
-    const type = pathname.slice(1);
+    const type: TeamPageType = pathname.slice(1).split('/')[1] as TeamPageType;
 
-    if (type === 'create') {
-      !isLoggedIn ? setTitle('목장 만들기') : router.replace('/');
-    } else if (type === '') {
-      //
+    setTitle(getTitle(type, isLoggedIn));
+
+    if (!checkAuth(type, isLoggedIn)) {
+      const modalData: ModalState = {
+        title: '권한 없음',
+        type: 'alert',
+        success: false,
+        message: '로그인 후 사용 가능합니다.',
+        modalIsShow: true,
+        routerType: 'push',
+        leftPath: '/login',
+      };
+
+      dispatch(setModal(modalData));
     }
+
+    return () => {};
   }, [pathname, isLoggedIn]);
 
   return (
@@ -34,5 +53,23 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
+
+function getTitle(type: 'list' | 'create', isLoggedIn: boolean) {
+  if (type === 'list') {
+    return '목장 목록';
+  } else if (type === 'create') {
+    return '목장 생성';
+  } else {
+    return '목장';
+  }
+}
+
+export function checkAuth(type: TeamPageType, isLoggedIn: boolean) {
+  if ((!isLoggedIn && type === 'list') || (!isLoggedIn && type === 'create')) {
+    return false;
+  }
+
+  return true;
+}
 
 export default TeamLayout;

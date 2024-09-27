@@ -47,13 +47,11 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
 
       dispatch(setModal(modalData));
     }
-  }, [pathname]);
 
-  useEffect(() => {
     return () => {
       dispatch(resetPost());
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <>
@@ -93,7 +91,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-function getTitle(type: 'list' | 'write' | 'update', isLoggedIn: boolean) {
+function getTitle(type: PostPageType, isLoggedIn: boolean) {
   if (type === 'list') {
     return '게시물 목록';
   } else if (type === 'write') {
@@ -105,7 +103,7 @@ function getTitle(type: 'list' | 'write' | 'update', isLoggedIn: boolean) {
   }
 }
 
-function checkAuth(type: 'list' | 'write' | 'update', isLoggedIn: boolean) {
+export function checkAuth(type: PostPageType, isLoggedIn: boolean) {
   if ((!isLoggedIn && type === 'write') || (!isLoggedIn && type === 'update')) {
     return false;
   }
