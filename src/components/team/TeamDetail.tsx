@@ -1,6 +1,7 @@
 import { TeamOptioins } from '@/app/team/detail/[:id]/page';
-import style from './styles/teamDetail.module.css';
 import Image from 'next/image';
+import style from './styles/teamDetail.module.css';
+import defaultProfile from '@/public/images/profile_default.png';
 
 const TeamDetail = (props: TeamOptioins) => {
   return (
@@ -16,7 +17,7 @@ const TeamDetail = (props: TeamOptioins) => {
           <div className={style.profileWrap}>
             <span className={style.leaderProfile}>
               <Image
-                src={props.leader.profile ?? ''}
+                src={props.leader?.profile ?? defaultProfile}
                 alt={'목자_프로필'}
                 width={30}
                 height={30}
@@ -31,7 +32,7 @@ const TeamDetail = (props: TeamOptioins) => {
           <div className={style.profileWrap}>
             <span className={style.leaderProfile}>
               <Image
-                src={props.subLeader.profile ?? ''}
+                src={props.subLeader?.profile ?? defaultProfile}
                 alt={'부목자_프로필'}
                 width={30}
                 height={30}
@@ -53,7 +54,7 @@ const TeamDetail = (props: TeamOptioins) => {
                     <div className={style.profileWrap}>
                       <span className={style.memberProfile}>
                         <Image
-                          src={member.profile ?? ''}
+                          src={member?.profile ?? defaultProfile}
                           alt={'목장원_프로필'}
                           width={25}
                           height={25}
