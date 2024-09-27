@@ -6,12 +6,16 @@ const TeamList = ({ teamList }: { teamList: TeamOptioins[] }) => {
     <ul className={style.list}>
       {teamList.length ? (
         teamList.map((team, idx) => {
+          const createAt = getDate(team.createAt!, 'y-m-d');
+
           return (
             <li key={idx} className={style.listItem}>
-              <strong>{team.name}</strong>
-              <span>{team.community}</span>
-              <span>{team.leader.name}</span>
-              <span>{getDate(team.createAt!, 'y-m-d')}</span>
+              <strong className={style.teamName}>{team.name}</strong>
+              <span className={style.teamCommunity}>{team.community}</span>
+              <span className={style.teamCreateAt}>{createAt}</span>
+              <span
+                className={style.teamLeader}
+              >{`목자 : ${team.leader.name}`}</span>
             </li>
           );
         })
