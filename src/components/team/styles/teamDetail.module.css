@@ -129,6 +129,10 @@
   overflow: hidden;
 }
 
+.memberProfile>img {
+  vertical-align: top;
+}
+
 .profileWrap {
   display: flex;
   justify-content: center;
