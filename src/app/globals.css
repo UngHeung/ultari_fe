@@ -129,7 +129,12 @@ body {
   background-color: var(--background-color-body);
   font-family: var(--font-family-basic);
   color: var(--font-color-basic);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none
 }
+
 
 main {
   max-width: 100%;

@@ -1,5 +1,6 @@
 import { TeamOptioins } from '@/app/team/detail/[:id]/page';
 import style from './styles/teamDetail.module.css';
+import Image from 'next/image';
 
 const TeamDetail = (props: TeamOptioins) => {
   return (
@@ -12,14 +13,34 @@ const TeamDetail = (props: TeamOptioins) => {
       <section className={style.memberListWrap}>
         <section className={style.leaderWrap}>
           <h3 className={style.subTitle}>목자</h3>
-          <span className={style.leaderName}>{props.leader?.name}</span>
+          <div className={style.profileWrap}>
+            <span className={style.leaderProfile}>
+              <Image
+                src={props.leader.profile ?? ''}
+                alt={'목자_프로필'}
+                width={30}
+                height={30}
+              />
+            </span>
+            <span className={style.leaderName}>{props.leader?.name}</span>
+          </div>
         </section>
 
         <section className={style.subLeaderWrap}>
           <h3 className={style.subTitle}>부목자</h3>
-          <span className={style.subLeaderName}>
-            {props.subLeader?.name ?? '부목자가 임명되지 않았습니다.'}
-          </span>
+          <div className={style.profileWrap}>
+            <span className={style.leaderProfile}>
+              <Image
+                src={props.subLeader.profile ?? ''}
+                alt={'부목자_프로필'}
+                width={30}
+                height={30}
+              />
+            </span>
+            <span className={style.subLeaderName}>
+              {props.subLeader?.name ?? '부목자가 임명되지 않았습니다.'}
+            </span>
+          </div>
         </section>
 
         <section className={style.memberWrap}>
@@ -27,7 +48,21 @@ const TeamDetail = (props: TeamOptioins) => {
           <ul className={style.memberList}>
             {props.member ? (
               props.member.map((member, idx) => {
-                return <li key={idx}>{member.name}</li>;
+                return (
+                  <li key={idx}>
+                    <div className={style.profileWrap}>
+                      <span className={style.memberProfile}>
+                        <Image
+                          src={member.profile ?? ''}
+                          alt={'목장원_프로필'}
+                          width={25}
+                          height={25}
+                        />
+                      </span>
+                      <span className={style.memberName}>{member.name}</span>
+                    </div>
+                  </li>
+                );
               })
             ) : (
               <li>{'목장원이 없습니다.'}</li>

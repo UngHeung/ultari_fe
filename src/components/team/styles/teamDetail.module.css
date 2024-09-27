@@ -58,32 +58,39 @@
 .leaderWrap {
   grid-column: 1 / 1;
   grid-row: 1 / 1;
-  background-color: var(--background-color-card);
-  border: 1px solid var(--border-color-card);
+  /* background-color: var(--background-color-card);
+  border: 1px solid var(--border-color-card); */
   border-radius: 20px;
 }
 
 .subLeaderWrap {
   grid-column: 1 / 1;
   grid-row: 2 / 2;
-  background-color: var(--background-color-card);
-  border: 1px solid var(--border-color-card);
+  /* background-color: var(--background-color-card);
+  border: 1px solid var(--border-color-card); */
   border-radius: 20px;
 }
 
 .leaderName,
 .subLeaderName {
   display: inline-block;
-  height: 100px;
   font-size: var(--font-size-title);
-  line-height: 90px;
+}
+
+.leaderProfile {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: var(--color-placeholder);
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .memberWrap {
   grid-column: 2 / 3;
   grid-row: 1 / 3;
-  background-color: var(--background-color-card);
-  border: 1px solid var(--border-color-card);
+  /* background-color: var(--background-color-card);
+  border: 1px solid var(--border-color-card); */
   border-radius: 20px;
 }
 
@@ -98,16 +105,33 @@
 }
 
 .memberList::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 .memberList::-webkit-scrollbar-thumb {
   background-color: var(--background-color-card-scroll);
-  border-right: 5px solid var(--background-color-card);
+  border-radius: 3px;
+  /* border-right: 5px solid var(--background-color-card); */
 }
 
 .memberList>li {
   height: 50px;
   font-size: var(--font-size-content);
   line-height: 50px;
+}
+
+.memberProfile {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: var(--color-placeholder);
+  overflow: hidden;
+}
+
+.profileWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
