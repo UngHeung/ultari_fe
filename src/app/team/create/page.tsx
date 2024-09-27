@@ -1,7 +1,13 @@
-import React from 'react';
+'use client';
 
-const CreateTeam = () => {
-  return <></>;
+import CreateTeamForm from '@/components/team/CreateTeamForm';
+
+const CreateTeamPage = () => {
+  return (
+    <>
+      <CreateTeamForm />
+    </>
+  );
 };
 
-export default CreateTeam;
+export default CreateTeamPage;
