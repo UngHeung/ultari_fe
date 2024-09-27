@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 export interface TeamOptioins {
+  id: number;
   name: string;
   community: string;
   description?: string;

@@ -1,0 +1,10 @@
+.buttonWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--margin-content);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding-top: var(--padding-wrapper)
+}

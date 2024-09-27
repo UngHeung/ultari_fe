@@ -1,5 +1,6 @@
 import { TeamOptioins } from '@/app/team/detail/[:id]/page';
 import style from './styles/teamList.module.css';
+import Link from 'next/link';
 
 const TeamList = ({ teamList }: { teamList: TeamOptioins[] }) => {
   return (
@@ -10,12 +11,16 @@ const TeamList = ({ teamList }: { teamList: TeamOptioins[] }) => {
 
           return (
             <li key={idx} className={style.listItem}>
-              <strong className={style.teamName}>{team.name}</strong>
-              <span className={style.teamCommunity}>{team.community}</span>
-              <span className={style.teamCreateAt}>{createAt}</span>
-              <span
-                className={style.teamLeader}
-              >{`목자 : ${team.leader.name}`}</span>
+              <Link href={`./detail/${team.id}`}>
+                <div>
+                  <strong className={style.teamName}>{team.name}</strong>
+                  <span className={style.teamCommunity}>{team.community}</span>
+                  <span className={style.teamCreateAt}>{createAt}</span>
+                  <span
+                    className={style.teamLeader}
+                  >{`목자 : ${team.leader.name}`}</span>
+                </div>
+              </Link>
             </li>
           );
         })

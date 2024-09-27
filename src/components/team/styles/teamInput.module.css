@@ -1,0 +1,62 @@
+.inputWrap {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: var(--margin-content) auto;
+}
+
+.teamInput {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: 30px;
+  margin: 0 auto;
+  background-color: var(--background-color-input);
+  border-bottom: 2px solid var(--border-color-input);
+  color: var(--font-color-input);
+  font-size: var(--font-size-input);
+  font-weight: var(--font-weight-input);
+  text-align: center;
+  transition: border-color .3s;
+}
+
+.teamInput::placeholder {
+  font-size: var(--font-size-input-message);
+  color: var(--color-placeholder);
+}
+
+.teamInput:focus,
+.teamInput:not(:placeholder-shown) {
+  border-bottom-color: var(--focus-outline-basic);
+}
+
+.inputLabel {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  display: inline-block;
+  margin-bottom: var(--margin-content);
+  text-align: center;
+  color: vaR(--color-placeholder);
+  transition: top, left, font-size, color .3s, .3s, .3s, .3s;
+}
+
+.teamInput:focus+.inputLabel,
+.teamInput:not(:placeholder-shown)+.inputLabel {
+  top: -15px;
+  left: 0;
+  font-size: var(--font-size-input-message);
+  color: var(--font-color-basic);
+}
+
+.messageWrap {
+  display: block;
+  width: 100%;
+  height: 20px;
+  max-width: 300px;
+  margin: 5px auto;
+  font-size: var(--font-size-input-message);
+  color: var(--color-placeholder);
+  text-align: left;
+  transition: color .3s;
+}
