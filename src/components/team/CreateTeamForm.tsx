@@ -55,8 +55,9 @@ const CreateTeamForm = () => {
           type: success ? 'confirm' : 'alert',
           success,
           message,
-          routerType: undefined,
+          routerType: 'replace',
           modalIsShow: true,
+          leftPath: success ? '/team/list' : undefined,
         };
 
         dispatch(setModal(modalData));
