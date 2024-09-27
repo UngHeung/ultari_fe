@@ -1,0 +1,23 @@
+.button {
+  display: block;
+  width: 50%;
+  height: 40px;
+  background-color: var(--background-color-button);
+  font-size: var(--font-size-button);
+  font-weight: var(--font-weight-button);
+  transition: filter .3s;
+}
+
+.button:hover {
+  filter: var(--filter-button-hover);
+}
+
+.button:disabled {
+  text-decoration: line-through 2px solid;
+  color: var(--font-color-disabled);
+  cursor: default;
+}
+
+.button:disabled:hover {
+  filter: none;
+}
