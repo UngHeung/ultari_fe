@@ -1,5 +1,53 @@
 .list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-items: flex-start;
+  align-items: flex-start;
+  gap: var(--margin-content);
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.listItem {
+  width: calc(50% - 10px);
+  padding: 10px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color .3s;
+  cursor: pointer;
+}
+
+.listItem:hover {
+  border-color: var(--color-main-green);
+}
+
+.teamName,
+.teamCommunity,
+.teamCreateAt,
+.teamLeader {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.teamName {
+  font-size: var(--font-size-sub-title);
+  margin-bottom: 10px;
+}
+
+.teamCommunity {
+  font-size: var(--font-size-content);
+}
+
+.teamLeader {
+  font-size: var(--font-size-content);
+  font-weight: 600;
+}
+
+.teamCreateAt {
+  margin-bottom: 10px;
+  font-size: var(--font-size-comment);
+  font-weight: 100;
 }
