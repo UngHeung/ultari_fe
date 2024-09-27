@@ -22,8 +22,8 @@ export interface PostOptions {
   viewCount: number;
   author: UserOptions | null;
   images?: ImageOptions[];
-  createAt: Date | string;
-  updateAt: Date | string;
+  createAt: string;
+  updateAt: string;
 }
 
 export type visibilityOptions =
