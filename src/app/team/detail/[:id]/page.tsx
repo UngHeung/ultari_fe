@@ -7,7 +7,7 @@ import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
 import TeamDetail from '@/components/team/TeamDetail';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 export interface TeamOptioins {
@@ -18,6 +18,8 @@ export interface TeamOptioins {
   leader: UserOptions;
   subLeader: UserOptions;
   active: boolean;
+  createAt?: string;
+  updateAt?: string;
 }
 
 const TeamMainPage = ({ params }: ParamsOptions) => {
@@ -55,7 +57,7 @@ const TeamMainPage = ({ params }: ParamsOptions) => {
         setTeamData(data);
       } else {
         const modalData: ModalState = {
-          title: '서버 에러',
+          title: '에러',
           success,
           type: 'alert',
           routerType: 'back',
