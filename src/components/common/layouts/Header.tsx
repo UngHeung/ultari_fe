@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import style from '../styles/header.module.css';
 import Logo from './Logo';
 import Nav from './Nav';
@@ -13,13 +14,29 @@ const Header = ({
     <header className={style.mainHeader}>
       <div className={style.headerWrap}>
         <section className={style.logoWrap}>
-          <Logo type={'basic'} height={'100%'} />
+          <Link href={'/'}>
+            <Logo type={'basic'} height={'100%'} />
+          </Link>
         </section>
         <section className={style.navWrap}>
           <Nav />
         </section>
-        <section>
-          <span>{isLoggedIn && `${userName}님`}</span>
+        <section className={style.user}>
+          {isLoggedIn ? (
+            <div className={style.isLoggedIn}>
+              <span>{`${userName}님`}</span>
+              <div className={style.line}></div>
+              <Link href={'/logout'}> 로그아웃</Link>
+            </div>
+          ) : (
+            <div className={style.isLoggedOut}>
+              <Link href={'/login'}>로그인</Link>
+              <div className={style.line}></div>
+              <Link href={'/sign'}>회원가입</Link>
+              <div className={style.line}></div>
+              <Link href={'/forgot/password'}>계정 찾기</Link>
+            </div>
+          )}
         </section>
       </div>
     </header>
