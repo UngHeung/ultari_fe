@@ -24,6 +24,12 @@ export interface UserOptions {
   phone: string;
   email: string;
   profile?: string;
-  role: string;
+  role: RoleTypes;
   isLoggedIn: boolean;
 }
+
+export type RoleTypes =
+  | 'ROLE_ADMIN'
+  | 'ROLE_USER'
+  | 'ROLE_SHEPHERD'
+  | 'ROLE_SHEEP';
