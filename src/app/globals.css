@@ -69,8 +69,7 @@
     --background-color-button: #eaeaea;
     --background-color-modal: #f1f1f1;
     --background-color-modal-header: #d7d7d7;
-    --background-color-card: #f9f9f9;
-    --background-color-card-scroll: #e9e9e9;
+    --background-color-blur: #e8e8e8;
 
     --filter-select-hover: brightness(90%);
     --filter-button-hover: brightness(90%);
@@ -99,8 +98,7 @@
     --background-color-button: #2a2a2a;
     --background-color-modal: #191919;
     --background-color-modal-header: #272727;
-    --background-color-card: #191919;
-    --background-color-card-scroll: #343434;
+    --background-color-blur: #1c1c1c;
 
     --filter-select-hover: brightness(140%);
     --filter-button-hover: brightness(140%);

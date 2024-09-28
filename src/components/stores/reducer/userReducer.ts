@@ -4,8 +4,11 @@ import { UserState } from '../interfaces/stateInterface';
 const initialState: UserState = {
   id: -1,
   name: '',
-  role: '',
+  role: 'ROLE_USER',
   isLoggedIn: false,
+  account: '',
+  phone: '',
+  email: '',
 };
 
 export const userSlice = createSlice({
