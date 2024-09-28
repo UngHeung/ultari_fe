@@ -38,5 +38,4 @@ export interface PostListState {
   firstLoad: { value: boolean };
 }
 
-export interface UserState
-  extends Pick<UserOptions, 'id' | 'name' | 'role' | 'isLoggedIn'> {}
+export interface UserState extends Partial<UserOptions> {}
