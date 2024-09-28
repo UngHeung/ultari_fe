@@ -22,7 +22,22 @@
   position: relative;
   width: 100%;
   max-width: 200px;
-  left: 0;
+}
+
+.user {}
+
+.isLoggedIn,
+.isLoggedOut {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.line {
+  width: 2px;
+  height: 15px;
+  background-color: var(--font-color-basic);
 }
 
 /* .navWrap {} */
