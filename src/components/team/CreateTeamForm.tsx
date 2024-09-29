@@ -1,9 +1,9 @@
 import { authAxios } from '@/apis/axiosAuth';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL } from '../common/constants/pathConst';
-import { ModalState } from '../stores/interfaces/stateInterface';
+import { ModalState, SliceOptions } from '../stores/interfaces/stateInterface';
 import { setModal } from '../stores/reducer/modalRducer';
 import TeamButton from './elements/TeamButton';
 import TeamInput from './elements/TeamInput';
@@ -12,6 +12,7 @@ import style from './styles/createTeam.module.css';
 const CreateTeamForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const community = useSelector((state: SliceOptions) => state.user.community);
 
   const [disabled, setDisabled] = useState(false);
 
@@ -78,7 +79,9 @@ const CreateTeamForm = () => {
           name={'community'}
           type={'text'}
           placeholder={' '}
+          value={community}
           styleClass={style.input}
+          readOnly={true}
         />
         <TeamInput
           labelValue={'설명'}

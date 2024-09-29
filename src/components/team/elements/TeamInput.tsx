@@ -6,6 +6,7 @@ import style from '../styles/teamInput.module.css';
 export interface TeamInputOptions extends BaseInputOptions {
   labelValue: string;
   description?: string;
+  readOnly?: boolean;
 }
 
 const TeamInput = (props: TeamInputOptions) => {
@@ -17,6 +18,8 @@ const TeamInput = (props: TeamInputOptions) => {
         className={`${props.className} ${style.teamInput}`}
         type={props.type}
         placeholder={props.placeholder}
+        value={props.value}
+        readOnly={props.readOnly}
       />
       <label className={style.inputLabel} htmlFor={props.id}>
         {props.labelValue}
