@@ -12,6 +12,7 @@ function getUserDataFromToken() {
     name: dataParts[1].split(':')[1],
     role: dataParts[2].split(':')[1] as RoleTypes,
     profile: dataParts[3].split(':')[1],
+    community: dataParts[4].split(':')[1],
   };
 }
 

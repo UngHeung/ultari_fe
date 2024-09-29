@@ -17,6 +17,7 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
   const name = formData.get(SignUpOptionsEnum.NAME) as string;
   const phone = formData.get(SignUpOptionsEnum.PHONE) as string;
   const email = formData.get(SignUpOptionsEnum.EMAIL) as string;
+  const community = formData.get(SignUpOptionsEnum.COMMUNITY) as string;
 
   const validationSignUpData = validateSignUp({
     account,
@@ -25,6 +26,7 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
     name,
     phone,
     email,
+    community,
   });
 
   if (!validationSignUpData.success) {
@@ -35,7 +37,7 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
   }
 
   const url = `${BASE_URL}/${SIGN_UP_PATH}`;
-  const data = { account, password, name, phone, email };
+  const data = { account, password, name, phone, email, community };
 
   try {
     const response = await axiosBasic.post(url, data, {
