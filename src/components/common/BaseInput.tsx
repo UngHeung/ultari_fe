@@ -17,6 +17,7 @@ const BaseInput = (props: BaseInputOptions) => {
           : setBaseValue!(event.target.value)
       }
       value={baseValue}
+      readOnly={props.readOnly}
     />
   );
 };

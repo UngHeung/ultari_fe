@@ -20,4 +20,5 @@ export interface BaseInputOptions {
   value?: string;
   styleClass?: string;
   setValue?: React.Dispatch<React.SetStateAction<string>>;
+  readOnly?: boolean;
 }
