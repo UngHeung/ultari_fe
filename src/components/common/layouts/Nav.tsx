@@ -18,7 +18,7 @@ const Nav = () => {
           <Link href={'/user/my'}></Link>
         </li>
         <li>
-          <Link href={'/user/list'}>팀목록</Link>
+          <Link href={'/user/list'}>유저목록</Link>
         </li>
       </ul>
     </nav>
