@@ -61,7 +61,7 @@ const SignUp = () => {
           type={'password'}
           labelValue={'비밀번호 확인'}
           placeholder={' '}
-          description={''}
+          description={'비밀번호 확인'}
         />
         <AuthInput
           name={'name'}
@@ -86,6 +86,14 @@ const SignUp = () => {
           labelValue={'이메일'}
           placeholder={' '}
           description={'XXX@XXX.XXX'}
+        />
+        <AuthInput
+          name={'community'}
+          id={'auth_community'}
+          type={'text'}
+          labelValue={'소속'}
+          placeholder={' '}
+          description={'소속 교회 또는 소속 학교 등'}
         />
 
         <div className={style.buttonWrap}>
