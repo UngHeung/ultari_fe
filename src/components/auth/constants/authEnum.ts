@@ -10,4 +10,5 @@ export enum SignUpOptionsEnum {
   NAME = 'name',
   PHONE = 'phone',
   EMAIL = 'email',
+  COMMUNITY = 'community',
 }

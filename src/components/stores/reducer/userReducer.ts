@@ -9,6 +9,7 @@ const initialState: UserState = {
   account: '',
   phone: '',
   email: '',
+  community: '',
 };
 
 export const userSlice = createSlice({

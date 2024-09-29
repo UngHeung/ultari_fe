@@ -31,6 +31,7 @@ export const validateSignUp = ({
   name,
   phone,
   email,
+  community,
 }: SignUpOptions) => {
   const result: ValidationResultOptions = {
     success: false,
@@ -93,16 +94,14 @@ export const validateSignUp = ({
     return result;
   }
 
-  if (!email) {
-    result.message = '정확한 이메일 형식을 입력해주세요.';
-    return result;
-  }
+  // if (!email) {
+  //   result.message = '정확한 이메일 형식을 입력해주세요.';
+  //   return result;
+  // }
 
-  function isEmpty(type: string, value: string) {
-    if (!value) {
-      result.message = `${type}을(를) 입력해주세요.`;
-      return result;
-    }
+  if (!community) {
+    result.message = '소속을 입력해주세요.';
+    return result;
   }
 
   result.success = true;

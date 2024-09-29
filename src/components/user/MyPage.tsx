@@ -21,15 +21,10 @@ const MyPage = ({ user }: { user: UserState }) => {
     (state: SliceOptions) => state.user,
   );
 
-  const { id, isLoggedIn, name, role, profile }: UserState = user;
+  const { id, isLoggedIn, name, role, profile, team }: UserState = user;
   const [disabled, setDisabled] = useState<boolean>(false);
-  const [moreInformation, setMoreInformation] = useState<
-    Pick<UserOptions, 'account' | 'phone' | 'email'>
-  >({
-    account: '',
-    email: '',
-    phone: '',
-  });
+  const [moreInformation, setMoreInformation] =
+    useState<Pick<UserOptions, 'account' | 'phone' | 'email' | 'team'>>();
 
   async function handleOnSubmit() {
     const { status, message, success, data } = await handleGetMyInfo();
@@ -78,15 +73,19 @@ const MyPage = ({ user }: { user: UserState }) => {
       <section className={style.secretList}>
         <SecretInfoItem
           name={'아이디'}
-          value={account || moreInformation.account}
+          value={account || moreInformation!.account}
         />
         <SecretInfoItem
           name={'연락처'}
-          value={phone || moreInformation.phone}
+          value={phone || moreInformation!.phone}
         />
         <SecretInfoItem
           name={'이메일'}
-          value={email || moreInformation.email}
+          value={email || moreInformation!.email}
+        />
+        <SecretInfoItem
+          name={'소속목장'}
+          value={team!.name || moreInformation!.team?.name}
         />
       </section>
 

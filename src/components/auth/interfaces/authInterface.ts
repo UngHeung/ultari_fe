@@ -1,3 +1,6 @@
+import { TeamOptioins } from '@/app/team/detail/[:id]/page';
+import { PostOptions } from '@/components/post/interfaces/postInterfaces';
+
 export interface LoginOptions {
   account?: string;
   password?: string;
@@ -10,6 +13,7 @@ export interface SignUpOptions {
   name?: string;
   phone?: string;
   email?: string;
+  community?: string;
 }
 
 export interface ValidationResultOptions {
@@ -23,9 +27,15 @@ export interface UserOptions {
   name: string;
   phone: string;
   email: string;
+  community?: string;
   profile?: string;
   role: RoleTypes;
   isLoggedIn: boolean;
+  team?: TeamOptioins;
+  posts?: PostOptions[];
+  likedPosts?: PostOptions[];
+  lead?: TeamOptioins;
+  subLead?: TeamOptioins;
 }
 
 export type RoleTypes =
