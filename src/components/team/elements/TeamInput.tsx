@@ -1,6 +1,5 @@
 import BaseInput from '@/components/common/BaseInput';
 import { BaseInputOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
-import React from 'react';
 import style from '../styles/teamInput.module.css';
 
 export interface TeamInputOptions extends BaseInputOptions {
