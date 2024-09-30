@@ -9,7 +9,7 @@ const ProfileUpload = ({ currentProfile }: { currentProfile?: string }) => {
   const [selectedImageBlob, setSelectedImageBlob] = useState<string>('');
 
   return (
-    <section className={style.fileInputWrap}>
+    <section className={style.updateInputWrap}>
       <ImageInput
         useLabel={true}
         isMultiple={false}
