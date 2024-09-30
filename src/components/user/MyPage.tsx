@@ -1,18 +1,19 @@
 import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
-import { FormEvent, MouseEventHandler, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import handleGetMyInfo from '../auth/handlers/handleGetMyInfo';
 import { RoleTypes, UserOptions } from '../auth/interfaces/authInterface';
 import {
   ModalState,
   SliceOptions,
   UserState,
 } from '../stores/interfaces/stateInterface';
-import style from './styles/mypage.module.css';
-import SecretInfoItem from './SecretInfoItem';
-import handleGetMyInfo from '../auth/handlers/handleGetMyInfo';
-import { useDispatch, useSelector } from 'react-redux';
-import { resetUser, setUser } from '../stores/reducer/userReducer';
 import { setModal } from '../stores/reducer/modalRducer';
+import { setUser } from '../stores/reducer/userReducer';
+import SecretInfoItem from './SecretInfoItem';
+import style from './styles/mypage.module.css';
 
 const MyPage = ({ user }: { user: UserState }) => {
   const dispatch = useDispatch();
@@ -21,13 +22,13 @@ const MyPage = ({ user }: { user: UserState }) => {
     (state: SliceOptions) => state.user,
   );
 
-  const { id, isLoggedIn, name, role, profile, team }: UserState = user;
+  const { name, role, profile, team }: UserState = user;
   const [disabled, setDisabled] = useState<boolean>(false);
   const [moreInformation, setMoreInformation] =
     useState<Pick<UserOptions, 'account' | 'phone' | 'email' | 'team'>>();
 
-  async function handleOnSubmit() {
-    const { status, message, success, data } = await handleGetMyInfo();
+  async function handleMoreFetchData() {
+    const { status, message, success, data } = await handleGetMyInfo('team');
 
     setDisabled(true);
 
@@ -73,27 +74,33 @@ const MyPage = ({ user }: { user: UserState }) => {
       <section className={style.secretList}>
         <SecretInfoItem
           name={'아이디'}
-          value={account || moreInformation!.account}
+          value={account || moreInformation?.account}
         />
         <SecretInfoItem
           name={'연락처'}
-          value={phone || moreInformation!.phone}
+          value={phone || moreInformation?.phone}
         />
         <SecretInfoItem
           name={'이메일'}
-          value={email || moreInformation!.email}
+          value={email || moreInformation?.email}
         />
         <SecretInfoItem
           name={'소속목장'}
-          value={team!.name || moreInformation!.team?.name}
+          value={team?.name || moreInformation?.team?.name}
         />
       </section>
 
       <section className={style.moreFetchDataFrom}>
-        {!disabled && (
-          <button disabled={disabled} type="button" onClick={handleOnSubmit}>
+        {!disabled ? (
+          <button
+            disabled={disabled}
+            type="button"
+            onClick={handleMoreFetchData}
+          >
             내 정보 더보기
           </button>
+        ) : (
+          <Link href={'/user/update'}>내 정보 수정</Link>
         )}
       </section>
     </section>
