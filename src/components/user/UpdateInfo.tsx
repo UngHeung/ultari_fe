@@ -1,7 +1,7 @@
 import ImageUploadForm from '../post/ImageUploadForm';
 import { UserState } from '../stores/interfaces/stateInterface';
 import UpdateInput from './elements/UpdateInput';
-import ProfileUploadForm from './ProfileUploadForm';
+import ProfileUpload from './ProfileUpload';
 
 const UpdateInfo = ({
   user,
@@ -12,7 +12,7 @@ const UpdateInfo = ({
 }) => {
   return (
     <form>
-      <ProfileUploadForm />
+      <ProfileUpload />
 
       <UpdateInput
         labelValue={'아이디'}
@@ -21,6 +21,12 @@ const UpdateInfo = ({
         value={user?.account}
         placeholder={' '}
         readOnly={true}
+      />
+      <UpdateInput
+        labelValue={'비밀번호'}
+        name={'password'}
+        type={'password'}
+        placeholder={' '}
       />
       <UpdateInput
         labelValue={'연락처'}
