@@ -49,6 +49,13 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
     const formData = new FormData(event.currentTarget);
     const password = formData.get('password')?.toString() || '';
+
+    if (!password.length) {
+      modalData.message = '비밀번호를 입력해주세요.';
+      dispatch(setModal(modalData));
+      return;
+    }
+
     const response = await verifiedPassword(password);
 
     if (!response.success) {
