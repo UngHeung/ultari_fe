@@ -73,4 +73,21 @@
   background-color: var(--background-color-blur);
 }
 
-.moreFetchDataForm {}
+.moreFetchDataForm {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: var(--font-size-content);
+}
+
+.passwordInput {
+  width: 120px;
+  margin-right: var(--margin-content);
+  border-bottom: 1px solid var(--border-color-input);
+  font-size: inherit;
+  text-align: center;
+}
+
+.moreFetchButton {
+  font-size: inherit;
+}

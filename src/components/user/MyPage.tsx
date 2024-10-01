@@ -1,7 +1,7 @@
 import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import handleGetMyInfo from '../auth/handlers/handleGetMyInfo';
 import { RoleTypes, UserOptions } from '../auth/interfaces/authInterface';
@@ -12,8 +12,29 @@ import {
 } from '../stores/interfaces/stateInterface';
 import { setModal } from '../stores/reducer/modalRducer';
 import { setUser } from '../stores/reducer/userReducer';
+import PasswordInput from './elements/PasswordInput';
 import SecretInfoItem from './SecretInfoItem';
 import style from './styles/mypage.module.css';
+import { authAxios } from '@/apis/axiosAuth';
+import { BASE_URL } from '../common/constants/pathConst';
+
+async function verifiedPassword(password: string) {
+  const data = { password };
+  const url = `${BASE_URL}/auth/verify`;
+  try {
+    const response = await authAxios.post(url, data);
+
+    return {
+      status: response.status,
+      success: true,
+    };
+  } catch (error: any) {
+    return {
+      status: error.status,
+      success: false,
+    };
+  }
+}
 
 const MyPage = ({ user }: { user: UserState }) => {
   const dispatch = useDispatch();
@@ -24,32 +45,55 @@ const MyPage = ({ user }: { user: UserState }) => {
 
   const { name, role, profile, team }: UserState = user;
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [passed, setPassed] = useState<boolean>(false);
   const [moreInformation, setMoreInformation] =
     useState<Pick<UserOptions, 'account' | 'phone' | 'email' | 'team'>>();
 
-  async function handleMoreFetchData() {
-    const { status, message, success, data } = await handleGetMyInfo('team');
+  async function handleMoreFetchData(
+    event: FormEvent<HTMLFormElement>,
+    account: string,
+  ) {
+    event.preventDefault();
 
-    setDisabled(true);
-
-    setMoreInformation(data);
-
-    dispatch(setUser(data));
+    setDisabled(false);
 
     const modalData: ModalState = {
-      type: success ? 'confirm' : 'alert',
-      message: success ? '정보를 불러왔습니다.' : '정보를 불러오지 못했습니다.',
-      success,
+      type: 'alert',
+      message: '',
+      success: false,
       routerType: undefined,
       modalIsShow: true,
     };
 
+    const formData = new FormData(event.currentTarget);
+    const password = formData.get('password')?.toString() || '';
+    const response = await verifiedPassword(password);
+
+    if (!response.success) {
+      modalData.message = '비밀번호를 확인해주세요.';
+      dispatch(setModal(modalData));
+      return;
+    }
+
+    modalData.type = 'confirm';
+    modalData.message = '정보를 성공적으로 불러왓습니다.';
+    modalData.success = true;
+
+    dispatch(setModal(modalData));
+
+    setPassed(true);
+
+    const { status, message, success, data } = await handleGetMyInfo('team');
+
+    setMoreInformation(data);
+
+    dispatch(setUser(data));
     dispatch(setModal(modalData));
   }
 
   useEffect(() => {
     if (account) {
-      setDisabled(true);
+      setPassed(true);
     }
   }, []);
 
@@ -90,19 +134,29 @@ const MyPage = ({ user }: { user: UserState }) => {
         />
       </section>
 
-      <section className={style.moreFetchDataFrom}>
-        {!disabled ? (
-          <button
-            disabled={disabled}
-            type="button"
-            onClick={handleMoreFetchData}
-          >
-            내 정보 더보기
-          </button>
+      <form
+        className={style.moreFetchDataFrom}
+        onSubmit={event => handleMoreFetchData(event, account ?? '')}
+      >
+        {!passed ? (
+          <div>
+            <PasswordInput
+              className={style.passwordInput}
+              placeholder={'비밀번호 입력 후'}
+              name={'password'}
+            />
+            <button
+              className={style.moreFetchButton}
+              disabled={disabled}
+              type={'submit'}
+            >
+              내 정보 더보기
+            </button>
+          </div>
         ) : (
           <Link href={'/user/update'}>내 정보 수정</Link>
         )}
-      </section>
+      </form>
     </section>
   );
 };

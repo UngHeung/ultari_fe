@@ -2,13 +2,13 @@ import BaseInput from '@/components/common/BaseInput';
 import { BaseInputOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
 import style from '../styles/input.module.css';
 
-export interface UpdateInputOptions extends BaseInputOptions {
+export interface UserInputOptions extends BaseInputOptions {
   labelValue: string;
   description?: string;
   readOnly?: boolean;
 }
 
-const UpdateInput = (props: UpdateInputOptions) => {
+const UserInput = (props: UserInputOptions) => {
   return (
     <div className={style.inputWrap}>
       <BaseInput
@@ -30,4 +30,4 @@ const UpdateInput = (props: UpdateInputOptions) => {
   );
 };
 
-export default UpdateInput;
+export default UserInput;

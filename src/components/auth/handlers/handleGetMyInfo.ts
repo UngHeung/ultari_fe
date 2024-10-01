@@ -12,7 +12,7 @@ const handleGetMyInfo = async (type?: 'team' | 'post' | 'all') => {
   const url = `${BASE_URL}/${MY_INFO}` + query;
 
   try {
-    const response = await authAxios.get(`${BASE_URL}/${MY_INFO}`);
+    const response = await authAxios.get(url);
 
     return {
       status: response.status,
