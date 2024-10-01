@@ -9,23 +9,27 @@ import { ModalState } from '../stores/interfaces/stateInterface';
 import { setModal } from '../stores/reducer/modalRducer';
 import { setUser } from '../stores/reducer/userReducer';
 import PasswordInput from './elements/PasswordInput';
+import UserButton from './elements/UserButton';
 import style from './styles/mypage.module.css';
 
 const VerifyPasswordFormAndLinkedUpdateForm = ({
   setMoreInformation,
   account,
+  setPassed,
+  passed,
 }: {
   setMoreInformation: React.Dispatch<
     SetStateAction<
       Pick<UserOptions, 'account' | 'phone' | 'email' | 'team'> | undefined
     >
   >;
+  setPassed: React.Dispatch<SetStateAction<boolean>>;
+  passed: boolean;
   account?: string;
 }) => {
   const dispatch = useDispatch();
 
   const [disabled, setDisabled] = useState<boolean>(false);
-  const [passed, setPassed] = useState<boolean>(false);
 
   async function handleMoreFetchData(
     event: FormEvent<HTMLFormElement>,
@@ -81,13 +85,12 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
             placeholder={'비밀번호 입력 후'}
             name={'password'}
           />
-          <button
+          <UserButton
             className={style.moreFetchButton}
             disabled={disabled}
             type={'submit'}
-          >
-            내 정보 더보기
-          </button>
+            value={'내 정보 더보기'}
+          />
         </div>
       ) : (
         <Link href={'/user/update'}>내 정보 수정</Link>

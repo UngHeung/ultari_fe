@@ -14,6 +14,8 @@ const MyPage = ({ user }: { user: UserState }) => {
   );
 
   const { name, role, profile, team }: UserState = user;
+
+  const [passed, setPassed] = useState(account ? true : false);
   const [moreInformation, setMoreInformation] =
     useState<Pick<UserOptions, 'account' | 'phone' | 'email' | 'team'>>();
 
@@ -57,6 +59,8 @@ const MyPage = ({ user }: { user: UserState }) => {
       <VerifyPasswordFormAndLinkedUpdateForm
         setMoreInformation={setMoreInformation}
         account={account}
+        setPassed={setPassed}
+        passed={passed}
       />
     </section>
   );
