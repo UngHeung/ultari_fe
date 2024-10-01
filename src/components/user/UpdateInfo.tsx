@@ -1,6 +1,6 @@
 import ImageUploadForm from '../post/ImageUploadForm';
 import { UserState } from '../stores/interfaces/stateInterface';
-import UpdateInput from './elements/UpdateInput';
+import UserInput from './elements/UserInput';
 import ProfileUpload from './ProfileUpload';
 import style from './styles/update.module.css';
 
@@ -16,7 +16,7 @@ const UpdateInfo = ({
       <ProfileUpload currentProfile={user?.profile} />
 
       <section className={style.inputWrap}>
-        <UpdateInput
+        <UserInput
           labelValue={'아이디'}
           name={'account'}
           type={'text'}
@@ -24,27 +24,27 @@ const UpdateInfo = ({
           placeholder={' '}
           readOnly={true}
         />
-        <UpdateInput
+        <UserInput
           labelValue={'비밀번호'}
           name={'password'}
           type={'password'}
           placeholder={' '}
         />
-        <UpdateInput
+        <UserInput
           labelValue={'연락처'}
           name={'phone'}
           type={'text'}
           value={user?.phone}
           placeholder={' '}
         />
-        <UpdateInput
+        <UserInput
           labelValue={'이메일'}
           name={'email'}
           type={'email'}
           value={user?.email}
           placeholder={' '}
         />
-        <UpdateInput
+        <UserInput
           labelValue={'소속'}
           name={'community'}
           type={'text'}
