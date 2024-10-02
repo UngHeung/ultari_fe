@@ -8,10 +8,28 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  position: relative;
+  width: 100%;
 }
 
 .mainNavUl>li {
   font-size: 1.3rem;
   font-weight: 600;
   line-height: var(--height-header);
+}
+
+@media (max-width: 800px) {
+
+  .mainNav {
+    height: auto;
+  }
+
+  .mainNavUl.isShow {
+    display: flex;
+  }
+
+  .mainNavUl {
+    flex-direction: column;
+    gap: 0;
+  }
 }
