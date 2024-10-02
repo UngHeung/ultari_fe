@@ -1,15 +1,23 @@
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import { OrderdPostListState } from '@/components/stores/interfaces/stateInterface';
 import handleGetPostList from '../handlers/handleGetPostList';
-import { getPostListOptions } from '../interfaces/postInterfaces';
+import {
+  contentTypeOptions,
+  getPostListOptions,
+  visibilityOptions,
+} from '../interfaces/postInterfaces';
 import composeUrlQuery from './composeUrlQuery';
 
 async function fetchDataFromStoreOrServer(
   orderBy: OrderTypes,
   listOrderType: OrderdPostListState,
+  visibility?: visibilityOptions,
+  contentType?: contentTypeOptions,
 ): Promise<getPostListOptions> {
-  const likeCountQuery = 'order__likeCount=DESC';
-  const viewCountQuery = 'order__viewCount=DESC';
+  // const likeCountQuery = 'order__likeCount=DESC';
+  // const viewCountQuery = 'order__viewCount=DESC';
+  const whereVisibility = 'where__visibility=';
+  const whereContentType = 'where__contentType=';
 
   if (listOrderType.count) {
     return {
@@ -18,15 +26,15 @@ async function fetchDataFromStoreOrServer(
       next: listOrderType.next,
     };
   } else {
-    console.log('first fetching!');
     const url = composeUrlQuery(
       true,
       orderBy,
-      orderBy === 'LIKES'
-        ? likeCountQuery
-        : orderBy === 'VIEWS'
-          ? viewCountQuery
-          : '',
+      // orderBy === 'LIKES'
+      //   ? likeCountQuery
+      //   : orderBy === 'VIEWS'
+      //     ? viewCountQuery
+      //     : '',
+      `${visibility ? whereVisibility + visibility : ''}${visibility && contentType ? '&' : ''}${contentType ? whereContentType + contentType : ''}`,
     );
 
     const { status, success, data } = await handleGetPostList(url);

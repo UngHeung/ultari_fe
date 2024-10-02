@@ -35,9 +35,7 @@ const listPage = () => {
   const [postList, setPostList] = useState<PostOptions[]>([]);
 
   useEffect(() => {
-    (async () => {
-      postListProcess(listOrderBy.value);
-    })();
+    postListProcess(listOrderBy.value);
 
     return () => {
       dispatch(resetPostList());
@@ -52,10 +50,18 @@ const listPage = () => {
     };
 
     if (orderBy === 'DESC') {
-      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByDesc);
+      postData = await fetchDataFromStoreOrServer(
+        orderBy,
+        listOrderByDesc,
+        'SCOPE_PUBLIC',
+      );
       mapDispatchToProps.desc(dispatch, postData);
     } else if (orderBy === 'ASC') {
-      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByAsc);
+      postData = await fetchDataFromStoreOrServer(
+        orderBy,
+        listOrderByAsc,
+        'SCOPE_PUBLIC',
+      );
       mapDispatchToProps.asc(dispatch, postData);
     }
 
