@@ -1,0 +1,23 @@
+.menuList {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  font-size: 0;
+}
+
+.menuItem {
+  position: relative;
+  height: fit-content;
+}
+
+.listLine {
+  width: 2px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--font-color-basic);
+}
+
+.button {
+  border: none;
+}
