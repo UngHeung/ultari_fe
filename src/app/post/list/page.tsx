@@ -1,6 +1,6 @@
 'use client';
 
-import BaseButton from '@/components/common/BaseButton';
+import ListMenu from '@/components/post/ListMenu';
 import PostList from '@/components/post/PostList';
 import fetchDataFromStoreOrServer from '@/components/post/functions/fetchDataFromStoreOrServer';
 import mapDispatchToProps from '@/components/post/functions/mapDispatchToProps';
@@ -11,10 +11,7 @@ import {
 } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
-import {
-  resetPostList,
-  setPostListOrderBy,
-} from '@/components/stores/reducer/PostListReducer';
+import { resetPostList } from '@/components/stores/reducer/PostListReducer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -35,9 +32,7 @@ const listPage = () => {
   const [postList, setPostList] = useState<PostOptions[]>([]);
 
   useEffect(() => {
-    (async () => {
-      postListProcess(listOrderBy.value);
-    })();
+    postListProcess(listOrderBy.value);
 
     return () => {
       dispatch(resetPostList());
@@ -52,10 +47,18 @@ const listPage = () => {
     };
 
     if (orderBy === 'DESC') {
-      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByDesc);
+      postData = await fetchDataFromStoreOrServer(
+        orderBy,
+        listOrderByDesc,
+        'SCOPE_PUBLIC',
+      );
       mapDispatchToProps.desc(dispatch, postData);
     } else if (orderBy === 'ASC') {
-      postData = await fetchDataFromStoreOrServer(orderBy, listOrderByAsc);
+      postData = await fetchDataFromStoreOrServer(
+        orderBy,
+        listOrderByAsc,
+        'SCOPE_PUBLIC',
+      );
       mapDispatchToProps.asc(dispatch, postData);
     }
 
@@ -65,30 +68,7 @@ const listPage = () => {
 
   return (
     <>
-      <menu>
-        <ul>
-          <li key={'btndesc'}>
-            <BaseButton
-              type={'button'}
-              value={'최신순'}
-              onClick={async () => {
-                dispatch(setPostListOrderBy({ value: 'DESC' }));
-                postListProcess('DESC');
-              }}
-            />
-          </li>
-          <li key={'btnasc'}>
-            <BaseButton
-              type={'button'}
-              value={'날짜순'}
-              onClick={async () => {
-                dispatch(setPostListOrderBy({ value: 'ASC' }));
-                postListProcess('ASC');
-              }}
-            />
-          </li>
-        </ul>
-      </menu>
+      <ListMenu postListProcess={postListProcess} />
       <PostList postList={postList} />
       {nextPath && (
         <button

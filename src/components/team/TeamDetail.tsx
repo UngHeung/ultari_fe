@@ -38,7 +38,14 @@ const TeamDetail = (props: TeamOptioins) => {
                 height={30}
               />
             </span>
-            <span className={style.subLeaderName}>
+            <span
+              className={style.subLeaderName}
+              style={{
+                fontSize: !props.subLeader?.name
+                  ? 'var(--font-size-content)'
+                  : 'var(--font-size-sub-title)',
+              }}
+            >
               {props.subLeader?.name ?? '부목자가 임명되지 않았습니다.'}
             </span>
           </div>
