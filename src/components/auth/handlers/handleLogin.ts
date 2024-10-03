@@ -47,7 +47,7 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
   } catch (error: any) {
     return {
       success: false,
-      message: error.response.data.message,
+      message: error.response?.data.message ?? '서버에 문제 발생',
     };
   }
 };
