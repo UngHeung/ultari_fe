@@ -1,14 +1,15 @@
 'use client';
 
+import { checkAuth } from '@/components/auth/functions/checkAuth';
 import {
   ModalState,
   SliceOptions,
 } from '@/components/stores/interfaces/stateInterface';
+import { setModal } from '@/components/stores/reducer/modalRducer';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
-import { setModal } from '@/components/stores/reducer/modalRducer';
 
 export type UserPageType = 'my' | 'list';
 
@@ -62,14 +63,6 @@ function getTitle(type: UserPageType, isLoggedIn: boolean) {
   } else {
     return '목장';
   }
-}
-
-export function checkAuth(type: UserPageType, isLoggedIn: boolean) {
-  if ((!isLoggedIn && type === 'my') || (!isLoggedIn && type === 'list')) {
-    return false;
-  }
-
-  return true;
 }
 
 export default TeamLayout;
