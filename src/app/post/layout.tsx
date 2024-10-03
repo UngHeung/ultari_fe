@@ -61,30 +61,32 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       </section>
       <section className={style.buttonWrap}>
         {!title.endsWith('목록') && <Link href={'/post/list'}>목록</Link>}
-        {title.endsWith('게시물') && postAuthorId === userId && userId > -1 && (
-          <>
-            <Link href={`/post/update/${postId}`}>수정</Link>
-            <Link
-              href={'#'}
-              onClick={async event => {
-                event.preventDefault();
+        {title.endsWith('게시물') &&
+          postAuthorId === userId &&
+          userId! > -1 && (
+            <>
+              <Link href={`/post/update/${postId}`}>수정</Link>
+              <Link
+                href={'#'}
+                onClick={async event => {
+                  event.preventDefault();
 
-                const modalData: ModalState = {
-                  title: '삭제 확인',
-                  type: 'prompt',
-                  message: '정말 삭제하시겠습니까?',
-                  modalIsShow: true,
-                  routerType: 'replace',
-                  leftPath: `/post/delete/${postId}`,
-                };
+                  const modalData: ModalState = {
+                    title: '삭제 확인',
+                    type: 'prompt',
+                    message: '정말 삭제하시겠습니까?',
+                    modalIsShow: true,
+                    routerType: 'replace',
+                    leftPath: `/post/delete/${postId}`,
+                  };
 
-                dispatch(setModal(modalData));
-              }}
-            >
-              삭제
-            </Link>
-          </>
-        )}
+                  dispatch(setModal(modalData));
+                }}
+              >
+                삭제
+              </Link>
+            </>
+          )}
         {!title.endsWith('작성') && <Link href={'/post/write'}>글쓰기</Link>}
       </section>
     </>
