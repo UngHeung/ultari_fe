@@ -18,7 +18,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
 
   const [likeCount, setLikeCount] = useState<number>(postData?.likeCount || 0);
   const [aleadyLiked, setAleadyLiked] = useState<boolean>(
-    checkAleadyLiked(postData?.likers, userId),
+    checkAleadyLiked(postData?.likers, userId!),
   );
   const [likeButtonColor, setLikeButtonColor] = useState<string>(
     getBackgroundColor(aleadyLiked),
@@ -35,7 +35,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
           onClick={async () => {
             let status, success, newCount, message;
 
-            if (userId < 0) {
+            if (userId! < 0) {
               success = false;
               message = '로그인이 필요합니다.';
             } else if (postData?.author && postData?.author.id === userId) {
