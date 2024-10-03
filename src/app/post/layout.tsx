@@ -1,5 +1,6 @@
 'use client';
 
+import { checkAuth } from '@/components/auth/functions/checkAuth';
 import {
   ModalState,
   SliceOptions,
@@ -101,14 +102,6 @@ function getTitle(type: PostPageType, isLoggedIn: boolean) {
   } else {
     return '게시물';
   }
-}
-
-export function checkAuth(type: PostPageType, isLoggedIn: boolean) {
-  if ((!isLoggedIn && type === 'write') || (!isLoggedIn && type === 'update')) {
-    return false;
-  }
-
-  return true;
 }
 
 export default PostLayout;

@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
 
-export type TeamPageType = 'list' | 'create';
+export type UserPageType = 'my' | 'list';
 
 const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   );
 
   useEffect(() => {
-    const type: TeamPageType = pathname.slice(1).split('/')[1] as TeamPageType;
+    const type: UserPageType = pathname.slice(1).split('/')[1] as UserPageType;
 
     setTitle(getTitle(type, isLoggedIn));
 
@@ -47,19 +47,19 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <section className={style.teamWrap}>
-        <h2 className={style.teamTitle}>{title}</h2>
+      <section className={style.userWrap}>
+        <h2 className={style.userTitle}>{title}</h2>
         {children}
       </section>
     </>
   );
 };
 
-function getTitle(type: 'list' | 'create', isLoggedIn: boolean) {
-  if (type === 'list') {
-    return '목장 목록';
-  } else if (type === 'create') {
-    return '목장 생성';
+function getTitle(type: UserPageType, isLoggedIn: boolean) {
+  if (type === 'my') {
+    return '마이페이지';
+  } else if (type === 'list') {
+    return '유저 목록';
   } else {
     return '목장';
   }
