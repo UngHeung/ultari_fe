@@ -1,8 +1,12 @@
-import ImageUploadForm from '../post/ImageUploadForm';
-import { UserState } from '../stores/interfaces/stateInterface';
+import { useRouter } from 'next/navigation';
+import { SliceOptions, UserState } from '../stores/interfaces/stateInterface';
+import UserButton from './elements/UserButton';
 import UserInput from './elements/UserInput';
 import ProfileUpload from './ProfileUpload';
 import style from './styles/update.module.css';
+import { useSelector } from 'react-redux';
+import { BASE_URL } from '../common/constants/pathConst';
+import { authAxios } from '@/apis/axiosAuth';
 
 const UpdateInfo = ({
   user,
@@ -11,8 +15,59 @@ const UpdateInfo = ({
     | Pick<UserState, 'account' | 'phone' | 'email' | 'community' | 'profile'>
     | undefined;
 }) => {
+  const router = useRouter();
+  const userId = useSelector((state: SliceOptions) => state.user.id);
+
   return (
-    <form>
+    <form
+      onSubmit={async event => {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+        const file = formData.get('profile');
+
+        const data = {
+          profile: '',
+          phone: formData.get('phone') || '',
+          email: formData.get('email') || '',
+          community: formData.get('community') || '',
+        };
+
+        const imageUrl = `${BASE_URL}/common/image`;
+
+        try {
+          const response = await authAxios.post(imageUrl, { image: file });
+
+          data.profile = response.data;
+        } catch (error: any) {
+          return {
+            status: error.status,
+            success: false,
+            message: '서버에 문제 발생',
+          };
+        }
+
+        const url = `${BASE_URL}/user/${userId}`;
+
+        console.log(data);
+
+        try {
+          const response = await authAxios.patch(url, data);
+
+          return {
+            status: response.status,
+            success: true,
+            data: response.data,
+          };
+        } catch (error: any) {
+          return {
+            status: error.status,
+            success: false,
+            message: '서버 에러 발생',
+          };
+        }
+      }}
+    >
       <ProfileUpload currentProfile={user?.profile} />
 
       <section className={style.inputWrap}>
@@ -23,12 +78,6 @@ const UpdateInfo = ({
           value={user?.account}
           placeholder={' '}
           readOnly={true}
-        />
-        <UserInput
-          labelValue={'비밀번호'}
-          name={'password'}
-          type={'password'}
-          placeholder={' '}
         />
         <UserInput
           labelValue={'연락처'}
@@ -50,6 +99,15 @@ const UpdateInfo = ({
           type={'text'}
           value={user?.community}
           placeholder={' '}
+        />
+      </section>
+      <section className={style.buttonWrap}>
+        <UserButton type={'submit'} value={'저장'} className={style.button} />
+        <UserButton
+          type={'button'}
+          value={'취소'}
+          className={style.button}
+          onClick={() => router.back()}
         />
       </section>
     </form>
