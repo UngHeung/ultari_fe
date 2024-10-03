@@ -1,10 +1,10 @@
+import refreshToken from '@/components/auth/functions/refreshToken';
 import {
   getAccessToken,
   getRefreshToken,
 } from '@/components/auth/functions/tokenInteract';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { authAxios } from '../axiosAuth';
-import refreshToken from '@/components/auth/functions/refreshToken';
+import { defulatAxios } from '../axiosDefault';
 
 /**
  * @param config
@@ -52,7 +52,7 @@ export const callbackResponseError = async (error: any, isAccess: boolean) => {
         Authorization: `Bearer ${isAccess ? getAccessToken() : getRefreshToken()}`,
       };
 
-      const response = await authAxios.request(error.config);
+      const response = await defulatAxios.request(error.config);
 
       return response;
     } catch (error) {

@@ -1,20 +1,20 @@
 import BaseInput from '@/components/common/BaseInput';
 import { BaseInputOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
-import style from '../styles/teamInput.module.css';
+import style from '../styles/input.module.css';
 
-export interface TeamInputOptions extends BaseInputOptions {
+export interface UserInputOptions extends BaseInputOptions {
   labelValue: string;
   description?: string;
   readOnly?: boolean;
 }
 
-const TeamInput = (props: TeamInputOptions) => {
+const UserInput = (props: UserInputOptions) => {
   return (
     <div className={style.inputWrap}>
       <BaseInput
         name={props.name}
         id={props.id}
-        className={`${props.className} ${style.teamInput}`}
+        className={`${props.className} ${style.userInput}`}
         type={props.type}
         placeholder={props.placeholder}
         value={props.value}
@@ -30,4 +30,4 @@ const TeamInput = (props: TeamInputOptions) => {
   );
 };
 
-export default TeamInput;
+export default UserInput;

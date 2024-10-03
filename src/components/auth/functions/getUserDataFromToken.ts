@@ -1,3 +1,4 @@
+import { RoleTypes } from '../interfaces/authInterface';
 import { getAccessToken } from './tokenInteract';
 
 function getUserDataFromToken() {
@@ -9,7 +10,9 @@ function getUserDataFromToken() {
   return {
     id: +dataParts[0].split(':')[1],
     name: dataParts[1].split(':')[1],
-    role: dataParts[2].split(':')[1],
+    role: dataParts[2].split(':')[1] as RoleTypes,
+    profile: dataParts[3].split(':')[1],
+    community: dataParts[4].split(':')[1],
   };
 }
 

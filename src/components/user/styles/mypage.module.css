@@ -1,0 +1,93 @@
+.userWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--margin-content);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profileWrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: var(--color-placeholder);
+
+  overflow: hidden;
+}
+
+.name {
+  margin-top: var(--margin-content);
+  text-align: center;
+}
+
+.role {
+  margin-bottom: var(--margin-container);
+  font-size: var(--font-size-content);
+}
+
+.name>strong {
+  margin-right: 3px;
+  font-size: var(--font-size-sub-title)
+}
+
+.secretList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--margin-content);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.secretItem {
+  display: grid;
+  grid-template-columns: 100px 200px;
+  justify-content: center;
+  width: 100%;
+}
+
+.secretItem>span,
+.secretItem>strong {
+  display: inline-block;
+}
+
+.secretItem>span {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.secretItem>strong {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.secretItem.isBlurred>strong {
+  height: 20px;
+  vertical-align: middle;
+  background-color: var(--background-color-blur);
+}
+
+.moreFetchDataForm {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: var(--font-size-content);
+}
+
+.passwordInput {
+  width: 120px;
+  margin-right: var(--margin-content);
+  border-bottom: 1px solid var(--border-color-input);
+  font-size: inherit;
+  text-align: center;
+}
+
+.moreFetchButton {
+  font-size: inherit;
+}

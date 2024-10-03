@@ -33,7 +33,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <Header userName={userName} isLoggedIn={isLoggedIn} />
+      <Header userName={userName ?? '불러오기 오류'} isLoggedIn={isLoggedIn} />
       {children}
       {/* <Footer /> */}
       {modalIsShow && <Modal />}
