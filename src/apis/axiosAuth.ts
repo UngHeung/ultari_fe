@@ -1,5 +1,4 @@
-import { BASE_URL } from '@/components/common/constants/pathConst';
-import axios from 'axios';
+import { defaultAxios } from './axiosDefault';
 import {
   callbackRequestConfig,
   callbackRequestError,
@@ -7,13 +6,7 @@ import {
   callbackResponseError,
 } from './functions/axiosInterceptorCallbacks';
 
-export const authAxios = axios.create({
-  baseURL: BASE_URL,
-  timeout: 1000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+export const authAxios = defaultAxios;
 
 authAxios.interceptors.request.use(
   config => callbackRequestConfig(config, true),

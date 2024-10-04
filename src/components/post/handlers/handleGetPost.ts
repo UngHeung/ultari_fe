@@ -3,7 +3,7 @@ import { BASE_URL } from '@/components/common/constants/pathConst';
 import { PostState } from '@/components/stores/interfaces/stateInterface';
 
 async function handleGetPost(id: number) {
-  const url = `${BASE_URL}/post/${id}`;
+  const url = `post/${id}`;
 
   try {
     const response = await authAxios.get(url);

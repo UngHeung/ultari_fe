@@ -55,7 +55,7 @@ async function handleReload(dispatch: Dispatch, isLoggedIn: boolean) {
 
     dispatch(setUser({ ...userData, isLoggedIn: true }));
   } catch (error) {
-    console.log(error);
+    return;
   }
 }
 

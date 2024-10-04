@@ -4,7 +4,7 @@ import {
   getRefreshToken,
 } from '@/components/auth/functions/tokenInteract';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { defulatAxios } from '../axiosDefault';
+import { defaultAxios } from '../axiosDefault';
 
 /**
  * @param config
@@ -52,7 +52,7 @@ export const callbackResponseError = async (error: any, isAccess: boolean) => {
         Authorization: `Bearer ${isAccess ? getAccessToken() : getRefreshToken()}`,
       };
 
-      const response = await defulatAxios.request(error.config);
+      const response = await defaultAxios.request(error.config);
 
       return response;
     } catch (error) {

@@ -9,7 +9,7 @@ const handleGetMyInfo = async (type?: 'team' | 'post' | 'all') => {
       type === 'team' ? '/team' : type === 'post' ? '/post' : '/team-and=post';
   }
 
-  const url = `${BASE_URL}/${MY_INFO}` + query;
+  const url = MY_INFO + query;
 
   try {
     const response = await authAxios.get(url);
