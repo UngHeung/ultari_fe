@@ -17,7 +17,7 @@ const handleUploadImage = async (files: File[]) => {
   }
 
   try {
-    const url = `${BASE_URL}/common/images`;
+    const url = `common/images`;
     const response = await fileUploadAxios.post(url, formData);
 
     return {

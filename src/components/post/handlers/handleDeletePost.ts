@@ -2,10 +2,10 @@ import { authAxios } from '@/apis/axiosAuth';
 import { BASE_URL, POST_BASIC } from '@/components/common/constants/pathConst';
 
 const handleDeletePost = async (postId: number) => {
+  const url = `${POST_BASIC}/${postId}`;
+
   try {
-    const response = await authAxios.delete(
-      `${BASE_URL}/${POST_BASIC}/${postId}`,
-    );
+    const response = await authAxios.delete(url);
 
     return {
       status: response.status,

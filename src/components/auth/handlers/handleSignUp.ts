@@ -1,8 +1,5 @@
-import { axiosBasic } from '@/apis/axiosBasic';
-import {
-  BASE_URL,
-  SIGN_UP_PATH,
-} from '@/components/common/constants/pathConst';
+import { defaultAxios } from '@/apis/axiosDefault';
+import { SIGN_UP_PATH } from '@/components/common/constants/pathConst';
 import { FormEvent } from 'react';
 import { SignUpOptionsEnum } from '../constants/authEnum';
 import { validateSignUp } from '../validators/authValidators';
@@ -36,11 +33,11 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
     };
   }
 
-  const url = `${BASE_URL}/${SIGN_UP_PATH}`;
+  const url = SIGN_UP_PATH;
   const data = { account, password, name, phone, email, community };
 
   try {
-    const response = await axiosBasic.post(url, data, {
+    const response = await defaultAxios.post(url, data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -55,7 +52,7 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
     return {
       status: error.status,
       success: false,
-      message: error.response.data.message,
+      message: error.response?.data.message ?? '서버에 에러 발생',
     };
   }
 };

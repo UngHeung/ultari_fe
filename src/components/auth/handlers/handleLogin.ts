@@ -27,10 +27,11 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     data.password,
   );
 
-  const url = `${BASE_URL}/${LOGIN_PATH}`;
+  const url = LOGIN_PATH;
 
   try {
     const response = await axios.post(url, data, {
+      baseURL: BASE_URL,
       headers: {
         'Content-Type': 'application/json',
         Authorization: basicToken,
