@@ -1,17 +1,15 @@
-import { LOGOUT_PATH } from '@/components/common/constants/pathConst';
+import { BASE_URL, LOGOUT_PATH } from '@/components/common/constants/pathConst';
 import axios from 'axios';
 import { ACCESS_TOKEN } from '../constants/accessToken';
 
 const handleLogout = async () => {
-  const url = LOGOUT_PATH;
+  const url = `${BASE_URL}/${LOGOUT_PATH}`;
 
   try {
-    ACCESS_TOKEN.accessToken = '';
-    localStorage.clear();
+    const response = await axios.post(url);
 
-    const response = await axios.post(url, {
-      headers: {},
-    });
+    ACCESS_TOKEN.accessToken = response.data.accessToken;
+    localStorage.setItem('refreshToken', response.data.refreshToken);
 
     return {
       status: response.status,
