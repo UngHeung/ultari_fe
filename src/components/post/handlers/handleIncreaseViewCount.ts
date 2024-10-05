@@ -1,11 +1,8 @@
 import { authAxios } from '@/apis/axiosAuth';
-import {
-  BASE_URL,
-  POST_INCREASE_VIEWS,
-} from '@/components/common/constants/pathConst';
+import { POST_INCREASE_VIEWS } from '@/components/common/constants/pathConst';
 
 async function handleIncreaseViewCount(id: number) {
-  const url = `post/${id}/${POST_INCREASE_VIEWS}`;
+  const url = `/post/${id}/${POST_INCREASE_VIEWS}`;
   try {
     await authAxios.patch(url);
   } catch (error: any) {
