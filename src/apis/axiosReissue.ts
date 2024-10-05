@@ -1,4 +1,3 @@
-import { BASE_URL } from '@/components/common/constants/pathConst';
 import axios from 'axios';
 import {
   callbackRequestConfig,
@@ -6,7 +5,7 @@ import {
 } from './functions/axiosInterceptorCallbacks';
 
 export const refreshAxios = axios.create({
-  baseURL: BASE_URL,
+  withCredentials: true,
 });
 
 refreshAxios.interceptors.request.use(
