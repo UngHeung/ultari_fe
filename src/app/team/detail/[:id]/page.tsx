@@ -2,7 +2,6 @@
 
 import { authAxios } from '@/apis/axiosAuth';
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
-import { BASE_URL } from '@/components/common/constants/pathConst';
 import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
@@ -31,7 +30,7 @@ const TeamMainPage = ({ params }: ParamsOptions) => {
   const dispatch = useDispatch();
 
   async function handleGetTeamById(teamId: number) {
-    const url = `${BASE_URL}/team/${teamId}`;
+    const url = `/team/${teamId}`;
 
     try {
       const response = await authAxios.get(url);
