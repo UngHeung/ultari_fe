@@ -4,7 +4,6 @@ import { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import handleGetMyInfo from '../auth/handlers/handleGetMyInfo';
 import { UserOptions } from '../auth/interfaces/authInterface';
-import { BASE_URL } from '../common/constants/pathConst';
 import { ModalState } from '../stores/interfaces/stateInterface';
 import { setModal } from '../stores/reducer/modalRducer';
 import { setUser } from '../stores/reducer/userReducer';
@@ -108,7 +107,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
 export async function verifiedPassword(password: string) {
   const data = { password };
-  const url = `${BASE_URL}/auth/verify`;
+  const url = `/auth/verify`;
   try {
     const response = await authAxios.post(url, data);
 

@@ -1,12 +1,12 @@
 import { authAxios } from '@/apis/axiosAuth';
-import { BASE_URL, MY_INFO } from '@/components/common/constants/pathConst';
+import { MY_INFO } from '@/components/common/constants/pathConst';
 
 const handleGetMyInfo = async (type?: 'team' | 'post' | 'all') => {
   let query = '';
 
   if (type) {
     query =
-      type === 'team' ? '/team' : type === 'post' ? '/post' : '/team-and=post';
+      type === 'team' ? '/team' : type === 'post' ? '/post' : '/team-and-post';
   }
 
   const url = MY_INFO + query;
@@ -24,7 +24,7 @@ const handleGetMyInfo = async (type?: 'team' | 'post' | 'all') => {
     return {
       status: error?.status,
       success: false,
-      message: error?.response.data.message,
+      message: error?.response?.data.message ?? '서버에 문제 발생',
     };
   }
 };

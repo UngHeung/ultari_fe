@@ -1,20 +1,19 @@
 'use client';
 
 import { authAxios } from '@/apis/axiosAuth';
-import { BASE_URL } from '@/components/common/constants/pathConst';
-import TeamList from '@/components/team/TeamList';
-import { useEffect, useState } from 'react';
-import { TeamOptioins } from '../detail/[:id]/page';
-import { useDispatch } from 'react-redux';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
+import TeamList from '@/components/team/TeamList';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { TeamOptioins } from '../detail/[:id]/page';
 
 const TeamListPage = () => {
   const [teamList, setTeamList] = useState<TeamOptioins[]>([]);
   const dispatch = useDispatch();
 
   async function handleGetTeamList() {
-    const url = `${BASE_URL}/team`;
+    const url = `/team`;
 
     try {
       const response = await authAxios.get(url);

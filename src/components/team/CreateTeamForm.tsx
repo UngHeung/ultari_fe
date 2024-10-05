@@ -2,7 +2,6 @@ import { authAxios } from '@/apis/axiosAuth';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BASE_URL } from '../common/constants/pathConst';
 import { ModalState, SliceOptions } from '../stores/interfaces/stateInterface';
 import { setModal } from '../stores/reducer/modalRducer';
 import TeamButton from './elements/TeamButton';
@@ -27,7 +26,7 @@ const CreateTeamForm = () => {
       description: formData.get('description'),
     };
 
-    const url = `${BASE_URL}/team`;
+    const url = '/team';
 
     try {
       const response = await authAxios.post(url, data);
