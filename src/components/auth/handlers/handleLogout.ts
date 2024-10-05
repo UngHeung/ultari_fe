@@ -1,9 +1,9 @@
-import { BASE_URL, LOGOUT_PATH } from '@/components/common/constants/pathConst';
+import { LOGOUT_PATH } from '@/components/common/constants/pathConst';
 import axios from 'axios';
 import { ACCESS_TOKEN } from '../constants/accessToken';
 
 const handleLogout = async () => {
-  const url = `${BASE_URL}/${LOGOUT_PATH}`;
+  const url = LOGOUT_PATH;
 
   try {
     const response = await axios.post(url);

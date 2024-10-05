@@ -14,7 +14,7 @@ const handleUploadPost = async (
   const visibility = formData.get('visibility');
   const contentType = formData.get('contentType');
   const data = { title, content, images, visibility, contentType };
-  const url = `/post/${type === 'update' ? updatePostId : ''}`;
+  const url = `/post?${type === 'update' ? updatePostId : ''}`;
 
   try {
     const response: any =
