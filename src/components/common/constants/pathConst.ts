@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_DB_HOST;
+export const BASE_URL = 'http://' + process.env.NEXT_PUBLIC_DB_HOST + ':3000';
 
 export const REISSUE_ACCESS = 'auth/reissue/access';
 export const REISSUE_REFRESH = 'auth/reissue/refresh';
