@@ -1,5 +1,4 @@
 import { authAxios } from '@/apis/axiosAuth';
-import { BASE_URL } from '@/components/common/constants/pathConst';
 import { FormEvent } from 'react';
 import { PostWriteTypes } from '../interfaces/postInterfaces';
 
@@ -15,7 +14,7 @@ const handleUploadPost = async (
   const visibility = formData.get('visibility');
   const contentType = formData.get('contentType');
   const data = { title, content, images, visibility, contentType };
-  const url = `${BASE_URL}/post/${type === 'update' ? updatePostId : ''}`;
+  const url = `/post/${type === 'update' ? updatePostId : ''}`;
 
   try {
     const response: any =
