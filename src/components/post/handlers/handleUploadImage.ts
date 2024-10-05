@@ -1,5 +1,4 @@
 import { fileUploadAxios } from '@/apis/axiosUploadFile';
-import { BASE_URL } from '@/components/common/constants/pathConst';
 
 const handleUploadImage = async (files: File[]) => {
   const formData = new FormData();

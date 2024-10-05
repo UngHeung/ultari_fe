@@ -1,12 +1,11 @@
 import {
-  BASE_URL,
   REISSUE_ACCESS,
   REISSUE_REFRESH,
 } from '@/components/common/constants/pathConst';
 import { refreshAxios } from '../axiosReissue';
 
-const accessReissueUrl = `${BASE_URL}/${REISSUE_ACCESS}`;
-const refreshReissueUrl = `${BASE_URL}/${REISSUE_REFRESH}`;
+const accessReissueUrl = REISSUE_ACCESS;
+const refreshReissueUrl = REISSUE_REFRESH;
 
 export const reissueAccessToken = async () => {
   const response = await refreshAxios.post(accessReissueUrl);
