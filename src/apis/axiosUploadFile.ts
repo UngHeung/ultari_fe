@@ -1,4 +1,3 @@
-import { BASE_URL } from '@/components/common/constants/pathConst';
 import axios from 'axios';
 import {
   callbackRequestConfig,
@@ -8,9 +7,9 @@ import {
 } from './functions/axiosInterceptorCallbacks';
 
 export const fileUploadAxios = axios.create({
-  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
+    withCredentials: true,
   },
 });
 
