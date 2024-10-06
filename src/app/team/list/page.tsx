@@ -7,6 +7,7 @@ import TeamList from '@/components/team/TeamList';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { TeamOptioins } from '../detail/[id]/page';
+import axios from 'axios';
 
 const TeamListPage = () => {
   const [teamList, setTeamList] = useState<TeamOptioins[]>([]);
@@ -23,12 +24,20 @@ const TeamListPage = () => {
         success: true,
         data: response.data,
       };
-    } catch (error: any) {
-      return {
-        status: error.status,
-        success: false,
-        message: error.response?.data.message ?? '서버에 에러 발생',
-      };
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return {
+          status: error.status,
+          success: false,
+          message: error.response?.data.message || '서버에 문제 발생',
+        };
+      } else {
+        return {
+          status: 500,
+          success: false,
+          message: '서버에 문제 발생',
+        };
+      }
     }
   }
 

@@ -3,6 +3,7 @@ import {
   reissueRefreshToken,
 } from '@/apis/functions/reissueToken';
 import { setAccessToken, setRefreshToken } from './tokenInteract';
+import axios from 'axios';
 
 /**
  * @param isAccess
@@ -23,11 +24,18 @@ const refreshToken = async (isAccess: boolean) => {
       success: true,
       message: '새로운 토큰 발급이 완료되었습니다.',
     };
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error.response.data.message,
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    } else {
+      return {
+        success: false,
+        message: '서버에 문제 발생',
+      };
+    }
   }
 };
 

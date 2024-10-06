@@ -1,5 +1,6 @@
 import { defaultAxios } from '@/apis/axiosDefault';
 import { LOGIN_PATH } from '@/components/common/constants/pathConst';
+import axios from 'axios';
 import { FormEvent } from 'react';
 import { LoginOptionsEnum } from '../constants/authEnum';
 import { TokenPrefixEnum } from '../constants/tokenEnum';
@@ -44,11 +45,18 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
       success: true,
       message: '로그인 성공!',
     };
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error.response?.data.message ?? '서버에 문제 발생',
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    } else {
+      return {
+        success: false,
+        message: '서버에 문제 발생',
+      };
+    }
   }
 };
 

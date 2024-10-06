@@ -3,6 +3,7 @@ import { SIGN_UP_PATH } from '@/components/common/constants/pathConst';
 import { FormEvent } from 'react';
 import { SignUpOptionsEnum } from '../constants/authEnum';
 import { validateSignUp } from '../validators/authValidators';
+import axios from 'axios';
 
 export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
   const formData = new FormData(event.currentTarget);
@@ -48,11 +49,19 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
       success: true,
       message: '회원가입 성공!',
     };
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: false,
-      message: error.response?.data.message ?? '서버에 에러 발생',
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        status: error.status,
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    } else {
+      return {
+        status: 500,
+        success: false,
+        message: '서버에 문제 발생',
+      };
+    }
   }
 };

@@ -1,5 +1,5 @@
 import { authAxios } from '@/apis/axiosAuth';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { FormEvent } from 'react';
 import { PostOptions, PostWriteTypes } from '../interfaces/postInterfaces';
 

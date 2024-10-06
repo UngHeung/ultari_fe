@@ -1,5 +1,6 @@
 import { authAxios } from '@/apis/axiosAuth';
 import { MY_INFO } from '@/components/common/constants/pathConst';
+import axios from 'axios';
 
 const handleGetMyInfo = async (type?: 'team' | 'post' | 'all') => {
   let query = '';
@@ -20,12 +21,20 @@ const handleGetMyInfo = async (type?: 'team' | 'post' | 'all') => {
       message: '내 정보를 불러왔습니다.',
       data: response?.data,
     };
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: false,
-      message: error.response?.data.message ?? '서버에 문제 발생',
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        status: error.status,
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    } else {
+      return {
+        status: 500,
+        success: false,
+        message: '서버에 문제 발생',
+      };
+    }
   }
 };
 

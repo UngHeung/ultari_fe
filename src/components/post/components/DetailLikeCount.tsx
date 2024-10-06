@@ -7,6 +7,7 @@ import {
   UserState,
 } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
+import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from '../styles/detail.module.css';
@@ -33,7 +34,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
           type={'button'}
           className={style.likeButton}
           onClick={async () => {
-            let status, success, newCount, message;
+            let success, newCount, message;
 
             if (userId! < 0) {
               success = false;
@@ -47,7 +48,6 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
                 aleadyLiked,
               );
 
-              status = response.status;
               newCount = response.data;
               success = response.success;
               message = response.message;
@@ -108,19 +108,27 @@ async function handleUpdateLikeCount(postId: number, isLiked: boolean) {
       success: true,
       message: isLiked ? '좋아요를 취소했습니다.' : '좋아요를 눌렀습니다.',
     };
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: false,
-      message: (error.response.data.message as string) ?? '서버에 문제 발생!',
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        status: error.status,
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    } else {
+      return {
+        status: 500,
+        success: false,
+        message: '서버에 문제 발생',
+      };
+    }
   }
 }
 
 function checkAleadyLiked(likers: UserState[], userId: number) {
   if (!likers) return false;
 
-  for (let liker of likers) {
+  for (const liker of likers) {
     if (liker.id === userId) {
       return true;
     }
