@@ -5,14 +5,14 @@ import {
 } from '@/components/stores/interfaces/stateInterface';
 import { setUser } from '@/components/stores/reducer/userReducer';
 import { Dispatch } from '@reduxjs/toolkit';
-import { FormEvent } from 'react';
+import { FormEvent, SetStateAction } from 'react';
 import getUserDataFromToken from '../functions/getUserDataFromToken';
 import handleLogin from './handleLogin';
 
 export async function handleSubmit(
   event: FormEvent<HTMLFormElement>,
   dispatch: Dispatch,
-  setDisabled: any,
+  setDisabled: React.Dispatch<SetStateAction<boolean>>,
 ) {
   event.preventDefault();
 
