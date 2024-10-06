@@ -29,7 +29,7 @@ const handleUploadImage = async (files: File[]) => {
     return {
       status: error.status,
       success: true,
-      message: error.response.data.message,
+      message: error.response?.data.message ?? '서버에 에러 발생',
     };
   }
 };

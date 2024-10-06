@@ -16,7 +16,7 @@ const handleDeletePost = async (postId: number) => {
     return {
       status: error.status,
       success: true,
-      message: error.response.data.message,
+      message: error.response?.data.message ?? '서버에 에러 발생',
     };
   }
 };

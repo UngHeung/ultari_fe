@@ -27,7 +27,7 @@ const TeamListPage = () => {
       return {
         status: error.status,
         success: false,
-        message: error.response.data.message,
+        message: error.response?.data.message ?? '서버에 에러 발생',
       };
     }
   }

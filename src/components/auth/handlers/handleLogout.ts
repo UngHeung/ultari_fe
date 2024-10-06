@@ -1,12 +1,12 @@
+import { defaultAxios } from '@/apis/axiosDefault';
 import { LOGOUT_PATH } from '@/components/common/constants/pathConst';
-import axios from 'axios';
 import { ACCESS_TOKEN } from '../constants/accessToken';
 
 const handleLogout = async () => {
   const url = LOGOUT_PATH;
 
   try {
-    const response = await axios.post(url);
+    const response = await defaultAxios.post(url);
 
     ACCESS_TOKEN.accessToken = response.data.accessToken;
     localStorage.setItem('refreshToken', response.data.refreshToken);
@@ -20,7 +20,7 @@ const handleLogout = async () => {
     return {
       status: error.status,
       success: false,
-      message: error.response.data.message,
+      message: error.response?.data.message ?? '서버에 에러 발생',
     };
   }
 };
