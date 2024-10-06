@@ -1,4 +1,3 @@
-import { BASE_URL } from '@/components/common/constants/pathConst';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 
 function composeUrlQuery(
