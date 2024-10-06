@@ -13,7 +13,7 @@ const PasswordInput = (props: PasswordInputOptions) => {
     <input
       type="password"
       name={props.name}
-      onChange={event => setPassword(prev => event.target.value)}
+      onChange={event => setPassword(event.target.value)}
       value={password}
       className={props.className}
       placeholder={props.placeholder}

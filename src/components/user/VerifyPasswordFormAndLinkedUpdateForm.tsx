@@ -30,10 +30,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
-  async function handleMoreFetchData(
-    event: FormEvent<HTMLFormElement>,
-    account: string,
-  ) {
+  async function handleMoreFetchData(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setDisabled(false);
@@ -71,7 +68,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
     setPassed(true);
 
-    const { status, message, success, data } = await handleGetMyInfo('team');
+    const { data } = await handleGetMyInfo('team');
 
     setMoreInformation(data);
 
@@ -82,7 +79,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
   return (
     <form
       className={style.moreFetchDataFrom}
-      onSubmit={event => handleMoreFetchData(event, account ?? '')}
+      onSubmit={event => handleMoreFetchData(event)}
     >
       {!passed ? (
         <div>
