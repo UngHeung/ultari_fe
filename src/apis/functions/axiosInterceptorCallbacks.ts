@@ -17,7 +17,7 @@ export const callbackRequestConfig = (
   isAccess: boolean,
 ) => {
   if (!config.url?.startsWith('http')) {
-    config.url = 'http://localhost:3000' + config.url;
+    config.url = `${process.env.NEXT_PUBLIC_DB_HOST}${config.url}`;
   }
 
   if (isAccess) {
