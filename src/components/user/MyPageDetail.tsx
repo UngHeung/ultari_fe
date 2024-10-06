@@ -8,7 +8,7 @@ import SecretInfoItem from './SecretInfoItem';
 import style from './styles/mypage.module.css';
 import VerifyPasswordFormAndLinkedUpdateForm from './VerifyPasswordFormAndLinkedUpdateForm';
 
-const MyPage = ({ user }: { user: UserState }) => {
+const MyPageDetail = ({ user }: { user: UserState }) => {
   const { account, phone, email } = useSelector(
     (state: SliceOptions) => state.user,
   );
@@ -66,7 +66,7 @@ const MyPage = ({ user }: { user: UserState }) => {
   );
 };
 
-export default MyPage;
+export default MyPageDetail;
 
 export function getRoleType(type: RoleTypes) {
   if (type === 'ROLE_ADMIN') {
