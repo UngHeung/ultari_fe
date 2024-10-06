@@ -1,12 +1,13 @@
+import { authAxios } from '@/apis/axiosAuth';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { BASE_URL } from '../common/constants/pathConst';
 import { SliceOptions, UserState } from '../stores/interfaces/stateInterface';
 import UserButton from './elements/UserButton';
 import UserInput from './elements/UserInput';
 import ProfileUpload from './ProfileUpload';
 import style from './styles/update.module.css';
-import { useSelector } from 'react-redux';
-import { BASE_URL } from '../common/constants/pathConst';
-import { authAxios } from '@/apis/axiosAuth';
 
 const UpdateInfo = ({
   user,
@@ -39,12 +40,20 @@ const UpdateInfo = ({
           const response = await authAxios.post(imageUrl, { image: file });
 
           data.profile = response.data;
-        } catch (error: any) {
-          return {
-            status: error.status,
-            success: false,
-            message: '서버에 문제 발생',
-          };
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            return {
+              status: error.status,
+              success: false,
+              message: error.response?.data.message || '서버에 문제 발생',
+            };
+          } else {
+            return {
+              status: 500,
+              success: false,
+              message: '서버에 문제 발생',
+            };
+          }
         }
 
         const url = `${BASE_URL}/user/${userId}`;
@@ -59,12 +68,14 @@ const UpdateInfo = ({
             success: true,
             data: response.data,
           };
-        } catch (error: any) {
-          return {
-            status: error.status,
-            success: false,
-            message: '서버 에러 발생',
-          };
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            return {
+              status: error.status,
+              success: false,
+              message: error.response?.data.message || '서버에 문제 발생',
+            };
+          }
         }
       }}
     >

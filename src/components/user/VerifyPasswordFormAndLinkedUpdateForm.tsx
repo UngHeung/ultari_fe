@@ -1,4 +1,5 @@
 import { authAxios } from '@/apis/axiosAuth';
+import axios from 'axios';
 import Link from 'next/link';
 import { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,7 +14,6 @@ import style from './styles/mypage.module.css';
 
 const VerifyPasswordFormAndLinkedUpdateForm = ({
   setMoreInformation,
-  account,
   setPassed,
   passed,
 }: {
@@ -54,7 +54,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
     const response = await verifiedPassword(password);
 
-    if (!response.success) {
+    if (!response?.success) {
       modalData.message = '비밀번호를 확인해주세요.';
       dispatch(setModal(modalData));
       return;
@@ -115,10 +115,17 @@ export async function verifiedPassword(password: string) {
       status: response.status,
       success: true,
     };
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: false,
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        status: error.status,
+        success: false,
+      };
+    } else {
+      return {
+        status: 500,
+        success: false,
+      };
+    }
   }
 }

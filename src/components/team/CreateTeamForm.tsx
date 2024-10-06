@@ -1,4 +1,5 @@
 import { authAxios } from '@/apis/axiosAuth';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,19 +36,27 @@ const CreateTeamForm = () => {
         success: true,
         message: `${data.name}목장이 생성되었습니다.`,
       };
-    } catch (error: any) {
-      return {
-        status: error.status,
-        success: false,
-        message: error.response.data.message,
-      };
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return {
+          status: error.status,
+          success: false,
+          message: error.response?.data.message || '서버에 문제 발생',
+        };
+      } else {
+        return {
+          status: 500,
+          success: false,
+          message: '서버에 문제 발생',
+        };
+      }
     }
   }
 
   return (
     <form
       onSubmit={async event => {
-        const { status, success, message } = await handleSubmit(event);
+        const { success, message } = await handleSubmit(event);
 
         setDisabled(true);
 

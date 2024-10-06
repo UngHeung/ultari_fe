@@ -1,4 +1,5 @@
 import { fileUploadAxios } from '@/apis/axiosUploadFile';
+import axios from 'axios';
 
 const handleUploadImage = async (files: File[]) => {
   const formData = new FormData();
@@ -25,12 +26,20 @@ const handleUploadImage = async (files: File[]) => {
       success: true,
       message: `이미지 등록 성공!`,
     };
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: true,
-      message: error.response?.data.message ?? '서버에 에러 발생',
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        status: error.status,
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    } else {
+      return {
+        status: 500,
+        success: false,
+        message: '서버에 문제 발생',
+      };
+    }
   }
 };
 

@@ -1,6 +1,7 @@
 import { authAxios } from '@/apis/axiosAuth';
+import axios, { AxiosResponse } from 'axios';
 import { FormEvent } from 'react';
-import { PostWriteTypes } from '../interfaces/postInterfaces';
+import { PostOptions, PostWriteTypes } from '../interfaces/postInterfaces';
 
 const handleUploadPost = async (
   event: FormEvent<HTMLFormElement>,
@@ -17,7 +18,12 @@ const handleUploadPost = async (
   const url = `/post?${type === 'update' ? updatePostId : ''}`;
 
   try {
-    const response: any =
+    const response: {
+      data: PostOptions;
+      status: number;
+      success: boolean;
+      message: string;
+    } =
       type === 'new'
         ? await authAxios.post(url, data)
         : await authAxios.patch(url, data);
@@ -36,12 +42,20 @@ const handleUploadPost = async (
         message: response.message,
       };
     }
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: false,
-      message: error.response?.data.message ?? '서버에 에러 발생',
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        status: error.status,
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    } else {
+      return {
+        status: 500,
+        success: false,
+        message: '서버에 문제 발생',
+      };
+    }
   }
 };
 

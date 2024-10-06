@@ -1,5 +1,6 @@
 import { authAxios } from '@/apis/axiosAuth';
 import { getPostOptions } from '../interfaces/postInterfaces';
+import axios from 'axios';
 
 async function handleGetPostList(url: string) {
   try {
@@ -15,11 +16,18 @@ async function handleGetPostList(url: string) {
         nextPath: response.data.next,
       } as getPostOptions,
     };
-  } catch (error: any) {
-    return {
-      status: error.status,
-      success: false,
-    };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return {
+        status: error.status,
+        success: false,
+      };
+    } else {
+      return {
+        status: 500,
+        success: false,
+      };
+    }
   }
 }
 
