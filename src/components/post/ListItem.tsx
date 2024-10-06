@@ -43,7 +43,7 @@ const ListItem = (props: PostOptions, key: number) => {
     <>
       <li key={key}>
         <Link
-          href={`/post/${props.id}`}
+          href={`/post/detail/${props.id}`}
           className={style.postItem}
           onClick={() => dispatch(setPost(props))}
         >
