@@ -22,9 +22,9 @@ const handleGetMyInfo = async (type?: 'team' | 'post' | 'all') => {
     };
   } catch (error: any) {
     return {
-      status: error?.status,
+      status: error.status,
       success: false,
-      message: error?.response?.data.message ?? '서버에 문제 발생',
+      message: error.response?.data.message ?? '서버에 문제 발생',
     };
   }
 };

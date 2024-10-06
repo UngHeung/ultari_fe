@@ -1,7 +1,7 @@
 import { TeamOptioins } from '@/app/team/detail/[:id]/page';
+import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
 import style from './styles/teamDetail.module.css';
-import defaultProfile from '@/public/images/profile_default.png';
 
 const TeamDetail = (props: TeamOptioins) => {
   return (

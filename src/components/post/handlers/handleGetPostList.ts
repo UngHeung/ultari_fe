@@ -16,7 +16,6 @@ async function handleGetPostList(url: string) {
       } as getPostOptions,
     };
   } catch (error: any) {
-    console.log(error);
     return {
       status: error.status,
       success: false,

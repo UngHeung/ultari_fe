@@ -1,6 +1,5 @@
 'use client';
 
-import modalCloseButton from '@/public/images/modal_close_button.png';
 import modalSuccess from '@/public/images/modal_success.png';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Image from 'next/image';
@@ -44,18 +43,6 @@ const Modal = () => {
         <article className={style.modalWrap}>
           <header className={style.modalHeader}>
             <h2 className={'a11y-hidden'}>{title}</h2>
-            <button
-              className={style.modalCloseButton}
-              onClick={() => dispatch(resetModal())}
-            >
-              <Image
-                src={modalCloseButton}
-                alt={'모달 닫기'}
-                width={30}
-                height={15}
-                style={{ objectPosition: theme === 'dark' ? -15 : 0 }}
-              />
-            </button>
           </header>
           <section className={style.imageWrap}>
             <Image

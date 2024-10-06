@@ -10,5 +10,5 @@ export const refreshAxios = axios.create({
 
 refreshAxios.interceptors.request.use(
   config => callbackRequestConfig(config, false),
-  async error => await callbackRequestError(error),
+  error => callbackRequestError(error),
 );

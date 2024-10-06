@@ -13,7 +13,6 @@ async function handleGetPost(id: number) {
       data: response.data as PostState,
     };
   } catch (error: any) {
-    console.log(error.response?.data?.message || '서버에 문제 발생');
     return {
       status: error.status,
       success: false,

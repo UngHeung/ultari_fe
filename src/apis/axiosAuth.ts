@@ -15,5 +15,5 @@ authAxios.interceptors.request.use(
 
 authAxios.interceptors.response.use(
   response => callbackResponse(response),
-  async error => callbackResponseError(error, true),
+  error => callbackResponseError(error, true),
 );
