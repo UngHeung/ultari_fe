@@ -52,6 +52,7 @@ const listPage = () => {
         listOrderByDesc,
         'SCOPE_PUBLIC',
       );
+
       mapDispatchToProps.desc(dispatch, postData);
     } else if (orderBy === 'ASC') {
       postData = await fetchDataFromStoreOrServer(
@@ -59,6 +60,7 @@ const listPage = () => {
         listOrderByAsc,
         'SCOPE_PUBLIC',
       );
+
       mapDispatchToProps.asc(dispatch, postData);
     }
 

@@ -105,9 +105,12 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
   );
 };
 
+export default VerifyPasswordFormAndLinkedUpdateForm;
+
 export async function verifiedPassword(password: string) {
   const data = { password };
   const url = `/auth/verify`;
+
   try {
     const response = await authAxios.post(url, data);
 
@@ -122,5 +125,3 @@ export async function verifiedPassword(password: string) {
     };
   }
 }
-
-export default VerifyPasswordFormAndLinkedUpdateForm;
