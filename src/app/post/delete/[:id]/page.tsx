@@ -34,7 +34,7 @@ const DeletePage = ({ params }: ParamsOptions) => {
 };
 
 async function postDeleteProcess(dispatch: Dispatch, postId: number) {
-  const { status, success, message } = await handleDeletePost(postId);
+  const { success, message } = await handleDeletePost(postId);
 
   const secondModalData: ModalState = {
     title: success ? '게시물 삭제 성공' : '게시물 삭제 실패',

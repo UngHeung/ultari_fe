@@ -8,7 +8,7 @@ async function moreFetchData(
   nextPath: string,
 ): Promise<getPostListOptions> {
   const url = composeUrlQuery(false, orderBy, nextPath);
-  const { status, success, data } = await handleGetPostList(url);
+  const { data } = await handleGetPostList(url);
 
   return {
     list: data?.postList || [],

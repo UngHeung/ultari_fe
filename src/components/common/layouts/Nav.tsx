@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import { SetStateAction } from 'react';
 import style from '../styles/nav.module.css';
-import { SetStateAction, useEffect, useState } from 'react';
 
 const Nav = ({
   setIsShow,
@@ -17,7 +17,7 @@ const Nav = ({
         </li>
         <li>
           <Link
-            onClick={event => {
+            onClick={() => {
               setIsShow(false);
             }}
             href={'/team/create'}
@@ -27,7 +27,7 @@ const Nav = ({
         </li>
         <li>
           <Link
-            onClick={event => {
+            onClick={() => {
               setIsShow(false);
             }}
             href={'/team/list'}
@@ -37,7 +37,7 @@ const Nav = ({
         </li>
         <li>
           <Link
-            onClick={event => {
+            onClick={() => {
               setIsShow(false);
             }}
             href={'/user/my'}
@@ -45,7 +45,7 @@ const Nav = ({
         </li>
         <li>
           <Link
-            onClick={event => {
+            onClick={() => {
               setIsShow(false);
             }}
             href={'/user/list'}

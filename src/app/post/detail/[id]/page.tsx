@@ -13,7 +13,7 @@ const PostPage = ({ params }: ParamsOptions) => {
 
   useEffect(() => {
     (async () => {
-      const { status, success, data } = await handleGetPost(id);
+      const { success, data } = await handleGetPost(id);
 
       if (success) {
         setPostData(data);

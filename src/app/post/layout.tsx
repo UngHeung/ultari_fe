@@ -33,7 +33,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const type: PostPageType = pathname.slice(1).split('/')[1] as PostPageType;
 
-    setTitle(getTitle(type, isLoggedIn));
+    setTitle(getTitle(type));
 
     if (!checkAuth(type, isLoggedIn)) {
       const modalData: ModalState = {
@@ -94,7 +94,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-function getTitle(type: PostPageType, isLoggedIn: boolean) {
+function getTitle(type: PostPageType) {
   if (type === 'list') {
     return '게시물 목록';
   } else if (type === 'write') {

@@ -20,11 +20,12 @@ const WriteForm = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const updatePostId = type === 'update' && pathname.split('/')[3];
-  const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const post =
-    type === 'update' ? useSelector((state: SliceOptions) => state.post) : null;
+  const updatePostId = type === 'update' && pathname.split('/')[3];
+
+  const [disabled, setDisabled] = useState<boolean>(false);
+
+  const post = useSelector((state: SliceOptions) => state.post);
   const user = useSelector((state: SliceOptions) => state.user);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {

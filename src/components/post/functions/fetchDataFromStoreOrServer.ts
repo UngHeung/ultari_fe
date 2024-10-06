@@ -37,7 +37,7 @@ async function fetchDataFromStoreOrServer(
       `${visibility ? whereVisibility + visibility : ''}${visibility && contentType ? '&' : ''}${contentType ? whereContentType + contentType : ''}`,
     );
 
-    const { status, success, data } = await handleGetPostList(url);
+    const { data } = await handleGetPostList(url);
 
     return {
       list: data?.postList ?? [],

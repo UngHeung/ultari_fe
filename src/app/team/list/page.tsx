@@ -43,7 +43,7 @@ const TeamListPage = () => {
 
   useEffect(() => {
     (async () => {
-      const { status, success, data, message } = await handleGetTeamList();
+      const { success, data, message } = await handleGetTeamList();
       if (success) {
         setTeamList([...(data || [])]);
       } else {

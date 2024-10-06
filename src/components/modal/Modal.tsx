@@ -4,7 +4,6 @@ import modalSuccess from '@/public/images/modal_success.png';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouterType } from '../stores/constants/stateOptions';
 import { SliceOptions } from '../stores/interfaces/stateInterface';
@@ -16,26 +15,8 @@ const Modal = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [theme, setTheme] = useState<'dark' | 'light'>(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light',
-  );
-
   const { title, type, success, message, routerType, leftPath, rightPath } =
     useSelector((state: SliceOptions) => state?.modal);
-
-  useEffect(() => {
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', event => {
-        if (event.matches) {
-          setTheme('dark');
-        } else {
-          setTheme('light');
-        }
-      });
-  }, []);
 
   return (
     <>

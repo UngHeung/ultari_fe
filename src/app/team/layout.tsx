@@ -6,7 +6,7 @@ import {
   SliceOptions,
 } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
@@ -16,7 +16,6 @@ export type TeamPageType = 'list' | 'create';
 const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
-  const router = useRouter();
   const [title, setTitle] = useState<string>('');
 
   const isLoggedIn = useSelector(
@@ -26,7 +25,7 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const type: TeamPageType = pathname.slice(1).split('/')[1] as TeamPageType;
 
-    setTitle(getTitle(type, isLoggedIn));
+    setTitle(getTitle(type));
 
     if (!checkAuth(type, isLoggedIn)) {
       const modalData: ModalState = {
@@ -55,7 +54,7 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-function getTitle(type: 'list' | 'create', isLoggedIn: boolean) {
+function getTitle(type: 'list' | 'create') {
   if (type === 'list') {
     return '목장 목록';
   } else if (type === 'create') {

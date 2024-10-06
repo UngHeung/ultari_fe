@@ -31,7 +31,7 @@ const TeamPage = ({ params }: ParamsOptions) => {
 
   useEffect(() => {
     (async () => {
-      const { status, success, data, message } = await handleGetTeamById(id);
+      const { success, data, message } = await handleGetTeamById(id);
 
       if (success) {
         setTeamData(data);
