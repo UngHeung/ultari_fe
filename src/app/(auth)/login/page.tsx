@@ -2,7 +2,7 @@
 
 import Login from '@/components/auth/Login';
 
-const loginPage = () => {
+const LoginPage = () => {
   return (
     <>
       <Login />
@@ -10,4 +10,4 @@ const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;

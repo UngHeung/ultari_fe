@@ -4,7 +4,7 @@ import ImageUploadForm from '@/components/post/ImageUploadForm';
 import WriteForm from '@/components/post/WriteForm';
 import { useState } from 'react';
 
-const updatePage = () => {
+const UpdatePage = () => {
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
 
   return (
@@ -15,4 +15,4 @@ const updatePage = () => {
   );
 };
 
-export default updatePage;
+export default UpdatePage;

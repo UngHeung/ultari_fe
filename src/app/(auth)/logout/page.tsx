@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const logoutPage = () => {
+const LogoutPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -51,4 +51,4 @@ async function logoutProcess(dispatch: Dispatch) {
   showModal(dispatch, modalData);
 }
 
-export default logoutPage;
+export default LogoutPage;

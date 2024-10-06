@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const deletePage = ({ params }: ParamsOptions) => {
+const DeletePage = ({ params }: ParamsOptions) => {
   const postId = params['id'];
   const router = useRouter();
   const dispatch = useDispatch();
@@ -49,4 +49,4 @@ async function postDeleteProcess(dispatch: Dispatch, postId: number) {
   dispatch(setModal(secondModalData));
 }
 
-export default deletePage;
+export default DeletePage;

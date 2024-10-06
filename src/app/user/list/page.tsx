@@ -1,7 +1,7 @@
 import React from 'react';
 
-const teamListPage = () => {
+const TeamListPage = () => {
   return <div>teamListPage</div>;
 };
 
-export default teamListPage;
+export default TeamListPage;

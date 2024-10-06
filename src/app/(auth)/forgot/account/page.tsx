@@ -2,7 +2,7 @@
 
 import ForgotMenu from '@/components/auth/ForgotMenu';
 
-const forgotAccountPage = () => {
+const ForgotAccountPage = () => {
   return (
     <>
       <ForgotMenu />
@@ -10,4 +10,4 @@ const forgotAccountPage = () => {
   );
 };
 
-export default forgotAccountPage;
+export default ForgotAccountPage;

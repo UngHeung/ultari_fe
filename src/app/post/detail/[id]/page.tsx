@@ -7,7 +7,7 @@ import { PostState } from '@/components/stores/interfaces/stateInterface';
 import { useEffect, useState } from 'react';
 import Detail from '../../../../components/post/Detail';
 
-const postPage = ({ params }: ParamsOptions) => {
+const PostPage = ({ params }: ParamsOptions) => {
   const { id } = params;
   const [postData, setPostData] = useState<PostState>();
 
@@ -29,4 +29,4 @@ const postPage = ({ params }: ParamsOptions) => {
   );
 };
 
-export default postPage;
+export default PostPage;

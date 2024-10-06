@@ -15,7 +15,7 @@ import { resetPostList } from '@/components/stores/reducer/PostListReducer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const listPage = () => {
+const ListPage = () => {
   const dispatch = useDispatch();
 
   const listOrderByDesc = useSelector(
@@ -102,4 +102,4 @@ const listPage = () => {
   );
 };
 
-export default listPage;
+export default ListPage;
