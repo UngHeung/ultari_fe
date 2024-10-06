@@ -1,10 +1,10 @@
 'use client';
 
-import { authAxios } from '@/apis/axiosAuth';
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
+import handleGetTeamById from '@/components/team/handlers/handleGetTeamById';
 import TeamDetail from '@/components/team/TeamDetail';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -22,31 +22,12 @@ export interface TeamOptioins {
   updateAt?: string;
 }
 
-const TeamMainPage = ({ params }: ParamsOptions) => {
-  const teamId = params[':id'];
+const TeamPage = ({ params }: ParamsOptions) => {
+  const teamId = params['id'];
 
   const [teamData, setTeamData] = useState<TeamOptioins>();
 
   const dispatch = useDispatch();
-
-  async function handleGetTeamById(teamId: number) {
-    const url = `/team/${teamId}`;
-
-    try {
-      const response = await authAxios.get(url);
-      return {
-        status: response.status,
-        success: true,
-        data: response.data,
-      };
-    } catch (error: any) {
-      return {
-        status: error.status,
-        success: false,
-        message: error.response.data.message,
-      };
-    }
-  }
 
   useEffect(() => {
     (async () => {
@@ -54,6 +35,7 @@ const TeamMainPage = ({ params }: ParamsOptions) => {
         await handleGetTeamById(teamId);
 
       if (success) {
+        console.log(193041984091328);
         setTeamData(data);
       } else {
         const modalData: ModalState = {
@@ -77,4 +59,4 @@ const TeamMainPage = ({ params }: ParamsOptions) => {
   );
 };
 
-export default TeamMainPage;
+export default TeamPage;

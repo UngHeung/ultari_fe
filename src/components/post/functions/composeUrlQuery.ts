@@ -11,13 +11,13 @@ function composeUrlQuery(
   let url = '';
 
   if (isFirstFetch) {
-    url = `post?order__createAt=${orderByCreateAt || 'DESC'}`;
+    url = `/post?order__createAt=${orderByCreateAt || 'DESC'}`;
 
     if (findOptions) {
       url += `&${findOptions}`;
     }
   } else {
-    url = `post?${findOptions}`;
+    url = `/post?${findOptions}`;
   }
 
   return url;

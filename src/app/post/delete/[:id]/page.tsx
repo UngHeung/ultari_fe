@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const deletePage = ({ params }: ParamsOptions) => {
-  const postId = params[':id'];
+  const postId = params['id'];
   const router = useRouter();
   const dispatch = useDispatch();
 

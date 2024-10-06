@@ -1,4 +1,4 @@
-import { TeamOptioins } from '@/app/team/detail/[:id]/page';
+import { TeamOptioins } from '@/app/team/detail/[id]/page';
 import style from './styles/teamList.module.css';
 import Link from 'next/link';
 
