@@ -4,7 +4,7 @@ import {
   getRefreshToken,
 } from '@/components/auth/functions/tokenInteract';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { defaultAxios } from '../axiosDefault';
+import { callbackAxios } from '../axiosCallback';
 
 /**
  * @param config
@@ -16,8 +16,6 @@ export const callbackRequestConfig = (
   config: InternalAxiosRequestConfig,
   isAccess: boolean,
 ) => {
-  console.log('url : ', config.url);
-
   if (!config.url?.startsWith('http')) {
     config.url = 'http://localhost:3000' + config.url;
   }
@@ -58,7 +56,7 @@ export const callbackResponseError = async (error: any, isAccess: boolean) => {
         Authorization: `Bearer ${isAccess ? getAccessToken() : getRefreshToken()}`,
       };
 
-      const response = await defaultAxios.request(error.config);
+      const response = await callbackAxios.request(error.config);
 
       return response;
     } catch (error) {
