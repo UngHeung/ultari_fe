@@ -23,7 +23,7 @@ export interface TeamOptioins {
 }
 
 const TeamPage = ({ params }: ParamsOptions) => {
-  const teamId = params['id'];
+  const { id } = params;
 
   const [teamData, setTeamData] = useState<TeamOptioins>();
 
@@ -31,11 +31,9 @@ const TeamPage = ({ params }: ParamsOptions) => {
 
   useEffect(() => {
     (async () => {
-      const { status, success, data, message } =
-        await handleGetTeamById(teamId);
+      const { status, success, data, message } = await handleGetTeamById(id);
 
       if (success) {
-        console.log(193041984091328);
         setTeamData(data);
       } else {
         const modalData: ModalState = {

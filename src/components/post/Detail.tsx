@@ -10,8 +10,8 @@ const Detail = ({ postData }: { postData: PostState }) => {
     <>
       <section className={style.titleWrap}>
         <h2 className={style.title}>{postData?.title}</h2>
-        <span>{mapContentType(postData.contentType)}</span>
-        <span>{mapVisibility(postData.visibility)}</span>
+        <span>{mapContentType(postData?.contentType)}</span>
+        <span>{mapVisibility(postData?.visibility)}</span>
         <span>{getDate(postData?.createAt)}</span>
       </section>
       <section className={style.contentWrap}>
