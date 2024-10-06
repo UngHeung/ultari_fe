@@ -8,12 +8,13 @@ import { useEffect, useState } from 'react';
 import Detail from '../../../components/post/Detail';
 
 const postPage = ({ params }: ParamsOptions) => {
-  const postId = params[':id'];
+  const postId = params['id'];
   const [postData, setPostData] = useState<PostState>();
 
   useEffect(() => {
     (async () => {
       const { status, success, data } = await handleGetPost(postId);
+
       if (success) {
         setPostData(data);
       }
