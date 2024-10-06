@@ -76,11 +76,12 @@ const ImageUploadForm = ({
           />
           <section className={'fileUploadButtonWrap'}></section>
           <section>
-            {selectedFiles?.length! > 0 ? (
+            {selectedFiles && selectedFiles.length > 0 ? (
               <SelectedImageConfirmButton
                 type={'submit'}
                 onClick={() => setConfirmedImages(prev => !prev)}
                 confirmedImages={confirmedImages}
+                disabled={uploadDisabled}
               />
             ) : (
               <p className={style.descriptionImageUpload}>

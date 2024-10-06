@@ -15,10 +15,10 @@ const Detail = ({ postData }: { postData: PostState }) => {
         <span>{getDate(postData?.createAt)}</span>
       </section>
       <section className={style.contentWrap}>
-        {postData && (
+        {postData && postData.images && (
           <ImagesSlider
             folder={'post'}
-            images={postData?.images!}
+            images={postData.images}
             width={600}
             height={400}
           />
