@@ -1,5 +1,5 @@
+import { defaultAxios } from '@/apis/axiosDefault';
 import { LOGIN_PATH } from '@/components/common/constants/pathConst';
-import axios from 'axios';
 import { FormEvent } from 'react';
 import { LoginOptionsEnum } from '../constants/authEnum';
 import { TokenPrefixEnum } from '../constants/tokenEnum';
@@ -30,7 +30,7 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
   const url = LOGIN_PATH;
 
   try {
-    const response = await axios.post(url, data, {
+    const response = await defaultAxios.post(url, data, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: basicToken,
