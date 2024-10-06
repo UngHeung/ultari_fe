@@ -97,7 +97,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
 };
 
 async function handleUpdateLikeCount(postId: number, isLiked: boolean) {
-  const url = `${BASE_URL}/post/${postId}/likes`;
+  const url = `/post/${postId}/likes`;
 
   try {
     const response = await authAxios.patch(url);
