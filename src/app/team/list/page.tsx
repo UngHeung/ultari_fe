@@ -6,7 +6,7 @@ import { setModal } from '@/components/stores/reducer/modalRducer';
 import TeamList from '@/components/team/TeamList';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TeamOptioins } from '../detail/[:id]/page';
+import { TeamOptioins } from '../detail/[id]/page';
 
 const TeamListPage = () => {
   const [teamList, setTeamList] = useState<TeamOptioins[]>([]);
