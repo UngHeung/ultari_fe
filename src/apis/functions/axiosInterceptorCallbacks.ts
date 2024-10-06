@@ -16,6 +16,12 @@ export const callbackRequestConfig = (
   config: InternalAxiosRequestConfig,
   isAccess: boolean,
 ) => {
+  console.log('url : ', config.url);
+
+  if (!config.url?.startsWith('http')) {
+    config.url = 'http://localhost:3000' + config.url;
+  }
+
   if (isAccess) {
     const accessToken = getAccessToken();
     config.headers['Authorization'] = `Bearer ${accessToken}`;
