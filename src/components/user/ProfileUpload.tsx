@@ -1,12 +1,26 @@
 import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
-import React, { ChangeEvent, SetStateAction, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import ImageInput from '../post/elements/ImageInput';
 import style from './styles/update.module.css';
 
 const ProfileUpload = ({ currentProfile }: { currentProfile?: string }) => {
-  const [selectedFile, setSelectedFile] = useState<File>();
   const [selectedImageBlob, setSelectedImageBlob] = useState<string>('');
+
+  function toggleImageBlob(event: ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+
+    if (!event.target.files) {
+      return;
+    }
+
+    const file = event.target.files[0];
+
+    if (file) {
+      const selectedImage = window.URL.createObjectURL(file);
+      setSelectedImageBlob(selectedImage);
+    }
+  }
 
   return (
     <section className={style.updateInputWrap}>
@@ -31,39 +45,10 @@ const ProfileUpload = ({ currentProfile }: { currentProfile?: string }) => {
         name={'profile'}
         id={'imageUpload'}
         accept={['image/png', 'image/jpeg', 'image/jpg', 'image/gif']}
-        onChange={event => {
-          handleImageBlob(
-            event,
-            selectedFile!,
-            setSelectedFile,
-            setSelectedImageBlob,
-          );
-        }}
+        onChange={toggleImageBlob}
       />
     </section>
   );
 };
 
 export default ProfileUpload;
-
-function handleImageBlob(
-  event: ChangeEvent<HTMLInputElement>,
-  selectedFile: File,
-  setSelectedFile: React.Dispatch<File>,
-  setSelectedImageBlob: React.Dispatch<SetStateAction<string>>,
-) {
-  event.preventDefault();
-
-  if (!event.target.files) {
-    return;
-  }
-
-  const file = event.target.files[0];
-
-  if (file) {
-    setSelectedFile(file);
-
-    const selectedImage = window.URL.createObjectURL(file);
-    setSelectedImageBlob(selectedImage);
-  }
-}

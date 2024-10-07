@@ -3,7 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import handleGetMyInfo from '../auth/handlers/handleGetMyInfo';
+import handleMyInfo from '../auth/handlers/handleMyInfo';
 import { UserOptions } from '../auth/interfaces/authInterface';
 import { ModalState } from '../stores/interfaces/stateInterface';
 import { setModal } from '../stores/reducer/modalRducer';
@@ -68,7 +68,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
     setPassed(true);
 
-    const { data } = await handleGetMyInfo('team');
+    const { data } = await handleMyInfo('team');
 
     setMoreInformation(data);
 
