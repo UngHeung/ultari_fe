@@ -1,9 +1,13 @@
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BaseButton from '../common/BaseButton';
+import showModal from '../common/functions/showModal';
+import { ModalState, UserState } from '../stores/interfaces/stateInterface';
+import { setUser } from '../stores/reducer/userReducer';
 import AuthInput from './elements/AuthInput';
-import { handleSubmit } from './handlers/handleSubmitLogin';
+import getUserDataFromToken from './functions/getUserDataFromToken';
+import handleLogin from './handlers/handleLogin';
 import style from './styles/button.module.css';
 
 const Login = () => {
@@ -12,8 +16,38 @@ const Login = () => {
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
+  async function loginProcess(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setDisabled(true);
+
+    const { success, message } = await handleLogin(event);
+
+    if (success) {
+      const userData: Omit<UserState, 'isLoggedIn'> = getUserDataFromToken();
+
+      dispatch(
+        setUser({
+          ...userData,
+          isLoggedIn: true,
+        }),
+      );
+    }
+
+    const modalData: ModalState = {
+      success,
+      message,
+      modalIsShow: true,
+      type: success ? 'confirm' : 'alert',
+      routerType: success ? 'back' : undefined,
+    };
+
+    showModal(dispatch, modalData);
+    setDisabled(false);
+  }
+
   return (
-    <form onSubmit={event => handleSubmit(event, dispatch, setDisabled)}>
+    <form onSubmit={event => loginProcess(event)}>
       <AuthInput
         name={'account'}
         id={'login_account'}
