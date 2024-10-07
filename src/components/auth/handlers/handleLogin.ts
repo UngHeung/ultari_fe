@@ -1,17 +1,15 @@
 import { defaultAxios } from '@/apis/axiosDefault';
-import { LOGIN_PATH } from '@/components/common/constants/pathConst';
-import axios from 'axios';
 import { FormEvent } from 'react';
-import { LoginOptionsEnum } from '../constants/authEnum';
 import { TokenPrefixEnum } from '../constants/tokenEnum';
 import { setAccessToken, setRefreshToken } from '../functions/tokenInteract';
 import { validateLogin } from '../validators/authValidators';
 
 const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
   const formData = new FormData(event.currentTarget);
+
   const data = {
-    account: formData.get(LoginOptionsEnum.ACCOUNT) as string,
-    password: formData.get(LoginOptionsEnum.PASSWORD) as string,
+    account: formData.get('account') as string,
+    password: formData.get('password') as string,
   };
 
   const validationLoginData = validateLogin(data);
@@ -28,10 +26,8 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     data.password,
   );
 
-  const url = LOGIN_PATH;
-
   try {
-    const response = await defaultAxios.post(url, data, {
+    const response = await defaultAxios.post('/auth/login/account', data, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: basicToken,
