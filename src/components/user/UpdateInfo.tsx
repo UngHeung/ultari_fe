@@ -1,8 +1,7 @@
 import { authAxios } from '@/apis/axiosAuth';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { FormEvent } from 'react';
 import { useSelector } from 'react-redux';
-import { BASE_URL } from '../common/constants/pathConst';
 import { SliceOptions, UserState } from '../stores/interfaces/stateInterface';
 import UserButton from './elements/UserButton';
 import UserInput from './elements/UserInput';
@@ -19,66 +18,47 @@ const UpdateInfo = ({
   const router = useRouter();
   const userId = useSelector((state: SliceOptions) => state.user.id);
 
+  async function updateInfoProcess(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const file = formData.get('profile');
+    const data = {
+      profile: '',
+      phone: formData.get('phone') || '',
+      email: formData.get('email') || '',
+      community: formData.get('community') || '',
+    };
+
+    try {
+      const response = await authAxios.post('/common/image', { image: file });
+
+      data.profile = response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    }
+
+    try {
+      const response = await authAxios.patch(`/user/${userId}`, data);
+
+      return {
+        success: true,
+        data: response.data,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.response?.data.message || '서버에 문제 발생',
+      };
+    }
+  }
+
   return (
-    <form
-      onSubmit={async event => {
-        event.preventDefault();
-
-        const formData = new FormData(event.currentTarget);
-        const file = formData.get('profile');
-
-        const data = {
-          profile: '',
-          phone: formData.get('phone') || '',
-          email: formData.get('email') || '',
-          community: formData.get('community') || '',
-        };
-
-        const imageUrl = `${BASE_URL}/common/image`;
-
-        try {
-          const response = await authAxios.post(imageUrl, { image: file });
-
-          data.profile = response.data;
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            return {
-              status: error.status,
-              success: false,
-              message: error.response?.data.message || '서버에 문제 발생',
-            };
-          } else {
-            return {
-              status: 500,
-              success: false,
-              message: '서버에 문제 발생',
-            };
-          }
-        }
-
-        const url = `${BASE_URL}/user/${userId}`;
-
-        console.log(data);
-
-        try {
-          const response = await authAxios.patch(url, data);
-
-          return {
-            status: response.status,
-            success: true,
-            data: response.data,
-          };
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            return {
-              status: error.status,
-              success: false,
-              message: error.response?.data.message || '서버에 문제 발생',
-            };
-          }
-        }
-      }}
-    >
+    <form onSubmit={updateInfoProcess}>
       <ProfileUpload currentProfile={user?.profile} />
 
       <section className={style.inputWrap}>
