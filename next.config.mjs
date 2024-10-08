@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  images: {domains: ['localhost']},
+  images: {remotePatterns: [{
+    protocol: 'http',
+    hostname: 'localhost',
+    port: '3000',
+    pathname: '/public/**'
+  }]},
   async rewrites() {
     return [
       {
