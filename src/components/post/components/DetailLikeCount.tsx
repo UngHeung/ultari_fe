@@ -1,5 +1,3 @@
-import { authAxios } from '@/apis/axiosAuth';
-import { BASE_URL } from '@/components/common/constants/pathConst';
 import {
   ModalState,
   PostState,
@@ -7,9 +5,9 @@ import {
   UserState,
 } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import handleUpdateLikeCount from '../handlers/handleUpdateLikeCount';
 import style from '../styles/detail.module.css';
 
 const DetailLikeCount = ({ postData }: { postData: PostState }) => {
@@ -18,14 +16,53 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
   const userId = useSelector((state: SliceOptions) => state.user.id);
 
   const [likeCount, setLikeCount] = useState<number>(postData?.likeCount || 0);
-  const [aleadyLiked, setAleadyLiked] = useState<boolean>(
+  const [isAleadyLiked, setIsAleadyLiked] = useState<boolean>(
     checkAleadyLiked(postData?.likers, userId!),
   );
   const [likeButtonColor, setLikeButtonColor] = useState<string>(
-    getBackgroundColor(aleadyLiked),
+    getBackgroundColor(isAleadyLiked),
   );
 
   const currentLikeCount = likeCount;
+
+  async function likeCountProcess() {
+    const result = {
+      success: false,
+      message: '',
+      data: currentLikeCount,
+    };
+
+    if (userId! < 0) {
+      result.success = false;
+      result.message = '로그인이 필요합니다.';
+    } else if (postData?.author && postData?.author.id === userId) {
+      result.success = false;
+      result.message = '내가 쓴 글에 좋아요를 누를 수 없습니다.';
+    } else {
+      const { ...result } = await handleUpdateLikeCount(postData?.id);
+
+      if (!isAleadyLiked) {
+        setLikeButtonColor(getBackgroundColor(true));
+      } else if (isAleadyLiked) {
+        setLikeButtonColor(getBackgroundColor(false));
+      }
+
+      setIsAleadyLiked(prev => !prev);
+
+      if (result.success) {
+        setLikeCount(result.data);
+      }
+    }
+
+    const modalData: ModalState = {
+      type: result.success ? 'confirm' : 'alert',
+      ...result,
+      routerType: undefined,
+      modalIsShow: true,
+    };
+
+    dispatch(setModal(modalData));
+  }
 
   return (
     <>
@@ -33,48 +70,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
         <button
           type={'button'}
           className={style.likeButton}
-          onClick={async () => {
-            let success, newCount, message;
-
-            if (userId! < 0) {
-              success = false;
-              message = '로그인이 필요합니다.';
-            } else if (postData?.author && postData?.author.id === userId) {
-              success = false;
-              message = '내가 쓴 글에 좋아요를 누를 수 없습니다.';
-            } else {
-              const response = await handleUpdateLikeCount(
-                postData?.id,
-                aleadyLiked,
-              );
-
-              newCount = response.data;
-              success = response.success;
-              message = response.message;
-
-              if (currentLikeCount < newCount) {
-                setAleadyLiked(true);
-                setLikeButtonColor(getBackgroundColor(true));
-              } else if (currentLikeCount > newCount) {
-                setAleadyLiked(false);
-                setLikeButtonColor(getBackgroundColor(false));
-              }
-
-              if (success) {
-                setLikeCount(newCount);
-              }
-            }
-
-            const modalData: ModalState = {
-              type: success ? 'confirm' : 'alert',
-              message,
-              success,
-              routerType: undefined,
-              modalIsShow: true,
-            };
-
-            dispatch(setModal(modalData));
-          }}
+          onClick={likeCountProcess}
           style={{
             backgroundColor: likeButtonColor,
           }}
@@ -95,35 +91,6 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
     </>
   );
 };
-
-async function handleUpdateLikeCount(postId: number, isLiked: boolean) {
-  const url = `/post/${postId}/likes`;
-
-  try {
-    const response = await authAxios.patch(url);
-
-    return {
-      status: response.status,
-      data: response.data,
-      success: true,
-      message: isLiked ? '좋아요를 취소했습니다.' : '좋아요를 눌렀습니다.',
-    };
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return {
-        status: error.status,
-        success: false,
-        message: error.response?.data.message || '서버에 문제 발생',
-      };
-    } else {
-      return {
-        status: 500,
-        success: false,
-        message: '서버에 문제 발생',
-      };
-    }
-  }
-}
 
 function checkAleadyLiked(likers: UserState[], userId: number) {
   if (!likers) return false;
