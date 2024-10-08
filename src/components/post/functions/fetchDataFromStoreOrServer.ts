@@ -14,8 +14,6 @@ async function fetchDataFromStoreOrServer(
   visibility?: visibilityOptions,
   contentType?: contentTypeOptions,
 ): Promise<getPostListOptions> {
-  // const likeCountQuery = 'order__likeCount=DESC';
-  // const viewCountQuery = 'order__viewCount=DESC';
   const whereVisibility = 'where__visibility=';
   const whereContentType = 'where__contentType=';
 
@@ -29,20 +27,16 @@ async function fetchDataFromStoreOrServer(
     const url = composeUrlQuery(
       true,
       orderBy,
-      // orderBy === 'LIKES'
-      //   ? likeCountQuery
-      //   : orderBy === 'VIEWS'
-      //     ? viewCountQuery
-      //     : '',
+
       `${visibility ? whereVisibility + visibility : ''}${visibility && contentType ? '&' : ''}${contentType ? whereContentType + contentType : ''}`,
     );
 
     const { data } = await handleGetPostList(url);
 
     return {
-      list: data?.postList ?? [],
+      list: data?.data ?? [],
       count: data?.count ?? -1,
-      next: data?.nextPath?.split('?')[1] || '',
+      next: data?.next?.split('?')[1] || '',
     };
   }
 }

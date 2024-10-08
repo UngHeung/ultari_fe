@@ -1,6 +1,5 @@
 'use client';
 
-import { checkAuth } from '@/components/auth/functions/checkAuth';
 import {
   ModalState,
   SliceOptions,
@@ -21,9 +20,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const [title, setTitle] = useState<string>('');
 
   const userId = useSelector((state: SliceOptions) => state.user.id);
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.user?.isLoggedIn ?? false,
-  );
 
   const postId = useSelector((state: SliceOptions) => state.post.id);
   const postAuthorId = useSelector(
@@ -34,20 +30,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
     const type: PostPageType = pathname.slice(1).split('/')[1] as PostPageType;
 
     setTitle(getTitle(type));
-
-    if (!checkAuth(type, isLoggedIn)) {
-      const modalData: ModalState = {
-        title: '권한 없음',
-        type: 'alert',
-        success: false,
-        message: '로그인 후 사용 가능합니다.',
-        modalIsShow: true,
-        routerType: 'push',
-        leftPath: '/login',
-      };
-
-      dispatch(setModal(modalData));
-    }
 
     return () => {
       dispatch(resetPost());

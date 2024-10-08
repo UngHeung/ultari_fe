@@ -1,11 +1,11 @@
-import { authAxios } from '@/apis/axiosInstance';
+import { authAxios, baseAxios } from '@/apis/axiosInstance';
 import { getPostOptions } from '../interfaces/postInterfaces';
 import axios from 'axios';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 
 async function handleGetPostList(url: string) {
   try {
-    const response = await authAxios.get(url);
+    const response = await baseAxios.get(url);
 
     return makeResponseResult(response);
   } catch (error: any) {
