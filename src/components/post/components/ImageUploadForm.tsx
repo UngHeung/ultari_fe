@@ -1,12 +1,13 @@
 import { ChangeEvent, FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import showModal from '../common/functions/showModal';
-import { ModalState } from '../stores/interfaces/stateInterface';
-import ImageInput from './elements/ImageInput';
-import SelectedImageConfirmButton from './elements/SelectedImageConfirmButton';
-import handleUploadImage from './handlers/handleUploadImage';
+import showModal from '../../common/functions/showModal';
+import { ModalState } from '../../stores/interfaces/stateInterface';
+import ImageInput from '../elements/ImageInput';
+import SelectedImageConfirmButton from '../elements/SelectedImageConfirmButton';
+import handleUploadImage from '../handlers/handleUploadImage';
 import ImageBlobList from './ImageBlobList';
 import style from './styles/write.module.css';
+import handleImageBlob from '../handlers/handleImageBlob';
 
 const ImageUploadForm = ({
   setSelectedFilenames,
@@ -20,12 +21,12 @@ const ImageUploadForm = ({
   const [selectedImageBlobs, setSelectedImageBlobs] = useState<string[]>([]);
   const [confirmedImages, setConfirmedImages] = useState<boolean>(false);
 
-  async function submitUploadPost(event: FormEvent) {
+  async function imageUploadProcess(event: FormEvent) {
     event.preventDefault();
 
     setUploadDisabled(true);
 
-    const { data, success, message } = await handleUploadImage(selectedFiles!);
+    const { success, message, data } = await handleUploadImage(selectedFiles!);
 
     setSelectedFilenames(data.fileNames);
 
@@ -45,7 +46,7 @@ const ImageUploadForm = ({
 
   return (
     <>
-      <form onSubmit={submitUploadPost}>
+      <form onSubmit={imageUploadProcess}>
         <section className={style.imageWrap}>
           <section className={style.fileInputWrap}>
             <ImageInput
@@ -94,28 +95,6 @@ const ImageUploadForm = ({
     </>
   );
 };
-
-function handleImageBlob(
-  event: ChangeEvent<HTMLInputElement>,
-  selectedFiles: File[],
-  setSelectedFiles: React.Dispatch<File[]>,
-  setSelectedImageBlob: React.Dispatch<SetStateAction<string[]>>,
-) {
-  event.preventDefault();
-  const files = event.target.files;
-  if (files) {
-    if (files.length > 5) {
-      //
-    } else {
-      setSelectedFiles([...(selectedFiles ?? []), ...Array.from(files)]);
-
-      for (const file of files) {
-        const selectedImage = window.URL.createObjectURL(file);
-        setSelectedImageBlob(prevFiles => [...prevFiles, selectedImage]);
-      }
-    }
-  }
-}
 
 export default ImageUploadForm;
 
