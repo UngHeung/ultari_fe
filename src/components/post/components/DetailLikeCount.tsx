@@ -39,7 +39,10 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
       result.success = false;
       result.message = '내가 쓴 글에 좋아요를 누를 수 없습니다.';
     } else {
-      const { ...result } = await handleUpdateLikeCount(postData?.id);
+      const response = await handleUpdateLikeCount(postData?.id);
+      result.success = response.success;
+      result.message = response.message;
+      result.data = response.data;
 
       if (!isAleadyLiked) {
         setLikeButtonColor(getBackgroundColor(true));
@@ -56,7 +59,8 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
 
     const modalData: ModalState = {
       type: result.success ? 'confirm' : 'alert',
-      ...result,
+      success: result.success,
+      message: result.message,
       routerType: undefined,
       modalIsShow: true,
     };

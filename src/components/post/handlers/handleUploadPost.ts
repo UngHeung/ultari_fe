@@ -25,7 +25,7 @@ const handleUploadPost = async (
 
     return makeResponseResult(
       response,
-      `$게시물 ${type === 'new' ? '등록' : '수정'}`,
+      `게시물 ${type === 'new' ? '등록' : '수정'}`,
     );
   } catch (error: any) {
     return makeResponseResult(error);

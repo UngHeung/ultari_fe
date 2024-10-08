@@ -1,11 +1,14 @@
 import { PostState } from '@/components/stores/interfaces/stateInterface';
+import { setPost } from '@/components/stores/reducer/postReducer';
 import { useEffect, useState } from 'react';
-import DetailLikeCount from './DetailLikeCount';
-import DetailContent from './DetailContent';
+import { useDispatch } from 'react-redux';
 import handleGetPost from '../handlers/handleGetPost';
+import DetailContent from './DetailContent';
+import DetailLikeCount from './DetailLikeCount';
 
 const PostDetail = ({ postId }: { postId: number }) => {
   const [postData, setPostData] = useState<PostState>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -13,6 +16,7 @@ const PostDetail = ({ postId }: { postId: number }) => {
 
       if (success) {
         setPostData(data);
+        dispatch(setPost(postData));
       }
     })();
   }, []);

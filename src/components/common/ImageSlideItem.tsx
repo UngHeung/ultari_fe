@@ -14,7 +14,7 @@ const ImageSlideItem = ({
   height: number;
   styleClass: string;
 }) => {
-  const imagePath = require(`@/public/${folder}/${path}`);
+  const imagePath = `${process.env.NEXT_PUBLIC_DB_HOST}/public/${folder}/${path}`;
 
   return (
     <>
