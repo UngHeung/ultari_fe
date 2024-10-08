@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import showModal from '../common/functions/showModal';
-import { ModalState } from '../stores/interfaces/stateInterface';
-import { resetUser } from '../stores/reducer/userReducer';
-import handleLogout from './handlers/handleLogout';
+import showModal from '../../common/functions/showModal';
+import { ModalState } from '../../stores/interfaces/stateInterface';
+import { resetUser } from '../../stores/reducer/userReducer';
+import handleLogout from '../handlers/handleLogout';
 
 const Logout = () => {
   const dispatch = useDispatch();
