@@ -1,16 +1,16 @@
 import Link from 'next/link';
 import { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import handleMyInfo from '../auth/handlers/handleMyInfo';
-import { UserOptions } from '../auth/interfaces/authInterface';
-import { ModalState } from '../stores/interfaces/stateInterface';
-import { setModal } from '../stores/reducer/modalRducer';
-import { setUser } from '../stores/reducer/userReducer';
-import PasswordInput from './elements/PasswordInput';
-import UserButton from './elements/UserButton';
-import { verifiedPassword } from './handlers/verifiedPassword';
-import style from './styles/mypage.module.css';
-import { validatePassword } from './validators/passwordValidator';
+import handleMyInfo from '../../auth/handlers/handleMyInfo';
+import { UserOptions } from '../../auth/interfaces/authInterface';
+import { ModalState } from '../../stores/interfaces/stateInterface';
+import { setModal } from '../../stores/reducer/modalRducer';
+import { setUser } from '../../stores/reducer/userReducer';
+import PasswordInput from '../elements/PasswordInput';
+import UserButton from '../elements/UserButton';
+import { verifiedPassword } from '../handlers/verifiedPassword';
+import style from '../styles/mypage.module.css';
+import { validatePassword } from '../validators/passwordValidator';
 
 const VerifyPasswordFormAndLinkedUpdateForm = ({
   setMoreInformation,

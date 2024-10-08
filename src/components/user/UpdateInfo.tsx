@@ -1,60 +1,43 @@
-import { authAxios } from '@/apis/axiosInstance';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
-import { useSelector } from 'react-redux';
-import { SliceOptions, UserState } from '../stores/interfaces/stateInterface';
+import { FormEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ModalState, SliceOptions } from '../stores/interfaces/stateInterface';
 import UserButton from './elements/UserButton';
 import UserInput from './elements/UserInput';
+import handleUpdateMyData from './handlers/handleUpdateMyData';
 import ProfileUpload from './ProfileUpload';
 import style from './styles/update.module.css';
+import { setModal } from '../stores/reducer/modalRducer';
+import { setUser } from '../stores/reducer/userReducer';
 
-const UpdateInfo = ({
-  user,
-}: {
-  user:
-    | Pick<UserState, 'account' | 'phone' | 'email' | 'community' | 'profile'>
-    | undefined;
-}) => {
+const UpdateInfo = () => {
   const router = useRouter();
-  const userId = useSelector((state: SliceOptions) => state.user.id);
+  const dispatch = useDispatch();
+
+  const [disabled, setDisabled] = useState<boolean>(false);
+
+  const user = useSelector((state: SliceOptions) => state.user);
 
   async function updateInfoProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    setDisabled(true);
 
-    const file = formData.get('profile');
-    const data = {
-      profile: '',
-      phone: formData.get('phone') || '',
-      email: formData.get('email') || '',
-      community: formData.get('community') || '',
+    const { success, message, data } = await handleUpdateMyData(event);
+
+    const modalData: ModalState = {
+      title: success ? '저장 성공' : '저장 실패',
+      success: success,
+      message: message,
+      modalIsShow: true,
+      routerType: 'back',
+      type: success ? 'confirm' : 'alert',
     };
 
-    try {
-      const response = await authAxios.post('/common/image', { image: file });
+    dispatch(setModal(modalData));
+    dispatch(setUser(data));
 
-      data.profile = response.data;
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error.response?.data.message || '서버에 문제 발생',
-      };
-    }
-
-    try {
-      const response = await authAxios.patch(`/user/${userId}`, data);
-
-      return {
-        success: true,
-        data: response.data,
-      };
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error.response?.data.message || '서버에 문제 발생',
-      };
-    }
+    setDisabled(false);
   }
 
   return (
@@ -93,12 +76,18 @@ const UpdateInfo = ({
         />
       </section>
       <section className={style.buttonWrap}>
-        <UserButton type={'submit'} value={'저장'} className={style.button} />
+        <UserButton
+          type={'submit'}
+          value={'저장'}
+          className={style.button}
+          disabled={disabled}
+        />
         <UserButton
           type={'button'}
           value={'취소'}
           className={style.button}
           onClick={() => router.back()}
+          disabled={disabled}
         />
       </section>
     </form>

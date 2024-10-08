@@ -2,10 +2,13 @@ import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RoleTypes, UserOptions } from '../auth/interfaces/authInterface';
-import { SliceOptions, UserState } from '../stores/interfaces/stateInterface';
-import SecretInfoItem from './SecretInfoItem';
-import style from './styles/mypage.module.css';
+import { RoleTypes, UserOptions } from '../../auth/interfaces/authInterface';
+import {
+  SliceOptions,
+  UserState,
+} from '../../stores/interfaces/stateInterface';
+import SecretInfoItem from '../SecretInfoItem';
+import style from '../styles/mypage.module.css';
 import VerifyPasswordFormAndLinkedUpdateForm from './VerifyPasswordFormAndLinkedUpdateForm';
 
 const MyPageDetail = () => {
@@ -14,11 +17,13 @@ const MyPageDetail = () => {
     (state: SliceOptions) => state.user,
   );
 
-  const { name, role, profile, team }: UserState = user;
+  const { name, role, profile, team, community }: UserState = user;
 
   const [passed, setPassed] = useState(account ? true : false);
   const [moreInformation, setMoreInformation] =
-    useState<Pick<UserOptions, 'account' | 'phone' | 'email' | 'team'>>();
+    useState<
+      Pick<UserOptions, 'account' | 'phone' | 'email' | 'team' | 'community'>
+    >();
 
   return (
     <section className={style.userWrap}>
@@ -52,8 +57,12 @@ const MyPageDetail = () => {
           value={email || moreInformation?.email}
         />
         <SecretInfoItem
-          name={'소속목장'}
+          name={'목장'}
           value={team?.name || moreInformation?.team?.name}
+        />
+        <SecretInfoItem
+          name={'소속'}
+          value={community || moreInformation?.community}
         />
       </section>
 
