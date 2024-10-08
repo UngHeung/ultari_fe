@@ -16,11 +16,6 @@ export interface SignUpOptions {
   community?: string;
 }
 
-export interface ValidationResultOptions {
-  success: boolean;
-  message?: string;
-}
-
 export interface UserOptions {
   id: number;
   account: string;

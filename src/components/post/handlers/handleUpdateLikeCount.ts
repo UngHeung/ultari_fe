@@ -1,11 +1,9 @@
 import { authAxios } from '@/apis/axiosInstance';
-import { getPostOptions } from '../interfaces/postInterfaces';
-import axios from 'axios';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 
-async function handleGetPostList(url: string) {
+async function handleUpdateLikeCount(postId: number) {
   try {
-    const response = await authAxios.get(url);
+    const response = await authAxios.patch(`/post/${postId}/likes`);
 
     return makeResponseResult(response);
   } catch (error: any) {
@@ -13,4 +11,4 @@ async function handleGetPostList(url: string) {
   }
 }
 
-export default handleGetPostList;
+export default handleUpdateLikeCount;

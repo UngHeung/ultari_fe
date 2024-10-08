@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
-import BaseButton from '../common/BaseButton';
-import { OrderTypes } from '../stores/constants/stateOptions';
-import { setPostListOrderBy } from '../stores/reducer/PostListReducer';
+import BaseButton from '../../common/BaseButton';
+import { OrderTypes } from '../../stores/constants/stateOptions';
+import { setPostListOrderBy } from '../../stores/reducer/PostListReducer';
 import style from './styles/menu.module.css';
 
 const ListMenu = ({

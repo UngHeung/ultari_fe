@@ -1,7 +1,4 @@
-import {
-  reissueAccessToken,
-  reissueRefreshToken,
-} from '@/apis/functions/reissueToken';
+import { reissueAccessToken, reissueRefreshToken } from '@/apis/reissueToken';
 import { setAccessToken, setRefreshToken } from './tokenInteract';
 import axios from 'axios';
 

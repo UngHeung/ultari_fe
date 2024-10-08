@@ -4,22 +4,15 @@ import {
   getRefreshToken,
 } from '@/components/auth/functions/tokenInteract';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { callbackAxios } from '../axiosCallback';
+import { baseAxios } from './axiosInstance';
 
 /**
- * @param config
- * @param isAccess
- * access : true
- * refresh : false
+ * Request callback
  */
 export const callbackRequestConfig = (
   config: InternalAxiosRequestConfig,
   isAccess: boolean,
 ) => {
-  if (!config.url?.startsWith('http')) {
-    config.url = `${process.env.NEXT_PUBLIC_DB_HOST}${config.url}`;
-  }
-
   if (isAccess) {
     const accessToken = getAccessToken();
     config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -31,10 +24,17 @@ export const callbackRequestConfig = (
   return config;
 };
 
+/**
+ * Request error callback
+ */
 export const callbackRequestError = (error: any) => {
+  console.log('Request interceptor callback error is running');
   return Promise.reject(error);
 };
 
+/**
+ * Response callback
+ */
 export const callbackResponse = (response: AxiosResponse) => {
   if (response.status === 404) {
     console.log('404 page');
@@ -43,6 +43,9 @@ export const callbackResponse = (response: AxiosResponse) => {
   return response;
 };
 
+/**
+ * Response error callback
+ */
 export const callbackResponseError = async (error: any, isAccess: boolean) => {
   if (error.response?.status === 401) {
     try {
@@ -56,7 +59,7 @@ export const callbackResponseError = async (error: any, isAccess: boolean) => {
         Authorization: `Bearer ${isAccess ? getAccessToken() : getRefreshToken()}`,
       };
 
-      const response = await callbackAxios.request(error.config);
+      const response = await baseAxios.request(error.config);
 
       return response;
     } catch (error) {

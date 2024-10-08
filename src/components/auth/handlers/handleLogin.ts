@@ -1,10 +1,15 @@
-import { defaultAxios } from '@/apis/axiosDefault';
+import { baseAxios } from '@/apis/axiosInstance';
+import {
+  makeResponseResult,
+  ResultDataOptions,
+} from '@/components/common/functions/returnResponse';
 import { FormEvent } from 'react';
-import { TokenPrefixEnum } from '../constants/tokenEnum';
 import { setAccessToken, setRefreshToken } from '../functions/tokenInteract';
 import { validateLogin } from '../validators/authValidators';
 
-const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+const handleLogin = async (
+  event: FormEvent<HTMLFormElement>,
+): Promise<ResultDataOptions> => {
   const formData = new FormData(event.currentTarget);
 
   const data = {
@@ -12,12 +17,12 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     password: formData.get('password') as string,
   };
 
-  const validationLoginData = validateLogin(data);
+  const { success, message } = validateLogin(data);
 
-  if (!validationLoginData.success) {
+  if (!success) {
     return {
-      success: validationLoginData.success,
-      message: validationLoginData.message,
+      success: success,
+      message: message,
     };
   }
 
@@ -27,7 +32,7 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
   );
 
   try {
-    const response = await defaultAxios.post('/auth/login/account', data, {
+    const response = await baseAxios.post('/auth/login/account', data, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: basicToken,
@@ -37,24 +42,18 @@ const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     setAccessToken(response.data.accessToken);
     setRefreshToken(response.data.refreshToken);
 
-    return {
-      success: true,
-      message: '로그인 성공!',
-    };
+    return makeResponseResult(response, '로그인');
   } catch (error: any) {
-    return {
-      success: false,
-      message: error.response?.data.message ?? '서버에 문제 발생',
-    };
+    return makeResponseResult(error);
   }
 };
 
+export default handleLogin;
+
 function getBasicTokenByAccountAndPassword(account: string, password: string) {
-  const prefix = TokenPrefixEnum.BASIC;
+  const prefix = 'Basic';
   const base64String = Buffer.from(`${account}:${password}`).toString('base64');
   const basicToken = `${prefix} ${base64String}`;
 
   return basicToken;
 }
-
-export default handleLogin;

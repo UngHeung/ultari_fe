@@ -1,11 +1,11 @@
-import ImagesSlider from '../common/ImagesSlider';
-import { PostState } from '../stores/interfaces/stateInterface';
-import { getDate } from '../team/TeamList';
-import mapContentType from './functions/mapContentType';
-import mapVisibility from './functions/mapVisibility';
+import ImagesSlider from '../../common/ImagesSlider';
+import { PostState } from '../../stores/interfaces/stateInterface';
+import { getDate } from '../../team/TeamList';
+import mapContentType from '../functions/mapContentType';
+import mapVisibility from '../functions/mapVisibility';
 import style from './styles/detail.module.css';
 
-const Detail = ({ postData }: { postData: PostState }) => {
+const DetailContent = ({ postData }: { postData: PostState }) => {
   return (
     <>
       <section className={style.titleWrap}>
@@ -29,7 +29,7 @@ const Detail = ({ postData }: { postData: PostState }) => {
   );
 };
 
-export default Detail;
+export default DetailContent;
 
 /*
 

@@ -1,18 +1,7 @@
-import {
-  reissueAccessToken,
-  reissueRefreshToken,
-} from '@/apis/functions/reissueToken';
-import { Dispatch } from '@reduxjs/toolkit';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import getUserDataFromToken from '../auth/functions/getUserDataFromToken';
-import {
-  setAccessToken,
-  setRefreshToken,
-} from '../auth/functions/tokenInteract';
 import Modal from '../modal/Modal';
 import { SliceOptions } from '../stores/interfaces/stateInterface';
-import { setUser } from '../stores/reducer/userReducer';
 import Header from './layouts/Header';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -25,11 +14,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
   const userName = useSelector((state: SliceOptions) => state.user.name);
 
-  useEffect(() => {
-    (async () => {
-      await handleReload(dispatch, isLoggedIn);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     await handleReload(dispatch, isLoggedIn);
+  //   })();
+  // }, []);
 
   return (
     <>
@@ -41,22 +30,22 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-async function handleReload(dispatch: Dispatch, isLoggedIn: boolean) {
-  if (isLoggedIn) return;
+// async function handleReload(dispatch: Dispatch, isLoggedIn: boolean) {
+//   if (isLoggedIn) return;
 
-  try {
-    const accessToken = await reissueAccessToken();
-    const refreshToken = await reissueRefreshToken();
+//   try {
+//     const accessToken = await reissueAccessToken();
+//     const refreshToken = await reissueRefreshToken();
 
-    setAccessToken(accessToken);
-    setRefreshToken(refreshToken);
+//     setAccessToken(accessToken);
+//     setRefreshToken(refreshToken);
 
-    const userData = getUserDataFromToken();
+//     const userData = getUserDataFromToken();
 
-    dispatch(setUser({ ...userData, isLoggedIn: true }));
-  } catch (error) {
-    return;
-  }
-}
+//     dispatch(setUser({ ...userData, isLoggedIn: true }));
+//   } catch (error) {
+//     return;
+//   }
+// }
 
 export default Layout;

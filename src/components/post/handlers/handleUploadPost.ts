@@ -1,7 +1,7 @@
 import { authAxios } from '@/apis/axiosAuth';
-import axios from 'axios';
+import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { FormEvent } from 'react';
-import { PostOptions, PostWriteTypes } from '../interfaces/postInterfaces';
+import { PostWriteTypes } from '../interfaces/postInterfaces';
 
 const handleUploadPost = async (
   event: FormEvent<HTMLFormElement>,
@@ -18,44 +18,17 @@ const handleUploadPost = async (
   const url = `/post?${type === 'update' ? updatePostId : ''}`;
 
   try {
-    const response: {
-      data: PostOptions;
-      status: number;
-      success: boolean;
-      message: string;
-    } =
+    const response =
       type === 'new'
         ? await authAxios.post(url, data)
         : await authAxios.patch(url, data);
 
-    if (Math.round(response.status / 100) === 2) {
-      return {
-        data: response.data,
-        status: response.status,
-        success: true,
-        message: `게시물 ${type === 'new' ? '등록' : '수정'} 성공!`,
-      };
-    } else {
-      return {
-        status: response.status,
-        success: false,
-        message: response.message,
-      };
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return {
-        status: error.status,
-        success: false,
-        message: error.response?.data.message || '서버에 문제 발생',
-      };
-    } else {
-      return {
-        status: 500,
-        success: false,
-        message: '서버에 문제 발생',
-      };
-    }
+    return makeResponseResult(
+      response,
+      `$게시물 ${type === 'new' ? '등록' : '수정'}`,
+    );
+  } catch (error: any) {
+    return makeResponseResult(error);
   }
 };
 

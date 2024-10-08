@@ -1,13 +1,13 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import BaseButton from '../common/BaseButton';
-import showModal from '../common/functions/showModal';
-import { ModalState, UserState } from '../stores/interfaces/stateInterface';
-import { setUser } from '../stores/reducer/userReducer';
-import AuthInput from './elements/AuthInput';
-import getUserDataFromToken from './functions/getUserDataFromToken';
-import handleLogin from './handlers/handleLogin';
+import BaseButton from '../../common/BaseButton';
+import showModal from '../../common/functions/showModal';
+import { ModalState, UserState } from '../../stores/interfaces/stateInterface';
+import { setUser } from '../../stores/reducer/userReducer';
+import AuthInput from '../elements/AuthInput';
+import getUserDataFromToken from '../functions/getUserDataFromToken';
+import handleLogin from '../handlers/handleLogin';
 import style from './styles/button.module.css';
 
 const Login = () => {

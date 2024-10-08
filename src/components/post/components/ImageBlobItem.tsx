@@ -19,14 +19,18 @@ const ImageBlobItem = ({
   setSelectedFiles: React.Dispatch<File[]>;
   readOnly: boolean;
 }) => {
-  function removeSelectedItem() {
+  function selectedItemRemoveProcess() {
     setSelectedImageBlobs(selectedImageBlobs.filter((_, id) => id !== idx));
     setSelectedFiles(selectedFiles!.filter((_, id) => id !== idx));
   }
 
   return (
     <li className={className}>
-      <button type={'button'} onClick={removeSelectedItem} disabled={readOnly}>
+      <button
+        type={'button'}
+        onClick={selectedItemRemoveProcess}
+        disabled={readOnly}
+      >
         <Image src={image} alt={'선택된 이미지'} width={80} height={80}></Image>
       </button>
     </li>
