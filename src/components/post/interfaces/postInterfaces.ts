@@ -20,7 +20,7 @@ export interface PostOptions {
   likeCount: number;
   likers: UserOptions[] | UserState[];
   viewCount: number;
-  author: UserOptions | null;
+  author: UserOptions;
   images?: ImageOptions[];
   createAt: string;
   updateAt: string;
