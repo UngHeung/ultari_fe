@@ -1,4 +1,4 @@
-import { authAxios } from '@/apis/axiosAuth';
+import { authAxios } from '@/apis/axiosInstance';
 import axios from 'axios';
 import Link from 'next/link';
 import { FormEvent, SetStateAction, useState } from 'react';

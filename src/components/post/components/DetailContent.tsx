@@ -3,7 +3,7 @@ import { PostState } from '../../stores/interfaces/stateInterface';
 import { getDate } from '../../team/TeamList';
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
-import style from './styles/detail.module.css';
+import style from '../styles/detail.module.css';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   return (

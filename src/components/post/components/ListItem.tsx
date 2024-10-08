@@ -9,7 +9,7 @@ import {
   getVisibilityType,
 } from '../functions/getPostContentType';
 import { PostOptions } from '../interfaces/postInterfaces';
-import style from './styles/list.module.css';
+import style from '../styles/list.module.css';
 
 const ListItem = (props: PostOptions, key: number) => {
   const dispatch = useDispatch();
