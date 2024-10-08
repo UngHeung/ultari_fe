@@ -1,6 +1,6 @@
 'use client';
 
-import MyPageDetail from '@/components/user/MyPageDetail';
+import MyPageDetail from '@/components/user/components/MyPageDetail';
 
 const MyPage = () => {
   return <MyPageDetail />;
