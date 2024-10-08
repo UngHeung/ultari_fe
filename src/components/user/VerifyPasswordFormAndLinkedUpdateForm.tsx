@@ -1,5 +1,3 @@
-import { authAxios } from '@/apis/axiosInstance';
-import axios from 'axios';
 import Link from 'next/link';
 import { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -10,7 +8,9 @@ import { setModal } from '../stores/reducer/modalRducer';
 import { setUser } from '../stores/reducer/userReducer';
 import PasswordInput from './elements/PasswordInput';
 import UserButton from './elements/UserButton';
+import { verifiedPassword } from './handlers/verifiedPassword';
 import style from './styles/mypage.module.css';
+import { validatePassword } from './validators/passwordValidator';
 
 const VerifyPasswordFormAndLinkedUpdateForm = ({
   setMoreInformation,
@@ -30,7 +30,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
-  async function handleMoreFetchData(event: FormEvent<HTMLFormElement>) {
+  async function fetchMoreDataProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setDisabled(false);
@@ -44,20 +44,22 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
     };
 
     const formData = new FormData(event.currentTarget);
-    const password = formData.get('password')?.toString() || '';
+    const password = formData.get('password')?.toString() as string;
 
-    if (!password.length) {
-      modalData.message = '비밀번호를 입력해주세요.';
+    const { success, message } = validatePassword(password);
+
+    if (!success) {
+      modalData.message = message;
       dispatch(setModal(modalData));
-      return;
+      return false;
     }
 
-    const response = await verifiedPassword(password);
+    const response = await verifiedPassword({ password });
 
     if (!response?.success) {
       modalData.message = '비밀번호를 확인해주세요.';
       dispatch(setModal(modalData));
-      return;
+      return false;
     }
 
     modalData.type = 'confirm';
@@ -77,10 +79,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
   }
 
   return (
-    <form
-      className={style.moreFetchDataFrom}
-      onSubmit={event => handleMoreFetchData(event)}
-    >
+    <form className={style.moreFetchDataFrom} onSubmit={fetchMoreDataProcess}>
       {!passed ? (
         <div>
           <PasswordInput
@@ -103,29 +102,3 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 };
 
 export default VerifyPasswordFormAndLinkedUpdateForm;
-
-export async function verifiedPassword(password: string) {
-  const data = { password };
-  const url = `/auth/verify`;
-
-  try {
-    const response = await authAxios.post(url, data);
-
-    return {
-      status: response.status,
-      success: true,
-    };
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return {
-        status: error.status,
-        success: false,
-      };
-    } else {
-      return {
-        status: 500,
-        success: false,
-      };
-    }
-  }
-}

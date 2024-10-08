@@ -1,5 +1,5 @@
-import { TeamOptioins } from '@/app/team/detail/[id]/page';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
+import { TeamOptioins } from '@/components/team/components/TeamDetail';
 
 export interface LoginOptions {
   account?: string;
