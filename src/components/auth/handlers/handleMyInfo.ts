@@ -1,29 +1,23 @@
-import { authAxios } from '@/apis/axiosAuth';
+import { authAxios } from '@/apis/axiosInstance';
+import { makeResponseResult } from '@/components/common/functions/returnResponse';
 
 const handleMyInfo = async (type?: 'team' | 'post' | 'all') => {
-  let url = '/user/myinfo';
+  let query = '';
 
   if (type && type === 'team') {
-    url += '/team';
+    query += '/team';
   } else if (type && type === 'post') {
-    url += '/post';
+    query += '/post';
   } else if (type) {
-    url += '/team-and-post';
+    query += '/team-and-post';
   }
 
   try {
-    const response = await authAxios.get(url);
+    const response = await authAxios.get(`/user/myinfo${query}`);
 
-    return {
-      success: true,
-      message: '내 정보를 불러왔습니다.',
-      data: response?.data,
-    };
+    return makeResponseResult(response);
   } catch (error: any) {
-    return {
-      success: false,
-      message: error.response?.data.message || '서버에 문제 발생',
-    };
+    return makeResponseResult(error);
   }
 };
 

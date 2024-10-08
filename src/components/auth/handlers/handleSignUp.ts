@@ -1,6 +1,7 @@
-import { defaultAxios } from '@/apis/axiosDefault';
+import { baseAxios, fileUploadAxios } from '@/apis/axiosInstance';
 import { FormEvent } from 'react';
 import { validateSignUp } from '../validators/authValidators';
+import { makeResponseResult } from '@/components/common/functions/returnResponse';
 
 export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
   const formData = new FormData(event.currentTarget);
@@ -15,30 +16,24 @@ export const handleSignUp = async (event: FormEvent<HTMLFormElement>) => {
     community: formData.get('community') as string,
   };
 
-  const validationSignUpData = validateSignUp(data);
+  const { success, message } = validateSignUp(data);
 
-  if (!validationSignUpData.success) {
+  if (!success) {
     return {
-      success: validationSignUpData.success,
-      message: validationSignUpData.message,
+      success: success,
+      message: message,
     };
   }
 
   try {
-    const response = await defaultAxios.post('/auth/signup', data, {
+    const response = await baseAxios.post('/auth/signup', data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
 
-    return {
-      success: true,
-      message: '회원가입 성공!',
-    };
+    return makeResponseResult(response);
   } catch (error: any) {
-    return {
-      success: false,
-      message: error.response?.data.message || '서버에 문제 발생',
-    };
+    return makeResponseResult(error);
   }
 };
