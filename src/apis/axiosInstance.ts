@@ -22,12 +22,12 @@ export const authAxios = axios.create({
   },
 });
 
-baseAxios.interceptors.request.use(
+authAxios.interceptors.request.use(
   config => callbackRequestConfig(config, true),
   error => callbackRequestError(error),
 );
 
-baseAxios.interceptors.response.use(
+authAxios.interceptors.response.use(
   response => callbackResponse(response),
   error => callbackResponseError(error, true),
 );
