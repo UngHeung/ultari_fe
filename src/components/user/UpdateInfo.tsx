@@ -1,4 +1,4 @@
-import { authAxios } from '@/apis/axiosAuth';
+import { authAxios } from '@/apis/axiosInstance';
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import { useSelector } from 'react-redux';

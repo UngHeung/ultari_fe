@@ -8,7 +8,7 @@ import { setUser } from '../../stores/reducer/userReducer';
 import AuthInput from '../elements/AuthInput';
 import getUserDataFromToken from '../functions/getUserDataFromToken';
 import handleLogin from '../handlers/handleLogin';
-import style from './styles/button.module.css';
+import style from '../styles/button.module.css';
 
 const Login = () => {
   const router = useRouter();

@@ -6,7 +6,7 @@ import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
 import AuthInput from '../elements/AuthInput';
 import { handleSignUp } from '../handlers/handleSignUp';
-import style from './styles/button.module.css';
+import style from '../styles/button.module.css';
 
 const SignUp = () => {
   const router = useRouter();

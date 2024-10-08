@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RoleTypes, UserOptions } from '../auth/interfaces/authInterface';
 import { SliceOptions, UserState } from '../stores/interfaces/stateInterface';
-import SecretInfoItem from './SecretInfoItem';
 import style from './styles/mypage.module.css';
+import SecretInfoItem from './SecretInfoItem';
 import VerifyPasswordFormAndLinkedUpdateForm from './VerifyPasswordFormAndLinkedUpdateForm';
 
 const MyPageDetail = ({ user }: { user: UserState }) => {

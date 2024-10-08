@@ -9,7 +9,7 @@ import fetchDataFromStoreOrServer from '../functions/fetchDataFromStoreOrServer'
 import mapDispatchToProps from '../functions/mapDispatchToProps';
 import { getPostListOptions, PostOptions } from '../interfaces/postInterfaces';
 import PostListPaginate from './PostListPaginate';
-import style from './styles/list.module.css';
+import style from '../styles/list.module.css';
 
 const PostList = () => {
   const dispatch = useDispatch();

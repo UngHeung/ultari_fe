@@ -12,8 +12,8 @@ import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
 import handleUploadPost from '../handlers/handleUploadPost';
 import { PostWriteTypes } from '../interfaces/postInterfaces';
-import style from './styles/write.module.css';
 import ImageUploadForm from './ImageUploadForm';
+import style from '../styles/write.module.css';
 
 const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
   const router = useRouter();
