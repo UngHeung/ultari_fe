@@ -17,11 +17,13 @@ const MyPageDetail = () => {
     (state: SliceOptions) => state.user,
   );
 
-  const { name, role, profile, team }: UserState = user;
+  const { name, role, profile, team, community }: UserState = user;
 
   const [passed, setPassed] = useState(account ? true : false);
   const [moreInformation, setMoreInformation] =
-    useState<Pick<UserOptions, 'account' | 'phone' | 'email' | 'team'>>();
+    useState<
+      Pick<UserOptions, 'account' | 'phone' | 'email' | 'team' | 'community'>
+    >();
 
   return (
     <section className={style.userWrap}>
@@ -43,20 +45,29 @@ const MyPageDetail = () => {
 
       <section className={style.secretList}>
         <SecretInfoItem
+          key={'1'}
           name={'아이디'}
           value={account || moreInformation?.account}
         />
         <SecretInfoItem
+          key={'2'}
           name={'연락처'}
           value={phone || moreInformation?.phone}
         />
         <SecretInfoItem
+          key={'3'}
           name={'이메일'}
           value={email || moreInformation?.email}
         />
         <SecretInfoItem
-          name={'소속목장'}
+          key={'4'}
+          name={'목장'}
           value={team?.name || moreInformation?.team?.name}
+        />
+        <SecretInfoItem
+          key={'5'}
+          name={'소속'}
+          value={community || moreInformation?.community}
         />
       </section>
 
