@@ -1,11 +1,15 @@
-import {
-  LoginOptions,
-  SignUpOptions,
-  ValidationResultOptions,
-} from '../interfaces/authInterface';
+import { LoginOptions, SignUpOptions } from '../interfaces/authInterface';
 
-export const validateLogin = ({ account, password }: LoginOptions) => {
-  const result: ValidationResultOptions = {
+export interface validationResultType {
+  success: boolean;
+  message: string;
+}
+
+export const validateLogin = ({
+  account,
+  password,
+}: LoginOptions): validationResultType => {
+  const result: validationResultType = {
     success: false,
     message: '',
   };
@@ -13,15 +17,13 @@ export const validateLogin = ({ account, password }: LoginOptions) => {
   if (!account) {
     result.message = '아이디를 입력해주세요.';
     return result;
-  }
-
-  if (!password) {
+  } else if (!password) {
     result.message = '비밀번호를 입력해주세요.';
     return result;
+  } else {
+    result.success = true;
+    return result;
   }
-
-  result.success = true;
-  return result;
 };
 
 export const validateSignUp = ({
@@ -32,8 +34,8 @@ export const validateSignUp = ({
   phone,
   email,
   community,
-}: SignUpOptions) => {
-  const result: ValidationResultOptions = {
+}: SignUpOptions): validationResultType => {
+  const result: validationResultType = {
     success: false,
     message: '',
   };
