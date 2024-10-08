@@ -19,6 +19,9 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const [title, setTitle] = useState<string>('');
 
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.user.isLoggedIn,
+  );
   const userId = useSelector((state: SliceOptions) => state.user.id);
 
   const postId = useSelector((state: SliceOptions) => state.post.id);
@@ -30,10 +33,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
     const type: PostPageType = pathname.slice(1).split('/')[1] as PostPageType;
 
     setTitle(getTitle(type));
-
-    return () => {
-      dispatch(resetPost());
-    };
   }, [pathname]);
 
   return (
@@ -44,32 +43,30 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       </section>
       <section className={style.buttonWrap}>
         {!title.endsWith('목록') && <Link href={'/post/list'}>목록</Link>}
-        {title.endsWith('게시물') &&
-          postAuthorId === userId &&
-          userId! > -1 && (
-            <>
-              <Link href={`/post/update/${postId}`}>수정</Link>
-              <Link
-                href={'#'}
-                onClick={async event => {
-                  event.preventDefault();
+        {title.endsWith('게시물') && postAuthorId === userId && isLoggedIn && (
+          <>
+            <Link href={`/post/update/${postId}`}>수정</Link>
+            <Link
+              href={'#'}
+              onClick={async event => {
+                event.preventDefault();
 
-                  const modalData: ModalState = {
-                    title: '삭제 확인',
-                    type: 'prompt',
-                    message: '정말 삭제하시겠습니까?',
-                    modalIsShow: true,
-                    routerType: 'replace',
-                    leftPath: `/post/delete/${postId}`,
-                  };
+                const modalData: ModalState = {
+                  title: '삭제 확인',
+                  type: 'prompt',
+                  message: '정말 삭제하시겠습니까?',
+                  modalIsShow: true,
+                  routerType: 'replace',
+                  leftPath: `/post/delete/${postId}`,
+                };
 
-                  dispatch(setModal(modalData));
-                }}
-              >
-                삭제
-              </Link>
-            </>
-          )}
+                dispatch(setModal(modalData));
+              }}
+            >
+              삭제
+            </Link>
+          </>
+        )}
         {!title.endsWith('작성') && <Link href={'/post/write'}>글쓰기</Link>}
       </section>
     </>
