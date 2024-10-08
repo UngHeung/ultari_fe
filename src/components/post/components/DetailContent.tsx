@@ -1,6 +1,6 @@
 import ImagesSlider from '../../common/ImagesSlider';
 import { PostState } from '../../stores/interfaces/stateInterface';
-import { getDate } from '../../team/TeamList';
+import { getDate } from '../../team/components/TeamList';
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
