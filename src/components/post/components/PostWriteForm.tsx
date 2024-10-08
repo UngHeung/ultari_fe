@@ -54,8 +54,8 @@ const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
       routerType: 'replace',
       leftPath: success
         ? type === 'new'
-          ? `/post/${postId}`
-          : `/post/${updatePostId}`
+          ? `/post/detail/${postId}`
+          : `/post/update/${updatePostId}`
         : '',
     };
 
