@@ -1,11 +1,11 @@
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import BaseButton from '../common/BaseButton';
-import { ModalState } from '../stores/interfaces/stateInterface';
-import { setModal } from '../stores/reducer/modalRducer';
-import AuthInput from './elements/AuthInput';
-import { handleSignUp } from './handlers/handleSignUp';
+import BaseButton from '../../common/BaseButton';
+import { ModalState } from '../../stores/interfaces/stateInterface';
+import { setModal } from '../../stores/reducer/modalRducer';
+import AuthInput from '../elements/AuthInput';
+import { handleSignUp } from '../handlers/handleSignUp';
 import style from './styles/button.module.css';
 
 const SignUp = () => {
@@ -14,31 +14,31 @@ const SignUp = () => {
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
+  async function signUpProcess(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setDisabled(true);
+
+    const { success, message } = await handleSignUp(event);
+
+    const modalData: ModalState = {
+      title: success ? '가입 성공' : '가입 실패',
+      success: success,
+      message: message,
+      modalIsShow: true,
+      routerType: 'replace',
+      type: success ? 'confirm' : 'alert',
+      leftPath: success ? '/login' : '',
+    };
+
+    dispatch(setModal(modalData));
+
+    setDisabled(false);
+  }
+
   return (
     <>
-      <form
-        onSubmit={async event => {
-          event.preventDefault();
-
-          setDisabled(true);
-
-          const { success, message } = await handleSignUp(event);
-
-          const modalData: ModalState = {
-            title: success ? '가입 성공' : '가입 실패',
-            success: success,
-            message: message,
-            modalIsShow: true,
-            routerType: 'replace',
-            type: success ? 'confirm' : 'alert',
-            leftPath: success ? '/login' : '',
-          };
-
-          dispatch(setModal(modalData));
-
-          setDisabled(false);
-        }}
-      >
+      <form onSubmit={signUpProcess}>
         <AuthInput
           name={'account'}
           id={'auth_account'}
