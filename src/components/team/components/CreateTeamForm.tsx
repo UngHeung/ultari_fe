@@ -1,12 +1,15 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ModalState, SliceOptions } from '../stores/interfaces/stateInterface';
-import { setModal } from '../stores/reducer/modalRducer';
-import TeamButton from './elements/TeamButton';
-import TeamInput from './elements/TeamInput';
-import handleCreateTeam from './handlers/handleCreateTeam';
-import style from './styles/createTeam.module.css';
+import {
+  ModalState,
+  SliceOptions,
+} from '../../stores/interfaces/stateInterface';
+import { setModal } from '../../stores/reducer/modalRducer';
+import TeamButton from '../elements/TeamButton';
+import TeamInput from '../elements/TeamInput';
+import handleCreateTeam from '../handlers/handleCreateTeam';
+import style from '../styles/createTeam.module.css';
 
 const CreateTeamForm = () => {
   const dispatch = useDispatch();

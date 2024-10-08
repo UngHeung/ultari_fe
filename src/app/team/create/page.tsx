@@ -1,6 +1,6 @@
 'use client';
 
-import CreateTeamForm from '@/components/team/CreateTeamForm';
+import CreateTeamForm from '@/components/team/components/CreateTeamForm';
 
 const CreateTeamPage = () => {
   return (
