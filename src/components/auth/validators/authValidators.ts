@@ -1,6 +1,6 @@
 import { LoginOptions, SignUpOptions } from '../interfaces/authInterface';
 
-export interface validationResultType {
+export interface ValidationResultOptions {
   success: boolean;
   message: string;
 }
@@ -8,8 +8,8 @@ export interface validationResultType {
 export const validateLogin = ({
   account,
   password,
-}: LoginOptions): validationResultType => {
-  const result: validationResultType = {
+}: LoginOptions): ValidationResultOptions => {
+  const result: ValidationResultOptions = {
     success: false,
     message: '',
   };
@@ -34,8 +34,8 @@ export const validateSignUp = ({
   phone,
   email,
   community,
-}: SignUpOptions): validationResultType => {
-  const result: validationResultType = {
+}: SignUpOptions): ValidationResultOptions => {
+  const result: ValidationResultOptions = {
     success: false,
     message: '',
   };
