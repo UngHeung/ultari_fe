@@ -5,7 +5,7 @@ async function handleUpdateLikeCount(postId: number) {
   try {
     const response = await authAxios.patch(`/post/${postId}/likes`);
 
-    return makeResponseResult(response);
+    return makeResponseResult(response, '좋아요');
   } catch (error: any) {
     return makeResponseResult(error);
   }
