@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/components/common/constants/dbConst';
 import axios from 'axios';
 import {
   callbackRequestConfig,
@@ -10,14 +11,14 @@ import {
  * 권한이 필요없는 Axios 인스턴스
  */
 export const baseAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_DB_HOST,
+  baseURL: BASE_URL,
 });
 
 /**
  * 권한이 필요한 Axios 인스턴스
  */
 export const authAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_DB_HOST,
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -37,7 +38,7 @@ authAxios.interceptors.response.use(
  * 권한이 필요한 파일 업로드용 Axios
  */
 export const fileUploadAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_DB_HOST,
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
@@ -57,7 +58,7 @@ fileUploadAxios.interceptors.response.use(
  * 토큰 재발급용 Axios
  */
 export const refreshAxios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_DB_HOST,
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 
