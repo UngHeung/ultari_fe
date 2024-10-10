@@ -5,7 +5,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/api/:path*',
+        source: 'https://ultari.xyz/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: 'https://api-ultari.xyz'},
@@ -26,7 +26,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
+        source: 'https://ultari.xyz/api/:path*',
         destination: process.env.NEXT_PUBLIC_DB_HOST + '/api/:path*',
       },
     ];
