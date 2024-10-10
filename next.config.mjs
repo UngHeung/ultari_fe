@@ -8,7 +8,7 @@ const nextConfig = {
         source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: 'https://ultari.xyz, http://localhost:3000' },
+          { key: 'Access-Control-Allow-Origin', value: 'https://api-ultari.xyz'},
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET,DELETE,PATCH,POST,PUT',
