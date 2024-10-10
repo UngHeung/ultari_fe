@@ -44,7 +44,7 @@ const Modal = () => {
             />
           </section>
           <section className={style.messageWrap}>
-            <p>{message}</p>
+            <pre>{message}</pre>
           </section>
           <footer className={style.modalFooter}>
             <div className={style.buttonWrap}>

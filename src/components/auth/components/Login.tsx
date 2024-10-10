@@ -9,6 +9,7 @@ import AuthInput from '../elements/AuthInput';
 import getUserDataFromToken from '../functions/getUserDataFromToken';
 import handleLogin from '../handlers/handleLogin';
 import style from '../styles/button.module.css';
+import mapModalMessage from '@/components/common/functions/mapModalMessage';
 
 const Login = () => {
   const router = useRouter();
@@ -35,12 +36,15 @@ const Login = () => {
     }
 
     const modalData: ModalState = {
+      title: '로그인',
       success,
       message,
       modalIsShow: true,
       type: success ? 'confirm' : 'alert',
       routerType: success ? 'back' : undefined,
     };
+
+    modalData.message = mapModalMessage(modalData);
 
     dispatch(setModal(modalData));
     setDisabled(false);

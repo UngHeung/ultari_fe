@@ -18,7 +18,7 @@ const Logout = () => {
     dispatch(resetUser());
 
     const modalData: ModalState = {
-      title: success ? '로그아웃 성공' : '로그아웃 실패',
+      title: '로그아웃',
       success: success,
       message: message,
       modalIsShow: true,

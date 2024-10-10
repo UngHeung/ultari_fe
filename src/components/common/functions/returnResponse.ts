@@ -7,13 +7,12 @@ export interface ResultDataOptions {
 }
 
 export function makeResponseResult(
-  { status, data }: AxiosResponse,
+  { status, data, message }: AxiosResponse & { message?: string },
   requestName?: string,
 ): ResultDataOptions {
   const result: ResultDataOptions = {
     success: false,
-    message: `서버에 문제가 발생했습니다.
-    관리자에게 문의해주세요.`,
+    message: message ?? '',
     data: data,
   };
 
@@ -32,7 +31,11 @@ export function makeResponseResult(
     result.message = '중복된 요청입니다.';
   } else if (status === 500) {
     result.message = '알 수 없는 요청입니다.';
+  } else {
+    result.message = '서버에 문제가 발생했습니다.';
   }
+
+  result.message += message ? `\n(${message})` : '';
 
   return result;
 }
