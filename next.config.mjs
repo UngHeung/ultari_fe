@@ -8,7 +8,10 @@ const nextConfig = {
         source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: 'https://api-ultari.xyz'},
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: `${process.env.NEXT_PUBLIC_DB_HOST}`,
+          },
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET,DELETE,PATCH,POST,PUT',
@@ -27,7 +30,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: process.env.NEXT_PUBLIC_DB_HOST + '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_DB_HOST}/api/:path*`,
       },
     ];
   },
