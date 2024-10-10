@@ -1,13 +1,13 @@
+import { setModal } from '@/components/stores/reducer/modalRducer';
 import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import showModal from '../../common/functions/showModal';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import ImageInput from '../elements/ImageInput';
 import SelectedImageConfirmButton from '../elements/SelectedImageConfirmButton';
 import handleImageBlob from '../handlers/handleImageBlob';
 import handleUploadImage from '../handlers/handleUploadImage';
-import ImageBlobList from './ImageBlobList';
 import style from '../styles/write.module.css';
+import ImageBlobList from './ImageBlobList';
 
 const ImageUploadForm = ({
   setSelectedFilenames,
@@ -39,8 +39,7 @@ const ImageUploadForm = ({
       routerType: 'replace',
     };
 
-    showModal(dispatch, modalData);
-
+    dispatch(setModal(modalData));
     setUploadDisabled(false);
   }
 

@@ -1,8 +1,8 @@
+import { setModal } from '@/components/stores/reducer/modalRducer';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomSelect from '../../common/CustomSelect';
-import showModal from '../../common/functions/showModal';
 import {
   ModalState,
   SliceOptions,
@@ -12,8 +12,8 @@ import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
 import handleUploadPost from '../handlers/handleUploadPost';
 import { PostWriteTypes } from '../interfaces/postInterfaces';
-import ImageUploadForm from './ImageUploadForm';
 import style from '../styles/write.module.css';
+import ImageUploadForm from './ImageUploadForm';
 
 const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
   const router = useRouter();
@@ -59,7 +59,7 @@ const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
         : '',
     };
 
-    showModal(dispatch, modalData);
+    dispatch(setModal(modalData));
     setDisabled(false);
   }
 
