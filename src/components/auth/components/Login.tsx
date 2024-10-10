@@ -1,8 +1,8 @@
+import { setModal } from '@/components/stores/reducer/modalRducer';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BaseButton from '../../common/BaseButton';
-import showModal from '../../common/functions/showModal';
 import { ModalState, UserState } from '../../stores/interfaces/stateInterface';
 import { setUser } from '../../stores/reducer/userReducer';
 import AuthInput from '../elements/AuthInput';
@@ -42,7 +42,7 @@ const Login = () => {
       routerType: success ? 'back' : undefined,
     };
 
-    showModal(dispatch, modalData);
+    dispatch(setModal(modalData));
     setDisabled(false);
   }
 
