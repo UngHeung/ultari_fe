@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OrderTypes } from '../../stores/constants/stateOptions';
 import { SliceOptions } from '../../stores/interfaces/stateInterface';
 import { resetPostList } from '../../stores/reducer/PostListReducer';
-import ListItem from './ListItem';
-import ListMenu from './ListMenu';
 import fetchDataFromStoreOrServer from '../functions/fetchDataFromStoreOrServer';
 import mapDispatchToProps from '../functions/mapDispatchToProps';
 import { getPostListOptions, PostOptions } from '../interfaces/postInterfaces';
-import PostListPaginate from './PostListPaginate';
 import style from '../styles/list.module.css';
+import ListItem from './ListItem';
+import ListMenu from './ListMenu';
+import PostListPaginate from './PostListPaginate';
 
 const PostList = () => {
   const dispatch = useDispatch();
