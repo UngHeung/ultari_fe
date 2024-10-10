@@ -1,10 +1,4 @@
-
-
 /** @type {import('next').NextConfig} */
-const protocol = process.env.NEXT_PUBLIC_DB_PROTOCOL;
-const hostname = process.env.NEXT_PUBLIC_DB_HOST;
-const port = process.env.NEXT_PUBLIC_DB_PORT;
-
 const nextConfig = {
   reactStrictMode: false,
 
@@ -14,7 +8,7 @@ const nextConfig = {
         source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Access-Control-Allow-Origin', value: 'https://ultari.xyz, http://localhost:3000' },
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET,DELETE,PATCH,POST,PUT',
@@ -33,16 +27,17 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${protocol}://${hostname}:${port}` + '/:path*',
+        destination: process.env.NEXT_PUBLIC_DB_HOST + '/:path*',
       },
     ];
   },
+
   images: {
     remotePatterns: [
       {
-        protocol,
-        hostname,
-        port,
+        protocol: 'https',
+        hostname : 'api-ultari.xyz',
+        port: '3000',
         pathname: '/public/**',
       },
     ],
