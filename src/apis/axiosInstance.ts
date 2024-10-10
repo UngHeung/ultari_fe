@@ -6,7 +6,7 @@ import {
   callbackResponseError,
 } from './axiosInterceptorCallbacks';
 
-axios.defaults.baseURL = '/api';
+axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_DB_HOST}/api`;
 
 /**
  * 권한이 필요없는 Axios 인스턴스
