@@ -1,6 +1,4 @@
-import { authAxios, baseAxios } from '@/apis/axiosInstance';
-import { getPostOptions } from '../interfaces/postInterfaces';
-import axios from 'axios';
+import { baseAxios } from '@/apis/axiosInstance';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 
 async function handleGetPostList(url: string) {
