@@ -39,7 +39,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname : 'api-ultari.xyz',
+        hostname: 'api-ultari.xyz',
+        port: '3000',
+        pathname: '/public/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
         port: '3000',
         pathname: '/public/**',
       },
