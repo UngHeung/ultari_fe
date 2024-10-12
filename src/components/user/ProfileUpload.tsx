@@ -1,12 +1,14 @@
 import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
+import { useSelector } from 'react-redux';
 import ImageInput from '../post/elements/ImageInput';
+import { SliceOptions } from '../stores/interfaces/stateInterface';
 import style from './styles/update.module.css';
 
-const ProfileUpload = ({ currentProfile }: { currentProfile?: string }) => {
+const ProfileUpload = () => {
   const [selectedImageBlob, setSelectedImageBlob] = useState<string>('');
-
+  const profile = useSelector((state: SliceOptions) => state.user.profile);
   function toggleImageBlob(event: ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
 
@@ -33,8 +35,8 @@ const ProfileUpload = ({ currentProfile }: { currentProfile?: string }) => {
             src={
               selectedImageBlob
                 ? selectedImageBlob
-                : currentProfile
-                  ? currentProfile
+                : profile !== 'null'
+                  ? `${process.env.NEXT_PUBLIC_DB_HOST}/public/profile/${profile}`
                   : defaultProfile
             }
             alt="프로필 기본"
