@@ -2,13 +2,13 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ModalState, SliceOptions } from '../stores/interfaces/stateInterface';
+import { setModal } from '../stores/reducer/modalRducer';
+import { setUser } from '../stores/reducer/userReducer';
 import UserButton from './elements/UserButton';
 import UserInput from './elements/UserInput';
 import handleUpdateMyData from './handlers/handleUpdateMyData';
 import ProfileUpload from './ProfileUpload';
 import style from './styles/update.module.css';
-import { setModal } from '../stores/reducer/modalRducer';
-import { setUser } from '../stores/reducer/userReducer';
 
 const UpdateInfo = () => {
   const router = useRouter();
@@ -42,7 +42,7 @@ const UpdateInfo = () => {
 
   return (
     <form onSubmit={updateInfoProcess}>
-      <ProfileUpload currentProfile={user?.profile} />
+      <ProfileUpload />
 
       <section className={style.inputWrap}>
         <UserInput
