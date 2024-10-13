@@ -39,7 +39,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname : 'api-ultari.xyz',
+        hostname: 's3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: `/${process.env.NEXT_PUBLIC_BUCKET_NAME}/public/**`,
+      },
+      {
+        protocol: 'https',
+        hostname: 'api-ultari.xyz',
         port: '3000',
         pathname: '/public/**',
       },
