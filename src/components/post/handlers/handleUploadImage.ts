@@ -17,7 +17,7 @@ const handleUploadImage = async (files: File[]) => {
   }
 
   try {
-    const response = await fileUploadAxios.post('/common/images', formData);
+    const response = await fileUploadAxios.post('/post/images', formData);
 
     return makeResponseResult(response, '이미지 등록');
   } catch (error: any) {

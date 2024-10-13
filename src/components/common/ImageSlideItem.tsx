@@ -14,12 +14,10 @@ const ImageSlideItem = ({
   height: number;
   styleClass: string;
 }) => {
-  const imagePath = `${process.env.NEXT_PUBLIC_DB_HOST}/public/${folder}/${path}`;
-
   return (
     <>
       <Image
-        src={imagePath}
+        src={`${process.env.NEXT_PUBLIC_BUCKET_HOST}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/public/images/post/${path}`}
         width={width}
         height={height}
         alt="슬라이드 이미지"
