@@ -29,7 +29,11 @@ const MyPageDetail = () => {
     <section className={style.userWrap}>
       <section className={style.profileWrap}>
         <Image
-          src={profile?.startsWith('/') ? profile : defaultProfile}
+          src={
+            profile !== 'null'
+              ? `${process.env.NEXT_PUBLIC_DB_HOST}/public/profile/${profile}`
+              : defaultProfile
+          }
           alt={'유저 프로필'}
           width={50}
           height={50}
