@@ -28,7 +28,7 @@ const ImageUploadForm = ({
 
     const { success, message, data } = await handleUploadImage(selectedFiles!);
 
-    setSelectedFilenames(data.fileNames);
+    setSelectedFilenames(data?.fileNames);
 
     const modalData: ModalState = {
       title: '이미지 업로드',
