@@ -6,9 +6,9 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 's3.ap-northeast-2.amazonaws.com',
+        hostname: `${process.env.BUCKET_HOST}`,
         port: '',
-        pathname: '/ultari-s3/public/images/**',
+        pathname: `/${process.env.BUCKET_NAME}/public/images/**`,
       },
     ],
   },
@@ -21,7 +21,7 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: `${process.env.NEXT_PUBLIC_DB_HOST}`,
+            value: `${process.env.DB_HOST}`,
           },
           {
             key: 'Access-Control-Allow-Methods',
@@ -41,7 +41,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_DB_HOST}/api/:path*`,
+        destination: `${process.env.DB_HOST}/api/:path*`,
       },
     ];
   },
