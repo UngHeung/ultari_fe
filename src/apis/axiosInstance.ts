@@ -42,7 +42,7 @@ authAxios.interceptors.response.use(
  */
 export const fileUploadAxios = axios.create({
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'multipart/form-data;',
   },
 });
 
