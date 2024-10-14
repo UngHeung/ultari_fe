@@ -35,7 +35,7 @@ const UpdateInfo = () => {
     };
 
     dispatch(setModal(modalData));
-    dispatch(setUser(data));
+    dispatch(setUser({ ...data, path: data.profile.path }));
 
     setDisabled(false);
   }
