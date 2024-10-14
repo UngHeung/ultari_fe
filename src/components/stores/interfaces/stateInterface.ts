@@ -38,4 +38,6 @@ export interface PostListState {
   firstLoad: { value: boolean };
 }
 
-export interface UserState extends Partial<UserOptions> {}
+export interface UserState extends Partial<UserOptions> {
+  path?: string;
+}

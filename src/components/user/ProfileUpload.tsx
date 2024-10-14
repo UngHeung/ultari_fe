@@ -7,8 +7,16 @@ import { SliceOptions } from '../stores/interfaces/stateInterface';
 import style from './styles/update.module.css';
 
 const ProfileUpload = () => {
-  const [selectedImageBlob, setSelectedImageBlob] = useState<string>('');
-  const profile = useSelector((state: SliceOptions) => state.user.profile);
+  const path = useSelector((state: SliceOptions) => state.user.path);
+
+  const defaultMyProfileImage = path
+    ? `${process.env.NEXT_PUBLIC_BUCKET_HOST}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/public/images/profile/${path}`
+    : '';
+
+  const [profileImage, setProfileImage] = useState<string>(
+    defaultMyProfileImage,
+  );
+
   function toggleImageBlob(event: ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
 
@@ -20,7 +28,7 @@ const ProfileUpload = () => {
 
     if (file) {
       const selectedImage = window.URL.createObjectURL(file);
-      setSelectedImageBlob(selectedImage);
+      setProfileImage(selectedImage);
     }
   }
 
@@ -32,13 +40,7 @@ const ProfileUpload = () => {
         labelStyleClass={style.selectButton}
         labelValue={
           <Image
-            src={
-              selectedImageBlob
-                ? selectedImageBlob
-                : profile !== 'null'
-                  ? `${process.env.NEXT_PUBLIC_DB_HOST}/public/profile/${profile}`
-                  : defaultProfile
-            }
+            src={profileImage.length ? profileImage : defaultProfile}
             alt="프로필 기본"
             width={50}
             height={50}

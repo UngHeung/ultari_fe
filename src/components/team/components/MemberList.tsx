@@ -13,7 +13,7 @@ const MemberList = ({ member }: { member?: UserOptions[] }) => {
               <div className={style.profileWrap}>
                 <span className={style.memberProfile}>
                   <Image
-                    src={member?.profile ?? defaultProfile}
+                    src={member?.profile?.path ?? defaultProfile}
                     alt={'목장원_프로필'}
                     width={25}
                     height={25}

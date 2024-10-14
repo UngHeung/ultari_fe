@@ -61,7 +61,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           <div className={style.profileWrap}>
             <span className={style.leaderProfile}>
               <Image
-                src={teamData?.leader.profile ?? defaultProfile}
+                src={teamData?.leader.profile?.path ?? defaultProfile}
                 alt={'목자_프로필'}
                 width={30}
                 height={30}
@@ -76,7 +76,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           <div className={style.profileWrap}>
             <span className={style.leaderProfile}>
               <Image
-                src={teamData?.subLeader?.profile ?? defaultProfile}
+                src={teamData?.subLeader?.profile?.path ?? defaultProfile}
                 alt={'부목자_프로필'}
                 width={30}
                 height={30}

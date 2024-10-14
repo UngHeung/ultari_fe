@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 's3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: '/ultari-s3/public/images/**',
+      },
+    ],
+  },
 
   async headers() {
     return [
@@ -33,23 +44,6 @@ const nextConfig = {
         destination: `${process.env.NEXT_PUBLIC_DB_HOST}/api/:path*`,
       },
     ];
-  },
-
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 's3.ap-northeast-2.amazonaws.com',
-        port: '',
-        pathname: `/${process.env.NEXT_PUBLIC_BUCKET_NAME}/public/**`,
-      },
-      {
-        protocol: 'https',
-        hostname: 'api-ultari.xyz',
-        port: '3000',
-        pathname: '/public/**',
-      },
-    ],
   },
 };
 

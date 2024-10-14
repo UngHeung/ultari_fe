@@ -23,7 +23,7 @@ export interface UserOptions {
   phone: string;
   email: string;
   community?: string;
-  profile?: string;
+  profile?: UserProfileOptions;
   role: RoleTypes;
   isLoggedIn: boolean;
   team?: TeamOptioins;
@@ -31,6 +31,11 @@ export interface UserOptions {
   likedPosts?: PostOptions[];
   lead?: TeamOptioins;
   subLead?: TeamOptioins;
+}
+
+export interface UserProfileOptions {
+  user: UserOptions;
+  path: string;
 }
 
 export type RoleTypes =
