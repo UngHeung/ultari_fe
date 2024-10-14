@@ -1,4 +1,4 @@
-import { fileUploadAxios, authAxios } from '@/apis/axiosInstance';
+import { authAxios, fileUploadAxios } from '@/apis/axiosInstance';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { FormEvent } from 'react';
 
@@ -14,15 +14,20 @@ async function handleUpdateMyData(event: FormEvent<HTMLFormElement>) {
 
   const file: File = formData.get('profile') as File;
 
-  const imageFormData = new FormData();
-  imageFormData.append('image', file);
+  if (file.size > 0) {
+    const imageFormData = new FormData();
+    imageFormData.append('profile', file);
 
-  try {
-    const response = await fileUploadAxios.post('/common/image', imageFormData);
+    try {
+      const response = await fileUploadAxios.post(
+        '/user/profile',
+        imageFormData,
+      );
 
-    data.path = response.data.fileName;
-  } catch (error: any) {
-    return makeResponseResult(error);
+      data.path = response.data.fileName;
+    } catch (error: any) {
+      return makeResponseResult(error);
+    }
   }
 
   try {
