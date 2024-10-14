@@ -10,6 +10,7 @@ const initialState: UserState = {
   phone: '',
   email: '',
   community: '',
+  path: '',
 };
 
 export const userSlice = createSlice({
