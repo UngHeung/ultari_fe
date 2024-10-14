@@ -1,4 +1,7 @@
-import defaultProfile from '@/public/images/profile_default.png';
+import {
+  defaultProfile,
+  profilePath,
+} from '@/components/common/constants/pathConst';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -21,11 +24,7 @@ const MyPageDetail = () => {
     <section className={style.userWrap}>
       <section className={style.profileWrap}>
         <Image
-          src={
-            user?.path
-              ? `${process.env.NEXT_PUBLIC_BUCKET_HOST}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/public/images/profile/${user?.path}`
-              : defaultProfile
-          }
+          src={user?.path ? `${profilePath}/${user?.path}` : defaultProfile}
           alt={'유저 프로필'}
           width={50}
           height={50}
