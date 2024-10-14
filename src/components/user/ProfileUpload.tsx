@@ -1,7 +1,7 @@
-import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { defaultProfile, profilePath } from '../common/constants/pathConst';
 import ImageInput from '../post/elements/ImageInput';
 import { SliceOptions } from '../stores/interfaces/stateInterface';
 import style from './styles/update.module.css';
@@ -9,9 +9,7 @@ import style from './styles/update.module.css';
 const ProfileUpload = () => {
   const path = useSelector((state: SliceOptions) => state.user.path);
 
-  const defaultMyProfileImage = path
-    ? `${process.env.NEXT_PUBLIC_BUCKET_HOST}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/public/images/profile/${path}`
-    : '';
+  const defaultMyProfileImage = path ? `${profilePath}${path}` : '';
 
   const [profileImage, setProfileImage] = useState<string>(
     defaultMyProfileImage,

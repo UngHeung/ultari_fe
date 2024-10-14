@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { ImageFolderTypes } from './constants/commonConst';
+import { postImagePath } from './constants/pathConst';
 
 const ImageSlideItem = ({
   folder,
@@ -17,7 +18,7 @@ const ImageSlideItem = ({
   return (
     <>
       <Image
-        src={`${process.env.NEXT_PUBLIC_BUCKET_HOST}/${process.env.NEXT_PUBLIC_BUCKET_NAME}/public/images/post/${path}`}
+        src={`${postImagePath}/${path}`}
         width={width}
         height={height}
         alt="슬라이드 이미지"

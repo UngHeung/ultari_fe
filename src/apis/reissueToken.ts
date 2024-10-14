@@ -1,11 +1,7 @@
-import {
-  REISSUE_ACCESS,
-  REISSUE_REFRESH,
-} from '@/components/common/constants/pathConst';
 import { refreshAxios } from './axiosInstance';
 
-const accessReissueUrl = REISSUE_ACCESS;
-const refreshReissueUrl = REISSUE_REFRESH;
+const accessReissueUrl = '/auth/reissue/access';
+const refreshReissueUrl = '/auth/reissue/refresh';
 
 /**
  * Reissue access token
