@@ -9,7 +9,7 @@ import style from './styles/update.module.css';
 const ProfileUpload = () => {
   const path = useSelector((state: SliceOptions) => state.user.path);
 
-  const defaultMyProfileImage = path ? `${profilePath}${path}` : '';
+  const defaultMyProfileImage = path ? `${profilePath}/${path}` : '';
 
   const [profileImage, setProfileImage] = useState<string>(
     defaultMyProfileImage,
