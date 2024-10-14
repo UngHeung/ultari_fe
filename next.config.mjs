@@ -1,14 +1,18 @@
 /** @type {import('next').NextConfig} */
+
+const AWS_BUCKET_HOST = process.env.NEXT_PUBLIC_BUCKET_HOST;
+const AWS_BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME;
+const AWS_DB_HOST = process.env.NEXT_PUBLIC_DB_HOST;
+
 const nextConfig = {
   reactStrictMode: true,
-
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: `${process.env.BUCKET_HOST}`,
+        hostname: `${AWS_BUCKET_HOST}`,
         port: '',
-        pathname: `/${process.env.BUCKET_NAME}/public/images/**`,
+        pathname: `/${AWS_BUCKET_NAME}/public/**`,
       },
     ],
   },
@@ -21,7 +25,7 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: `${process.env.DB_HOST}`,
+            value: `https://${AWS_DB_HOST}`,
           },
           {
             key: 'Access-Control-Allow-Methods',
@@ -41,7 +45,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.DB_HOST}/api/:path*`,
+        destination: `https://${AWS_DB_HOST}/api/:path*`,
       },
     ];
   },
