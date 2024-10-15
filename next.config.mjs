@@ -44,8 +44,20 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: `https://${AWS_DB_HOST}/api/:path*`,
+        source: '/api/post/:path*',
+        destination: `https://${AWS_DB_HOST}/api/post/:path*`,
+      },
+      {
+        source: '/api/auth/:path*',
+        destination: `https://${AWS_DB_HOST}/api/auth/:path*`,
+      },
+      {
+        source: '/api/user/:path*',
+        destination: `https://${AWS_DB_HOST}/api/user/:path*`,
+      },
+      {
+        source: '/api/team/:path*',
+        destination: `https://${AWS_DB_HOST}/api/team/:path*`,
       },
     ];
   },
