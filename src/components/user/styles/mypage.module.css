@@ -18,6 +18,11 @@
   overflow: hidden;
 }
 
+.profileWrap>img {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
 .name {
   margin-top: var(--margin-content);
   text-align: center;
