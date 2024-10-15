@@ -58,14 +58,18 @@ const ImagesSlider = ({
             );
           })}
         </ul>
-        <section className={style.buttonWrap}>
-          <button onClick={() => setImagePosition(imagePosition + width)}>
-            {'<'}
-          </button>
-          <button onClick={() => setImagePosition(imagePosition - width)}>
-            {'>'}
-          </button>
-        </section>
+        {images.length > 1 && (
+          <>
+            {/* <section className={style.buttonWrap}> */}
+            <button
+              onClick={() => setImagePosition(imagePosition + width)}
+            ></button>
+            <button
+              onClick={() => setImagePosition(imagePosition - width)}
+            ></button>
+            {/* </section> */}
+          </>
+        )}
       </div>
     </>
   );

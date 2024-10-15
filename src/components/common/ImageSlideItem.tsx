@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import { ImageFolderTypes } from './constants/commonConst';
 import { postImagePath } from './constants/pathConst';
 
@@ -15,6 +16,14 @@ const ImageSlideItem = ({
   height: number;
   styleClass: string;
 }) => {
+  const [isCover, setIsCover] = useState(false);
+
+  function toggleImageFit(
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>,
+  ) {
+    setIsCover(prev => !prev);
+  }
+
   return (
     <>
       <Image
@@ -24,6 +33,12 @@ const ImageSlideItem = ({
         alt="슬라이드 이미지"
         className={styleClass}
         onError={error => console.log(error)}
+        sizes={'100%'}
+        style={{
+          objectFit: isCover ? 'cover' : 'contain',
+          objectPosition: '50% 50%',
+        }}
+        onClick={event => toggleImageFit(event)}
       />
     </>
   );
