@@ -1,3 +1,7 @@
+import {
+  defaultProfile,
+  profilePath,
+} from '@/components/common/constants/pathConst';
 import viewAndLike from '@/public/images/viewAndLike.png';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -89,7 +93,20 @@ const ListItem = (props: PostOptions, key: number) => {
               </div>
             </section>
 
-            <strong className={style.author}>{props.author!.name}</strong>
+            <strong className={style.author}>
+              <Image
+                src={
+                  props.author.profile?.path
+                    ? `${profilePath}/${props.author.profile?.path}`
+                    : defaultProfile
+                }
+                width={20}
+                height={20}
+                style={{ objectFit: 'cover' }}
+                alt={'프로필'}
+              />
+              {props.author!.name}
+            </strong>
           </section>
         </Link>
       </li>
