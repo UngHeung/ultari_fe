@@ -1,24 +1,23 @@
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  ModalState,
-  SliceOptions,
-} from '../../stores/interfaces/stateInterface';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
 import handleDeletePost from '../handlers/handleDeletePost';
 
-const DeletePost = ({ postId }: { postId: number }) => {
-  const router = useRouter();
+const DeletePost = () => {
   const dispatch = useDispatch();
+  const pathname = usePathname();
+  const postId = +pathname.split('/')[3];
 
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.user?.isLoggedIn ?? false,
-  );
+  useEffect(() => {
+    postDeleteProcess();
+  }, []);
 
   async function postDeleteProcess() {
     const { success, message } = await handleDeletePost(postId);
 
-    const secondModalData: ModalState = {
+    const modalData: ModalState = {
       title: success ? '게시물 삭제 성공' : '게시물 삭제 실패',
       type: success ? 'confirm' : 'alert',
       success,
@@ -28,7 +27,7 @@ const DeletePost = ({ postId }: { postId: number }) => {
       leftPath: '/post/list',
     };
 
-    dispatch(setModal(secondModalData));
+    dispatch(setModal(modalData));
   }
 
   return <></>;

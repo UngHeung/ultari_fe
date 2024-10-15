@@ -37,9 +37,17 @@
 }
 
 .content {
-  display: block;
+  width: 100%;
+  height: 60px;
   font-size: var(--font-size-content);
   font-weight: var(--font-weight-content);
+  line-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
 }
 
 .informationWrap {
