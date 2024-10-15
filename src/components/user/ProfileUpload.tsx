@@ -42,6 +42,7 @@ const ProfileUpload = () => {
             alt="프로필 기본"
             width={50}
             height={50}
+            sizes={'100%'}
           />
         }
         name={'profile'}
