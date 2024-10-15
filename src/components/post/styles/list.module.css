@@ -86,3 +86,12 @@
   font-size: var(--font-size-message);
   font-weight: var(--font-weight-title);
 }
+
+.author>img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border-radius: 10px;
+  background-color: var(--color-placeholder);
+  vertical-align: -3.4px;
+}
