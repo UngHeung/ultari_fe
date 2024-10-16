@@ -8,6 +8,7 @@ export interface SliceOptions {
   post: PostState;
   postList: PostListState;
   user: UserState;
+  logged: LoggedState;
 }
 
 export interface ModalState {
@@ -40,4 +41,8 @@ export interface PostListState {
 
 export interface UserState extends Partial<UserOptions> {
   path?: string;
+}
+
+export interface LoggedState {
+  isLoggedIn: boolean;
 }
