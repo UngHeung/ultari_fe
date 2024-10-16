@@ -5,7 +5,7 @@ import { SliceOptions } from '../../stores/interfaces/stateInterface';
 import { resetPostList } from '../../stores/reducer/PostListReducer';
 import fetchDataFromStoreOrServer from '../functions/fetchDataFromStoreOrServer';
 import mapDispatchToProps from '../functions/mapDispatchToProps';
-import { getPostListOptions, PostOptions } from '../interfaces/postInterfaces';
+import { GetPostListOptions, PostOptions } from '../interfaces/postInterfaces';
 import style from '../styles/list.module.css';
 import ListItem from './ListItem';
 import ListMenu from './ListMenu';
@@ -36,7 +36,7 @@ const PostList = () => {
   }, []);
 
   async function postListProcess(orderBy: OrderTypes) {
-    let postData: getPostListOptions = {
+    let postData: GetPostListOptions = {
       list: [],
       count: 0,
       next: '',

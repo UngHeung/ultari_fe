@@ -14,11 +14,12 @@ export interface CustomSelectOptions {
   selectId: string;
   name: string;
   styleClass?: string;
+  defaultSelect?: number;
 }
 
 const CustomSelect = (props: CustomSelectOptions) => {
-  const { selectOptions, selectId, name, styleClass } = props;
-  const defaultOption = selectOptions[0].option;
+  const { selectOptions, selectId, name, styleClass, defaultSelect } = props;
+  const defaultOption = selectOptions[defaultSelect ?? 0].option;
 
   const [selectedOption, setselectedOption] = useState<string>(defaultOption);
   const [selectionActive, setSelectionActive] = useState<boolean>(false);
