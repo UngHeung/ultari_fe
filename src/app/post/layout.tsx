@@ -5,7 +5,6 @@ import {
   SliceOptions,
 } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { resetPost } from '@/components/stores/reducer/postReducer';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
