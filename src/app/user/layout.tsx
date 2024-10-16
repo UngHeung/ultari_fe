@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
+import userAuthentication from '@/components/common/functions/userAuthentication';
 
 export type UserPageType = 'my' | 'list';
 
@@ -19,7 +20,7 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   const [title, setTitle] = useState<string>('');
 
   const isLoggedIn = useSelector(
-    (state: SliceOptions) => state?.user?.isLoggedIn ?? false,
+    (state: SliceOptions) => state?.logged.isLoggedIn ?? false,
   );
 
   useEffect(() => {
@@ -27,19 +28,7 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
 
     setTitle(getTitle(type));
 
-    if (!checkAuth(type, isLoggedIn)) {
-      const modalData: ModalState = {
-        title: '권한 없음',
-        type: 'alert',
-        success: false,
-        message: '로그인 후 사용 가능합니다.',
-        modalIsShow: true,
-        routerType: 'push',
-        leftPath: '/login',
-      };
-
-      dispatch(setModal(modalData));
-    }
+    userAuthentication(isLoggedIn, dispatch);
 
     return () => {};
   }, [pathname, isLoggedIn]);
