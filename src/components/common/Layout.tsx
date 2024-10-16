@@ -57,13 +57,9 @@ async function handleReload(
 
     const userData = getUserDataFromToken();
 
-    if (userData.id < 0) {
-      router.push('/logout');
-    }
-
     dispatch(setUser(userData));
   } catch (error) {
-    return;
+    router.push('/logout');
   }
 }
 
