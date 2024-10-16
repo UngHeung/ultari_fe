@@ -90,7 +90,7 @@ const UpdatePostForm = () => {
   }
   return (
     <>
-      <ImageUploadForm setSelectedFilenames={setSelectedFilenames} />
+      {/* <ImageUploadForm setSelectedFilenames={setSelectedFilenames} /> */}
       <form onSubmit={postWriteProcess}>
         <section className={style.titleWrap}>
           <PostInput
