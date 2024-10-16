@@ -29,7 +29,7 @@ const Header = ({
           className={`${style.mobileMenuWrap} ${isShow ? style.isShow : ''}`}
         >
           <section className={style.navWrap}>
-            <Nav setIsShow={setIsShow} />
+            <Nav setIsShow={setIsShow} isLoggedIn={isLoggedIn} />
           </section>
           <section className={style.user}>
             {isLoggedIn ? (
