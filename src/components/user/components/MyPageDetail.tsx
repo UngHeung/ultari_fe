@@ -24,7 +24,11 @@ const MyPageDetail = () => {
     <section className={style.userWrap}>
       <section className={style.profileWrap}>
         <Image
-          src={user?.path ? `${profilePath}/${user?.path}` : defaultProfile}
+          src={
+            user.profile?.path
+              ? `${profilePath}/${user.profile?.path}`
+              : defaultProfile
+          }
           alt={'유저 프로필'}
           width={50}
           height={50}

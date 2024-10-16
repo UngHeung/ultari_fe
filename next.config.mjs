@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 
+
 const AWS_BUCKET_HOST = process.env.NEXT_PUBLIC_BUCKET_HOST;
 const AWS_BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME;
 const AWS_DB_HOST = process.env.NEXT_PUBLIC_DB_HOST;
+const protocol = 'http'
 
 const nextConfig = {
   reactStrictMode: true,
@@ -45,19 +47,23 @@ const nextConfig = {
     return [
       {
         source: '/api/post/:path*',
-        destination: `https://${AWS_DB_HOST}/api/post/:path*`,
+        destination: `${protocol}://${AWS_DB_HOST}/api/post/:path*`,
       },
       {
         source: '/api/auth/:path*',
-        destination: `https://${AWS_DB_HOST}/api/auth/:path*`,
+        destination: `${protocol}://${AWS_DB_HOST}/api/auth/:path*`,
       },
       {
         source: '/api/user/:path*',
-        destination: `https://${AWS_DB_HOST}/api/user/:path*`,
+        destination: `${protocol}://${AWS_DB_HOST}/api/user/:path*`,
       },
       {
         source: '/api/team/:path*',
-        destination: `https://${AWS_DB_HOST}/api/team/:path*`,
+        destination: `${protocol}://${AWS_DB_HOST}/api/team/:path*`,
+      },
+      {
+        source: '/api/image/:path*',
+        destination: `https://${AWS_BUCKET_HOST}/${AWS_BUCKET_NAME}/:path*`,
       },
     ];
   },
