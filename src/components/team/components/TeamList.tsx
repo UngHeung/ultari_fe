@@ -1,38 +1,21 @@
-import { ModalState } from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import handleTeamList from '../handlers/handleTeamList';
 import style from '../styles/teamList.module.css';
 import { TeamOptioins } from './TeamDetail';
 
 const TeamList = () => {
   const [teamList, setTeamList] = useState<TeamOptioins[]>([]);
-  const dispatch = useDispatch();
-
-  async function teamListProcess() {
-    const { success, data, message } = await handleTeamList();
-
-    if (success) {
-      setTeamList([...(data || [])]);
-    } else {
-      const modalData: ModalState = {
-        title: '에러',
-        success,
-        type: 'alert',
-        routerType: 'back',
-        message: message!,
-        modalIsShow: true,
-      };
-
-      dispatch(setModal(modalData));
-    }
-  }
 
   useEffect(() => {
     teamListProcess();
   }, []);
+
+  async function teamListProcess() {
+    const { data } = await handleTeamList();
+
+    setTeamList([...(data || [])]);
+  }
 
   return (
     <ul className={style.list}>
