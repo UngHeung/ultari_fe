@@ -1,9 +1,10 @@
+import { resetLogged } from '@/components/stores/reducer/loggedReducer';
+import { setModal } from '@/components/stores/reducer/modalRducer';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import { resetUser } from '../../stores/reducer/userReducer';
 import handleLogout from '../handlers/handleLogout';
-import { setModal } from '@/components/stores/reducer/modalRducer';
-import { useEffect } from 'react';
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const Logout = () => {
       routerType: 'replace',
       leftPath: '/',
     };
+
+    dispatch(resetLogged());
 
     dispatch(setModal(modalData));
   }

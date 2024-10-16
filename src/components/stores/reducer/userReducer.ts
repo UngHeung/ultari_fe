@@ -5,7 +5,6 @@ const initialState: UserState = {
   id: -1,
   name: '',
   role: 'ROLE_USER',
-  isLoggedIn: false,
   account: '',
   phone: '',
   email: '',
