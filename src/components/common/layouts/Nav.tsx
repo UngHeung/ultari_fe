@@ -1,23 +1,35 @@
 import Link from 'next/link';
 import { SetStateAction } from 'react';
+import { useDispatch } from 'react-redux';
+import userAuthentication from '../functions/userAuthentication';
 import style from '../styles/nav.module.css';
 
 const Nav = ({
   setIsShow,
+  isLoggedIn,
 }: {
   setIsShow: React.Dispatch<SetStateAction<boolean>>;
+  isLoggedIn: boolean;
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <nav className={style.mainNav}>
       <ul className={style.mainNavUl}>
         <li>
-          <Link onClick={() => setIsShow(false)} href={'/post/list'}>
+          <Link
+            onClick={event => {
+              setIsShow(false);
+            }}
+            href={'/post/list'}
+          >
             자유
           </Link>
         </li>
         <li>
           <Link
-            onClick={() => {
+            onClick={event => {
+              userAuthentication(isLoggedIn, dispatch, event);
               setIsShow(false);
             }}
             href={'/team/create'}
@@ -27,7 +39,8 @@ const Nav = ({
         </li>
         <li>
           <Link
-            onClick={() => {
+            onClick={event => {
+              userAuthentication(isLoggedIn, dispatch, event);
               setIsShow(false);
             }}
             href={'/team/list'}
@@ -37,15 +50,8 @@ const Nav = ({
         </li>
         <li>
           <Link
-            onClick={() => {
-              setIsShow(false);
-            }}
-            href={'/user/my'}
-          ></Link>
-        </li>
-        <li>
-          <Link
-            onClick={() => {
+            onClick={event => {
+              userAuthentication(isLoggedIn, dispatch, event);
               setIsShow(false);
             }}
             href={'/user/list'}
