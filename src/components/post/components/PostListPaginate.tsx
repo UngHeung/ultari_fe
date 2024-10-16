@@ -20,29 +20,28 @@ const PostListPaginate = ({
   postList: PostOptions[];
   setPostList: React.Dispatch<SetStateAction<PostOptions[]>>;
 }) => {
+  async function paginateProcess() {
+    const orderBy = listOrderBy.value;
+    const postData = await moreFetchData(orderBy, nextPath);
+    const composeList = [...postList, ...postData.list!];
+    const dispatchData = {
+      list: composeList,
+      count: composeList.length,
+      next: postData.next ?? '',
+    };
+
+    setPostList(composeList);
+    setNextPath(postData.next!);
+
+    if (orderBy === 'DESC') {
+      mapDispatchToProps.desc(dispatch, dispatchData);
+    } else if (orderBy === 'ASC') {
+      mapDispatchToProps.asc(dispatch, dispatchData);
+    }
+  }
+
   return (
-    <button
-      type={'button'}
-      onClick={async () => {
-        const orderBy = listOrderBy.value;
-        const postData = await moreFetchData(orderBy, nextPath);
-        const composeList = [...postList, ...postData.list!];
-        const dispatchData = {
-          list: composeList,
-          count: composeList.length,
-          next: postData.next ?? '',
-        };
-
-        setPostList(composeList);
-        setNextPath(postData.next!);
-
-        if (orderBy === 'DESC') {
-          mapDispatchToProps.desc(dispatch, dispatchData);
-        } else if (orderBy === 'ASC') {
-          mapDispatchToProps.asc(dispatch, dispatchData);
-        }
-      }}
-    >
+    <button type={'button'} onClick={paginateProcess}>
       더보기
     </button>
   );
