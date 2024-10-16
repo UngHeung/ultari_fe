@@ -3,10 +3,10 @@
 import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
 import DeletePost from '@/components/post/components/DeletePost';
 
-const DeletePage = ({ params }: ParamsOptions) => {
+const DeletePage = () => {
   return (
     <>
-      <DeletePost postId={params.id} />
+      <DeletePost />
     </>
   );
 };
