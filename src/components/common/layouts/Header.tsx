@@ -1,8 +1,8 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import style from '../styles/header.module.css';
 import Logo from './Logo';
 import Nav from './Nav';
-import { useState } from 'react';
 
 const Header = ({
   isLoggedIn,
@@ -29,7 +29,7 @@ const Header = ({
           className={`${style.mobileMenuWrap} ${isShow ? style.isShow : ''}`}
         >
           <section className={style.navWrap}>
-            <Nav setIsShow={setIsShow} />
+            <Nav setIsShow={setIsShow} isLoggedIn={isLoggedIn} />
           </section>
           <section className={style.user}>
             {isLoggedIn ? (

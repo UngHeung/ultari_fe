@@ -10,6 +10,7 @@ import getUserDataFromToken from '../functions/getUserDataFromToken';
 import handleLogin from '../handlers/handleLogin';
 import style from '../styles/button.module.css';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
+import { setLogged } from '@/components/stores/reducer/loggedReducer';
 
 const Login = () => {
   const router = useRouter();
@@ -25,14 +26,10 @@ const Login = () => {
     const { success, message } = await handleLogin(event);
 
     if (success) {
-      const userData: Omit<UserState, 'isLoggedIn'> = getUserDataFromToken();
+      const userData: UserState = getUserDataFromToken();
 
-      dispatch(
-        setUser({
-          ...userData,
-          isLoggedIn: true,
-        }),
-      );
+      dispatch(setUser(userData));
+      dispatch(setLogged({ isLoggedIn: true }));
     }
 
     const modalData: ModalState = {
