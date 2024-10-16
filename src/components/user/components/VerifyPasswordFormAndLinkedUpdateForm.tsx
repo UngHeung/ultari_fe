@@ -63,7 +63,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
     }
 
     modalData.type = 'confirm';
-    modalData.message = '정보를 성공적으로 불러왓습니다.';
+    modalData.message = '정보를 성공적으로 불러왔습니다.';
     modalData.success = true;
 
     dispatch(setModal(modalData));
