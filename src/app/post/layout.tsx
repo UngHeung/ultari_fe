@@ -1,5 +1,6 @@
 'use client';
 
+import userAuthentication from '@/components/common/functions/userAuthentication';
 import {
   ModalState,
   SliceOptions,
@@ -19,7 +20,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const [title, setTitle] = useState<string>('');
 
   const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.user.isLoggedIn,
+    (state: SliceOptions) => state.logged.isLoggedIn,
   );
   const userId = useSelector((state: SliceOptions) => state.user.id);
 
@@ -46,9 +47,11 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
           <>
             <Link href={`/post/update/${postId}`}>수정</Link>
             <Link
-              href={'#'}
+              href={'/'}
               onClick={async event => {
                 event.preventDefault();
+
+                userAuthentication(isLoggedIn, dispatch, event);
 
                 const modalData: ModalState = {
                   title: '삭제 확인',
@@ -66,7 +69,14 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
             </Link>
           </>
         )}
-        {!title.endsWith('작성') && <Link href={'/post/write'}>글쓰기</Link>}
+        {!title.endsWith('작성') && (
+          <Link
+            href={'/post/write'}
+            onClick={event => userAuthentication(isLoggedIn, dispatch, event)}
+          >
+            글쓰기
+          </Link>
+        )}
       </section>
     </>
   );
