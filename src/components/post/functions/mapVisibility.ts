@@ -1,6 +1,6 @@
-import { visibilityOptions } from '../interfaces/postInterfaces';
+import { VisibilityOptions } from '../interfaces/postInterfaces';
 
-function mapVisibility(type: visibilityOptions) {
+function mapVisibility(type: VisibilityOptions) {
   if (type === 'SCOPE_PUBLIC') {
     return '전체공개';
   } else if (type === 'SCOPE_TEAM') {

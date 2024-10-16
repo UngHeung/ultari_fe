@@ -15,8 +15,8 @@ export interface PostOptions {
   id: number;
   title: string;
   content: string;
-  visibility: visibilityOptions;
-  contentType: contentTypeOptions;
+  visibility: VisibilityOptions;
+  contentType: ContentTypeOptions;
   likeCount: number;
   likers: UserOptions[] | UserState[];
   viewCount: number;
@@ -26,25 +26,25 @@ export interface PostOptions {
   updateAt: string;
 }
 
-export type visibilityOptions =
+export type VisibilityOptions =
   | 'SCOPE_PUBLIC'
   | 'SCOPE_TEAM'
   | 'SCOPE_PERSONAL';
 
-export type contentTypeOptions =
+export type ContentTypeOptions =
   | 'TYPE_THANKS'
   | 'TYPE_PRAYER'
   | 'TYPE_SHARE'
   | 'TYPE_FREE';
 
-export interface getPostOptions {
+export interface GetPostOptions {
   postList: PostOptions[];
   cursor: { after: number };
   count: number;
   nextPath: string;
 }
 
-export interface getPostListOptions {
+export interface GetPostListOptions {
   list: PostOptions[];
   count: number;
   next: string;
