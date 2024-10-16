@@ -28,10 +28,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
-
   return (
     <>
       <Header userName={userName ?? '불러오기 오류'} isLoggedIn={isLoggedIn} />
