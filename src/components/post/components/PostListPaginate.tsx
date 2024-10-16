@@ -1,3 +1,4 @@
+import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import { Dispatch } from '@reduxjs/toolkit';
 import React, { SetStateAction } from 'react';
@@ -22,21 +23,25 @@ const PostListPaginate = ({
 }) => {
   async function paginateProcess() {
     const orderBy = listOrderBy.value;
-    const postData = await moreFetchData(orderBy, nextPath);
-    const composeList = [...postList, ...postData.list!];
-    const dispatchData = {
-      list: composeList,
-      count: composeList.length,
-      next: postData.next ?? '',
-    };
+    try {
+      const postData = await moreFetchData(orderBy, nextPath);
+      const composeList = [...postList, ...postData?.list];
+      const dispatchData = {
+        list: composeList,
+        count: composeList.length,
+        next: postData.next ?? '',
+      };
 
-    setPostList(composeList);
-    setNextPath(postData.next!);
+      setPostList(composeList);
+      setNextPath(postData.next!);
 
-    if (orderBy === 'DESC') {
-      mapDispatchToProps.desc(dispatch, dispatchData);
-    } else if (orderBy === 'ASC') {
-      mapDispatchToProps.asc(dispatch, dispatchData);
+      if (orderBy === 'DESC') {
+        mapDispatchToProps.desc(dispatch, dispatchData);
+      } else if (orderBy === 'ASC') {
+        mapDispatchToProps.asc(dispatch, dispatchData);
+      }
+    } catch (error: any) {
+      makeResponseResult(error);
     }
   }
 

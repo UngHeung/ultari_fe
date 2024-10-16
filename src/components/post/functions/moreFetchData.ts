@@ -11,9 +11,9 @@ async function moreFetchData(
   const { data } = await handleGetPostList(url);
 
   return {
-    list: data?.postList || [],
+    list: data?.data || [],
     count: data?.count || -1,
-    next: data?.nextPath || '',
+    next: data?.next || '',
   };
 }
 
