@@ -24,6 +24,8 @@ const ImageUploadForm = ({
   async function imageUploadProcess(event: FormEvent) {
     event.preventDefault();
 
+    if (!confirmedImages) return;
+
     setUploadDisabled(true);
 
     const { success, message, data } = await handleUploadImage(selectedFiles!);
