@@ -1,20 +1,28 @@
+import mapModalMessage from '@/components/common/functions/mapModalMessage';
+import { setLogged } from '@/components/stores/reducer/loggedReducer';
 import { setModal } from '@/components/stores/reducer/modalRducer';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BaseButton from '../../common/BaseButton';
-import { ModalState, UserState } from '../../stores/interfaces/stateInterface';
+import {
+  ModalState,
+  SliceOptions,
+  UserState,
+} from '../../stores/interfaces/stateInterface';
 import { setUser } from '../../stores/reducer/userReducer';
 import AuthInput from '../elements/AuthInput';
 import getUserDataFromToken from '../functions/getUserDataFromToken';
 import handleLogin from '../handlers/handleLogin';
 import style from '../styles/button.module.css';
-import mapModalMessage from '@/components/common/functions/mapModalMessage';
-import { setLogged } from '@/components/stores/reducer/loggedReducer';
 
 const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.logged.isLoggedIn,
+  );
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -49,38 +57,42 @@ const Login = () => {
 
   return (
     <form onSubmit={event => loginProcess(event)}>
-      <AuthInput
-        name={'account'}
-        id={'login_account'}
-        type={'text'}
-        labelValue={'아이디'}
-        placeholder={' '}
-      />
+      {!isLoggedIn && (
+        <>
+          <AuthInput
+            name={'account'}
+            id={'login_account'}
+            type={'text'}
+            labelValue={'아이디'}
+            placeholder={' '}
+          />
 
-      <AuthInput
-        name={'password'}
-        id={'login_password'}
-        type={'password'}
-        labelValue={'비밀번호'}
-        placeholder={' '}
-      />
+          <AuthInput
+            name={'password'}
+            id={'login_password'}
+            type={'password'}
+            labelValue={'비밀번호'}
+            placeholder={' '}
+          />
 
-      <div className={style.buttonWrap}>
-        <BaseButton
-          styleClass={style.authButton}
-          type={'submit'}
-          value={'로그인'}
-          disabled={disabled}
-        />
+          <div className={style.buttonWrap}>
+            <BaseButton
+              styleClass={style.authButton}
+              type={'submit'}
+              value={'로그인'}
+              disabled={disabled}
+            />
 
-        <BaseButton
-          styleClass={style.authButton}
-          type={'button'}
-          value={'회원가입'}
-          disabled={disabled}
-          onClick={() => router.push('/sign')}
-        />
-      </div>
+            <BaseButton
+              styleClass={style.authButton}
+              type={'button'}
+              value={'회원가입'}
+              disabled={disabled}
+              onClick={() => router.push('/sign')}
+            />
+          </div>
+        </>
+      )}
     </form>
   );
 };
