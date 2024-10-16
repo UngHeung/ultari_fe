@@ -1,13 +1,14 @@
+import { profilePath } from '@/components/common/constants/pathConst';
 import defaultProfile from '@/public/images/profile_default.png';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UserOptions } from '../../auth/interfaces/authInterface';
-import MemberList from './MemberList';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
 import handleGetTeamById from '../handlers/handleGetTeamById';
 import style from '../styles/teamDetail.module.css';
+import MemberList from './MemberList';
 
 export interface TeamOptioins {
   id: number;
@@ -61,10 +62,14 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           <div className={style.profileWrap}>
             <span className={style.leaderProfile}>
               <Image
-                src={teamData?.leader.profile?.path ?? defaultProfile}
-                alt={'목자_프로필'}
+                src={
+                  teamData?.leader.profile?.path
+                    ? `${profilePath}/${teamData?.leader?.profile.path}`
+                    : defaultProfile
+                }
                 width={30}
                 height={30}
+                alt={'목자_프로필'}
               />
             </span>
             <span className={style.leaderName}>{teamData?.leader.name}</span>
@@ -76,7 +81,11 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           <div className={style.profileWrap}>
             <span className={style.leaderProfile}>
               <Image
-                src={teamData?.subLeader?.profile?.path ?? defaultProfile}
+                src={
+                  teamData?.subLeader?.profile?.path
+                    ? `${profilePath}/${teamData?.subLeader?.profile.path}`
+                    : defaultProfile
+                }
                 alt={'부목자_프로필'}
                 width={30}
                 height={30}
