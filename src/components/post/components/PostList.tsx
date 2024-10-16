@@ -77,14 +77,16 @@ const PostList = () => {
           <li>게시물이 없습니다.</li>
         )}
       </ul>
-      <PostListPaginate
-        dispatch={dispatch}
-        listOrderBy={listOrderBy}
-        nextPath={nextPath}
-        setNextPath={setNextPath}
-        postList={postList}
-        setPostList={setPostList}
-      />
+      {nextPath && (
+        <PostListPaginate
+          dispatch={dispatch}
+          listOrderBy={listOrderBy}
+          nextPath={nextPath}
+          setNextPath={setNextPath}
+          postList={postList}
+          setPostList={setPostList}
+        />
+      )}
     </>
   );
 };
