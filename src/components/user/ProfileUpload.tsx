@@ -7,7 +7,7 @@ import { SliceOptions } from '../stores/interfaces/stateInterface';
 import style from './styles/update.module.css';
 
 const ProfileUpload = () => {
-  const path = useSelector((state: SliceOptions) => state.user.path);
+  const path = useSelector((state: SliceOptions) => state.user.profile?.path);
 
   const defaultMyProfileImage = path ? `${profilePath}/${path}` : '';
 
