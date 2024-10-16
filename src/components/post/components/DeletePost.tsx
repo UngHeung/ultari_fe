@@ -5,9 +5,10 @@ import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
 import handleDeletePost from '../handlers/handleDeletePost';
 
-const DeletePost = ({ postId }: { postId: number }) => {
+const DeletePost = () => {
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const postId = +pathname.split('/')[3];
 
   useEffect(() => {
     postDeleteProcess();
