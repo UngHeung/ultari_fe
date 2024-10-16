@@ -1,5 +1,7 @@
-import { profilePath } from '@/components/common/constants/pathConst';
-import defaultProfile from '@/public/images/profile_default.png';
+import {
+  defaultProfile,
+  profilePath,
+} from '@/components/common/constants/pathConst';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -24,29 +26,31 @@ export interface TeamOptioins {
 }
 
 const TeamDetail = ({ teamId }: { teamId: number }) => {
-  const [teamData, setTeamData] = useState<TeamOptioins>();
-
   const dispatch = useDispatch();
 
+  const [teamData, setTeamData] = useState<TeamOptioins>();
+
+  async function teamDetailProcess() {
+    const { success, data, message } = await handleGetTeamById(teamId);
+
+    if (success) {
+      setTeamData(data);
+    } else {
+      const modalData: ModalState = {
+        title: '에러',
+        success,
+        type: 'alert',
+        routerType: 'back',
+        message: message!,
+        modalIsShow: true,
+      };
+
+      dispatch(setModal(modalData));
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      const { success, data, message } = await handleGetTeamById(teamId);
-
-      if (success) {
-        setTeamData(data);
-      } else {
-        const modalData: ModalState = {
-          title: '에러',
-          success,
-          type: 'alert',
-          routerType: 'back',
-          message: message!,
-          modalIsShow: true,
-        };
-
-        dispatch(setModal(modalData));
-      }
-    })();
+    teamDetailProcess();
   }, []);
 
   return (
