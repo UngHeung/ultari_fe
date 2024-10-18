@@ -1,14 +1,10 @@
-import {
-  defaultProfile,
-  profilePath,
-} from '@/components/common/constants/pathConst';
-import Image from 'next/image';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RoleTypes, UserOptions } from '../../auth/interfaces/authInterface';
 import { SliceOptions } from '../../stores/interfaces/stateInterface';
 import SecretInfoItem from '../SecretInfoItem';
 import style from '../styles/mypage.module.css';
+import UserProfile from './UserProfile';
 import VerifyPasswordFormAndLinkedUpdateForm from './VerifyPasswordFormAndLinkedUpdateForm';
 
 const MyPageDetail = () => {
@@ -23,13 +19,7 @@ const MyPageDetail = () => {
   return (
     <section className={style.userWrap}>
       <section className={style.profileWrap}>
-        <Image
-          src={user.path ? `${profilePath}/${user.path}` : defaultProfile}
-          alt={'유저 프로필'}
-          width={50}
-          height={50}
-          sizes={'100%'}
-        />
+        <UserProfile path={user?.path} />
       </section>
       <section className={style.name}>
         <strong>{user.name}</strong>
