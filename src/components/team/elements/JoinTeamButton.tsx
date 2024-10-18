@@ -6,6 +6,7 @@ import { setModal } from '@/components/stores/reducer/modalRducer';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TeamButton from './TeamButton';
+import { setUser } from '@/components/stores/reducer/userReducer';
 
 const JoinTeamButton = ({ teamId }: { teamId?: number }) => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const JoinTeamButton = ({ teamId }: { teamId?: number }) => {
   async function JoinTeamProcess() {
     setDisabled(true);
 
-    const { success, message } = await handleApplyJoinTeam(teamId);
+    const { success, message, data } = await handleApplyJoinTeam(teamId);
 
     if (!success) {
       return {
@@ -35,6 +36,7 @@ const JoinTeamButton = ({ teamId }: { teamId?: number }) => {
 
     modalData.message = mapModalMessage(modalData);
 
+    dispatch(setUser(data));
     dispatch(setModal(modalData));
     setDisabled(false);
   }
@@ -53,11 +55,11 @@ export default JoinTeamButton;
 
 async function handleApplyJoinTeam(teamId?: number) {
   const data = {
-    teamId,
+    id: teamId,
   };
 
   try {
-    const response = await authAxios.post('/team/join', data);
+    const response = await authAxios.post('/user/team/join', data);
 
     return makeResponseResult(response, '목장원신청');
   } catch (error: any) {

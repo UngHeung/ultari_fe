@@ -23,7 +23,7 @@ const Nav = ({
             }}
             href={'/post/list'}
           >
-            자유
+            자유게시판
           </Link>
         </li>
         <li>
@@ -34,12 +34,12 @@ const Nav = ({
             }}
             href={'/team/create'}
           >
-            팀생성
+            목장생성
           </Link>
         </li>
         <li>
           <Link onClick={() => setIsShow(false)} href={'/team/list'}>
-            팀목록
+            목장목록
           </Link>
         </li>
         <li>
