@@ -22,7 +22,7 @@ const TeamLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const type: TeamPageType = pathname.slice(1).split('/')[1] as TeamPageType;
 
-    if (!isLoggedIn) {
+    if (!isLoggedIn && type === 'create') {
       userAuthentication(isLoggedIn, dispatch);
     }
 

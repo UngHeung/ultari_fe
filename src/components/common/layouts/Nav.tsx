@@ -38,13 +38,7 @@ const Nav = ({
           </Link>
         </li>
         <li>
-          <Link
-            onClick={event => {
-              userAuthentication(isLoggedIn, dispatch, event);
-              setIsShow(false);
-            }}
-            href={'/team/list'}
-          >
+          <Link onClick={() => setIsShow(false)} href={'/team/list'}>
             팀목록
           </Link>
         </li>
