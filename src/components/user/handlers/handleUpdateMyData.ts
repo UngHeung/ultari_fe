@@ -6,7 +6,7 @@ async function handleUpdateMyData(event: FormEvent<HTMLFormElement>) {
   const formData = new FormData(event.currentTarget);
 
   const data = {
-    path: '',
+    newProfilePath: '',
     phone: formData.get('phone') as string,
     email: formData.get('email') as string,
     community: formData.get('community') as string,
@@ -24,7 +24,7 @@ async function handleUpdateMyData(event: FormEvent<HTMLFormElement>) {
         imageFormData,
       );
 
-      data.path = response.data.fileName;
+      data.newProfilePath = response.data.fileName;
     } catch (error: any) {
       return makeResponseResult(error);
     }
