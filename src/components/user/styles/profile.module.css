@@ -1,0 +1,7 @@
+.profileWrap {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: var(--color-placeholder);
+  font-size: 0;
+  overflow: hidden;
+}
