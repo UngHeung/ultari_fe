@@ -5,7 +5,7 @@ import { SliceOptions } from '../../stores/interfaces/stateInterface';
 import { resetPostList } from '../../stores/reducer/PostListReducer';
 import fetchDataFromStoreOrServer from '../functions/fetchDataFromStoreOrServer';
 import mapDispatchToProps from '../functions/mapDispatchToProps';
-import { getPostListOptions, PostOptions } from '../interfaces/postInterfaces';
+import { GetPostListOptions, PostOptions } from '../interfaces/postInterfaces';
 import style from '../styles/list.module.css';
 import ListItem from './ListItem';
 import ListMenu from './ListMenu';
@@ -36,7 +36,7 @@ const PostList = () => {
   }, []);
 
   async function postListProcess(orderBy: OrderTypes) {
-    let postData: getPostListOptions = {
+    let postData: GetPostListOptions = {
       list: [],
       count: 0,
       next: '',
@@ -77,14 +77,16 @@ const PostList = () => {
           <li>게시물이 없습니다.</li>
         )}
       </ul>
-      <PostListPaginate
-        dispatch={dispatch}
-        listOrderBy={listOrderBy}
-        nextPath={nextPath}
-        setNextPath={setNextPath}
-        postList={postList}
-        setPostList={setPostList}
-      />
+      {nextPath && (
+        <PostListPaginate
+          dispatch={dispatch}
+          listOrderBy={listOrderBy}
+          nextPath={nextPath}
+          setNextPath={setNextPath}
+          postList={postList}
+          setPostList={setPostList}
+        />
+      )}
     </>
   );
 };

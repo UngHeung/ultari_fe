@@ -4,7 +4,7 @@
 const AWS_BUCKET_HOST = process.env.NEXT_PUBLIC_BUCKET_HOST;
 const AWS_BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME;
 const AWS_DB_HOST = process.env.NEXT_PUBLIC_DB_HOST;
-const protocol = 'http'
+const protocol = 'https'
 
 const nextConfig = {
   reactStrictMode: true,

@@ -2,18 +2,18 @@ import { OrderTypes } from '@/components/stores/constants/stateOptions';
 import { OrderdPostListState } from '@/components/stores/interfaces/stateInterface';
 import handleGetPostList from '../handlers/handleGetPostList';
 import {
-  contentTypeOptions,
-  getPostListOptions,
-  visibilityOptions,
+  ContentTypeOptions,
+  GetPostListOptions,
+  VisibilityOptions,
 } from '../interfaces/postInterfaces';
 import composeUrlQuery from './composeUrlQuery';
 
 async function fetchDataFromStoreOrServer(
   orderBy: OrderTypes,
   listOrderType: OrderdPostListState,
-  visibility?: visibilityOptions,
-  contentType?: contentTypeOptions,
-): Promise<getPostListOptions> {
+  visibility?: VisibilityOptions,
+  contentType?: ContentTypeOptions,
+): Promise<GetPostListOptions> {
   const whereVisibility = 'where__visibility=';
   const whereContentType = 'where__contentType=';
 

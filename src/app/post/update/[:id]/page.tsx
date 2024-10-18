@@ -1,13 +1,10 @@
 'use client';
-
-import ImageUploadForm from '@/components/post/components/ImageUploadForm';
-import WriteForm from '@/components/post/components/PostWriteForm';
-import { useState } from 'react';
+import UpdatePostForm from '@/components/post/components/PostUpdateForm';
 
 const UpdatePage = () => {
   return (
     <>
-      <WriteForm type={'update'} />
+      <UpdatePostForm />
     </>
   );
 };

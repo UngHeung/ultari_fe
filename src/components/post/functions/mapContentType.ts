@@ -1,6 +1,6 @@
-import { contentTypeOptions } from '../interfaces/postInterfaces';
+import { ContentTypeOptions } from '../interfaces/postInterfaces';
 
-function mapContentType(type: contentTypeOptions) {
+function mapContentType(type: ContentTypeOptions) {
   if (type === 'TYPE_FREE') {
     return '자유';
   } else if (type === 'TYPE_PRAYER') {

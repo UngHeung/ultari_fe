@@ -1,4 +1,6 @@
 import { reissueAccessToken, reissueRefreshToken } from '@/apis/reissueToken';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { useRouter } from 'next/navigation';
 import React, { Dispatch, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import getUserDataFromToken from '../auth/functions/getUserDataFromToken';
@@ -13,6 +15,7 @@ import Header from './layouts/Header';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const modalIsShow = useSelector(
     (state: SliceOptions) => state.modal?.modalIsShow,
   );
@@ -24,7 +27,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     (async () => {
-      await handleReload(dispatch, isLoggedIn);
+      await handleReload(dispatch, isLoggedIn, router);
     })();
   }, []);
 
@@ -38,7 +41,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-async function handleReload(dispatch: Dispatch<any>, isLoggedIn: boolean) {
+async function handleReload(
+  dispatch: Dispatch<any>,
+  isLoggedIn: boolean,
+  router: AppRouterInstance,
+) {
   if (!isLoggedIn) return;
 
   try {
@@ -52,7 +59,7 @@ async function handleReload(dispatch: Dispatch<any>, isLoggedIn: boolean) {
 
     dispatch(setUser(userData));
   } catch (error) {
-    return;
+    router.push('/logout');
   }
 }
 

@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
 
-export type PostPageType = 'list' | 'write' | 'update';
+export type PostPageType = 'list' | 'write' | 'update' | 'detail' | 'delete';
 
 const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
     (state: SliceOptions) => state.logged.isLoggedIn,
   );
   const userId = useSelector((state: SliceOptions) => state.user.id);
-
   const postId = useSelector((state: SliceOptions) => state.post.id);
   const postAuthorId = useSelector(
     (state: SliceOptions) => state.post.author?.id,
@@ -32,8 +31,20 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const type: PostPageType = pathname.slice(1).split('/')[1] as PostPageType;
 
-    setTitle(getTitle(type));
-  }, [pathname]);
+    if (type !== 'list' && type !== 'detail') {
+      userAuthentication(isLoggedIn, dispatch);
+    }
+
+    if (type === 'list') {
+      setTitle('게시물 목록');
+    } else if (type === 'write') {
+      setTitle('게시물 작성');
+    } else if (type === 'update') {
+      setTitle('게시물 수정');
+    } else {
+      setTitle('게시물');
+    }
+  }, [pathname, isLoggedIn]);
 
   return (
     <>
@@ -81,17 +92,5 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
-
-function getTitle(type: PostPageType) {
-  if (type === 'list') {
-    return '게시물 목록';
-  } else if (type === 'write') {
-    return '게시물 작성';
-  } else if (type === 'update') {
-    return '게시물 수정';
-  } else {
-    return '게시물';
-  }
-}
 
 export default PostLayout;

@@ -1,5 +1,5 @@
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomSelect from '../../common/CustomSelect';
@@ -11,20 +11,16 @@ import { setPost } from '../../stores/reducer/postReducer';
 import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
 import handleUploadPost from '../handlers/handleUploadPost';
-import { PostWriteTypes } from '../interfaces/postInterfaces';
 import style from '../styles/write.module.css';
 import ImageUploadForm from './ImageUploadForm';
 
-const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
+const PostWriteForm = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const dispatch = useDispatch();
-  const updatePostId = type === 'update' && pathname.split('/')[3];
 
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
   const [disabled, setDisabled] = useState<boolean>(false);
 
-  const post = useSelector((state: SliceOptions) => state.post);
   const user = useSelector((state: SliceOptions) => state.user);
 
   async function postWriteProcess(event: FormEvent<HTMLFormElement>) {
@@ -34,9 +30,8 @@ const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
 
     const { data, success, message } = await handleUploadPost(
       event,
-      type,
+      'new',
       selectedFilenames,
-      +updatePostId,
     );
 
     dispatch(setPost({ ...data, author: user }));
@@ -44,19 +39,13 @@ const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
     const postId = data?.id;
 
     const modalData: ModalState = {
-      title: success
-        ? `게시물 ${type === 'new' ? '등록' : '수정'} 성공`
-        : `게시물 ${type === 'new' ? '등록' : '수정'} 실패`,
+      title: success ? '게시물 등록 성공' : '게시물 등록 실패',
       success,
       message,
       modalIsShow: true,
       type: success ? 'confirm' : 'alert',
       routerType: 'replace',
-      leftPath: success
-        ? type === 'new'
-          ? `/post/detail/${postId}`
-          : `/post/update/${updatePostId}`
-        : '',
+      leftPath: success ? `/post/detail/${postId}` : '',
     };
 
     dispatch(setModal(modalData));
@@ -73,7 +62,6 @@ const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
             styleClass={style.title}
             type={'text'}
             placeholder={'제목'}
-            value={type === 'update' ? post?.title : ''}
           />
           <CustomSelect
             selectOptions={[
@@ -103,7 +91,6 @@ const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
             id=""
             className={style.content}
             placeholder={'내용'}
-            defaultValue={type === 'update' ? post?.content : ''}
           />
         </section>
         <section className={style.buttonWrap}>
@@ -118,12 +105,7 @@ const PostWriteForm = ({ type }: { type: PostWriteTypes }) => {
             type={'button'}
             disabled={disabled}
             value={'취소'}
-            onClick={() => {
-              if (type === 'update') {
-                dispatch(setPost(post));
-              }
-              router.back();
-            }}
+            onClick={() => router.back()}
           />
         </section>
       </form>

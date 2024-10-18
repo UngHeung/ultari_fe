@@ -3,11 +3,14 @@ import {
   profilePath,
 } from '@/components/common/constants/pathConst';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UserOptions } from '../../auth/interfaces/authInterface';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
+import JoinTeamButton from '../elements/JoinTeamButton';
+import TeamButton from '../elements/TeamButton';
 import handleGetTeamById from '../handlers/handleGetTeamById';
 import style from '../styles/teamDetail.module.css';
 import MemberList from './MemberList';
@@ -27,6 +30,7 @@ export interface TeamOptioins {
 
 const TeamDetail = ({ teamId }: { teamId: number }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [teamData, setTeamData] = useState<TeamOptioins>();
 
@@ -112,6 +116,11 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           <h3 className={style.subTitle}>목장원</h3>
           <MemberList member={teamData?.member} />
         </section>
+      </section>
+
+      <section className={style.buttonWrap}>
+        <JoinTeamButton teamId={teamData?.id} />
+        <TeamButton type={'button'} value={'취소'} onClick={router.back} />
       </section>
     </section>
   );

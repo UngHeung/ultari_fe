@@ -1,9 +1,9 @@
 import {
-  contentTypeOptions,
-  visibilityOptions,
+  ContentTypeOptions,
+  VisibilityOptions,
 } from '../interfaces/postInterfaces';
 
-export function getVisibilityType(visibility: visibilityOptions) {
+export function getVisibilityType(visibility: VisibilityOptions) {
   switch (visibility) {
     case 'SCOPE_PUBLIC':
       return '전체공개';
@@ -14,7 +14,7 @@ export function getVisibilityType(visibility: visibilityOptions) {
   }
 }
 
-export function getPostType(contentType: contentTypeOptions) {
+export function getPostType(contentType: ContentTypeOptions) {
   switch (contentType) {
     case 'TYPE_FREE':
       return '자유';

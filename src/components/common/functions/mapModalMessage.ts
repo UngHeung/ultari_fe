@@ -19,8 +19,12 @@ function mapModalMessage(data: ModalState) {
     }
   }
 
-  if (title.startsWith('팀')) {
-    return '';
+  if (title.startsWith('목장')) {
+    if ((title.endsWith('신청'), data.success)) {
+      return '신청이 완료되었습니다.';
+    } else {
+      return '문제가 발생했습니다.';
+    }
   }
 
   return '서버에 문제가 발생했습니다';

@@ -58,11 +58,11 @@ const ListItem = (props: PostOptions, key: number) => {
 
           <section className={style.informationWrap}>
             <section className={style.typesWrap}>
-              <span className={style.visibility}>
-                {getVisibilityType(props.visibility)}
-              </span>
               <span className={style.type}>
                 {getPostType(props.contentType)}
+              </span>
+              <span className={style.visibility}>
+                {getVisibilityType(props.visibility)}
               </span>
             </section>
 
