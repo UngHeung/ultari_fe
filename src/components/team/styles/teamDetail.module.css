@@ -140,6 +140,13 @@
   gap: 10px;
 }
 
+.buttonWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--margin-content);
+}
+
 @media (max-width: 550px) {
   .memberListWrap {
     grid-template-columns: minmax(250px, auto);

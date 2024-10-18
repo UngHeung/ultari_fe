@@ -28,11 +28,11 @@ const TeamList = () => {
               <Link href={`detail/${team.id}`}>
                 <div>
                   <strong className={style.teamName}>{team.name}</strong>
-                  <span className={style.teamCommunity}>{team.community}</span>
+                  <span className={style.teamCommunity}>{team?.community}</span>
                   <span className={style.teamCreateAt}>{createAt}</span>
                   <span
                     className={style.teamLeader}
-                  >{`목자 : ${team.leader.name}`}</span>
+                  >{`목자 : ${team.leader?.name}`}</span>
                 </div>
               </Link>
             </li>
