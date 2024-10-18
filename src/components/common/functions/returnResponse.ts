@@ -10,6 +10,7 @@ export function makeResponseResult(
   { status, data, message }: AxiosResponse & { message?: string },
   requestName?: string,
 ): ResultDataOptions {
+  const responseMessage = message;
   const result: ResultDataOptions = {
     success: false,
     message: message ?? '',
@@ -20,7 +21,7 @@ export function makeResponseResult(
     result.success = true;
     result.message = `${requestName ? requestName + ' ' : ''}요청 성공`;
   } else if (status === 400) {
-    result.message = '잘못된 요청입니다.';
+    result.message = '잘못된 요청입니다.\n';
   } else if (status === 401 || status === 403) {
     result.message = '접근 권한이 없습니다.';
   } else if (status === 404) {
@@ -35,7 +36,7 @@ export function makeResponseResult(
     result.message = '서버에 문제가 발생했습니다.';
   }
 
-  result.message += message ? `\n(${message})` : '';
+  result.message += message ? `\n(${responseMessage})` : '';
 
   return result;
 }
