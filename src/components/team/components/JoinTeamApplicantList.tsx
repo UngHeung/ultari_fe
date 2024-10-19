@@ -4,13 +4,14 @@ import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import { SetStateAction } from 'react';
 import style from '../styles/joinTeamApplicant.module.css';
 import JoinTeamApplicantItem from './JoinTeamApplicantItem';
+import { TeamOptioins } from './TeamDetail';
 
 const JoinTeamApplicantList = ({
-  teamId,
+  teamData,
   applicantList,
   setApplicantList,
 }: {
-  teamId: number;
+  teamData: TeamOptioins;
   applicantList: UserOptions[];
   setApplicantList: React.Dispatch<SetStateAction<UserOptions[]>>;
 }) => {
@@ -22,11 +23,13 @@ const JoinTeamApplicantList = ({
           applicantList.map((applicant, idx) => {
             return (
               <li className={style.applicantItem} key={idx}>
-                <JoinTeamApplicantItem
-                  setApplicantList={setApplicantList}
-                  applicant={applicant}
-                  teamId={teamId}
-                />
+                {
+                  <JoinTeamApplicantItem
+                    setApplicantList={setApplicantList}
+                    applicant={applicant}
+                    teamData={teamData}
+                  />
+                }
               </li>
             );
           })
