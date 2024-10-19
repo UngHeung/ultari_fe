@@ -1,8 +1,6 @@
-import defaultProfile from '@/public/images/profile_default.png';
-import Image from 'next/image';
-import style from '../styles/teamDetail.module.css';
+import UserProfile from '@/components/user/components/UserProfile';
 import { UserOptions } from '../../auth/interfaces/authInterface';
-import { profilePath } from '@/components/common/constants/pathConst';
+import style from '../styles/teamDetail.module.css';
 
 const MemberList = ({ member }: { member?: UserOptions[] }) => {
   return (
@@ -12,18 +10,7 @@ const MemberList = ({ member }: { member?: UserOptions[] }) => {
           return (
             <li key={idx}>
               <div className={style.profileWrap}>
-                <span className={style.memberProfile}>
-                  <Image
-                    src={
-                      member?.profile?.path
-                        ? `${profilePath}/${member?.profile?.path}`
-                        : defaultProfile
-                    }
-                    alt={'목장원_프로필'}
-                    width={25}
-                    height={25}
-                  />
-                </span>
+                <UserProfile path={member?.profile?.path} size={25} />
                 <span className={style.memberName}>{member.name}</span>
               </div>
             </li>

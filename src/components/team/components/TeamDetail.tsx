@@ -1,8 +1,4 @@
-import {
-  defaultProfile,
-  profilePath,
-} from '@/components/common/constants/pathConst';
-import Image from 'next/image';
+import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -13,6 +9,7 @@ import JoinTeamButton from '../elements/JoinTeamButton';
 import TeamButton from '../elements/TeamButton';
 import handleGetTeamById from '../handlers/handleGetTeamById';
 import style from '../styles/teamDetail.module.css';
+import JoinTeamApplicantList from './JoinTeamApplicantList';
 import MemberList from './MemberList';
 
 export interface TeamOptioins {
@@ -68,18 +65,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
         <section className={style.leaderWrap}>
           <h3 className={style.subTitle}>목자</h3>
           <div className={style.profileWrap}>
-            <span className={style.leaderProfile}>
-              <Image
-                src={
-                  teamData?.leader.profile?.path
-                    ? `${profilePath}/${teamData?.leader?.profile.path}`
-                    : defaultProfile
-                }
-                width={30}
-                height={30}
-                alt={'목자_프로필'}
-              />
-            </span>
+            <UserProfile path={teamData?.leader.profile?.path} size={30} />
             <span className={style.leaderName}>{teamData?.leader.name}</span>
           </div>
         </section>
@@ -88,15 +74,9 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           <h3 className={style.subTitle}>부목자</h3>
           <div className={style.profileWrap}>
             <span className={style.leaderProfile}>
-              <Image
-                src={
-                  teamData?.subLeader?.profile?.path
-                    ? `${profilePath}/${teamData?.subLeader?.profile.path}`
-                    : defaultProfile
-                }
-                alt={'부목자_프로필'}
-                width={30}
-                height={30}
+              <UserProfile
+                path={teamData?.subLeader?.profile?.path}
+                size={30}
               />
             </span>
             <span
@@ -117,6 +97,8 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           <MemberList member={teamData?.member} />
         </section>
       </section>
+
+      {<JoinTeamApplicantList teamId={teamId} />}
 
       <section className={style.buttonWrap}>
         <JoinTeamButton teamId={teamData?.id} />
