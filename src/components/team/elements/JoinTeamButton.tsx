@@ -1,14 +1,20 @@
 import { authAxios } from '@/apis/axiosInstance';
+import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TeamButton from './TeamButton';
-import { setUser } from '@/components/stores/reducer/userReducer';
 
-const JoinTeamButton = ({ teamId }: { teamId?: number }) => {
+const JoinTeamButton = ({
+  teamId,
+  setApplicantList,
+}: {
+  teamId?: number;
+  setApplicantList: React.Dispatch<SetStateAction<UserOptions[]>>;
+}) => {
   const dispatch = useDispatch();
 
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -35,9 +41,8 @@ const JoinTeamButton = ({ teamId }: { teamId?: number }) => {
     };
 
     modalData.message = mapModalMessage(modalData);
-
-    dispatch(setUser(data));
     dispatch(setModal(modalData));
+    setApplicantList(prevList => [...prevList, data]);
     setDisabled(false);
   }
 

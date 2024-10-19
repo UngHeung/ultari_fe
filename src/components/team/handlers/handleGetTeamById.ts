@@ -2,10 +2,8 @@ import { authAxios } from '@/apis/axiosInstance';
 import axios from 'axios';
 
 async function handleGetTeamById(teamId: number) {
-  const url = `/team/${teamId}`;
-
   try {
-    const response = await authAxios.get(url);
+    const response = await authAxios.get(`/team/applicant/${teamId}`);
 
     return {
       status: response.status,
