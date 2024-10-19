@@ -1,10 +1,11 @@
+import { StaticImageData } from 'next/image';
 import React, { MouseEvent } from 'react';
 
 export interface BaseButtonOptions {
   id?: string;
   className?: string;
   type: 'submit' | 'button';
-  value: string | JSX.Element;
+  value: string | JSX.Element | StaticImageData;
   styleClass?: string;
   disabled?: boolean;
   autoFocus?: boolean;
