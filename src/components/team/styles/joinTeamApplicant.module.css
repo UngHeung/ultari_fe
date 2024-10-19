@@ -1,0 +1,52 @@
+.title {
+  margin-bottom: var(--margin-container);
+  font-size: var(--font-size-sub-title);
+  font-weight: 600;
+}
+
+.applicantList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--margin-content);
+  margin-bottom: var(--margin-container);
+}
+
+.applicantItem {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--margin-content);
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--background-linear-gradient);
+}
+
+.buttonWrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  padding: 0 10px;
+}
+
+.buttonWrap>button {
+  display: inline;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, .2);
+}
+
+.buttonWrap .approve {
+  object-fit: cover;
+  vertical-align: middle;
+}
