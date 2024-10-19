@@ -15,12 +15,10 @@ import TeamButton from '../elements/TeamButton';
 import style from '../styles/joinTeamApplicant.module.css';
 
 const JoinTeamApplicantItem = ({
-  applicantList,
   setApplicantList,
   applicant,
   teamId,
 }: {
-  applicantList: UserOptions[];
   setApplicantList: React.Dispatch<SetStateAction<UserOptions[]>>;
   applicant: UserOptions;
   teamId: number;
@@ -50,12 +48,11 @@ const JoinTeamApplicantItem = ({
 
     if (success) {
       if (isApprove) {
-        modalData.message = '가입 신청 완료';
-        setApplicantList([...applicantList, applicant]);
+        modalData.message = '가입 승인 완료';
       } else {
         modalData.message = `${connectorId === applicant.id ? '신청 취소' : '거절'} 완료`;
-        setApplicantList(
-          applicantList.filter(user => user.id !== applicant.id),
+        setApplicantList(prevList =>
+          prevList.filter(user => user.id !== applicant.id),
         );
       }
     }

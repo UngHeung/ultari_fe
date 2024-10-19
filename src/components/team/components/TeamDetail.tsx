@@ -18,6 +18,7 @@ export interface TeamOptioins {
   community: string;
   description?: string;
   member: UserOptions[];
+  applicants: UserOptions[];
   leader: UserOptions;
   subLeader: UserOptions;
   active: boolean;
@@ -30,12 +31,14 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
   const router = useRouter();
 
   const [teamData, setTeamData] = useState<TeamOptioins>();
+  const [applicantList, setApplicantList] = useState<UserOptions[]>([]);
 
   async function teamDetailProcess() {
     const { success, data, message } = await handleGetTeamById(teamId);
 
     if (success) {
       setTeamData(data);
+      setApplicantList(data.applicants ?? []);
     } else {
       const modalData: ModalState = {
         title: '에러',
@@ -98,10 +101,19 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
         </section>
       </section>
 
-      {<JoinTeamApplicantList teamId={teamId} />}
+      {teamData && (
+        <JoinTeamApplicantList
+          teamId={teamId}
+          applicantList={applicantList!}
+          setApplicantList={setApplicantList!}
+        />
+      )}
 
       <section className={style.buttonWrap}>
-        <JoinTeamButton teamId={teamData?.id} />
+        <JoinTeamButton
+          teamId={teamData?.id}
+          setApplicantList={setApplicantList!}
+        />
         <TeamButton type={'button'} value={'취소'} onClick={router.back} />
       </section>
     </section>
