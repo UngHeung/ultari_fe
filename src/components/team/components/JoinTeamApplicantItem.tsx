@@ -13,15 +13,16 @@ import React, { SetStateAction, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TeamButton from '../elements/TeamButton';
 import style from '../styles/joinTeamApplicant.module.css';
+import { TeamOptioins } from './TeamDetail';
 
 const JoinTeamApplicantItem = ({
   setApplicantList,
   applicant,
-  teamId,
+  teamData,
 }: {
   setApplicantList: React.Dispatch<SetStateAction<UserOptions[]>>;
   applicant: UserOptions;
-  teamId: number;
+  teamData: TeamOptioins;
 }) => {
   const dispatch = useDispatch();
 
@@ -32,7 +33,7 @@ const JoinTeamApplicantItem = ({
   async function approveOrDisapproveProcess(isApprove: boolean) {
     const { success, message } = await handleApproveOrDisApprove(
       isApprove,
-      teamId,
+      teamData.id,
       applicant.id,
     );
 
@@ -88,18 +89,23 @@ const JoinTeamApplicantItem = ({
       <strong>{applicant.name}</strong>
       <span>{applicant.community}</span>
       <section className={style.buttonWrap}>
-        <TeamButton
-          type={'button'}
-          value={approveImage}
-          onClick={() => approveOrDisapproveProcess(true)}
-          disabled={disabled}
-        />
-        <TeamButton
-          type={'button'}
-          value={disapprovedImage}
-          onClick={() => approveOrDisapproveProcess(false)}
-          disabled={disabled}
-        />
+        {teamData.leader.id === connectorId && (
+          <TeamButton
+            type={'button'}
+            value={approveImage}
+            onClick={() => approveOrDisapproveProcess(true)}
+            disabled={disabled}
+          />
+        )}
+        {(teamData.leader.id === connectorId ||
+          connectorId === applicant.id) && (
+          <TeamButton
+            type={'button'}
+            value={disapprovedImage}
+            onClick={() => approveOrDisapproveProcess(false)}
+            disabled={disabled}
+          />
+        )}
       </section>
     </>
   );

@@ -103,7 +103,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
 
       {teamData && (
         <JoinTeamApplicantList
-          teamId={teamId}
+          teamData={teamData}
           applicantList={applicantList!}
           setApplicantList={setApplicantList!}
         />
@@ -114,7 +114,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           teamId={teamData?.id}
           setApplicantList={setApplicantList!}
         />
-        <TeamButton type={'button'} value={'취소'} onClick={router.back} />
+        <TeamButton type={'button'} value={'뒤로가기'} onClick={router.back} />
       </section>
     </section>
   );
