@@ -24,7 +24,7 @@ async function handleUpdateMyData(event: FormEvent<HTMLFormElement>) {
         imageFormData,
       );
 
-      data.path = response.data.fileName;
+      data.profilePath = response.data.fileName;
     } catch (error: any) {
       return makeResponseResult(error);
     }
