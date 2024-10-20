@@ -31,6 +31,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
   const router = useRouter();
 
   const [teamData, setTeamData] = useState<TeamOptioins>();
+  const [memberList, setMemberList] = useState<UserOptions[]>([]);
   const [applicantList, setApplicantList] = useState<UserOptions[]>([]);
 
   async function teamDetailProcess() {
@@ -38,6 +39,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
 
     if (success) {
       setTeamData(data);
+      setMemberList(data.member ?? []);
       setApplicantList(data.applicants ?? []);
     } else {
       const modalData: ModalState = {
@@ -97,7 +99,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
 
         <section className={style.memberWrap}>
           <h3 className={style.subTitle}>목장원</h3>
-          <MemberList member={teamData?.member} />
+          <MemberList member={memberList} />
         </section>
       </section>
 
@@ -106,6 +108,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
           teamData={teamData}
           applicantList={applicantList!}
           setApplicantList={setApplicantList!}
+          setMemberList={setMemberList}
         />
       )}
 

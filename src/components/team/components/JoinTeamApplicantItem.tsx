@@ -17,10 +17,12 @@ import { TeamOptioins } from './TeamDetail';
 
 const JoinTeamApplicantItem = ({
   setApplicantList,
+  setMemberList,
   applicant,
   teamData,
 }: {
   setApplicantList: React.Dispatch<SetStateAction<UserOptions[]>>;
+  setMemberList: React.Dispatch<SetStateAction<UserOptions[]>>;
   applicant: UserOptions;
   teamData: TeamOptioins;
 }) => {
@@ -50,12 +52,14 @@ const JoinTeamApplicantItem = ({
     if (success) {
       if (isApprove) {
         modalData.message = '가입 승인 완료';
+        setMemberList(prevList => [...prevList, applicant]);
       } else {
         modalData.message = `${connectorId === applicant.id ? '신청 취소' : '거절'} 완료`;
-        setApplicantList(prevList =>
-          prevList.filter(user => user.id !== applicant.id),
-        );
       }
+
+      setApplicantList(prevList =>
+        prevList.filter(user => user.id !== applicant.id),
+      );
     }
 
     dispatch(setModal(modalData));
