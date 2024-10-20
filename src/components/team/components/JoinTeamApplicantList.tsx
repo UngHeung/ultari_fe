@@ -10,10 +10,12 @@ const JoinTeamApplicantList = ({
   teamData,
   applicantList,
   setApplicantList,
+  setMemberList,
 }: {
   teamData: TeamOptioins;
   applicantList: UserOptions[];
   setApplicantList: React.Dispatch<SetStateAction<UserOptions[]>>;
+  setMemberList: React.Dispatch<SetStateAction<UserOptions[]>>;
 }) => {
   return (
     <section>
@@ -26,6 +28,7 @@ const JoinTeamApplicantList = ({
                 {
                   <JoinTeamApplicantItem
                     setApplicantList={setApplicantList}
+                    setMemberList={setMemberList}
                     applicant={applicant}
                     teamData={teamData}
                   />
