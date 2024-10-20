@@ -1,7 +1,4 @@
-import {
-  defaultProfile,
-  profilePath,
-} from '@/components/common/constants/pathConst';
+import UserProfile from '@/components/user/components/UserProfile';
 import viewAndLike from '@/public/images/viewAndLike.png';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -94,17 +91,7 @@ const ListItem = (props: PostOptions, key: number) => {
             </section>
 
             <strong className={style.author}>
-              <Image
-                src={
-                  props.author.profile?.path
-                    ? `${profilePath}/${props.author.profile?.path}`
-                    : defaultProfile
-                }
-                width={20}
-                height={20}
-                style={{ objectFit: 'cover' }}
-                alt={'프로필'}
-              />
+              <UserProfile path={props.author.profile?.path} size={20} />
               {props.author!.name}
             </strong>
           </section>

@@ -1,8 +1,4 @@
-import {
-  defaultProfile,
-  profilePath,
-} from '@/components/common/constants/pathConst';
-import Image from 'next/image';
+import UserProfile from '@/components/user/components/UserProfile';
 import ImagesSlider from '../../common/ImagesSlider';
 import { PostState } from '../../stores/interfaces/stateInterface';
 import { getDate } from '../../team/components/TeamList';
@@ -20,17 +16,7 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
         <span>{getDate(postData?.createAt)}</span>
         <div className={style.author}>
           <span>
-            <Image
-              src={
-                postData.author.profile?.path
-                  ? `${profilePath}/${postData.author.profile?.path}`
-                  : defaultProfile
-              }
-              width={30}
-              height={30}
-              style={{ objectFit: 'cover' }}
-              alt={'프로필'}
-            />
+            <UserProfile path={postData.author.profile?.path} size={30} />
           </span>
           <span>{postData?.author.name}</span>
         </div>
