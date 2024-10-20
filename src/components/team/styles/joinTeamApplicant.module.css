@@ -1,5 +1,5 @@
 .title {
-  margin-bottom: var(--margin-container);
+  padding: var(--margin-container) 0;
   font-size: var(--font-size-sub-title);
   font-weight: 600;
 }

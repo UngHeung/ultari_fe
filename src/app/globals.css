@@ -72,6 +72,8 @@
     --background-color-modal: #f1f1f1;
     --background-color-modal-header: #d7d7d7;
     --background-color-blur: #e8e8e8;
+    --background-color-scrollbar: #e8e8e8;
+    --background-color-scrollbar-thumb: var(--font-color-basic);
 
     --filter-select-hover: brightness(90%);
     --filter-button-hover: brightness(90%);
@@ -103,6 +105,8 @@
     --background-color-modal: #191919;
     --background-color-modal-header: #272727;
     --background-color-blur: #1c1c1c;
+    --background-color-scrollbar: #1c1c1c;
+    --background-color-scrollbar-thumb: var(--font-color-basic);
 
     --filter-select-hover: brightness(140%);
     --filter-button-hover: brightness(140%);
@@ -160,8 +164,8 @@ main {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 3px;
+  width: 4px;
+  background-color: var(--background-color-scrollbar);
 }
 
 ::-webkit-scrollbar-thumb {
