@@ -1,9 +1,12 @@
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserOptions } from '../../auth/interfaces/authInterface';
-import { ModalState } from '../../stores/interfaces/stateInterface';
+import {
+  ModalState,
+  SliceOptions,
+} from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
 import JoinTeamButton from '../elements/JoinTeamButton';
 import TeamButton from '../elements/TeamButton';
@@ -33,6 +36,8 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
   const [teamData, setTeamData] = useState<TeamOptioins>();
   const [memberList, setMemberList] = useState<UserOptions[]>([]);
   const [applicantList, setApplicantList] = useState<UserOptions[]>([]);
+
+  const userId = useSelector((state: SliceOptions) => state.user.id);
 
   async function teamDetailProcess() {
     const { success, data, message } = await handleGetTeamById(teamId);
@@ -98,7 +103,9 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
         </section>
 
         <section className={style.memberWrap}>
-          <h3 className={style.subTitle}>목장원</h3>
+          <h3 className={style.subTitle}>
+            {`목장원(${teamData?.member.length})`}
+          </h3>
           <MemberList member={memberList} />
         </section>
       </section>
@@ -113,10 +120,13 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
       )}
 
       <section className={style.buttonWrap}>
-        <JoinTeamButton
-          teamId={teamData?.id}
-          setApplicantList={setApplicantList!}
-        />
+        {(userId !== teamData?.leader.id ||
+          userId !== teamData?.subLeader?.id) && (
+          <JoinTeamButton
+            teamId={teamData?.id}
+            setApplicantList={setApplicantList!}
+          />
+        )}
         <TeamButton type={'button'} value={'뒤로가기'} onClick={router.back} />
       </section>
     </section>
