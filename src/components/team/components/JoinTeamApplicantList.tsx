@@ -19,7 +19,7 @@ const JoinTeamApplicantList = ({
 }) => {
   return (
     <section>
-      <h3 className={style.title}>가입신청자</h3>
+      <h3 className={style.title}>{`가입신청자(${applicantList.length})`}</h3>
       <ul className={style.applicantList}>
         {applicantList.length > 0 ? (
           applicantList.map((applicant, idx) => {
