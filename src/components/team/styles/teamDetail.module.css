@@ -8,7 +8,6 @@
 .titleWrap {
   margin: var(--margin-container) 0;
   padding-bottom: var(--margin-content);
-  border-bottom: 2px solid var(--color-placeholder);
 }
 
 .teamName {
@@ -58,8 +57,6 @@
 .leaderWrap {
   grid-column: 1 / 1;
   grid-row: 1 / 1;
-  /* background-color: var(--background-color-card);
-  border: 1px solid var(--border-color-card); */
   border-radius: 20px;
 }
 
@@ -105,12 +102,14 @@
 }
 
 .memberList::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
+  background-color: var(--background-color-scrollbar);
+  filter: brightness(130%);
 }
 
 .memberList::-webkit-scrollbar-thumb {
-  background-color: var(--background-color-card-scroll);
-  border-radius: 3px;
+  border-radius: 2px;
+  background-color: var(--background-color-scrollbar-thumb);
   /* border-right: 5px solid var(--background-color-card); */
 }
 
@@ -142,7 +141,7 @@
 
 .buttonWrap {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: var(--margin-content);
 }
