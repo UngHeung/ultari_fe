@@ -22,6 +22,15 @@ export interface PostOptions {
   viewCount: number;
   author: UserOptions;
   images?: ImageOptions[];
+  comments?: CommentOptions[];
+  createAt: string;
+  updateAt: string;
+}
+
+export interface CommentOptions {
+  id: number;
+  writer: UserOptions;
+  content: string;
   createAt: string;
   updateAt: string;
 }

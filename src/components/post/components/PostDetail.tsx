@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import handleGetPost from '../handlers/handleGetPost';
 import DetailContent from './DetailContent';
 import DetailLikeCount from './DetailLikeCount';
+import CommentList from '../../comments/components/CommentList';
 
 const PostDetail = ({ postId }: { postId: number }) => {
   const [postData, setPostData] = useState<PostState>();
@@ -25,6 +26,9 @@ const PostDetail = ({ postId }: { postId: number }) => {
     <>
       {postData && <DetailContent postData={postData} />}
       {postData && <DetailLikeCount postData={postData} />}
+      {postData && postData.comments && (
+        <CommentList comments={postData.comments} />
+      )}
     </>
   );
 };
