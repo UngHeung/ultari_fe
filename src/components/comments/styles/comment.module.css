@@ -1,3 +1,7 @@
+.commentWrap {
+  width: 100%;
+}
+
 .commentList {
   width: 100%;
   max-width: 600px;
@@ -43,9 +47,8 @@
   font-size: var(--font-size-content);
 }
 
-.contentWrap>span {
+.contentWrap>pre {
   display: block;
-  text-align: left;
 }
 
 .dateWrap {
