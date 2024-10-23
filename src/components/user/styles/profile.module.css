@@ -5,3 +5,7 @@
   font-size: 0;
   overflow: hidden;
 }
+
+.profileWrap>img {
+  object-fit: cover;
+}

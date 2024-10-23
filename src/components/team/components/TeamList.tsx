@@ -1,3 +1,4 @@
+import getDate from '@/components/common/functions/getDate';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import handleTeamList from '../handlers/handleTeamList';
@@ -44,17 +45,5 @@ const TeamList = () => {
     </ul>
   );
 };
-
-export function getDate(dateData: string, type?: 'y-m-d' | 'y-m-d h:m:s') {
-  if (!dateData) return;
-
-  const [date, time] = dateData.toString().split('T');
-
-  if (type === 'y-m-d') {
-    return date;
-  }
-
-  return `${date} ${time.split('.')[0]}`;
-}
 
 export default TeamList;
