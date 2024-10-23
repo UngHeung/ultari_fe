@@ -1,10 +1,10 @@
 import UserProfile from '@/components/user/components/UserProfile';
 import ImagesSlider from '../../common/ImagesSlider';
 import { PostState } from '../../stores/interfaces/stateInterface';
-import { getDate } from '../../team/components/TeamList';
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
+import getDate from '@/components/common/functions/getDate';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   return (
