@@ -16,7 +16,7 @@ const UserProfile = ({ path, size }: { path?: string; size?: number }) => {
   }
 
   return (
-    <span className={style.profileWrap} style={{ widows: size, height: size }}>
+    <span className={style.profileWrap} style={{ width: size, height: size }}>
       <Image
         src={path ? `${prefix}${path}` : defaultProfile}
         alt={'유저 프로필'}
