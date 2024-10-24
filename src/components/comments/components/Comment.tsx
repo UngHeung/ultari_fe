@@ -16,7 +16,11 @@ const Comment = ({ postData }: { postData: PostOptions }) => {
 
   return (
     <section className={style.commentWrap}>
-      <CommentWriteForm type={'write'} setCommentList={setCommentList} />
+      <CommentWriteForm
+        type={'write'}
+        postId={postData.id}
+        setCommentList={setCommentList}
+      />
       <CommentList comments={commentList} setCommentList={setCommentList} />
     </section>
   );
