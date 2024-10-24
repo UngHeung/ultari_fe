@@ -54,11 +54,20 @@
 .dateWrap {
   width: 30%;
   text-align: right;
-  font-size: var(--font-size-comment);
 }
 
 .dateWrap>span {
   display: block;
+  font-size: var(--font-size-comment);
+  color: var(--color-placeholder);
+}
+
+.buttonWrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 .writeForm {
@@ -90,6 +99,12 @@
   height: 80px;
   resize: none;
   background-color: var(--background-color-input);
+  border-bottom: 3px solid var(--border-color-input);
+}
+
+.formContentWrap>textarea:hover,
+.formContentWrap>textarea:focus {
+  border-bottom-color: var(--focus-outline-basic);
 }
 
 .formButtonWrap {
