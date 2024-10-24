@@ -11,12 +11,12 @@ type CommentTypes = 'write' | 'update';
 
 const CommentWriteForm = ({
   type,
-  postId,
   setCommentList,
+  postId,
 }: {
   type: CommentTypes;
-  postId: number;
   setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
+  postId?: number;
 }) => {
   const dispatch = useDispatch();
 
