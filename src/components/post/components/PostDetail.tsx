@@ -26,7 +26,9 @@ const PostDetail = ({ postId }: { postId: number }) => {
     <>
       {postData && <DetailContent postData={postData} />}
       {postData && <DetailLikeCount postData={postData} />}
-      {postData && postData.comments && <Comment postData={postData} />}
+      {postData && postData.comments && (
+        <Comment comments={postData.comments} targetId={postId} />
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { BaseInputOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
+import { BaseInputOptions } from '@/components/common/interfaces/baseElementsInterfaces';
 import BaseInput from '../../common/BaseInput';
 import style from '../styles/input.module.css';
 

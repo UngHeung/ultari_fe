@@ -1,5 +1,5 @@
 import BaseButton from '@/components/common/BaseButton';
-import { BaseButtonOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
+import { BaseButtonOptions } from '@/components/common/interfaces/baseElementsInterfaces';
 import style from '../styles/selectedImageConfirmButton.module.css';
 
 export interface SelectedImageConfirmButton

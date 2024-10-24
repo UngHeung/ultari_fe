@@ -1,25 +1,24 @@
 import { useState } from 'react';
-import { BaseInputOptions } from './interfaces/baseElementsInterfaces';
+import { BaseTextareaOptions } from './interfaces/baseElementsInterfaces';
 
-const BaseInput = (props: BaseInputOptions) => {
+const BaseTextarea = (props: BaseTextareaOptions) => {
   const [baseValue, setBaseValue] = useState<string>(props.value ?? '');
 
   return (
-    <input
+    <textarea
       id={props.id}
-      name={props.name}
       className={`${props.className} ${props.styleClass}`}
-      type={props.type}
+      name={props.name}
       placeholder={props.placeholder}
       onChange={event =>
         props.setValue
           ? props.setValue(event.target.value)
-          : setBaseValue!(event.target.value)
+          : setBaseValue(event.target.value)
       }
-      value={baseValue}
-      readOnly={props.readOnly}
+      value={props.value ?? baseValue}
+      readOnly={props.readonly}
     />
   );
 };
 
-export default BaseInput;
+export default BaseTextarea;

@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, SetStateAction } from 'react';
 
 export interface BaseButtonOptions {
   id?: string;
@@ -19,6 +19,17 @@ export interface BaseInputOptions {
   placeholder?: string;
   value?: string;
   styleClass?: string;
-  setValue?: React.Dispatch<React.SetStateAction<string>>;
+  setValue?: React.Dispatch<SetStateAction<string>>;
   readOnly?: boolean;
+}
+
+export interface BaseTextareaOptions {
+  id?: string;
+  className?: string;
+  name: string;
+  placeholder?: string;
+  value?: string;
+  styleClass?: string;
+  setValue?: React.Dispatch<SetStateAction<string>>;
+  readonly?: boolean;
 }

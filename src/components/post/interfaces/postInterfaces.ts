@@ -2,7 +2,7 @@ import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import {
   BaseButtonOptions,
   BaseInputOptions,
-} from '@/components/common/interfaces/BaseElementsInterfaces';
+} from '@/components/common/interfaces/baseElementsInterfaces';
 import { ImageOptions } from '@/components/common/interfaces/commonInterface';
 import { UserState } from '@/components/stores/interfaces/stateInterface';
 

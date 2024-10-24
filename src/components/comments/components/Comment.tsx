@@ -1,24 +1,27 @@
 'use client';
 
-import {
-  CommentOptions,
-  PostOptions,
-} from '@/components/post/interfaces/postInterfaces';
+import { CommentOptions } from '@/components/post/interfaces/postInterfaces';
 import { useState } from 'react';
 import style from '../styles/comment.module.css';
 import CommentList from './CommentList';
 import CommentWriteForm from './CommentWriteForm';
 
-const Comment = ({ postData }: { postData: PostOptions }) => {
+const Comment = ({
+  comments,
+  targetId,
+}: {
+  comments: CommentOptions[];
+  targetId: number;
+}) => {
   const [commentList, setCommentList] = useState<CommentOptions[]>(
-    postData.comments ?? [],
+    comments ?? [],
   );
 
   return (
     <section className={style.commentWrap}>
       <CommentWriteForm
         type={'write'}
-        postId={postData.id}
+        id={targetId}
         setCommentList={setCommentList}
       />
       <CommentList comments={commentList} setCommentList={setCommentList} />

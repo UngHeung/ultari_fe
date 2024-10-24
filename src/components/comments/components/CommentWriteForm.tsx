@@ -1,4 +1,5 @@
 import { authAxios } from '@/apis/axiosInstance';
+import BaseTextarea from '@/components/common/BaseTextarea';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { CommentOptions } from '@/components/post/interfaces/postInterfaces';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
@@ -13,34 +14,45 @@ type CommentTypes = 'write' | 'update';
 const CommentWriteForm = ({
   type,
   setCommentList,
-  postId,
+  setIsModify,
+  id,
 }: {
   type: CommentTypes;
   setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
-  postId?: number;
+  setIsModify?: React.Dispatch<SetStateAction<boolean>>;
+  id?: number;
 }) => {
   const dispatch = useDispatch();
 
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [comment, setComment] = useState<string>('');
 
   async function writeCommentProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setDisabled(true);
 
-    const formData = new FormData(event.currentTarget);
     const commentData = {
-      postId,
-      content: formData.get('content') as string,
+      postId: id,
+      content: comment,
     };
 
     const { message, success, data } = await handleWriteComment(
       type,
       commentData,
+      id,
     );
 
     if (success) {
-      setCommentList(prevList => [...prevList, data]);
+      if (type === 'write') {
+        setCommentList(prevList => [data, ...prevList]);
+      } else {
+        setCommentList(prevList =>
+          prevList.map(item => (item.id === id ? (item = data) : item)),
+        );
+      }
+
+      setComment('');
     }
 
     const modalData: ModalState = {
@@ -55,6 +67,10 @@ const CommentWriteForm = ({
     dispatch(setModal(modalData));
 
     setDisabled(false);
+
+    if (setIsModify) {
+      setIsModify(false);
+    }
   }
 
   async function handleWriteComment(
@@ -63,8 +79,16 @@ const CommentWriteForm = ({
     id?: number,
   ) {
     try {
-      const url = type === 'write' ? '/post/comment' : `/post/${id}/comment}`;
-      const response = await authAxios.post(url, data);
+      let url;
+      let response;
+
+      if (type === 'write') {
+        url = '/post/comment';
+        response = await authAxios.post(url, data);
+      } else {
+        url = `/post/comment/${id}`;
+        response = await authAxios.patch(url, data);
+      }
 
       return makeResponseResult(response, '댓글등록');
     } catch (error: any) {
@@ -75,8 +99,12 @@ const CommentWriteForm = ({
   return (
     <form onSubmit={writeCommentProcess} className={style.writeForm}>
       <section className={style.formContentWrap}>
-        <h3>댓글</h3>
-        <textarea name="content" id="content"></textarea>
+        <BaseTextarea
+          name={'content'}
+          setValue={setComment}
+          value={comment}
+          placeholder={'댓글 남기기'}
+        />
       </section>
       <section className={style.formButtonWrap}>
         <CommentButton disabled={disabled} type={'submit'} value={'저장'} />
