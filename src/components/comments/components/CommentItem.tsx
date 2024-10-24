@@ -8,6 +8,7 @@ import { setModal } from '@/components/stores/reducer/modalRducer';
 import UserProfile from '@/components/user/components/UserProfile';
 import { SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import CommentButton from '../elements/CommentButton';
 import style from '../styles/comment.module.css';
 import CommentWriteForm from './CommentWriteForm';
 
@@ -75,16 +76,19 @@ const CommentItem = ({
         <span>{title}</span>
         <span>{date}</span>
       </div>
-      <button
+
+      <CommentButton
         disabled={disabled}
-        type="button"
+        type={'button'}
+        value={'수정'}
         onClick={() => setIsModify(prev => !prev)}
-      >
-        수정
-      </button>
-      <button disabled={disabled} type="button" onClick={deleteCommentProcess}>
-        삭제
-      </button>
+      />
+      <CommentButton
+        disabled={disabled}
+        type={'button'}
+        value={'삭제'}
+        onClick={deleteCommentProcess}
+      />
       {isModify && (
         <CommentWriteForm type={'update'} setCommentList={setCommentList} />
       )}
