@@ -60,3 +60,49 @@
 .dateWrap>span {
   display: block;
 }
+
+.writeForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+  padding: var(--margin-container) 0;
+}
+
+.formContentWrap {
+  display: inline-block;
+  width: calc(80% - 10px);
+  margin-right: 10px;
+  font-size: 0;
+}
+
+.formContentWrap>h3 {
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: var(--font-size-content);
+}
+
+.formContentWrap>textarea {
+  width: 100%;
+  padding: 10px;
+  height: 80px;
+  resize: none;
+  background-color: var(--background-color-input);
+}
+
+.formButtonWrap {
+  display: inline-block;
+  width: 20%;
+}
+
+.formButtonWrap>button {
+  width: 100%;
+  height: 80px;
+  background-color: var(--background-color-button);
+}
+
+.formButtonWrap>button:hover {
+  filter: var(--filter-button-hover);
+}
