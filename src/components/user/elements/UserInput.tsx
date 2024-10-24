@@ -1,5 +1,5 @@
 import BaseInput from '@/components/common/BaseInput';
-import { BaseInputOptions } from '@/components/common/interfaces/BaseElementsInterfaces';
+import { BaseInputOptions } from '@/components/common/interfaces/baseElementsInterfaces';
 import style from '../styles/input.module.css';
 
 export interface UserInputOptions extends BaseInputOptions {

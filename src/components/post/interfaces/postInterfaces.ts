@@ -2,7 +2,7 @@ import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import {
   BaseButtonOptions,
   BaseInputOptions,
-} from '@/components/common/interfaces/BaseElementsInterfaces';
+} from '@/components/common/interfaces/baseElementsInterfaces';
 import { ImageOptions } from '@/components/common/interfaces/commonInterface';
 import { UserState } from '@/components/stores/interfaces/stateInterface';
 
@@ -22,6 +22,15 @@ export interface PostOptions {
   viewCount: number;
   author: UserOptions;
   images?: ImageOptions[];
+  comments?: CommentOptions[];
+  createAt: string;
+  updateAt: string;
+}
+
+export interface CommentOptions {
+  id: number;
+  writer: UserOptions;
+  content: string;
   createAt: string;
   updateAt: string;
 }

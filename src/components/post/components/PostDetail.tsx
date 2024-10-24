@@ -1,3 +1,4 @@
+import Comment from '@/components/comments/components/Comment';
 import { PostState } from '@/components/stores/interfaces/stateInterface';
 import { setPost } from '@/components/stores/reducer/postReducer';
 import { useEffect, useState } from 'react';
@@ -25,6 +26,9 @@ const PostDetail = ({ postId }: { postId: number }) => {
     <>
       {postData && <DetailContent postData={postData} />}
       {postData && <DetailLikeCount postData={postData} />}
+      {postData && postData.comments && (
+        <Comment comments={postData.comments} targetId={postId} />
+      )}
     </>
   );
 };
