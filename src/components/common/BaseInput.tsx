@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BaseInputOptions } from './interfaces/BaseElementsInterfaces';
+import { BaseInputOptions } from './interfaces/baseElementsInterfaces';
 
 const BaseInput = (props: BaseInputOptions) => {
   const [baseValue, setBaseValue] = useState<string>(props.value ?? '');
