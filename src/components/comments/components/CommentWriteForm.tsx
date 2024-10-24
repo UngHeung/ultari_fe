@@ -11,9 +11,11 @@ type CommentTypes = 'write' | 'update';
 
 const CommentWriteForm = ({
   type,
+  postId,
   setCommentList,
 }: {
   type: CommentTypes;
+  postId: number;
   setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
 }) => {
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const CommentWriteForm = ({
 
     const formData = new FormData(event.currentTarget);
     const commentData = {
+      postId,
       content: formData.get('content') as string,
     };
 
