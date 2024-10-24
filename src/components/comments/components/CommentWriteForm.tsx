@@ -5,6 +5,7 @@ import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
 import React, { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import CommentButton from '../elements/CommentButton';
 import style from '../styles/comment.module.css';
 
 type CommentTypes = 'write' | 'update';
@@ -72,12 +73,13 @@ const CommentWriteForm = ({
   }
 
   return (
-    <form onSubmit={writeCommentProcess}>
-      <section className={style.contentWrap}>
+    <form onSubmit={writeCommentProcess} className={style.writeForm}>
+      <section className={style.formContentWrap}>
+        <h3>댓글</h3>
         <textarea name="content" id="content"></textarea>
       </section>
-      <section className={style.buttonWrap}>
-        <button disabled={disabled}>저장</button>
+      <section className={style.formButtonWrap}>
+        <CommentButton disabled={disabled} type={'submit'} value={'저장'} />
       </section>
     </form>
   );
