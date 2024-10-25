@@ -14,23 +14,19 @@ async function handleUpdateMyData(event: FormEvent<HTMLFormElement>) {
 
   const file: File = formData.get('profile') as File;
 
-  if (file.size > 0) {
-    const imageFormData = new FormData();
-    imageFormData.append('profile', file);
+  const imageFormData = new FormData();
+  imageFormData.append('profile', file);
 
-    try {
-      const response = await fileUploadAxios.post(
+  try {
+    if (file.size > 0) {
+      const profileResponse = await fileUploadAxios.post(
         '/user/profile',
         imageFormData,
       );
 
-      data.profilePath = response.data.fileName;
-    } catch (error: any) {
-      return makeResponseResult(error);
+      data.profilePath = profileResponse.data.fileName;
     }
-  }
 
-  try {
     const response = await authAxios.patch(`/user`, data);
 
     return makeResponseResult(response, '내정보수정');

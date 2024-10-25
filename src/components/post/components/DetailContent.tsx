@@ -1,10 +1,10 @@
+import getDate from '@/components/common/functions/getDate';
 import UserProfile from '@/components/user/components/UserProfile';
 import ImagesSlider from '../../common/ImagesSlider';
 import { PostState } from '../../stores/interfaces/stateInterface';
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
-import getDate from '@/components/common/functions/getDate';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   return (
@@ -22,13 +22,8 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
         </div>
       </section>
       <section className={style.contentWrap}>
-        {postData && postData.images && (
-          <ImagesSlider
-            folder={'post'}
-            images={postData.images}
-            width={600}
-            height={400}
-          />
+        {postData.images && postData.images?.length > 0 && (
+          <ImagesSlider folder={'post'} images={postData.images} />
         )}
         <pre className={style.content}>{postData?.content}</pre>
       </section>
