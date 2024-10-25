@@ -22,7 +22,7 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
         </div>
       </section>
       <section className={style.contentWrap}>
-        {postData && postData.images && (
+        {postData.images && postData.images?.length > 0 && (
           <ImagesSlider folder={'post'} images={postData.images} />
         )}
         <pre className={style.content}>{postData?.content}</pre>
