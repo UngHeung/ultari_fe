@@ -18,7 +18,7 @@ const Comment = ({
   );
 
   return (
-    <section className={style.commentWrap}>
+    <section className={style.commentListWrap}>
       <CommentWriteForm
         type={'write'}
         id={targetId}
