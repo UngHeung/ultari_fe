@@ -1,5 +1,4 @@
 import { authAxios } from '@/apis/axiosInstance';
-import BaseTextarea from '@/components/common/BaseTextarea';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { CommentOptions } from '@/components/post/interfaces/postInterfaces';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
@@ -7,6 +6,7 @@ import { setModal } from '@/components/stores/reducer/modalRducer';
 import React, { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import CommentButton from '../elements/CommentButton';
+import CommentTextarea from '../elements/CommentTextarea';
 import style from '../styles/comment.module.css';
 
 type CommentTypes = 'write' | 'update';
@@ -16,16 +16,20 @@ const CommentWriteForm = ({
   setCommentList,
   setIsModify,
   id,
+  value,
 }: {
   type: CommentTypes;
   setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
   setIsModify?: React.Dispatch<SetStateAction<boolean>>;
   id?: number;
+  value?: string;
 }) => {
   const dispatch = useDispatch();
 
   const [disabled, setDisabled] = useState<boolean>(false);
-  const [comment, setComment] = useState<string>('');
+  const [comment, setComment] = useState<string>(
+    type === 'update' ? (value ?? '') : '',
+  );
 
   async function writeCommentProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -99,7 +103,7 @@ const CommentWriteForm = ({
   return (
     <form onSubmit={writeCommentProcess} className={style.writeForm}>
       <section className={style.formContentWrap}>
-        <BaseTextarea
+        <CommentTextarea
           name={'content'}
           setValue={setComment}
           value={comment}
