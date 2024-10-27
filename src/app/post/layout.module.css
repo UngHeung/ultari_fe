@@ -1,3 +1,10 @@
+.postLayout {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .postWrap {
   width: 100%;
   max-width: 600px;
@@ -8,7 +15,7 @@
 
 .head {
   position: relative;
-  width: calc(100% + 32px);
+  width: 100%;
   padding: 10px 16px;
   background-color: #111111;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, .2);
@@ -26,16 +33,16 @@
 }
 
 .buttonWrap {
-  position: fixed;
+  position: absolute;
   right: 20px;
-  bottom: 60px;
+  bottom: calc(var(--height-footer) + 40px);
 }
 
 .buttonWrap>a {
   display: block;
   width: 60px;
   height: 60px;
-  padding-top: 5px;
+  padding-top: 10px;
   border-radius: 60px;
   background-color: #1e1e1e;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, .2);
