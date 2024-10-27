@@ -1,123 +1,102 @@
-.commentWrap {
+.commentListWrap {
   width: 100%;
 }
 
 .commentList {
-  width: 100%;
-  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+  width: 100%;
+}
+
+.listOpenButton {
+  position: relative;
+  width: 100%;
+  text-align: inherit;
+}
+
+.listOpenButton::after {
+  content: '더보기';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  box-sizing: border-box;
+  background: linear-gradient(0deg, #111111 10%, #11111188 60%);
 }
 
 .commentItem {
-  width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border-bottom: 1px solid var(--color-placeholder);
-  transition: border-bottom .3s;
-}
-
-.commentItem:hover {
-  border-bottom-color: var(--color-main-green);
-}
-
-.userInfoWrap {
   width: 100%;
-  text-align: left;
-  font-size: var(--font-size-comment);
+  padding: 10px;
+  background: linear-gradient(320deg, #111111 0%, #1e1e1e 100%);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, .2);
+  border-radius: 20px;
 }
 
-.userInfoWrap span {
-  vertical-align: -5.5px;
+.itemTop {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.userInfoWrap>strong {
-  margin-left: 5px;
-}
-
-.contentWrap {
-  width: calc(70% - 10px);
-  font-size: var(--font-size-content);
-}
-
-.contentWrap>pre {
-  display: block;
+.authorWrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 40%;
+  font-size: 16px;
+  font-weight: 600;
+  gap: 5px;
 }
 
 .dateWrap {
-  width: 30%;
+  width: calc(60% - 5px);
   text-align: right;
 }
 
 .dateWrap>span {
-  display: block;
-  font-size: var(--font-size-comment);
-  color: var(--color-placeholder);
+  display: inline-block;
+  font-size: 14px;
+  color: #767576;
+}
+
+.itemBottom {
+  position: relative;
+  width: 100%;
+}
+
+.contentWrap {
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+}
+
+.contentWrap>pre {
+  white-space: pre-wrap;
 }
 
 .buttonWrap {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
+  margin-top: 10px;
+  text-align: right;
 }
 
-.writeForm {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 10px;
-  width: 100%;
-  max-width: 600px;
-  padding: var(--margin-container) 0;
-}
-
-.formContentWrap {
-  display: inline-block;
-  width: calc(80% - 10px);
-  margin-right: 10px;
-  font-size: 0;
-}
-
-.formContentWrap>h3 {
-  margin-bottom: 10px;
-  font-weight: 600;
-  font-size: var(--font-size-content);
-}
-
-.formContentWrap>textarea {
-  width: 100%;
-  padding: 10px;
-  height: 80px;
-  resize: none;
-  background-color: var(--background-color-input);
-  border-bottom: 3px solid var(--border-color-input);
-}
-
-.formContentWrap>textarea:hover,
-.formContentWrap>textarea:focus {
-  border-bottom-color: var(--focus-outline-basic);
-}
-
-.formButtonWrap {
-  display: inline-block;
-  width: 20%;
-}
-
-.formButtonWrap>button {
-  width: 100%;
-  height: 80px;
-  background-color: var(--background-color-button);
-}
-
-.formButtonWrap>button:hover {
-  filter: var(--filter-button-hover);
+.buttonWrap>button {
+  margin-left: 5px;
 }
