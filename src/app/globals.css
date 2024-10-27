@@ -1,4 +1,5 @@
 @import url('https://fastly.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
 :root {
   color-scheme: light dark;
@@ -33,7 +34,7 @@
 
   --padding-button: 3px;
 
-  --font-family-basic: 'Wanted Sans';
+  --font-family-basic: 'Pretendard Variable';
 
   --font-size-12: .75rem;
   --font-size-14: .875rem;
