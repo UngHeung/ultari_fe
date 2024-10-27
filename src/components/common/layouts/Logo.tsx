@@ -1,21 +1,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { SetStateAction } from 'react';
 import getImageSrc from '../functions/getImageSrc';
 import style from '../styles/logo.module.css';
-import { SetStateAction } from 'react';
 
 export interface LogoOptions {
   id?: string;
   type: 'basic' | 'small';
   width?: string;
   height?: string;
-  setIsShow: React.Dispatch<SetStateAction<boolean>>;
+  setIsShow?: React.Dispatch<SetStateAction<boolean>>;
 }
 
 const Logo = ({ id, type, width, height, setIsShow }: LogoOptions) => {
   return (
     <Link
-      onClick={() => setIsShow(false)}
+      onClick={() => (setIsShow ? setIsShow(false) : null)}
       className={style.logoLink}
       href={'/'}
     >
