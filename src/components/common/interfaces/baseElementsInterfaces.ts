@@ -32,4 +32,5 @@ export interface BaseTextareaOptions {
   styleClass?: string;
   setValue?: React.Dispatch<SetStateAction<string>>;
   readonly?: boolean;
+  rows?: number;
 }

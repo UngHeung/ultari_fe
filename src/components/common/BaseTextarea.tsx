@@ -6,6 +6,7 @@ const BaseTextarea = (props: BaseTextareaOptions) => {
 
   return (
     <textarea
+      rows={props.rows}
       id={props.id}
       className={`${props.className} ${props.styleClass}`}
       name={props.name}
