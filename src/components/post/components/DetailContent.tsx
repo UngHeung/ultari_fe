@@ -1,4 +1,7 @@
+import userAuthentication from '@/components/common/functions/userAuthentication';
 import UserProfile from '@/components/user/components/UserProfile';
+import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
 import ImagesSlider from '../../common/ImagesSlider';
 import {
   PostState,
@@ -7,15 +10,12 @@ import {
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import userAuthentication from '@/components/common/functions/userAuthentication';
-import { useDispatch, useSelector } from 'react-redux';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const userId = useSelector((state: SliceOptions) => state.user.id);
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state.logged.isLoggedIn,
   );
@@ -49,6 +49,18 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
         >
           {'새 글 쓰기'}
         </button>
+        {postData.author.id === userId && (
+          <>
+            <div className={style.menuLine}></div>
+            <button
+              onClick={() => {
+                router.push(`/post/update/${postData.id}`);
+              }}
+            >
+              내 글 수정하기
+            </button>
+          </>
+        )}
       </section>
 
       <section className={style.main}>
