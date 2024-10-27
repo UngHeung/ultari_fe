@@ -1,88 +1,32 @@
 .mainHeader {
   position: fixed;
   top: 0;
-  width: var(--width-header);
-  height: var(--height-header);
-  background-color: var(--background-color-header);
+  width: 100%;
+  height: 56px;
+  background-color: #111111;
   z-index: 99999;
 }
 
 .headerWrap {
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: var(--margin-container);
-  width: 100%;
-  max-width: var(--max-width-1280);
-  margin: 0 auto;
-}
-
-.hamburger {
-  display: none;
-}
-
-.mobileMenuWrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--margin-content);
-}
-
-.logoWrap {
-  position: relative;
   width: 100%;
-  max-width: 200px;
+  max-width: 600px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
-.user {
-  position: absolute;
-  right: var(--margin-content);
+.mobileMenuWrap {
+  display: none;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  background-color: #111111;
 }
 
-.isLoggedIn,
-.isLoggedOut {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.line {
-  width: 2px;
-  height: 15px;
-  background-color: var(--font-color-basic);
-}
-
-/* .navWrap {} */
-
-@media (max-width: 800px) {
-
-  .hamburger {
-    position: absolute;
-    right: var(--margin-content);
-    display: block;
-  }
-
-  .mobileMenuWrap.isShow {
-    display: flex;
-  }
-
-  .mobileMenuWrap {
-    display: none;
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-    align-items: center;
-    position: absolute;
-    top: var(--height-header);
-    left: 0;
-    width: 100%;
-    height: calc(100vh - var(--height-header));
-    padding-top: var(--margin-container);
-    background-color: var(--background-color-header);
-  }
-
-  .user {
-    position: static;
-  }
+.isShow {
+  display: block;
 }
