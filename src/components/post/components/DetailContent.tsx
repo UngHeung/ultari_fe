@@ -1,4 +1,3 @@
-import getDate from '@/components/common/functions/getDate';
 import UserProfile from '@/components/user/components/UserProfile';
 import ImagesSlider from '../../common/ImagesSlider';
 import { PostState } from '../../stores/interfaces/stateInterface';
@@ -9,19 +8,23 @@ import style from '../styles/detail.module.css';
 const DetailContent = ({ postData }: { postData: PostState }) => {
   return (
     <>
-      <section className={style.titleWrap}>
+      <section className={style.head}>
         <h2 className={style.title}>{postData?.title}</h2>
-        <span>{mapContentType(postData?.contentType)}</span>
-        <span>{mapVisibility(postData?.visibility)}</span>
-        <span>{getDate(postData?.createAt)}</span>
-        <div className={style.author}>
+        <span className={style.type}>
+          {`#${mapContentType(postData?.contentType)}`}
+        </span>
+        <span className={style.visibility}>
+          {`#${mapVisibility(postData?.visibility)}`}
+        </span>
+        <div className={style.authorWrap}>
           <span>
-            <UserProfile path={postData.author.profile?.path} size={30} />
+            <UserProfile path={postData.author.profile?.path} size={25} />
           </span>
           <span>{postData?.author.name}</span>
         </div>
       </section>
-      <section className={style.contentWrap}>
+
+      <section className={style.main}>
         {postData.images && postData.images?.length > 0 && (
           <ImagesSlider folder={'post'} images={postData.images} />
         )}
