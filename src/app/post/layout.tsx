@@ -48,7 +48,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
           <h2 className={style.title}>{title}</h2>
           <span className={style.description}>{description}</span>
         </section>
-        {children}
+        <section>{children}</section>
       </section>
       <section className={style.buttonWrap}>
         {!position.includes('write') && (
