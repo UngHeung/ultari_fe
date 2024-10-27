@@ -100,3 +100,47 @@
 .buttonWrap>button {
   margin-left: 5px;
 }
+
+.isEmpty {
+  margin-top: 20px;
+}
+
+/* write form */
+
+.writeForm {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0 10px;
+}
+
+.formContentWrap {
+  width: 100%;
+}
+
+.formContentWrap>textarea {
+  width: 100%;
+  height: auto;
+  padding: 4px 0;
+  border-bottom: 1px solid #767676;
+  font-size: 16px;
+  line-height: 20px;
+  transition: border .3s;
+  overflow: hidden;
+  resize: none;
+}
+
+.formContentWrap>textarea:hover,
+.formContentWrap>textarea:focus {
+  border-bottom-color: #ffffff;
+}
+
+.formButtonWrap {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  text-align: center;
+  font-size: 14px;
+}
