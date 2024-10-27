@@ -1,11 +1,12 @@
 .mainNav {
   width: 100%;
-  height: var(--height-header);
+  height: calc(100vh - var(--height-header) - var(--height-footer));
 }
 
 .mainNavUl {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   position: relative;
@@ -16,20 +17,4 @@
   font-size: 1.3rem;
   font-weight: 600;
   line-height: var(--height-header);
-}
-
-@media (max-width: 800px) {
-
-  .mainNav {
-    height: auto;
-  }
-
-  .mainNavUl.isShow {
-    display: flex;
-  }
-
-  .mainNavUl {
-    flex-direction: column;
-    gap: 0;
-  }
 }
