@@ -1,23 +1,33 @@
+.menuWrap {
+  border-top: 1px solid #212121;
+}
+
 .menuList {
+  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 5px;
-  font-size: 0;
-}
-
-.menuItem {
-  position: relative;
-  height: fit-content;
+  gap: 7px;
+  width: calc(100% + 32px);
+  max-width: calc(600px);
+  margin: 0 auto;
+  height: 30px;
+  padding: 4px 16px;
+  background-color: #111111;
 }
 
 .listLine {
-  width: 2px;
-  height: 2px;
-  border-radius: 1px;
-  background-color: var(--font-color-basic);
+  width: 1px;
+  height: 6px;
+  background-color: #767676;
 }
 
 .button {
-  border: none;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .menuList {
+    left: -32px;
+  }
 }

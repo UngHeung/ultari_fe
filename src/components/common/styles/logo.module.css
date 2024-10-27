@@ -1,7 +1,7 @@
 .logoLink {
   display: block;
   width: 100%;
-  height: var(--height-header);
+  height: auto;
   text-align: center;
 }
 

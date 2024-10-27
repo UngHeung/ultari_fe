@@ -11,6 +11,7 @@ import {
 import Modal from '../modal/Modal';
 import { SliceOptions } from '../stores/interfaces/stateInterface';
 import { setUser } from '../stores/reducer/userReducer';
+import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -23,7 +24,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const isLoggedIn: boolean = useSelector(
     (state: SliceOptions) => state.logged.isLoggedIn,
   );
-  const userName = useSelector((state: SliceOptions) => state.user.name);
+  const profile = useSelector((state: SliceOptions) => state.user.path);
 
   useEffect(() => {
     (async () => {
@@ -33,8 +34,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <Header userName={userName ?? '불러오기 오류'} isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} profile={profile ?? ''} />
       {children}
+      <Footer />
       {/* <Footer /> */}
       {modalIsShow && <Modal />}
     </>

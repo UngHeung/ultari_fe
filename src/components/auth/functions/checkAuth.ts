@@ -1,9 +1,9 @@
-import { PostPageType } from '@/app/post/layout';
+import { PostPagePosition } from '@/app/post/layout';
 import { TeamPageType } from '@/app/team/layout';
 import { UserPageType } from '@/app/user/layout';
 
 export function checkAuth(
-  type: PostPageType | TeamPageType | UserPageType,
+  type: PostPagePosition | TeamPageType | UserPageType,
   isLoggedIn: boolean,
 ) {
   if (

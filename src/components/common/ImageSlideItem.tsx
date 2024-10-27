@@ -29,7 +29,7 @@ const ImageSlideItem = ({
         className={styleClass}
         sizes={'100%'}
         style={{
-          objectFit: isCover ? 'cover' : 'contain',
+          objectFit: isCover ? 'contain' : 'cover',
           objectPosition: '50% 50%',
         }}
         onClick={toggleImageFit}

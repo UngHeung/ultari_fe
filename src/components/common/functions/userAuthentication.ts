@@ -6,7 +6,7 @@ import { MouseEvent } from 'react';
 function userAuthentication(
   isLoggedIn: boolean,
   dispatch: Dispatch,
-  event?: MouseEvent<HTMLAnchorElement>,
+  event?: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>,
 ) {
   if (!isLoggedIn) {
     event?.preventDefault();
