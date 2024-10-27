@@ -2,7 +2,30 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
 :root {
-  color-scheme: light dark;
+  --background-color-body: #111111;
+  --background-color-header: #111111;
+  --background-color-footer: #111111;
+  --background-color-input: #111111;
+  --background-color-select: #111111;
+  --background-color-button: #2a2a2a;
+  --background-color-modal: #191919;
+  --background-color-modal-header: #272727;
+  --background-color-blur: #1c1c1c;
+  --background-color-scrollbar: #1c1c1c;
+  --background-color-scrollbar-thumb: var(--font-color-basic);
+
+  --background-linear-gradient: linear-gradient(to right, var(--background-color-body), #222222);
+
+  --filter-select-hover: brightness(140%);
+  --filter-button-hover: brightness(140%);
+  --filter-list-hover: brightness(140%);
+
+  --border-color-input: #3a3a3a;
+  --border-color-select: #3a3a3a;
+  --border-color-option: #3a3a3a;
+  --border-color-container: #3a3a3a;
+  --border-color-content: #3a3a3a;
+  --border-color-card: #4c4c4c;
 
   --color-main-red: #fe3f42;
   --color-main-green: #67ab70;
@@ -25,8 +48,8 @@
   --width-header: 100%;
   --width-footer: 100%;
 
-  --height-header: 100px;
-  --height-footer: 100px;
+  --height-header: 56px;
+  --height-footer: 45px;
 
   --margin-container: 50px;
   --margin-title: 40px;
@@ -59,74 +82,12 @@
   --font-weight-button: 500;
   --font-weight-input: 500;
 
-  --background-linear-gradient: linear-gradient(to right, var(--background-color-body), #222222);
+  --font-color-basic: #f9f9f9;
+  --font-color-input: #f9f9f9;
+  --font-color-disabled: #4f4f4f;
+
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background-color-body: #f9f9f9;
-    --background-color-header: #ececec;
-    --background-color-footer: #ececec;
-    --background-color-input: #f9f9f9;
-    --background-color-select: #f9f9f9;
-    --background-color-button: #eaeaea;
-    --background-color-modal: #f1f1f1;
-    --background-color-modal-header: #d7d7d7;
-    --background-color-blur: #e8e8e8;
-    --background-color-scrollbar: #e8e8e8;
-    --background-color-scrollbar-thumb: var(--font-color-basic);
-
-    --filter-select-hover: brightness(90%);
-    --filter-button-hover: brightness(90%);
-    --filter-list-hover: brightness(97%);
-
-    --border-color-input: #d1d1d1;
-    --border-color-select: #d1d1d1;
-    --border-color-option: #ebebeb;
-    --border-color-container: #d1d1d1;
-    --border-color-content: #d1d1d1;
-    --border-color-card: #e1e1e1;
-
-    --font-color-basic: #121212;
-    --font-color-input: #121212;
-    --font-color-disabled: #b7b7b7;
-
-    --background-linear-gradient: linear-gradient(to right, var(--background-color-body), #e9e9e9);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color-body: #121212;
-    --background-color-header: #212121;
-    --background-color-footer: #212121;
-    --background-color-input: #121212;
-    --background-color-select: #121212;
-    --background-color-button: #2a2a2a;
-    --background-color-modal: #191919;
-    --background-color-modal-header: #272727;
-    --background-color-blur: #1c1c1c;
-    --background-color-scrollbar: #1c1c1c;
-    --background-color-scrollbar-thumb: var(--font-color-basic);
-
-    --filter-select-hover: brightness(140%);
-    --filter-button-hover: brightness(140%);
-    --filter-list-hover: brightness(140%);
-
-    --border-color-input: #3a3a3a;
-    --border-color-select: #3a3a3a;
-    --border-color-option: #3a3a3a;
-    --border-color-container: #3a3a3a;
-    --border-color-content: #3a3a3a;
-    --border-color-card: #4c4c4c;
-
-    --font-color-basic: #f9f9f9;
-    --font-color-input: #f9f9f9;
-    --font-color-disabled: #4f4f4f;
-
-    --background-linear-gradient: linear-gradient(to right, var(--background-color-body), #222222);
-  }
-}
 
 button:focus,
 a:focus {
@@ -165,8 +126,8 @@ main {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
-  background-color: var(--background-color-scrollbar);
+  width: 0px;
+  /* background-color: var(--background-color-scrollbar); */
 }
 
 ::-webkit-scrollbar-thumb {
