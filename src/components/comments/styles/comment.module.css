@@ -1,14 +1,16 @@
 .commentListWrap {
   width: 100%;
+  padding: 0 16px;
 }
 
 .commentList {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  align-content: space-between;
   align-items: center;
-  gap: 10px;
   width: 100%;
+  gap: 10px;
 }
 
 .listOpenButton {
@@ -39,7 +41,6 @@
 .commentItem {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 10px;
@@ -52,6 +53,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -68,6 +71,7 @@
 
 .dateWrap {
   width: calc(60% - 5px);
+  max-width: 120px;
   text-align: right;
 }
 

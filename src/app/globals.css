@@ -2,7 +2,8 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
 :root {
-  --background-color-body: #111111;
+  /* background-color */
+  --background-color-body: #2c2c2c;
   --background-color-header: #111111;
   --background-color-footer: #111111;
   --background-color-input: #111111;
@@ -13,13 +14,22 @@
   --background-color-blur: #1c1c1c;
   --background-color-scrollbar: #1c1c1c;
   --background-color-scrollbar-thumb: var(--font-color-basic);
+  --background-color-cover: rgba(0, 0, 0, .5);
 
-  --background-linear-gradient: linear-gradient(to right, var(--background-color-body), #222222);
+  --background-list-item: linear-gradient(320deg, #111111 0%, #1e1e1e 100%);
 
+  /* focus */
+  --focus-outline-basic: #939393;
+
+  /* box-shadow */
+  --box-shadow-basic: 3px 3px 5px rgba(0, 0, 0, .2);
+
+  /* filter */
   --filter-select-hover: brightness(140%);
   --filter-button-hover: brightness(140%);
   --filter-list-hover: brightness(140%);
 
+  /* border */
   --border-color-input: #3a3a3a;
   --border-color-select: #3a3a3a;
   --border-color-option: #3a3a3a;
@@ -27,22 +37,18 @@
   --border-color-content: #3a3a3a;
   --border-color-card: #4c4c4c;
 
+  /* common-color */
   --color-main-red: #fe3f42;
   --color-main-green: #67ab70;
   --color-success: #67ab70;
   --color-failure: #dc3636;
   --color-no-focus: #c5c5c5;
-
   --color-placeholder: #838383;
 
-  --background-color-cover: rgba(0, 0, 0, .5);
-
-  --focus-outline-basic: #939393;
-
+  /* width & height */
   --max-width-1280: 1280px;
   --max-width-1024: 1024px;
   --max-width-800: 800px;
-
   --min-width: 344px;
 
   --width-header: 100%;
@@ -51,12 +57,13 @@
   --height-header: 56px;
   --height-footer: 45px;
 
+  /* margin & padding */
   --margin-container: 50px;
   --margin-title: 40px;
   --margin-content: 20px;
-
   --padding-button: 3px;
 
+  /* font */
   --font-family-basic: 'Pretendard Variable';
 
   --font-size-12: .75rem;
@@ -110,8 +117,9 @@ main {
   max-width: 100%;
   min-width: var(--min-width);
   width: 100%;
-  margin: 0 auto;
-  padding: var(--height-header) 0 var(--height-footer) 0;
+  margin: var(--height-header) auto var(--height-footer);
+  height: calc(100vh - var(--height-header) - var(--height-footer));
+  overflow: hidden;
 }
 
 .a11y-hidden {
@@ -127,10 +135,11 @@ main {
 
 ::-webkit-scrollbar {
   width: 0px;
-  /* background-color: var(--background-color-scrollbar); */
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-main-red);
+  border-right: 2px solid #1e1e1e;
+  background-color: #5c5c5c;
   cursor: pointer;
 }

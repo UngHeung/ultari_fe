@@ -1,16 +1,19 @@
+.menuWrap {
+  border-top: 1px solid #212121;
+}
+
 .menuList {
   position: relative;
-  left: -16px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 7px;
   width: calc(100% + 32px);
-  margin-bottom: 10px;
+  max-width: calc(600px);
+  margin: 0 auto;
+  height: 30px;
   padding: 4px 16px;
   background-color: #111111;
-  border-top: 1px solid #212121;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, .2);
 }
 
 .listLine {
@@ -21,4 +24,10 @@
 
 .button {
   font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .menuList {
+    left: -32px;
+  }
 }

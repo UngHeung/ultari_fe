@@ -6,10 +6,15 @@
   align-items: center;
   gap: 10px;
   width: 100%;
+  height: calc(100vh - var(--height-header) - var(--height-footer) - 70px);
+  padding: 10px 16px var(--height-footer);
+  overflow: auto;
+  background-color: #1e1e1e;
 }
 
 .postList>li {
   width: 100%;
+  max-width: 600px;
 }
 
 /* post list item */
@@ -20,8 +25,8 @@
   align-items: center;
   width: 100%;
   padding: 10px;
-  background: linear-gradient(320deg, #111111 0%, #1e1e1e 100%);
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, .2);
+  background: var(--background-list-item);
+  box-shadow: var(--box-shadow-basic);
   border-radius: 20px;
 }
 

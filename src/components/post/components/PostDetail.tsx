@@ -4,6 +4,7 @@ import { setPost } from '@/components/stores/reducer/postReducer';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import handleGetPost from '../handlers/handleGetPost';
+import style from '../styles/detail.module.css';
 import DetailContent from './DetailContent';
 import DetailLikeCount from './DetailLikeCount';
 
@@ -23,13 +24,13 @@ const PostDetail = ({ postId }: { postId: number }) => {
   }, []);
 
   return (
-    <>
+    <div className={style.detailWrap}>
       {postData && <DetailContent postData={postData} />}
       {postData && <DetailLikeCount postData={postData} />}
       {postData && postData.comments && (
         <Comment comments={postData.comments} targetId={postId} />
       )}
-    </>
+    </div>
   );
 };
 
