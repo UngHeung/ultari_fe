@@ -134,7 +134,7 @@ main {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 0px;
   background-color: transparent;
 }
 
