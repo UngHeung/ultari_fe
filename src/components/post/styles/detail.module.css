@@ -90,3 +90,7 @@
 .button {
   display: none;
 }
+
+.buttonLabel {
+  cursor: pointer;
+}
