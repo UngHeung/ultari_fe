@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RoleTypes, UserOptions } from '../../auth/interfaces/authInterface';
@@ -64,6 +65,7 @@ const MyPageDetail = () => {
         setPassed={setPassed}
         passed={passed}
       />
+      <Link href={'/logout'}>로그아웃</Link>
     </section>
   );
 };
