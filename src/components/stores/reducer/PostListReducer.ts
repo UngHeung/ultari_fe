@@ -3,26 +3,23 @@ import { PostListState } from '../interfaces/stateInterface';
 
 const initialState: PostListState = {
   asc: {
-    list: [],
-    count: 0,
-    next: '',
+    data: [],
+    cursor: { id: -1, value: -1 },
   },
   desc: {
-    list: [],
-    count: 0,
-    next: '',
+    data: [],
+    cursor: { id: -1, value: -1 },
   },
   likes: {
-    list: [],
-    count: 0,
-    next: '',
+    data: [],
+    cursor: { id: -1, value: -1 },
   },
   views: {
-    list: [],
-    count: 0,
-    next: '',
+    data: [],
+    cursor: { id: -1, value: -1 },
   },
-  orderType: { value: 'DESC' },
+  orderBy: { value: 'DESC' },
+  sortBy: { value: 'id' },
   firstLoad: { value: true },
 };
 
@@ -43,7 +40,10 @@ export const postListSlice = createSlice({
       Object.assign(state.views, actions.payload);
     },
     setPostListOrderBy: (state, actions) => {
-      Object.assign(state.orderType, actions.payload);
+      Object.assign(state.orderBy, actions.payload);
+    },
+    setPostListSortBy: (state, actions) => {
+      Object.assign(state.sortBy, actions.payload);
     },
     setPostListFirstLoad: (state, actions) => {
       Object.assign(state.firstLoad, actions.payload);
@@ -57,6 +57,7 @@ export const {
   setPostListOrderByDesc,
   setPostListOrderByLikes,
   setPostListOrderByViews,
+  setPostListSortBy,
   setPostListOrderBy,
   setPostListFirstLoad,
   resetPostList,
