@@ -8,7 +8,6 @@
   justify-content: flex-start;
   width: 100px;
   background-color: var(--background-color-select);
-  border-bottom: 3px solid var(--border-color-select);
   color: var(--font-color-basic);
   font-size: var(--font-size-comment);
   overflow: hidden;
@@ -20,7 +19,6 @@
   position: relative;
   text-align: left;
   text-indent: 10px;
-  border-bottom: 3px solid var(--border-color-select);
   font-weight: 600;
   cursor: pointer;
 }

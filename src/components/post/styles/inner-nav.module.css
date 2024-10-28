@@ -1,0 +1,24 @@
+/* menu */
+.menuWrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 30px;
+  padding: 0 16px;
+  background-color: #111111;
+  border-top: 1px solid #212121;
+  font-size: 14px;
+}
+
+.menuWrap>button {
+  border: none;
+  line-height: 11px;
+}
+
+.menuLine {
+  width: 1px;
+  height: 16px;
+  background-color: #212121;
+}

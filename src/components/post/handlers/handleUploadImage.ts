@@ -4,7 +4,15 @@ import { makeResponseResult } from '@/components/common/functions/returnResponse
 const handleUploadImage = async (files: File[]) => {
   const formData = new FormData();
 
-  if (files.length > 5) {
+  if (!files) {
+    return {
+      success: false,
+      message: '이미지를 등록해주세요.',
+      data: null,
+    };
+  }
+
+  if (files?.length > 3) {
     return {
       success: false,
       message: '이미지는 최대 5장 까지만 업로드할 수 있습니다.',
