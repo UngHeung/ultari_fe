@@ -1,6 +1,5 @@
 import UserProfile from '@/components/user/components/UserProfile';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPost } from '../../stores/reducer/postReducer';
 import { getPostType } from '../functions/getPostContentType';
@@ -9,31 +8,6 @@ import style from '../styles/list.module.css';
 
 const ListItem = (props: PostOptions, key: number) => {
   const dispatch = useDispatch();
-  const [theme, setTheme] = useState<'dark' | 'light'>(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light',
-  );
-
-  function changeTheme(event: MediaQueryListEvent) {
-    if (event.matches) {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  }
-
-  useEffect(() => {
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', changeTheme);
-
-    return () => {
-      window
-        .matchMedia('(prefers-color-scheme: dark)')
-        .removeEventListener('change', changeTheme);
-    };
-  }, []);
 
   return (
     <>
