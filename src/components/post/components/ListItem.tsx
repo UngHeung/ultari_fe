@@ -86,9 +86,9 @@ const likeIcon = (
       d="M7.99999 12.8571L3.45427 8.30284C2.27713 7.12284 2.27713 5.20855 3.45427 4.02855C4.63141 2.84855 6.54284 2.84855 7.71998 4.02855L7.99999 4.30856L8.27999 4.02855C9.45713 2.84855 11.3686 2.84855 12.5457 4.02855C13.7228 5.20855 13.7228 7.12284 12.5457 8.30284L7.99999 12.8571Z"
       fill="#FF3C3C"
       stroke="#FF3C3C"
-      stroke-width="2"
-      stroke-miterlimit="10"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeMiterlimit="10"
+      strokeLinejoin="round"
     />
   </svg>
 );
