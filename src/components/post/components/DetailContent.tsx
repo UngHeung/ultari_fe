@@ -1,4 +1,3 @@
-import userAuthentication from '@/components/common/functions/userAuthentication';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +9,7 @@ import {
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
+import InnerNav from './InnerNav';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   const router = useRouter();
@@ -38,30 +38,14 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
         </div>
       </section>
 
-      <section className={style.menuWrap}>
-        <button onClick={router.back}>{backIcon}</button>
-        <div className={style.menuLine}></div>
-        <button
-          onClick={event => {
-            userAuthentication(isLoggedIn, dispatch, event);
-            router.push('/post/write');
-          }}
-        >
-          {'새 글 쓰기'}
-        </button>
-        {postData.author.id === userId && (
-          <>
-            <div className={style.menuLine}></div>
-            <button
-              onClick={() => {
-                router.push(`/post/update/${postData.id}`);
-              }}
-            >
-              내 글 수정하기
-            </button>
-          </>
-        )}
-      </section>
+      <InnerNav
+        router={router}
+        isLoggedIn={isLoggedIn}
+        dispatch={dispatch}
+        type={'detail'}
+        postData={postData}
+        userId={userId!}
+      />
 
       <section className={style.main}>
         {postData.images && postData.images?.length > 0 && (
@@ -74,21 +58,3 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
 };
 
 export default DetailContent;
-
-const backIcon = (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M13.5714 17.1429L6.42859 10L13.5714 2.85714"
-      stroke="white"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
-);
