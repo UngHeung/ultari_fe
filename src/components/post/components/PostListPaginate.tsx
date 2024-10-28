@@ -1,45 +1,55 @@
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
-import { OrderTypes } from '@/components/stores/constants/stateOptions';
+import {
+  OrderTypes,
+  SortTypes,
+} from '@/components/stores/constants/stateOptions';
+import { CursorOption } from '@/components/stores/interfaces/stateInterface';
 import { Dispatch } from '@reduxjs/toolkit';
 import React, { SetStateAction } from 'react';
+import fetchDataFromStoreOrServer from '../functions/fetchDataFromStoreOrServer';
 import mapDispatchToProps from '../functions/mapDispatchToProps';
-import moreFetchData from '../functions/moreFetchData';
-import { PostOptions } from '../interfaces/postInterfaces';
+import {
+  ContentTypeOptions,
+  PostOptions,
+  VisibilityOptions,
+} from '../interfaces/postInterfaces';
 
 const PostListPaginate = ({
   dispatch,
-  listOrderBy,
-  nextPath,
-  setNextPath,
-  postList,
+  orderBy,
+  sortBy,
+  cursor,
+  setCursor,
   setPostList,
+  scope,
+  type,
 }: {
   dispatch: Dispatch;
-  listOrderBy: { value: OrderTypes };
-  nextPath: string;
-  setNextPath: React.Dispatch<SetStateAction<string>>;
-  postList: PostOptions[];
+  orderBy: OrderTypes;
+  sortBy: SortTypes;
+  cursor: CursorOption;
+  setCursor: React.Dispatch<SetStateAction<CursorOption>>;
   setPostList: React.Dispatch<SetStateAction<PostOptions[]>>;
+  scope?: VisibilityOptions;
+  type?: ContentTypeOptions;
 }) => {
   async function paginateProcess() {
-    const orderBy = listOrderBy.value;
     try {
-      const postData = await moreFetchData(orderBy, nextPath);
-      const composeList = [...postList, ...postData?.list];
-      const dispatchData = {
-        list: composeList,
-        count: composeList.length,
-        next: postData.next ?? '',
-      };
+      const postData = await fetchDataFromStoreOrServer(
+        false,
+        'post',
+        sortBy,
+        10,
+        orderBy,
+        cursor,
+        scope,
+        type,
+      );
 
-      setPostList(composeList);
-      setNextPath(postData.next!);
+      setPostList(prevList => [...prevList, ...postData.data]);
+      setCursor(postData.cursor);
 
-      if (orderBy === 'DESC') {
-        mapDispatchToProps.desc(dispatch, dispatchData);
-      } else if (orderBy === 'ASC') {
-        mapDispatchToProps.asc(dispatch, dispatchData);
-      }
+      mapDispatchToProps(dispatch, postData.data, cursor, orderBy, sortBy);
     } catch (error: any) {
       makeResponseResult(error);
     }

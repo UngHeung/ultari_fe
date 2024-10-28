@@ -1,21 +1,39 @@
-import { GetPostListOptions } from '@/components/post/interfaces/postInterfaces';
 import {
+  OrderTypes,
+  SortTypes,
+} from '@/components/stores/constants/stateOptions';
+import { CursorOption } from '@/components/stores/interfaces/stateInterface';
+import {
+  setPostListOrderBy,
   setPostListOrderByAsc,
   setPostListOrderByDesc,
   setPostListOrderByLikes,
-  setPostListOrderByViews,
+  setPostListSortBy,
 } from '@/components/stores/reducer/PostListReducer';
 import { Dispatch } from '@reduxjs/toolkit';
 
-const mapDispatchToProps = {
-  desc: (dispatch: Dispatch, data: GetPostListOptions) =>
-    dispatch(setPostListOrderByDesc(data)),
-  asc: (dispatch: Dispatch, data: GetPostListOptions) =>
-    dispatch(setPostListOrderByAsc(data)),
-  likes: (dispatch: Dispatch, data: GetPostListOptions) =>
-    dispatch(setPostListOrderByLikes(data)),
-  views: (dispatch: Dispatch, data: GetPostListOptions) =>
-    dispatch(setPostListOrderByViews(data)),
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+  data: any[],
+  cursor: CursorOption,
+  orderBy: OrderTypes,
+  sortBy: SortTypes,
+) => {
+  if (orderBy === 'DESC') {
+    if (sortBy === 'id') {
+      dispatch(setPostListOrderByDesc({ data, cursor }));
+    } else if (sortBy === 'likeCount') {
+      dispatch(setPostListOrderByLikes({ data, cursor }));
+    }
+  } else {
+    if (sortBy === 'id') {
+      console.log('hi');
+      dispatch(setPostListOrderByAsc({ data, cursor }));
+    }
+  }
+
+  dispatch(setPostListSortBy(sortBy));
+  dispatch(setPostListOrderBy(orderBy));
 };
 
 export default mapDispatchToProps;

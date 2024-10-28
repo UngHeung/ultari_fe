@@ -1,5 +1,5 @@
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
-import { OrderdPostListState } from '@/components/stores/interfaces/stateInterface';
+import { CursorOption } from '@/components/stores/interfaces/stateInterface';
 import handleGetPostList from '../handlers/handleGetPostList';
 import {
   ContentTypeOptions,
@@ -9,36 +9,32 @@ import {
 import composeUrlQuery from './composeUrlQuery';
 
 async function fetchDataFromStoreOrServer(
+  firstFetch: boolean,
+  target: 'post' | 'comment' | 'user',
+  sort: string,
+  take: number,
   orderBy: OrderTypes,
-  listOrderType: OrderdPostListState,
-  visibility?: VisibilityOptions,
-  contentType?: ContentTypeOptions,
+  cursor: CursorOption,
+  scope?: VisibilityOptions,
+  type?: ContentTypeOptions,
 ): Promise<GetPostListOptions> {
-  const whereVisibility = 'where__visibility=';
-  const whereContentType = 'where__contentType=';
+  const url = composeUrlQuery(
+    firstFetch,
+    target,
+    sort,
+    take,
+    orderBy,
+    cursor,
+    scope,
+    type,
+  );
 
-  if (listOrderType.count) {
-    return {
-      list: listOrderType.list,
-      count: listOrderType.list.length,
-      next: listOrderType.next,
-    };
-  } else {
-    const url = composeUrlQuery(
-      true,
-      orderBy,
+  const { data } = await handleGetPostList(url);
 
-      `${visibility ? whereVisibility + visibility : ''}${visibility && contentType ? '&' : ''}${contentType ? whereContentType + contentType : ''}`,
-    );
-
-    const { data } = await handleGetPostList(url);
-
-    return {
-      list: data?.data ?? [],
-      count: data?.count ?? -1,
-      next: data?.next?.split('?')[1] || '',
-    };
-  }
+  return {
+    data: data.data ?? [],
+    cursor: data.nextCursor ?? { id: -1, value: -1 },
+  };
 }
 
 export default fetchDataFromStoreOrServer;

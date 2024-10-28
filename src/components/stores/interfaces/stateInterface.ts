@@ -1,7 +1,7 @@
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import { modalType } from '@/components/modal/constants/modalConst';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
-import { OrderTypes, RouterType } from '../constants/stateOptions';
+import { OrderTypes, RouterType, SortTypes } from '../constants/stateOptions';
 
 export interface SliceOptions {
   modal: ModalState;
@@ -25,9 +25,13 @@ export interface ModalState {
 export interface PostState extends PostOptions {}
 
 export interface OrderdPostListState {
-  list: PostState[];
-  count: number;
-  next: string;
+  data: PostState[];
+  cursor: CursorOption;
+}
+
+export interface CursorOption {
+  id: number;
+  value: number;
 }
 
 export interface PostListState {
@@ -35,7 +39,8 @@ export interface PostListState {
   desc: OrderdPostListState;
   likes: OrderdPostListState;
   views: OrderdPostListState;
-  orderType: { value: OrderTypes };
+  orderBy: { value: OrderTypes };
+  sortBy: { value: SortTypes };
   firstLoad: { value: boolean };
 }
 

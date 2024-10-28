@@ -54,9 +54,11 @@ export interface GetPostOptions {
 }
 
 export interface GetPostListOptions {
-  list: PostOptions[];
-  count: number;
-  next: string;
+  data: PostOptions[];
+  cursor: {
+    id: number;
+    value: number;
+  };
 }
 
 export type PostWriteTypes = 'new' | 'update';
