@@ -1,33 +1,11 @@
 .button {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 3px solid var(--background-color-button);
-  color: var(--font-color-basic);
-  font-size: var(--font-size-comment);
+  position: absolute;
+  top: 48px;
+  left: 16px;
+  width: 40px;
+  height: 35px;
+  background-color: #111111;
+  border-radius: 4px;
   text-align: center;
-  transition: border .3s;
-}
-
-.svg {
-  width: 20px;
-  height: 20px;
-}
-
-.button:hover,
-.button.confirmed {
-  border-color: var(--color-main-green)
-}
-
-.button .path,
-.button .rect {
-  fill: var(--background-color-button);
-  transition: fill .3s;
-}
-
-.button:hover .path,
-.button:hover .rect,
-.button.confirmed .path,
-.button.confirmed .rect {
-  fill: var(--color-main-green)
+  box-shadow: var(--box-shadow-basic);
 }

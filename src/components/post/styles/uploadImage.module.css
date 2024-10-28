@@ -10,21 +10,8 @@
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
-}
-
-.previewImageList::after {
-  content: '확정 완료';
-  position: absolute;
-  left: 0;
-  top: -20px;
   width: 100%;
-  height: 20px;
-  background-color: var(--background-color-body);
-  color: var(--font-color-basic);
-  font-size: var(--font-size-comment);
-  text-align: center;
-  line-height: 20px;
-  transition: top .3s;
+  padding-left: 50px;
 }
 
 .previewImageList.readOnly::after {
@@ -39,9 +26,9 @@
   overflow: hidden;
 }
 
-.previewImage::after {}
-
-.previewImage:hover::after {}
+.previewImage img {
+  object-fit: cover;
+}
 
 .previewImage * {
   font-size: inherit;
