@@ -1,24 +1,34 @@
 import { OrderTypes } from '@/components/stores/constants/stateOptions';
+import { CursorOption } from '@/components/stores/interfaces/stateInterface';
+import {
+  ContentTypeOptions,
+  VisibilityOptions,
+} from '../interfaces/postInterfaces';
 
 function composeUrlQuery(
   isFirstFetch: boolean,
-  orderBy?: OrderTypes,
-  findOptions?: string,
+  target: 'post' | 'comment' | 'user',
+  sort: string,
+  take: number,
+  orderBy: OrderTypes,
+  cursor: CursorOption,
+  scope?: VisibilityOptions,
+  type?: ContentTypeOptions,
 ): string {
-  const orderByCreateAt =
-    orderBy === 'ASC' || orderBy === 'DESC' ? orderBy : '';
+  const orderByQuery = `${target}?sort=${sort}&take=${take}&orderBy=${orderBy}`;
+  const cursorQuery =
+    cursor && cursor.id > 0 ? `&id=${cursor.id}&value=${cursor.value}` : '';
+  const typeQuery = `&scope=${scope}${type ? `&type=${type}` : ''}`;
 
   let url = '';
 
   if (isFirstFetch) {
-    url = `/post?order__createAt=${orderByCreateAt || 'DESC'}`;
-
-    if (findOptions) {
-      url += `&${findOptions}`;
-    }
+    url = `/${orderByQuery}${typeQuery}`;
   } else {
-    url = `/post?${findOptions}`;
+    url = `/${orderByQuery}${cursorQuery}${typeQuery}`;
   }
+
+  console.log('url : ', url);
 
   return url;
 }
