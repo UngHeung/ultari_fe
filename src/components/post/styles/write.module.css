@@ -102,6 +102,10 @@
   cursor: pointer;
 }
 
+.selectButton.disabled path {
+  fill: #565656;
+}
+
 .description {
   margin-bottom: 10px;
 }
