@@ -49,7 +49,7 @@ const ImageUploadForm = ({
     <>
       <form onSubmit={imageUploadProcess} className={style.imageUploadForm}>
         <section className={style.imageWrap}>
-          <section className={style.fileInputWrap}>
+          <div className={style.fileInputWrap}>
             <ImageInput
               useLabel={true}
               isMultiple={true}
@@ -68,7 +68,7 @@ const ImageUploadForm = ({
               }
               disabeld={confirmedImages}
             />
-          </section>
+          </div>
           <ImageBlobList
             selectedImageBlobs={selectedImageBlobs}
             setSelectedImageBlobs={setSelectedImageBlobs}
@@ -76,7 +76,6 @@ const ImageUploadForm = ({
             setSelectedFiles={setSelectedFiles}
             readOnly={confirmedImages}
           />
-          <section className={'fileUploadButtonWrap'}></section>
           <section>
             <SelectedImageConfirmButton
               type={'submit'}
