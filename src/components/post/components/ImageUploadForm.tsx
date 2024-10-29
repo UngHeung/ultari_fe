@@ -17,18 +17,20 @@ const ImageUploadForm = ({
   const dispatch = useDispatch();
 
   const [uploadDisabled, setUploadDisabled] = useState<boolean>(false);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>();
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedImageBlobs, setSelectedImageBlobs] = useState<string[]>([]);
   const [confirmedImages, setConfirmedImages] = useState<boolean>(false);
 
   async function imageUploadProcess(event: FormEvent) {
     event.preventDefault();
 
-    if (!confirmedImages) return;
-
     setUploadDisabled(true);
 
     const { success, message, data } = await handleUploadImage(selectedFiles!);
+
+    if (success) {
+      setConfirmedImages(true);
+    }
 
     setSelectedFilenames(data?.fileNames);
 
@@ -41,8 +43,8 @@ const ImageUploadForm = ({
       routerType: 'replace',
     };
 
-    dispatch(setModal(modalData));
     setUploadDisabled(false);
+    dispatch(setModal(modalData));
   }
 
   return (
@@ -53,7 +55,7 @@ const ImageUploadForm = ({
             <ImageInput
               useLabel={true}
               isMultiple={true}
-              labelStyleClass={style.selectButton}
+              labelStyleClass={`${style.selectButton}${confirmedImages || uploadDisabled ? ` ${style.disabled}` : ''}`}
               labelValue={addImageIcon}
               name={'images'}
               id={'imageUpload'}
@@ -66,7 +68,7 @@ const ImageUploadForm = ({
                   setSelectedImageBlobs,
                 )
               }
-              disabeld={confirmedImages}
+              disabeld={confirmedImages || uploadDisabled}
             />
           </div>
           <ImageBlobList
@@ -79,9 +81,8 @@ const ImageUploadForm = ({
           <section>
             <SelectedImageConfirmButton
               type={'submit'}
-              onClick={() => setConfirmedImages(prev => !prev)}
               confirmedImages={confirmedImages}
-              disabled={uploadDisabled}
+              disabled={selectedFiles.length <= 0 || confirmedImages}
             />
             <div
               style={{

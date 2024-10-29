@@ -9,3 +9,7 @@
   text-align: center;
   box-shadow: var(--box-shadow-basic);
 }
+
+.button:disabled path {
+  fill: #565656;
+}
