@@ -26,6 +26,7 @@
   position: relative;
   left: -16px;
   width: calc(100% + 32px);
+  z-index: 2;
 }
 
 .selectWrap {
@@ -94,6 +95,11 @@
   border-radius: 4px;
   text-align: center;
   box-shadow: var(--box-shadow-basic);
+  z-index: 2;
+}
+
+.fileInputWrap>label {
+  cursor: pointer;
 }
 
 .description {
