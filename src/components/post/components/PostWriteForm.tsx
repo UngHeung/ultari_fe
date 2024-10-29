@@ -62,7 +62,7 @@ const PostWriteForm = () => {
             name={'title'}
             styleClass={style.title}
             type={'text'}
-            placeholder={'제목'}
+            placeholder={'제목을 입력해주세요.'}
           />
 
           <div className={style.innerNavWrap}>
