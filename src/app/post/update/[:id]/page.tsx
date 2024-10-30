@@ -1,10 +1,11 @@
 'use client';
-import UpdatePostForm from '@/components/post/components/PostUpdateForm';
+
+import PostWriteForm from '@/components/post/components/PostWriteForm';
 
 const UpdatePage = () => {
   return (
     <>
-      <UpdatePostForm />
+      <PostWriteForm type={'update'} />
     </>
   );
 };
