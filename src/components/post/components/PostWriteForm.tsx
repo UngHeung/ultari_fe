@@ -1,6 +1,7 @@
 import CustomSelect from '@/components/common/elements/CustomSelect';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { FormEvent, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   ModalState,
@@ -39,13 +40,28 @@ export const visibleTypeSelectOptions: VisibilitySelectOptions[] = [
   { option: '비공개', data: 'SCOPE_PERSONAL' },
 ];
 
-const PostWriteForm = () => {
+const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const dispatch = useDispatch();
+  const updatePostId = pathname.split('/')[3];
 
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
   const [disabled, setDisabled] = useState<boolean>(false);
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.logged.isLoggedIn,
+  );
 
+  const post = useSelector((state: SliceOptions) => state.post);
   const user = useSelector((state: SliceOptions) => state.user);
+
+  useEffect(() => {
+    if (type === 'update') {
+      if (isLoggedIn && post.author.id !== user.id) {
+        router.replace(`/post/detail/${post.id}`);
+      }
+    }
+  }, []);
 
   async function postWriteProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -54,8 +70,9 @@ const PostWriteForm = () => {
 
     const { data, success, message } = await handleUploadPost(
       event,
-      'new',
+      type,
       selectedFilenames,
+      type === 'update' ? +updatePostId : undefined,
     );
 
     dispatch(setPost({ ...data, author: user }));
@@ -86,6 +103,7 @@ const PostWriteForm = () => {
             styleClass={style.title}
             type={'text'}
             placeholder={'제목을 입력해주세요.'}
+            value={type === 'update' ? post.title : ''}
           />
 
           <div className={style.innerNavWrap}>
@@ -95,12 +113,26 @@ const PostWriteForm = () => {
                 selectId={'postContentTypeSelect'}
                 name={'contentType'}
                 styleClass={style.selectType}
+                defaultSelect={
+                  type === 'update'
+                    ? contentTypeSelectOptions.findIndex(
+                        item => item.data === post.contentType,
+                      )
+                    : 0
+                }
               />
               <CustomSelect
                 selectOptions={visibleTypeSelectOptions}
                 selectId={'postVisibilitySelect'}
                 name={'visibility'}
                 styleClass={style.selectVisibility}
+                defaultSelect={
+                  type === 'update'
+                    ? visibleTypeSelectOptions.findIndex(
+                        item => item.data === post.visibility,
+                      )
+                    : 0
+                }
               />
             </section>
           </div>
@@ -111,6 +143,7 @@ const PostWriteForm = () => {
             id=""
             className={style.content}
             placeholder={'내용을 입력해주세요.'}
+            defaultValue={type === 'update' ? post.content : ''}
           />
         </section>
         <section className={style.buttonWrap}>

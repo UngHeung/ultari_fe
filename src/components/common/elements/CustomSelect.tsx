@@ -19,7 +19,7 @@ export interface CustomSelectOptions {
 
 const CustomSelect = (props: CustomSelectOptions) => {
   const { selectOptions, selectId, name, styleClass, defaultSelect } = props;
-  const defaultOption = selectOptions[defaultSelect ?? 0].option;
+  const defaultOption = selectOptions[defaultSelect ?? 0]?.option;
 
   const [selectedOption, setselectedOption] = useState<string>(defaultOption);
   const [selectionActive, setSelectionActive] = useState<boolean>(false);
@@ -72,7 +72,7 @@ const CustomSelect = (props: CustomSelectOptions) => {
                     setSelectionActive(false);
                   }
                 }}
-                defaultChecked={idx === 0 ? true : false}
+                defaultChecked={idx === defaultSelect ? true : false}
               />
             </li>
           );
