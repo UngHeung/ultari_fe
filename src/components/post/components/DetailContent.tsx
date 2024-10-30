@@ -1,4 +1,5 @@
 import ImagesSlider from '@/components/common/components/ImagesSlider';
+import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import useMenuBoxChildStore, {
   MenuBoxChildStore,
 } from '@/components/stores/menuboxChildrenStore';
@@ -19,10 +20,9 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+
   const userId = useSelector((state: SliceOptions) => state.user.id);
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
-  );
 
   const setMenuBox = useMenuBoxChildStore(
     (state: MenuBoxChildStore) => state.setChild,

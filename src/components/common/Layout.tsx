@@ -11,6 +11,7 @@ import {
 import Modal from '../modal/Modal';
 import SearchForm from '../post/components/SearchForm';
 import { SliceOptions } from '../stores/interfaces/stateInterface';
+import useLoggedStore, { LoggedStore } from '../stores/loggedStore';
 import { setUser } from '../stores/reducer/userReducer';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
@@ -20,11 +21,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+
   const modalIsShow = useSelector(
     (state: SliceOptions) => state.modal?.modalIsShow,
-  );
-  const isLoggedIn: boolean = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
   );
   const profile = useSelector((state: SliceOptions) => state.user.path);
 
@@ -63,6 +63,8 @@ async function handleReload(
     setRefreshToken(refreshToken);
 
     const userData = getUserDataFromToken();
+
+    console.log(userData);
 
     dispatch(setUser(userData));
   } catch (error) {

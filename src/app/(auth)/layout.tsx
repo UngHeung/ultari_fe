@@ -9,15 +9,14 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
+import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const [title, setTitle] = useState<string>('');
 
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state?.logged?.isLoggedIn,
-  );
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
 
   useEffect(() => {
     const type = pathname.slice(1);

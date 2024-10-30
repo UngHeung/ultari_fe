@@ -1,15 +1,11 @@
 import BaseButton from '@/components/common/elements/BaseButton';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
-import { setLogged } from '@/components/stores/reducer/loggedReducer';
+import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import { setModal } from '@/components/stores/reducer/modalRducer';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  ModalState,
-  SliceOptions,
-  UserState,
-} from '../../stores/interfaces/stateInterface';
+import { ModalState, UserState } from '../../stores/interfaces/stateInterface';
 import { setUser } from '../../stores/reducer/userReducer';
 import AuthInput from '../elements/AuthInput';
 import getUserDataFromToken from '../functions/getUserDataFromToken';
@@ -20,8 +16,9 @@ const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
+  const isLoggedIn = useSelector((state: LoggedStore) => state.isLoggedIn);
+  const setIsLoggedIn = useLoggedStore(
+    (state: LoggedStore) => state.setIsLoggedIn,
   );
 
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -37,7 +34,7 @@ const Login = () => {
       const userData: UserState = getUserDataFromToken();
 
       dispatch(setUser(userData));
-      dispatch(setLogged({ isLoggedIn: true }));
+      setIsLoggedIn(true);
     }
 
     const modalData: ModalState = {

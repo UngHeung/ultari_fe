@@ -1,4 +1,4 @@
-import { resetLogged } from '@/components/stores/reducer/loggedReducer';
+import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import { setModal } from '@/components/stores/reducer/modalRducer';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,10 @@ import handleLogout from '../handlers/handleLogout';
 
 const Logout = () => {
   const dispatch = useDispatch();
+
+  const resetIsLoggedIn = useLoggedStore(
+    (state: LoggedStore) => state.resetIsLoggedIn,
+  );
 
   useEffect(() => {
     logoutProcess();
@@ -28,7 +32,7 @@ const Logout = () => {
       leftPath: '/',
     };
 
-    dispatch(resetLogged());
+    resetIsLoggedIn();
 
     dispatch(setModal(modalData));
   }
