@@ -14,6 +14,7 @@ import { SliceOptions } from '../stores/interfaces/stateInterface';
 import { setUser } from '../stores/reducer/userReducer';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
+import MenuBox from './layouts/MenuBox';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
@@ -38,9 +39,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} profile={profile ?? ''} />
+      <MenuBox />
       {children}
       <Footer setIsSearching={setIsSearching} />
-      {/* <Footer /> */}
       {modalIsShow && <Modal />}
       {isSearching && <SearchForm setIsSearching={setIsSearching} />}
     </>
