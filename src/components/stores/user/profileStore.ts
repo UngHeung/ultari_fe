@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface ProfileStore {
   path: string;
@@ -16,6 +16,7 @@ const useProfileStore = create(
     }),
     {
       name: 'profile',
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 );

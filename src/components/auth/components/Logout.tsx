@@ -22,9 +22,6 @@ const Logout = () => {
   );
   const setModal = useModalStore((state: ModalStore) => state.setModal);
 
-  const clearLoggedStorage = useLoggedStore.persist.clearStorage;
-  const clearProfileStorage = useProfileStore.persist.clearStorage;
-
   useEffect(() => {
     logoutProcess();
   }, []);
@@ -45,9 +42,6 @@ const Logout = () => {
     resetUser();
     resetProfile();
     resetIsLoggedIn();
-
-    clearLoggedStorage();
-    clearProfileStorage();
 
     setModal(modalData);
   }

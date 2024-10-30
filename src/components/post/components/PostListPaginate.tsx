@@ -42,12 +42,6 @@ const PostListPaginate = ({
   const setPostListOrderByLikes = usePostListStore(
     (state: PostListStore) => state.setLikes,
   );
-  const setPostListOrderBy = usePostListStore(
-    (state: PostListStore) => state.setOrderBy,
-  );
-  const setPostListSortBy = usePostListStore(
-    (state: PostListStore) => state.setSortBy,
-  );
 
   async function paginateProcess() {
     try {
@@ -73,8 +67,6 @@ const PostListPaginate = ({
         setPostListOrderByDesc,
         setPostListOrderByLikes,
         setPostListOrderByAsc,
-        setPostListSortBy,
-        setPostListOrderBy,
       );
     } catch (error: any) {
       makeResponseResult(error);

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface LoggedStore {
   isLoggedIn: boolean;
@@ -16,6 +16,7 @@ const useLoggedStore = create(
     }),
     {
       name: 'logged',
+      storage: createJSONStorage(() => localStorage),
     },
   ),
 );
