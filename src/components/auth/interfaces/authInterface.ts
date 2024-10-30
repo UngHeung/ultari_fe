@@ -25,7 +25,6 @@ export interface UserOptions {
   community?: string;
   profile?: UserProfileOptions;
   role: RoleTypes;
-  isLoggedIn: boolean;
   team?: TeamOptioins;
   posts?: PostOptions[];
   likedPosts?: PostOptions[];

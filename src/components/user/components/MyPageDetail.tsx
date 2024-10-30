@@ -1,15 +1,14 @@
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { RoleTypes, UserOptions } from '../../auth/interfaces/authInterface';
-import { SliceOptions } from '../../stores/interfaces/stateInterface';
 import SecretInfoItem from '../SecretInfoItem';
 import style from '../styles/mypage.module.css';
 import UserProfile from './UserProfile';
 import VerifyPasswordFormAndLinkedUpdateForm from './VerifyPasswordFormAndLinkedUpdateForm';
 
 const MyPageDetail = () => {
-  const user = useSelector((state: SliceOptions) => state.user);
+  const user = useUserStore((state: UserStore) => state.user);
 
   const [passed, setPassed] = useState(user.account ? true : false);
   const [moreInformation, setMoreInformation] =

@@ -3,14 +3,12 @@ import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import useMenuBoxChildStore, {
   MenuBoxChildStore,
 } from '@/components/stores/menuboxChildrenStore';
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  PostState,
-  SliceOptions,
-} from '../../stores/interfaces/stateInterface';
+import { useDispatch } from 'react-redux';
+import { PostState } from '../../stores/interfaces/stateInterface';
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
@@ -21,8 +19,7 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
   const dispatch = useDispatch();
 
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
-
-  const userId = useSelector((state: SliceOptions) => state.user.id);
+  const userId = useUserStore((state: UserStore) => state.user.id);
 
   const setMenuBox = useMenuBoxChildStore(
     (state: MenuBoxChildStore) => state.setChild,

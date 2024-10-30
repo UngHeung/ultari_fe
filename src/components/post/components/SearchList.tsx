@@ -1,7 +1,6 @@
 import React, { SetStateAction } from 'react';
 import { PostOptions } from '../interfaces/postInterfaces';
 import style from '../styles/search.module.css';
-import { changeTextLikeKeyword } from './SearchForm';
 import SearchListItem from './SearchListItem';
 
 const SearchList = ({
@@ -25,24 +24,11 @@ const SearchList = ({
         <li className={style.message}>{'검색 결과가 없습니다.'}</li>
       ) : (
         searchList.map((item, idx) => {
-          const [titleStartWith, titleEndWith] = changeTextLikeKeyword(
-            item.title,
-            keyword,
-          );
-          const [contentStartWith, contentEndWith] = changeTextLikeKeyword(
-            item.content,
-            keyword,
-          );
-
           return (
             <SearchListItem
               key={idx}
               setIsSearching={setIsSearching}
               post={item}
-              titleStartWith={titleStartWith}
-              titleEndWith={titleEndWith}
-              contentStartWith={contentStartWith}
-              contentEndWith={contentEndWith}
               keyword={keyword}
             />
           );

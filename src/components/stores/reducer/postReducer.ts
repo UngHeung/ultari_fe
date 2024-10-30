@@ -17,7 +17,6 @@ const initialState: PostState = {
     phone: '',
     email: '',
     role: 'ROLE_USER',
-    isLoggedIn: false,
   },
   images: [],
   createAt: '',

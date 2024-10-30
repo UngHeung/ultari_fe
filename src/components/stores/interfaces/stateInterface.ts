@@ -2,12 +2,13 @@ import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import { modalType } from '@/components/modal/constants/modalConst';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes, RouterType, SortTypes } from '../constants/stateOptions';
+import { UserStoreOption } from '../user/userStore';
 
 export interface SliceOptions {
   modal: ModalState;
   post: PostState;
   postList: PostListState;
-  user: UserState;
+  user: UserStoreOption;
   logged: LoggedState;
 }
 
@@ -42,10 +43,6 @@ export interface PostListState {
   orderBy: { value: OrderTypes };
   sortBy: { value: SortTypes };
   firstLoad: { value: boolean };
-}
-
-export interface UserState extends Partial<UserOptions> {
-  path?: string;
 }
 
 export interface LoggedState {

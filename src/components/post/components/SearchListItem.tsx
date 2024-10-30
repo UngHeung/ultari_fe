@@ -6,20 +6,15 @@ import style from '../styles/search.module.css';
 const SearchListItem = ({
   setIsSearching,
   post,
-  titleStartWith,
-  titleEndWith,
-  contentStartWith,
-  contentEndWith,
   keyword,
 }: {
   setIsSearching: React.Dispatch<SetStateAction<boolean>>;
   post: PostOptions;
-  titleStartWith: string;
-  titleEndWith: string;
-  contentStartWith: string;
-  contentEndWith: string;
   keyword: string;
 }) => {
+  const title = changeTextLikeKeyword(post.title, keyword);
+  const content = changeTextLikeKeyword(post.content, keyword);
+
   return (
     <li className={style.itemWrap}>
       <Link
@@ -27,15 +22,27 @@ const SearchListItem = ({
         onClick={() => setIsSearching(false)}
       >
         <strong className={style.title}>
-          <span>{titleStartWith}</span>
-          <span className={style.keyword}>{keyword}</span>
-          <span>{titleEndWith}</span>
+          {title.length > 1 ? (
+            <>
+              <span>{title[0]}</span>
+              <span className={style.keyword}>{keyword}</span>
+              <span>{title[1]}</span>
+            </>
+          ) : (
+            <span>{title[0]}</span>
+          )}
         </strong>
         <div className={style.line}></div>
         <p className={style.content}>
-          <span>{contentStartWith}</span>
-          <span className={style.keyword}>{keyword}</span>
-          <span>{contentEndWith}</span>
+          {content.length > 1 ? (
+            <>
+              <span>{content[0]}</span>
+              <span className={style.keyword}>{keyword}</span>
+              <span>{content[1]}</span>
+            </>
+          ) : (
+            <span>{content[0]}</span>
+          )}
         </p>
       </Link>
     </li>
@@ -43,3 +50,16 @@ const SearchListItem = ({
 };
 
 export default SearchListItem;
+
+export function changeTextLikeKeyword(
+  text: string,
+  keyword: string,
+): [startWith: string, endWith: string] | string[] {
+  if (!text.includes(keyword)) {
+    return [text];
+  } else {
+    const [startWith, endWith] = text.split(keyword);
+
+    return [startWith, endWith];
+  }
+}

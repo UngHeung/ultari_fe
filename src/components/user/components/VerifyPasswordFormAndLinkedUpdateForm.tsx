@@ -1,3 +1,4 @@
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import Link from 'next/link';
 import { FormEvent, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -5,7 +6,6 @@ import handleMyInfo from '../../auth/handlers/handleMyInfo';
 import { UserOptions } from '../../auth/interfaces/authInterface';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
-import { setUser } from '../../stores/reducer/userReducer';
 import PasswordInput from '../elements/PasswordInput';
 import UserButton from '../elements/UserButton';
 import { verifiedPassword } from '../handlers/verifiedPassword';
@@ -27,6 +27,8 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
   account?: string;
 }) => {
   const dispatch = useDispatch();
+
+  const setUser = useUserStore((state: UserStore) => state.setUser);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -74,7 +76,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
     setMoreInformation(data);
 
-    dispatch(setUser(data));
+    setUser(data);
     dispatch(setModal(modalData));
   }
 
