@@ -4,10 +4,11 @@ import getLastModifiedDate from '@/components/common/functions/getLastModifiedDa
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { CommentOptions } from '@/components/post/interfaces/postInterfaces';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import CommentButton from '../elements/CommentButton';
 import style from '../styles/comment.module.css';
 import CommentWriteForm from './CommentWriteForm';
@@ -21,7 +22,7 @@ const CommentItem = ({
   setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
   userId?: number;
 }) => {
-  const dispatch = useDispatch();
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [isModify, setIsModify] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -51,7 +52,7 @@ const CommentItem = ({
       modalIsShow: true,
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
 
     setDisabled(false);
   }

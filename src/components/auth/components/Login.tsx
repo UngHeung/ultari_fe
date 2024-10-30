@@ -1,6 +1,9 @@
 import BaseButton from '@/components/common/elements/BaseButton';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+  ModalStoreOptions,
+} from '@/components/stores/modal/modalStore';
 import useLoggedStore, {
   LoggedStore,
 } from '@/components/stores/user/loggedStore';
@@ -13,15 +16,12 @@ import useUserStore, {
 } from '@/components/stores/user/userStore';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { ModalState } from '../../stores/interfaces/stateInterface';
 import AuthInput from '../elements/AuthInput';
 import getUserDataFromToken from '../functions/getUserDataFromToken';
 import handleLogin from '../handlers/handleLogin';
 import style from '../styles/button.module.css';
 
 const Login = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
@@ -30,6 +30,7 @@ const Login = () => {
   );
   const setUser = useUserStore((state: UserStore) => state.setUser);
   const setProfile = useProfileStore((state: ProfileStore) => state.setPath);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -48,7 +49,7 @@ const Login = () => {
       setIsLoggedIn(true);
     }
 
-    const modalData: ModalState = {
+    const modalData: ModalStoreOptions = {
       title: '로그인',
       success,
       message,
@@ -59,7 +60,7 @@ const Login = () => {
 
     modalData.message = mapModalMessage(modalData);
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
     setDisabled(false);
   }
 

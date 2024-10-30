@@ -4,19 +4,17 @@ import modalSuccess from '@/public/images/modal_success.png';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
 import { RouterType } from '../stores/constants/stateOptions';
-import { SliceOptions } from '../stores/interfaces/stateInterface';
-import { resetModal } from '../stores/reducer/modalRducer';
+import useModalStore, { ModalStore } from '../stores/modal/modalStore';
 import ModalButton from './ModalButton';
 import style from './styles/modal.module.css';
 
 const Modal = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const { title, type, success, message, routerType, leftPath, rightPath } =
-    useSelector((state: SliceOptions) => state?.modal);
+    useModalStore((state: ModalStore) => state.modal);
+  const resetModal = useModalStore((state: ModalStore) => state.resetModal);
 
   return (
     <>
@@ -55,7 +53,7 @@ const Modal = () => {
                   styleClass={`${style.modalButton} ${style.buttonConfirm}`}
                   autoFocus={true}
                   onClick={() => {
-                    dispatch(resetModal());
+                    resetModal();
 
                     routerMapper(router, routerType, leftPath ?? '');
                   }}
@@ -68,7 +66,7 @@ const Modal = () => {
                   styleClass={`${style.modalButton} ${style.buttonFailure}`}
                   autoFocus={true}
                   onClick={() => {
-                    dispatch(resetModal());
+                    resetModal();
 
                     if (type === 'alert') {
                       routerMapper(router, routerType, leftPath ?? '');

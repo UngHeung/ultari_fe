@@ -1,16 +1,15 @@
 import { authAxios } from '@/apis/axiosInstance';
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
-import {
-  ModalState,
-  SliceOptions,
-} from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import { ModalState } from '@/components/stores/interfaces/stateInterface';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import modalSuccess from '@/public/images/modal_success.png';
 import Image from 'next/image';
 import React, { SetStateAction, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import TeamButton from '../elements/TeamButton';
 import style from '../styles/joinTeamApplicant.module.css';
 import { TeamOptioins } from './TeamDetail';
@@ -26,9 +25,8 @@ const JoinTeamApplicantItem = ({
   applicant: UserOptions;
   teamData: TeamOptioins;
 }) => {
-  const dispatch = useDispatch();
-
-  const connectorId = useSelector((state: SliceOptions) => state.user.id);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
+  const connectorId = useUserStore((state: UserStore) => state.user.id);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -62,7 +60,7 @@ const JoinTeamApplicantItem = ({
       );
     }
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
 
     setDisabled(false);
   }

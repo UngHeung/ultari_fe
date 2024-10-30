@@ -13,7 +13,7 @@ const initialState: ModalStoreOptions = {
   modalIsShow: false,
 };
 
-interface ModalStoreOptions {
+export interface ModalStoreOptions {
   title?: string;
   type: ModalType;
   success?: boolean;
@@ -21,7 +21,7 @@ interface ModalStoreOptions {
   routerType: RouterType;
   leftPath?: string;
   rightPath?: string;
-  modalIsShow: false;
+  modalIsShow: boolean;
 }
 
 export interface ModalStore {

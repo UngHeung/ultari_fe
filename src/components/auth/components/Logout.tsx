@@ -1,4 +1,6 @@
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import useLoggedStore, {
   LoggedStore,
 } from '@/components/stores/user/loggedStore';
@@ -7,13 +9,10 @@ import useProfileStore, {
 } from '@/components/stores/user/profileStore';
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import handleLogout from '../handlers/handleLogout';
 
 const Logout = () => {
-  const dispatch = useDispatch();
-
   const resetIsLoggedIn = useLoggedStore(
     (state: LoggedStore) => state.resetIsLoggedIn,
   );
@@ -21,6 +20,8 @@ const Logout = () => {
   const resetProfile = useProfileStore(
     (state: ProfileStore) => state.resetPath,
   );
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
+
   const clearLoggedStorage = useLoggedStore.persist.clearStorage;
   const clearProfileStorage = useProfileStore.persist.clearStorage;
 
@@ -48,7 +49,7 @@ const Logout = () => {
     clearLoggedStorage();
     clearProfileStorage();
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
   }
 
   return <></>;

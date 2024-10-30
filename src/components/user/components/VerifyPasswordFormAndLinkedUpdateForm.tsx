@@ -1,11 +1,12 @@
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import Link from 'next/link';
 import { FormEvent, SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import handleMyInfo from '../../auth/handlers/handleMyInfo';
 import { UserOptions } from '../../auth/interfaces/authInterface';
 import { ModalState } from '../../stores/interfaces/stateInterface';
-import { setModal } from '../../stores/reducer/modalRducer';
 import PasswordInput from '../elements/PasswordInput';
 import UserButton from '../elements/UserButton';
 import { verifiedPassword } from '../handlers/verifiedPassword';
@@ -26,9 +27,8 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
   passed: boolean;
   account?: string;
 }) => {
-  const dispatch = useDispatch();
-
   const setUser = useUserStore((state: UserStore) => state.setUser);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -52,7 +52,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
     if (!success) {
       modalData.message = message;
-      dispatch(setModal(modalData));
+      setModal(modalData);
       return false;
     }
 
@@ -60,7 +60,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
 
     if (!response?.success) {
       modalData.message = '비밀번호를 확인해주세요.';
-      dispatch(setModal(modalData));
+      setModal(modalData);
       return false;
     }
 
@@ -68,7 +68,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
     modalData.message = '정보를 성공적으로 불러왔습니다.';
     modalData.success = true;
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
 
     setPassed(true);
 
@@ -77,7 +77,7 @@ const VerifyPasswordFormAndLinkedUpdateForm = ({
     setMoreInformation(data);
 
     setUser(data);
-    dispatch(setModal(modalData));
+    setModal(modalData);
   }
 
   return (

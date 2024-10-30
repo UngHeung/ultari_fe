@@ -15,10 +15,13 @@ import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
 import InnerNav from './InnerNav';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
   const userId = useUserStore((state: UserStore) => state.user.id);
@@ -35,7 +38,7 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
       <InnerNav
         router={router}
         isLoggedIn={isLoggedIn}
-        dispatch={dispatch}
+        setModal={setModal}
         type={'detail'}
         postData={postData}
         userId={userId!}

@@ -1,8 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { ModalState } from '../stores/interfaces/stateInterface';
-import { setModal } from '../stores/reducer/modalRducer';
+import useModalStore, { ModalStore } from '../stores/modal/modalStore';
 import useUserStore, { UserStore } from '../stores/user/userStore';
 import UserButton from './elements/UserButton';
 import UserInput from './elements/UserInput';
@@ -12,12 +11,12 @@ import style from './styles/update.module.css';
 
 const UpdateInfo = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
   const setUser = useUserStore((state: UserStore) => state.setUser);
   const user = useUserStore((state: UserStore) => state.user);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   async function updateInfoProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,7 +34,7 @@ const UpdateInfo = () => {
       type: success ? 'confirm' : 'alert',
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
 
     if (success) {
       setUser({ ...data, path: data.profile ? data.profile.path : '' });

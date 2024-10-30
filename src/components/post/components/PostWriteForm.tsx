@@ -1,5 +1,10 @@
 import CustomSelect from '@/components/common/elements/CustomSelect';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,9 +53,9 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
 
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
   const [disabled, setDisabled] = useState<boolean>(false);
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
-  );
+
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const post = useSelector((state: SliceOptions) => state.post);
   const user = useSelector((state: SliceOptions) => state.user);
@@ -89,7 +94,7 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
       leftPath: success ? `/post/detail/${postId}` : '',
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
     setDisabled(false);
   }
 

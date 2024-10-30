@@ -1,20 +1,20 @@
 import userAuthentication from '@/components/common/functions/userAuthentication';
 import { PostState } from '@/components/stores/interfaces/stateInterface';
-import { Dispatch } from '@reduxjs/toolkit';
+import { ModalStoreOptions } from '@/components/stores/modal/modalStore';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import style from '../styles/inner-nav.module.css';
 
 const InnerNav = ({
   router,
   isLoggedIn,
-  dispatch,
+  setModal,
   type,
   postData,
   userId,
 }: {
   router: AppRouterInstance;
   isLoggedIn: boolean;
-  dispatch: Dispatch;
+  setModal: (modal: ModalStoreOptions) => void;
   type: 'write' | 'update' | 'list' | 'detail';
   postData?: PostState;
   userId?: number;
@@ -25,7 +25,7 @@ const InnerNav = ({
         <button
           type={'button'}
           onClick={event => {
-            userAuthentication(isLoggedIn, dispatch, event);
+            userAuthentication(isLoggedIn, setModal, event);
             router.push('/post/write');
           }}
         >
@@ -50,21 +50,3 @@ const InnerNav = ({
 };
 
 export default InnerNav;
-
-const backIcon = (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M13.5714 17.1429L6.42859 10L13.5714 2.85714"
-      stroke="white"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
