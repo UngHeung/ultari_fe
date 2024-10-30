@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import selectArrow from '@/public/images/select-arrow.png';
 import Image from 'next/image';
-import style from './styles/customSelect.module.css';
+import style from '../styles/customSelect.module.css';
 
 export interface CustomSelectOptionOptions {
   option: string;

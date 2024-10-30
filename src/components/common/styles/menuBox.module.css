@@ -1,0 +1,34 @@
+.menuBoxWrap {
+  width: 100%;
+  max-width: 600px;
+  height: 100px;
+  margin: var(--height-header) auto 0;
+  background-color: #161616;
+}
+
+.headWrap {
+  height: 70px;
+  padding: 8px 16px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.menuWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  padding: 0 16px;
+  background-color: #161616;
+  border-top: 1px solid #212121;
+}

@@ -1,4 +1,4 @@
-import CustomSelect from '@/components/common/CustomSelect';
+import CustomSelect from '@/components/common/elements/CustomSelect';
 import handleUploadPost from '@/components/post/handlers/handleUploadPost';
 import {
   ModalState,
@@ -16,7 +16,6 @@ import {
   VisibilityOptions,
 } from '../interfaces/postInterfaces';
 import style from '../styles/write.module.css';
-import ImageUploadForm from './ImageUploadForm';
 
 export interface ContentTypeSelectOptions {
   option: string;

@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { ImageFolderTypes } from './constants/commonConst';
+import { ImageFolderTypes } from '../constants/commonConst';
+import { ImageOptions } from '../interfaces/commonInterface';
 import ImageItem from './ImageSlideItem';
-import { ImageOptions } from './interfaces/commonInterface';
-import style from './styles/imageSlider.module.css';
+import style from '../styles/imageSlider.module.css';
 
 const ImagesSlider = ({
   images,

@@ -1,6 +1,5 @@
-import BaseTextarea from '@/components/common/BaseTextarea';
+import BaseTextarea from '@/components/common/elements/BaseTextarea';
 import { BaseTextareaOptions } from '@/components/common/interfaces/baseElementsInterfaces';
-import React, { SetStateAction } from 'react';
 
 interface CommentTextareaOptions extends BaseTextareaOptions {}
 

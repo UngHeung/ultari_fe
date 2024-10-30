@@ -1,12 +1,21 @@
 import Link from 'next/link';
+import { SetStateAction } from 'react';
 import style from '../styles/footer.module.css';
 import Logo from './Logo';
 
-const Footer = () => {
+const Footer = ({
+  setIsSearching,
+}: {
+  setIsSearching: React.Dispatch<SetStateAction<boolean>>;
+}) => {
   return (
     <footer className={style.mainFooter}>
       <div className={style.footerWrap}>
-        <section>{searchIcon}</section>
+        <section>
+          <button onClick={() => setIsSearching(prev => !prev)}>
+            {searchIcon}
+          </button>
+        </section>
         <section>
           <Link href={'/'}>{homeIcon}</Link>
         </section>

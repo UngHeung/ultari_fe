@@ -1,7 +1,7 @@
+import BaseButton from '@/components/common/elements/BaseButton';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import BaseButton from '../../common/BaseButton';
 import {
   ModalState,
   SliceOptions,

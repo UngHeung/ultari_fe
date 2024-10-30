@@ -1,4 +1,4 @@
-import BaseButton from '../../common/BaseButton';
+import BaseButton from '@/components/common/elements/BaseButton';
 import { PostButtonOptions } from '../interfaces/postInterfaces';
 
 const PostButton = (props: PostButtonOptions) => {

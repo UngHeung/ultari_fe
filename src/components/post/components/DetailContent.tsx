@@ -1,7 +1,11 @@
+import ImagesSlider from '@/components/common/components/ImagesSlider';
+import useMenuBoxChildStore, {
+  MenuBoxChildStore,
+} from '@/components/stores/menuboxChildrenStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ImagesSlider from '../../common/ImagesSlider';
 import {
   PostState,
   SliceOptions,
@@ -20,6 +24,30 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
     (state: SliceOptions) => state.logged.isLoggedIn,
   );
 
+  const setMenuBox = useMenuBoxChildStore(
+    (state: MenuBoxChildStore) => state.setChild,
+  );
+  const resetMenuBox = useMenuBoxChildStore(
+    (state: MenuBoxChildStore) => state.resetChild,
+  );
+
+  useEffect(() => {
+    setMenuBox(
+      <InnerNav
+        router={router}
+        isLoggedIn={isLoggedIn}
+        dispatch={dispatch}
+        type={'detail'}
+        postData={postData}
+        userId={userId!}
+      />,
+    );
+
+    return () => {
+      resetMenuBox();
+    };
+  }, []);
+
   return (
     <>
       <section className={style.head}>
@@ -37,15 +65,6 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
           <span>{postData?.author.name}</span>
         </div>
       </section>
-
-      <InnerNav
-        router={router}
-        isLoggedIn={isLoggedIn}
-        dispatch={dispatch}
-        type={'detail'}
-        postData={postData}
-        userId={userId!}
-      />
 
       <section className={style.main}>
         {postData.images && postData.images?.length > 0 && (
