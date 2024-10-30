@@ -1,4 +1,3 @@
-import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import { ModalType } from '@/components/modal/constants/modalConst';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes, RouterType, SortTypes } from '../constants/stateOptions';
@@ -40,9 +39,8 @@ export interface PostListState {
   desc: OrderdPostListState;
   likes: OrderdPostListState;
   views: OrderdPostListState;
-  orderBy: { value: OrderTypes };
-  sortBy: { value: SortTypes };
-  firstLoad: { value: boolean };
+  orderBy: OrderTypes;
+  sortBy: SortTypes;
 }
 
 export interface LoggedState {
