@@ -28,8 +28,6 @@ function composeUrlQuery(
     url = `/${orderByQuery}${cursorQuery}${typeQuery}`;
   }
 
-  console.log('url : ', url);
-
   return url;
 }
 

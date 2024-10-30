@@ -1,5 +1,5 @@
+import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { create } from 'zustand';
-import { PostOptions } from '../post/interfaces/postInterfaces';
 
 export interface SearchListStore {
   list: PostOptions[];

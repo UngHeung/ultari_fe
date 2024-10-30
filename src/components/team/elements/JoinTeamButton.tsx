@@ -3,9 +3,10 @@ import { UserOptions } from '@/components/auth/interfaces/authInterface';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import { SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import TeamButton from './TeamButton';
 
 const JoinTeamButton = ({
@@ -15,7 +16,7 @@ const JoinTeamButton = ({
   teamId?: number;
   setApplicantList: React.Dispatch<SetStateAction<UserOptions[]>>;
 }) => {
-  const dispatch = useDispatch();
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -41,7 +42,7 @@ const JoinTeamButton = ({
     };
 
     modalData.message = mapModalMessage(modalData);
-    dispatch(setModal(modalData));
+    setModal(modalData);
     setApplicantList(prevList => [...prevList, data]);
     setDisabled(false);
   }

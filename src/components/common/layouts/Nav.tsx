@@ -1,6 +1,8 @@
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import Link from 'next/link';
 import { SetStateAction } from 'react';
-import { useDispatch } from 'react-redux';
 import userAuthentication from '../functions/userAuthentication';
 import style from '../styles/nav.module.css';
 
@@ -11,7 +13,7 @@ const Nav = ({
   setIsShow: React.Dispatch<SetStateAction<boolean>>;
   isLoggedIn: boolean;
 }) => {
-  const dispatch = useDispatch();
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   return (
     <nav className={style.mainNav}>
@@ -29,7 +31,7 @@ const Nav = ({
         <li>
           <Link
             onClick={event => {
-              userAuthentication(isLoggedIn, dispatch, event);
+              userAuthentication(isLoggedIn, setModal, event);
               setIsShow(false);
             }}
             href={'/team/create'}
@@ -45,7 +47,7 @@ const Nav = ({
         <li>
           <Link
             onClick={event => {
-              userAuthentication(isLoggedIn, dispatch, event);
+              userAuthentication(isLoggedIn, setModal, event);
               setIsShow(false);
             }}
             href={'/user/list'}

@@ -1,10 +1,10 @@
 import { authAxios } from '@/apis/axiosInstance';
 import useKeywordStore, {
   KeywordStore,
-} from '@/components/stores/keywordStore';
+} from '@/components/stores/common/keywordStore';
 import useSearchListStore, {
   SearchListStore,
-} from '@/components/stores/searchDataStore';
+} from '@/components/stores/common/searchDataStore';
 import { SetStateAction, useEffect, useTransition } from 'react';
 import SearchInput from '../elements/SearchInput';
 import style from '../styles/search.module.css';

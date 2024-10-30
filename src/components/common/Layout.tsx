@@ -2,7 +2,6 @@ import { reissueAccessToken, reissueRefreshToken } from '@/apis/reissueToken';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import getUserDataFromToken from '../auth/functions/getUserDataFromToken';
 import {
   setAccessToken,
@@ -10,8 +9,8 @@ import {
 } from '../auth/functions/tokenInteract';
 import Modal from '../modal/Modal';
 import SearchForm from '../post/components/SearchForm';
-import { SliceOptions } from '../stores/interfaces/stateInterface';
-import useLoggedStore, { LoggedStore } from '../stores/loggedStore';
+import useModalStore, { ModalStore } from '../stores/modal/modalStore';
+import useLoggedStore, { LoggedStore } from '../stores/user/loggedStore';
 import useProfileStore, { ProfileStore } from '../stores/user/profileStore';
 import useUserStore, {
   UserStore,
@@ -26,10 +25,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
   const setUser = useUserStore((state: UserStore) => state.setUser);
-
-  const modalIsShow = useSelector(
-    (state: SliceOptions) => state.modal?.modalIsShow,
+  const modalIsShow = useModalStore(
+    (state: ModalStore) => state.modal.modalIsShow,
   );
+
   const profile = useProfileStore((state: ProfileStore) => state.path);
 
   const [isSearching, setIsSearching] = useState<boolean>(false);

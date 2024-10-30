@@ -1,13 +1,17 @@
 import ImagesSlider from '@/components/common/components/ImagesSlider';
-import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import useMenuBoxChildStore, {
   MenuBoxChildStore,
-} from '@/components/stores/menuboxChildrenStore';
+} from '@/components/stores/common/menuboxChildrenStore';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { PostState } from '../../stores/interfaces/stateInterface';
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
@@ -16,8 +20,8 @@ import InnerNav from './InnerNav';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
   const userId = useUserStore((state: UserStore) => state.user.id);
 
@@ -33,7 +37,7 @@ const DetailContent = ({ postData }: { postData: PostState }) => {
       <InnerNav
         router={router}
         isLoggedIn={isLoggedIn}
-        dispatch={dispatch}
+        setModal={setModal}
         type={'detail'}
         postData={postData}
         userId={userId!}

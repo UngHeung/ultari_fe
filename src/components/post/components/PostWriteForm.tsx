@@ -1,13 +1,16 @@
 import CustomSelect from '@/components/common/elements/CustomSelect';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import usePostStore, { PostStore } from '@/components/stores/post/postStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  ModalState,
-  SliceOptions,
-} from '../../stores/interfaces/stateInterface';
-import { setPost } from '../../stores/reducer/postReducer';
+import { useDispatch } from 'react-redux';
+import { ModalState } from '../../stores/interfaces/stateInterface';
 import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
 import handleUploadPost from '../handlers/handleUploadPost';
@@ -48,12 +51,12 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
 
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
   const [disabled, setDisabled] = useState<boolean>(false);
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
-  );
 
-  const post = useSelector((state: SliceOptions) => state.post);
-  const user = useSelector((state: SliceOptions) => state.user);
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
+  const post = usePostStore((state: PostStore) => state.post);
+  const user = useUserStore((state: UserStore) => state.user);
+  const setPost = usePostStore((state: PostStore) => state.setPost);
 
   useEffect(() => {
     if (type === 'update') {
@@ -75,7 +78,7 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
       type === 'update' ? +updatePostId : undefined,
     );
 
-    dispatch(setPost({ ...data, author: user }));
+    setPost({ ...data, author: user });
 
     const postId = data?.id;
 
@@ -89,7 +92,7 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
       leftPath: success ? `/post/detail/${postId}` : '',
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
     setDisabled(false);
   }
 

@@ -1,13 +1,12 @@
+import usePostStore, { PostStore } from '@/components/stores/post/postStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import { setPost } from '../../stores/reducer/postReducer';
 import { getPostType } from '../functions/getPostContentType';
 import { PostOptions } from '../interfaces/postInterfaces';
 import style from '../styles/list.module.css';
 
 const ListItem = (props: PostOptions, key: number) => {
-  const dispatch = useDispatch();
+  const setPost = usePostStore((state: PostStore) => state.setPost);
 
   return (
     <>
@@ -15,7 +14,7 @@ const ListItem = (props: PostOptions, key: number) => {
         <Link
           href={`/post/detail/${props.id}`}
           className={style.postItem}
-          onClick={() => dispatch(setPost(props))}
+          onClick={() => setPost(props)}
         >
           <div className={style.itemLeft}>
             <div className={style.itemLeftTop}>

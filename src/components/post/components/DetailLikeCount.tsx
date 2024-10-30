@@ -2,20 +2,20 @@ import {
   ModalState,
   PostState,
 } from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import useUserStore, {
   UserStore,
   UserStoreOption,
 } from '@/components/stores/user/userStore';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import handleUpdateLikeCount from '../handlers/handleUpdateLikeCount';
 import style from '../styles/detail.module.css';
 
 const DetailLikeCount = ({ postData }: { postData: PostState }) => {
-  const dispatch = useDispatch();
-
   const userId = useUserStore((state: UserStore) => state.user.id);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [likeCount, setLikeCount] = useState<number>(postData?.likeCount || 0);
   const [isAleadyLiked, setIsAleadyLiked] = useState<boolean>(
@@ -67,7 +67,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
       modalIsShow: true,
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
   }
 
   return (
