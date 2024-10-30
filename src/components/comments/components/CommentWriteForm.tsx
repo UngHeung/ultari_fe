@@ -2,9 +2,10 @@ import { authAxios } from '@/apis/axiosInstance';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
 import { CommentOptions } from '@/components/post/interfaces/postInterfaces';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import React, { FormEvent, SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import CommentButton from '../elements/CommentButton';
 import CommentTextarea from '../elements/CommentTextarea';
 import style from '../styles/comment.module.css';
@@ -24,7 +25,7 @@ const CommentWriteForm = ({
   id?: number;
   value?: string;
 }) => {
-  const dispatch = useDispatch();
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [disabled, setDisabled] = useState<boolean>(false);
   const [comment, setComment] = useState<string>(
@@ -68,7 +69,7 @@ const CommentWriteForm = ({
       modalIsShow: true,
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
 
     setDisabled(false);
 

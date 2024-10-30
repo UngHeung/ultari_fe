@@ -1,6 +1,7 @@
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import ImageInput from '../elements/ImageInput';
 import SelectedImageConfirmButton from '../elements/SelectedImageConfirmButton';
@@ -14,7 +15,7 @@ const ImageUploadForm = ({
 }: {
   setSelectedFilenames: React.Dispatch<string[]>;
 }) => {
-  const dispatch = useDispatch();
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [uploadDisabled, setUploadDisabled] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -44,7 +45,7 @@ const ImageUploadForm = ({
     };
 
     setUploadDisabled(false);
-    dispatch(setModal(modalData));
+    setModal(modalData);
   }
 
   return (

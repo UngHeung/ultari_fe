@@ -1,8 +1,7 @@
 import { reissueAccessToken, reissueRefreshToken } from '@/apis/reissueToken';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
-import React, { Dispatch, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import getUserDataFromToken from '../auth/functions/getUserDataFromToken';
 import {
   setAccessToken,
@@ -10,29 +9,33 @@ import {
 } from '../auth/functions/tokenInteract';
 import Modal from '../modal/Modal';
 import SearchForm from '../post/components/SearchForm';
-import { SliceOptions } from '../stores/interfaces/stateInterface';
-import { setUser } from '../stores/reducer/userReducer';
+import useModalStore, { ModalStore } from '../stores/modal/modalStore';
+import useLoggedStore, { LoggedStore } from '../stores/user/loggedStore';
+import useProfileStore, { ProfileStore } from '../stores/user/profileStore';
+import useUserStore, {
+  UserStore,
+  UserStoreOption,
+} from '../stores/user/userStore';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
 import MenuBox from './layouts/MenuBox';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  const modalIsShow = useSelector(
-    (state: SliceOptions) => state.modal?.modalIsShow,
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+  const modalIsShow = useModalStore(
+    (state: ModalStore) => state.modal.modalIsShow,
   );
-  const isLoggedIn: boolean = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
-  );
-  const profile = useSelector((state: SliceOptions) => state.user.path);
+
+  const profile = useProfileStore((state: ProfileStore) => state.path);
 
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
-      await handleReload(dispatch, isLoggedIn, router);
+      await handleReload(setUser, isLoggedIn, router);
     })();
   }, []);
 
@@ -49,7 +52,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 async function handleReload(
-  dispatch: Dispatch<any>,
+  setUser: (user: UserStoreOption) => void,
   isLoggedIn: boolean,
   router: AppRouterInstance,
 ) {
@@ -64,7 +67,7 @@ async function handleReload(
 
     const userData = getUserDataFromToken();
 
-    dispatch(setUser(userData));
+    setUser(userData);
   } catch (error) {
     router.push('/logout');
   }

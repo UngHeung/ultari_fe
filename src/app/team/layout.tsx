@@ -1,48 +1,58 @@
 'use client';
 
 import userAuthentication from '@/components/common/functions/userAuthentication';
-import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
+import useTitleAndDescStore, {
+  TitleAndDescriptionStore,
+} from '@/components/stores/common/titleAndDescriptionStore';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import style from './layout.module.css';
 
 export type TeamPageType = 'list' | 'create';
 
 const TeamLayout = ({ children }: { children: React.ReactNode }) => {
-  const dispatch = useDispatch();
   const pathname = usePathname();
 
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
+  const setTitle = useTitleAndDescStore(
+    (state: TitleAndDescriptionStore) => state.setTitle,
   );
-
-  const [title, setTitle] = useState<string>('');
+  const setDescription = useTitleAndDescStore(
+    (state: TitleAndDescriptionStore) => state.setDescription,
+  );
+  const resetTitle = useTitleAndDescStore(
+    (state: TitleAndDescriptionStore) => state.resetTitle,
+  );
+  const resetDescription = useTitleAndDescStore(
+    (state: TitleAndDescriptionStore) => state.resetDescription,
+  );
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   useEffect(() => {
     const type: TeamPageType = pathname.slice(1).split('/')[1] as TeamPageType;
 
     if (!isLoggedIn && type === 'create') {
-      userAuthentication(isLoggedIn, dispatch);
+      userAuthentication(isLoggedIn, setModal);
     }
 
-    if (type === 'list') {
-      setTitle('목장 목록');
-    } else if (type === 'create') {
-      setTitle('목장 생성');
-    } else {
-      setTitle('목장');
-    }
+    setTitle('목장모임');
+    setDescription('함께 모여요.');
 
-    return () => {};
+    return () => {
+      resetTitle();
+      resetDescription();
+    };
   }, [pathname]);
 
   return (
     <>
-      <section className={style.teamWrap}>
-        <h2 className={style.teamTitle}>{title}</h2>
-        {children}
-      </section>
+      <section className={style.teamWrap}>{children}</section>
     </>
   );
 };

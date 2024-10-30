@@ -1,11 +1,10 @@
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
-import { Dispatch } from '@reduxjs/toolkit';
+import { ModalStoreOptions } from '@/components/stores/modal/modalStore';
 import { MouseEvent } from 'react';
 
 function userAuthentication(
   isLoggedIn: boolean,
-  dispatch: Dispatch,
+  setModal: (modal: ModalStoreOptions) => void,
   event?: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>,
 ) {
   if (!isLoggedIn) {
@@ -21,7 +20,7 @@ function userAuthentication(
       leftPath: '/login',
     };
 
-    dispatch(setModal(ModalData));
+    setModal(ModalData);
   }
 }
 

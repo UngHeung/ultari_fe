@@ -1,34 +1,31 @@
 'use client';
 
-import { checkAuth } from '@/components/auth/functions/checkAuth';
-import {
-  ModalState,
-  SliceOptions,
-} from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import userAuthentication from '@/components/common/functions/userAuthentication';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
-import userAuthentication from '@/components/common/functions/userAuthentication';
 
 export type UserPageType = 'my' | 'list';
 
 const TeamLayout = ({ children }: { children: React.ReactNode }) => {
-  const dispatch = useDispatch();
   const pathname = usePathname();
   const [title, setTitle] = useState<string>('');
 
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state?.logged.isLoggedIn ?? false,
-  );
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   useEffect(() => {
     const type: UserPageType = pathname.slice(1).split('/')[1] as UserPageType;
 
     setTitle(getTitle(type));
 
-    userAuthentication(isLoggedIn, dispatch);
+    userAuthentication(isLoggedIn, setModal);
 
     return () => {};
   }, [pathname, isLoggedIn]);

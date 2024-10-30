@@ -1,14 +1,16 @@
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { ModalState } from '../../stores/interfaces/stateInterface';
-import { setModal } from '../../stores/reducer/modalRducer';
 import handleDeletePost from '../handlers/handleDeletePost';
 
 const DeletePost = () => {
-  const dispatch = useDispatch();
   const pathname = usePathname();
   const postId = +pathname.split('/')[3];
+
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   useEffect(() => {
     postDeleteProcess();
@@ -27,7 +29,7 @@ const DeletePost = () => {
       leftPath: '/post/list',
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
   }
 
   return <></>;

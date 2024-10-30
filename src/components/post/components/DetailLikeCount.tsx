@@ -1,19 +1,21 @@
 import {
   ModalState,
   PostState,
-  SliceOptions,
-  UserState,
 } from '@/components/stores/interfaces/stateInterface';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useUserStore, {
+  UserStore,
+  UserStoreOption,
+} from '@/components/stores/user/userStore';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import handleUpdateLikeCount from '../handlers/handleUpdateLikeCount';
 import style from '../styles/detail.module.css';
 
 const DetailLikeCount = ({ postData }: { postData: PostState }) => {
-  const dispatch = useDispatch();
-
-  const userId = useSelector((state: SliceOptions) => state.user.id);
+  const userId = useUserStore((state: UserStore) => state.user.id);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [likeCount, setLikeCount] = useState<number>(postData?.likeCount || 0);
   const [isAleadyLiked, setIsAleadyLiked] = useState<boolean>(
@@ -65,7 +67,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
       modalIsShow: true,
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
   }
 
   return (
@@ -101,7 +103,7 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
   );
 };
 
-function checkAleadyLiked(likers: UserState[], userId: number) {
+function checkAleadyLiked(likers: UserStoreOption[], userId: number) {
   if (!likers) return false;
 
   for (const liker of likers) {

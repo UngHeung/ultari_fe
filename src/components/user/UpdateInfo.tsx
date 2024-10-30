@@ -1,9 +1,8 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ModalState, SliceOptions } from '../stores/interfaces/stateInterface';
-import { setModal } from '../stores/reducer/modalRducer';
-import { setUser } from '../stores/reducer/userReducer';
+import { ModalState } from '../stores/interfaces/stateInterface';
+import useModalStore, { ModalStore } from '../stores/modal/modalStore';
+import useUserStore, { UserStore } from '../stores/user/userStore';
 import UserButton from './elements/UserButton';
 import UserInput from './elements/UserInput';
 import handleUpdateMyData from './handlers/handleUpdateMyData';
@@ -12,11 +11,12 @@ import style from './styles/update.module.css';
 
 const UpdateInfo = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
-  const user = useSelector((state: SliceOptions) => state.user);
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+  const user = useUserStore((state: UserStore) => state.user);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   async function updateInfoProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,12 +34,10 @@ const UpdateInfo = () => {
       type: success ? 'confirm' : 'alert',
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
 
     if (success) {
-      dispatch(
-        setUser({ ...data, path: data.profile ? data.profile?.path : '' }),
-      );
+      setUser({ ...data, path: data.profile ? data.profile.path : '' });
     }
 
     setDisabled(false);

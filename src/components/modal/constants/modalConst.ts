@@ -1,1 +1,1 @@
-export type modalType = 'alert' | 'confirm' | 'prompt';
+export type ModalType = 'alert' | 'confirm' | 'prompt';

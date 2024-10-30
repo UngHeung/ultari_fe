@@ -1,23 +1,22 @@
 import BaseButton from '@/components/common/elements/BaseButton';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  ModalState,
-  SliceOptions,
-} from '../../stores/interfaces/stateInterface';
-import { setModal } from '../../stores/reducer/modalRducer';
+import { ModalState } from '../../stores/interfaces/stateInterface';
 import AuthInput from '../elements/AuthInput';
 import { handleSignUp } from '../handlers/handleSignUp';
 import style from '../styles/button.module.css';
 
 const SignUp = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
-  );
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -38,7 +37,7 @@ const SignUp = () => {
       leftPath: success ? '/login' : '',
     };
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
 
     setDisabled(false);
   }

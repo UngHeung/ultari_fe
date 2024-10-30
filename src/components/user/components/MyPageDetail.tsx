@@ -1,15 +1,18 @@
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { RoleTypes, UserOptions } from '../../auth/interfaces/authInterface';
-import { SliceOptions } from '../../stores/interfaces/stateInterface';
 import SecretInfoItem from '../SecretInfoItem';
 import style from '../styles/mypage.module.css';
 import UserProfile from './UserProfile';
 import VerifyPasswordFormAndLinkedUpdateForm from './VerifyPasswordFormAndLinkedUpdateForm';
+import useProfileStore, {
+  ProfileStore,
+} from '@/components/stores/user/profileStore';
 
 const MyPageDetail = () => {
-  const user = useSelector((state: SliceOptions) => state.user);
+  const user = useUserStore((state: UserStore) => state.user);
+  const profile = useProfileStore((state: ProfileStore) => state.path);
 
   const [passed, setPassed] = useState(user.account ? true : false);
   const [moreInformation, setMoreInformation] =
@@ -20,7 +23,7 @@ const MyPageDetail = () => {
   return (
     <section className={style.userWrap}>
       <section className={style.profileWrap}>
-        <UserProfile path={user?.path} />
+        <UserProfile path={profile} />
       </section>
       <section className={style.name}>
         <strong>{user.name}</strong>

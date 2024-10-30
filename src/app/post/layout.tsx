@@ -1,14 +1,18 @@
 'use client';
 
 import userAuthentication from '@/components/common/functions/userAuthentication';
-import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
 import useTitleAndDescStore, {
   TitleAndDescriptionStore,
-} from '@/components/stores/titleAndDescriptionStore';
+} from '@/components/stores/common/titleAndDescriptionStore';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import style from './layout.module.css';
 
 export type PostPagePosition =
@@ -19,7 +23,6 @@ export type PostPagePosition =
   | 'delete';
 
 const PostLayout = ({ children }: { children: React.ReactNode }) => {
-  const dispatch = useDispatch();
   const pathname = usePathname();
 
   const [position, setPosition] = useState<PostPagePosition>('list');
@@ -30,10 +33,8 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const setDescription = useTitleAndDescStore(
     (state: TitleAndDescriptionStore) => state.setDescription,
   );
-
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
-  );
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   useEffect(() => {
     const type: PostPagePosition = pathname
@@ -41,7 +42,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       .split('/')[1] as PostPagePosition;
 
     if (type !== 'list' && type !== 'detail') {
-      userAuthentication(isLoggedIn, dispatch);
+      userAuthentication(isLoggedIn, setModal);
     }
 
     setPosition(type);
@@ -58,7 +59,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
         {position.includes('list') && (
           <Link
             href={'/post/write'}
-            onClick={event => userAuthentication(isLoggedIn, dispatch, event)}
+            onClick={event => userAuthentication(isLoggedIn, setModal, event)}
           >
             {writeButton}
           </Link>

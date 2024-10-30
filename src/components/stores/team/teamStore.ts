@@ -1,4 +1,5 @@
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
+import { create } from 'zustand';
 
 interface TeamOptions {
   id: number;
@@ -22,8 +23,19 @@ const initialState: TeamOptions = {
     phone: '',
     email: '',
     role: 'ROLE_ADMIN',
-    isLoggedIn: false,
   },
   subLeader: undefined,
   Member: [],
 };
+
+export interface TeamStore {
+  team: TeamOptions;
+  setTeam: (team: TeamOptions) => void;
+  resetTeam: () => void;
+}
+
+const useTeamStore = create<TeamStore>(set => ({
+  team: initialState,
+  setTeam: (team: TeamOptions) => set({ team }),
+  resetTeam: () => set({ team: initialState }),
+}));

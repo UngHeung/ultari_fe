@@ -1,16 +1,21 @@
 import BaseButton from '@/components/common/elements/BaseButton';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
-import { setLogged } from '@/components/stores/reducer/loggedReducer';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+  ModalStoreOptions,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
+import useProfileStore, {
+  ProfileStore,
+} from '@/components/stores/user/profileStore';
+import useUserStore, {
+  UserStore,
+  UserStoreOption,
+} from '@/components/stores/user/userStore';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  ModalState,
-  SliceOptions,
-  UserState,
-} from '../../stores/interfaces/stateInterface';
-import { setUser } from '../../stores/reducer/userReducer';
 import AuthInput from '../elements/AuthInput';
 import getUserDataFromToken from '../functions/getUserDataFromToken';
 import handleLogin from '../handlers/handleLogin';
@@ -18,11 +23,14 @@ import style from '../styles/button.module.css';
 
 const Login = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setIsLoggedIn = useLoggedStore(
+    (state: LoggedStore) => state.setIsLoggedIn,
   );
+  const setUser = useUserStore((state: UserStore) => state.setUser);
+  const setProfile = useProfileStore((state: ProfileStore) => state.setPath);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -34,13 +42,14 @@ const Login = () => {
     const { success, message } = await handleLogin(event);
 
     if (success) {
-      const userData: UserState = getUserDataFromToken();
+      const userData: UserStoreOption = getUserDataFromToken();
 
-      dispatch(setUser(userData));
-      dispatch(setLogged({ isLoggedIn: true }));
+      setUser(userData);
+      setProfile(userData.path ?? '');
+      setIsLoggedIn(true);
     }
 
-    const modalData: ModalState = {
+    const modalData: ModalStoreOptions = {
       title: '로그인',
       success,
       message,
@@ -51,7 +60,7 @@ const Login = () => {
 
     modalData.message = mapModalMessage(modalData);
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
     setDisabled(false);
   }
 

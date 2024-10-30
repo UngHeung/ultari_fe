@@ -1,15 +1,15 @@
 'use client';
 
-import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 export default function Home() {
-  const isLoggedIn = useSelector(
-    (state: SliceOptions) => state.logged.isLoggedIn,
-  );
-  const user = useSelector((state: SliceOptions) => state.user);
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const user = useUserStore((state: UserStore) => state.user);
   const router = useRouter();
 
   useEffect(() => {
@@ -24,5 +24,5 @@ export default function Home() {
     }
   }, []);
 
-  return <>호미다</>;
+  return <>홈입니다.</>;
 }

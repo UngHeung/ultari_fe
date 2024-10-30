@@ -1,6 +1,6 @@
 import useKeywordStore, {
   KeywordStore,
-} from '@/components/stores/keywordStore';
+} from '@/components/stores/common/keywordStore';
 import { ChangeEventHandler } from 'react';
 
 const SearchInput = ({

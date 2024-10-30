@@ -1,13 +1,26 @@
-import { resetLogged } from '@/components/stores/reducer/loggedReducer';
-import { setModal } from '@/components/stores/reducer/modalRducer';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
+import useProfileStore, {
+  ProfileStore,
+} from '@/components/stores/user/profileStore';
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { ModalState } from '../../stores/interfaces/stateInterface';
-import { resetUser } from '../../stores/reducer/userReducer';
 import handleLogout from '../handlers/handleLogout';
 
 const Logout = () => {
-  const dispatch = useDispatch();
+  const resetIsLoggedIn = useLoggedStore(
+    (state: LoggedStore) => state.resetIsLoggedIn,
+  );
+  const resetUser = useUserStore((state: UserStore) => state.resetUser);
+  const resetProfile = useProfileStore(
+    (state: ProfileStore) => state.resetPath,
+  );
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   useEffect(() => {
     logoutProcess();
@@ -15,8 +28,6 @@ const Logout = () => {
 
   async function logoutProcess() {
     const { success, message } = await handleLogout();
-
-    dispatch(resetUser());
 
     const modalData: ModalState = {
       title: '로그아웃',
@@ -28,9 +39,11 @@ const Logout = () => {
       leftPath: '/',
     };
 
-    dispatch(resetLogged());
+    resetUser();
+    resetProfile();
+    resetIsLoggedIn();
 
-    dispatch(setModal(modalData));
+    setModal(modalData);
   }
 
   return <></>;
