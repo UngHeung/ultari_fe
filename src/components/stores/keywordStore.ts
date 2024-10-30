@@ -8,7 +8,7 @@ export interface KeywordStore {
 
 const useKeywordStore = create<KeywordStore>(set => ({
   keyword: '',
-  setKeyword: (keyword: string) => set({ keyword: keyword }),
+  setKeyword: (keyword: string) => set({ keyword }),
   resetKeyword: () => set({ keyword: '' }),
 }));
 
