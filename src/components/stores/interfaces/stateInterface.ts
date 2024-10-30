@@ -1,5 +1,5 @@
 import { UserOptions } from '@/components/auth/interfaces/authInterface';
-import { modalType } from '@/components/modal/constants/modalConst';
+import { ModalType } from '@/components/modal/constants/modalConst';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { OrderTypes, RouterType, SortTypes } from '../constants/stateOptions';
 import { UserStoreOption } from '../user/userStore';
@@ -14,7 +14,7 @@ export interface SliceOptions {
 
 export interface ModalState {
   title?: string;
-  type: modalType;
+  type: ModalType;
   success?: boolean;
   message: string;
   routerType: RouterType;
