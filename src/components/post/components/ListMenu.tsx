@@ -1,10 +1,7 @@
-import {
-  CursorOption,
-  SliceOptions,
-} from '@/components/stores/interfaces/stateInterface';
+import BaseButton from '@/components/common/elements/BaseButton';
+import { CursorOption } from '@/components/stores/interfaces/stateInterface';
 import { SetStateAction } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import BaseButton from '../../common/BaseButton';
+import { useDispatch } from 'react-redux';
 import { OrderTypes, SortTypes } from '../../stores/constants/stateOptions';
 import {
   setPostListOrderBy,
@@ -21,16 +18,6 @@ const ListMenu = ({
   setOrderBy: React.Dispatch<SetStateAction<OrderTypes>>;
   setCursor: React.Dispatch<SetStateAction<CursorOption>>;
 }) => {
-  const descCursor = useSelector(
-    (state: SliceOptions) => state.postList.desc.cursor,
-  );
-  const ascCursor = useSelector(
-    (state: SliceOptions) => state.postList.asc.cursor,
-  );
-  const likesCursor = useSelector(
-    (state: SliceOptions) => state.postList.likes.cursor,
-  );
-
   const dispatch = useDispatch();
 
   return (
