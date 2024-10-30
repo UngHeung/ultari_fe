@@ -1,5 +1,5 @@
-import ImageBlobItem from './ImageBlobItem';
 import style from '../styles/uploadImage.module.css';
+import ImageBlobItem from './ImageBlobItem';
 
 const ImageBlobList = ({
   selectedImageBlobs,

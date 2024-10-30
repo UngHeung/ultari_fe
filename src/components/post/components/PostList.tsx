@@ -1,14 +1,11 @@
 import useMenuBoxChildStore, {
   MenuBoxChildStore,
 } from '@/components/stores/common/menuboxChildrenStore';
-import { resetPostList } from '@/components/stores/reducer/PostListReducer';
+import usePostListStore, {
+  PostListStore,
+} from '@/components/stores/post/postListStore';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { OrderTypes, SortTypes } from '../../stores/constants/stateOptions';
-import {
-  CursorOption,
-  SliceOptions,
-} from '../../stores/interfaces/stateInterface';
+import { CursorOption } from '../../stores/interfaces/stateInterface';
 import fetchDataFromStoreOrServer from '../functions/fetchDataFromStoreOrServer';
 import mapDispatchToProps from '../functions/mapDispatchToProps';
 import {
@@ -22,24 +19,27 @@ import ListMenu from './ListMenu';
 import PostListPaginate from './PostListPaginate';
 
 const PostList = () => {
-  const dispatch = useDispatch();
-
-  const listOrderBy = useSelector(
-    (state: SliceOptions) => state.postList.orderBy,
+  const postListOrderByDesc = usePostListStore(
+    (state: PostListStore) => state.desc,
   );
-  const listSortBy = useSelector(
-    (state: SliceOptions) => state.postList.sortBy,
+  const setPostListOrderByDesc = usePostListStore(
+    (state: PostListStore) => state.setDesc,
   );
 
-  const postListOrderByLikes = useSelector(
-    (state: SliceOptions) => state.postList.likes,
+  const postListOrderByAsc = usePostListStore(
+    (state: PostListStore) => state.asc,
   );
-  const postListOrderByDesc = useSelector(
-    (state: SliceOptions) => state.postList.desc,
+  const setPostListOrderByAsc = usePostListStore(
+    (state: PostListStore) => state.setAsc,
   );
-  const postListOrderByAsc = useSelector(
-    (state: SliceOptions) => state.postList.asc,
+
+  const postListOrderByLikes = usePostListStore(
+    (state: PostListStore) => state.likes,
   );
+  const setPostListOrderByLikes = usePostListStore(
+    (state: PostListStore) => state.setLikes,
+  );
+
   const setMenuBoxChild = useMenuBoxChildStore(
     (state: MenuBoxChildStore) => state.setChild,
   );
@@ -47,30 +47,27 @@ const PostList = () => {
     (state: MenuBoxChildStore) => state.resetChild,
   );
 
-  const [orderBy, setOrderBy] = useState<OrderTypes>(listOrderBy.value);
-  const [sortBy, setSortBy] = useState<SortTypes>(listSortBy.value);
-  const [postList, setPostList] = useState<PostOptions[]>(
-    getPostListFromStore().data,
+  const orderBy = usePostListStore((state: PostListStore) => state.orderBy);
+  const sortBy = usePostListStore((state: PostListStore) => state.sortBy);
+
+  const resetPostList = usePostListStore(
+    (state: PostListStore) => state.resetList,
   );
-  const [cursor, setCursor] = useState<CursorOption>(
-    getPostListFromStore().cursor,
-  );
+
+  const [postList, setPostList] = useState<PostOptions[]>([]);
+  const [cursor, setCursor] = useState<CursorOption>({ id: -1, value: -1 });
+
+  useEffect(() => {
+    setMenuBoxChild(<ListMenu />);
+
+    return () => {
+      resetMenuBoxChild();
+      resetPostList();
+    };
+  }, []);
 
   useEffect(() => {
     postListProcess();
-
-    setMenuBoxChild(
-      <ListMenu
-        setSortBy={setSortBy}
-        setOrderBy={setOrderBy}
-        setCursor={setCursor}
-      />,
-    );
-
-    return () => {
-      dispatch(resetPostList());
-      resetMenuBoxChild();
-    };
   }, [sortBy, orderBy]);
 
   function getPostListFromStore() {
@@ -111,11 +108,13 @@ const PostList = () => {
     }
 
     mapDispatchToProps(
-      dispatch,
       postData.data,
       postData.cursor,
       orderBy,
       sortBy,
+      setPostListOrderByDesc,
+      setPostListOrderByLikes,
+      setPostListOrderByAsc,
     );
 
     setPostList(postData.data);
@@ -135,7 +134,6 @@ const PostList = () => {
         <li>
           {cursor && cursor.id !== -1 && (
             <PostListPaginate
-              dispatch={dispatch}
               orderBy={orderBy}
               sortBy={sortBy}
               cursor={cursor}

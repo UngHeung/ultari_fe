@@ -2,6 +2,9 @@ import ImagesSlider from '@/components/common/components/ImagesSlider';
 import useMenuBoxChildStore, {
   MenuBoxChildStore,
 } from '@/components/stores/common/menuboxChildrenStore';
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import useLoggedStore, {
   LoggedStore,
 } from '@/components/stores/user/loggedStore';
@@ -9,20 +12,16 @@ import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { PostState } from '../../stores/interfaces/stateInterface';
 import mapContentType from '../functions/mapContentType';
 import mapVisibility from '../functions/mapVisibility';
 import style from '../styles/detail.module.css';
 import InnerNav from './InnerNav';
-import useModalStore, {
-  ModalStore,
-} from '@/components/stores/modal/modalStore';
 
 const DetailContent = ({ postData }: { postData: PostState }) => {
   const router = useRouter();
-  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
   const userId = useUserStore((state: UserStore) => state.user.id);
 

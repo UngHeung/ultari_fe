@@ -4,6 +4,7 @@ import {
   OrderdPostListState,
   PostListState,
 } from '../interfaces/stateInterface';
+import { devtools } from 'zustand/middleware';
 
 const initialState: PostListState = {
   asc: {
@@ -44,9 +45,11 @@ export interface PostListStore {
 
   sortBy: SortTypes;
   setSortBy: (type: SortTypes) => void;
+
+  resetList: () => void;
 }
 
-const usePostStore = create<PostListStore>(set => ({
+const usePostListStore = create<PostListStore>(set => ({
   asc: initialState.asc,
   setAsc: (asc: OrderdPostListState) => set({ asc }),
 
@@ -64,6 +67,8 @@ const usePostStore = create<PostListStore>(set => ({
 
   sortBy: initialState.sortBy,
   setSortBy: (sortBy: SortTypes) => set({ sortBy }),
+
+  resetList: () => set({ ...initialState }),
 }));
 
-export default usePostStore;
+export default usePostListStore;
