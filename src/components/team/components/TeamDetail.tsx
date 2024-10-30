@@ -1,11 +1,12 @@
+import useModalStore, {
+  ModalStore,
+} from '@/components/stores/modal/modalStore';
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { UserOptions } from '../../auth/interfaces/authInterface';
 import { ModalState } from '../../stores/interfaces/stateInterface';
-import { setModal } from '../../stores/reducer/modalRducer';
 import JoinTeamButton from '../elements/JoinTeamButton';
 import TeamButton from '../elements/TeamButton';
 import handleGetTeamById from '../handlers/handleGetTeamById';
@@ -28,7 +29,6 @@ export interface TeamOptioins {
 }
 
 const TeamDetail = ({ teamId }: { teamId: number }) => {
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const [teamData, setTeamData] = useState<TeamOptioins>();
@@ -36,6 +36,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
   const [applicantList, setApplicantList] = useState<UserOptions[]>([]);
 
   const userId = useUserStore((state: UserStore) => state.user.id);
+  const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   async function teamDetailProcess() {
     const { success, data, message } = await handleGetTeamById(teamId);
@@ -54,7 +55,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
         modalIsShow: true,
       };
 
-      dispatch(setModal(modalData));
+      setModal(modalData);
     }
   }
 
