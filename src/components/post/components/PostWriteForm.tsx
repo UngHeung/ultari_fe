@@ -1,6 +1,5 @@
 import CustomSelect from '@/components/common/elements/CustomSelect';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -11,12 +10,36 @@ import { setPost } from '../../stores/reducer/postReducer';
 import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
 import handleUploadPost from '../handlers/handleUploadPost';
+import {
+  ContentTypeOptions,
+  VisibilityOptions,
+} from '../interfaces/postInterfaces';
 import style from '../styles/write.module.css';
 import ImageUploadForm from './ImageUploadForm';
-import InnerNav from './InnerNav';
+
+export interface ContentTypeSelectOptions {
+  option: string;
+  data: ContentTypeOptions;
+}
+export interface VisibilitySelectOptions {
+  option: string;
+  data: VisibilityOptions;
+}
+
+export const contentTypeSelectOptions: ContentTypeSelectOptions[] = [
+  { option: '자유', data: 'TYPE_FREE' },
+  { option: '감사제목', data: 'TYPE_THANKS' },
+  { option: '기도제목', data: 'TYPE_PRAYER' },
+  { option: '나눔', data: 'TYPE_SHARE' },
+];
+
+export const visibleTypeSelectOptions: VisibilitySelectOptions[] = [
+  { option: '전체공개', data: 'SCOPE_PUBLIC' },
+  { option: '목장공개', data: 'SCOPE_TEAM' },
+  { option: '비공개', data: 'SCOPE_PERSONAL' },
+];
 
 const PostWriteForm = () => {
-  const router = useRouter();
   const dispatch = useDispatch();
 
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
@@ -66,31 +89,15 @@ const PostWriteForm = () => {
           />
 
           <div className={style.innerNavWrap}>
-            <InnerNav
-              router={router}
-              isLoggedIn={false}
-              dispatch={dispatch}
-              type="write"
-            />
-
             <section className={style.selectWrap}>
               <CustomSelect
-                selectOptions={[
-                  { option: '자유', data: 'TYPE_FREE' },
-                  { option: '감사제목', data: 'TYPE_THANKS' },
-                  { option: '기도제목', data: 'TYPE_PRAYER' },
-                  { option: '나눔', data: 'TYPE_SHARE' },
-                ]}
+                selectOptions={contentTypeSelectOptions}
                 selectId={'postContentTypeSelect'}
                 name={'contentType'}
                 styleClass={style.selectType}
               />
               <CustomSelect
-                selectOptions={[
-                  { option: '전체공개', data: 'SCOPE_PUBLIC' },
-                  { option: '목장공개', data: 'SCOPE_TEAM' },
-                  { option: '비공개', data: 'SCOPE_PERSONAL' },
-                ]}
+                selectOptions={visibleTypeSelectOptions}
                 selectId={'postVisibilitySelect'}
                 name={'visibility'}
                 styleClass={style.selectVisibility}
@@ -123,7 +130,7 @@ const PostWriteForm = () => {
 
 export default PostWriteForm;
 
-const saveIcon = (
+export const saveIcon = (
   <svg
     width="40"
     height="40"

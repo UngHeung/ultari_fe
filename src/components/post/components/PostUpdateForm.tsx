@@ -11,20 +11,12 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
-import {
-  ContentTypeOptions,
-  VisibilityOptions,
-} from '../interfaces/postInterfaces';
 import style from '../styles/write.module.css';
-
-export interface ContentTypeSelectOptions {
-  option: string;
-  data: ContentTypeOptions;
-}
-export interface VisibilitySelectOptions {
-  option: string;
-  data: VisibilityOptions;
-}
+import {
+  contentTypeSelectOptions,
+  saveIcon,
+  visibleTypeSelectOptions,
+} from './PostWriteForm';
 
 const UpdatePostForm = () => {
   const router = useRouter();
@@ -40,19 +32,6 @@ const UpdatePostForm = () => {
 
   const post = useSelector((state: SliceOptions) => state.post);
   const user = useSelector((state: SliceOptions) => state.user);
-
-  const contentTypeSelectOptions: ContentTypeSelectOptions[] = [
-    { option: '자유', data: 'TYPE_FREE' },
-    { option: '감사제목', data: 'TYPE_THANKS' },
-    { option: '기도제목', data: 'TYPE_PRAYER' },
-    { option: '나눔', data: 'TYPE_SHARE' },
-  ];
-
-  const visibleTypeSelectOptions: VisibilitySelectOptions[] = [
-    { option: '전체공개', data: 'SCOPE_PUBLIC' },
-    { option: '목장공개', data: 'SCOPE_TEAM' },
-    { option: '비공개', data: 'SCOPE_PERSONAL' },
-  ];
 
   useEffect(() => {
     if (isLoggedIn && post.author.id !== user.id) {
@@ -90,57 +69,51 @@ const UpdatePostForm = () => {
   return (
     <>
       {/* <ImageUploadForm setSelectedFilenames={setSelectedFilenames} /> */}
-      <form onSubmit={postWriteProcess}>
+      <form onSubmit={postWriteProcess} className={style.writeForm}>
         <section className={style.titleWrap}>
           <PostInput
             name={'title'}
             styleClass={style.title}
             type={'text'}
-            placeholder={'제목'}
+            placeholder={'수정할 제목을 입력해주세요.'}
             value={post.title}
           />
-          <CustomSelect
-            selectOptions={contentTypeSelectOptions}
-            selectId={'postContentTypeSelect'}
-            name={'contentType'}
-            styleClass={style.selectType}
-            defaultSelect={contentTypeSelectOptions.findIndex(
-              option => option.data === post.contentType,
-            )}
-          />
-          <CustomSelect
-            selectOptions={visibleTypeSelectOptions}
-            selectId={'postVisibilitySelect'}
-            name={'visibility'}
-            styleClass={style.selectVisibility}
-            defaultSelect={visibleTypeSelectOptions.findIndex(
-              option => option.data === post.visibility,
-            )}
-          />
+
+          <div className={style.innerNavWrap}>
+            <section className={style.selectWrap}>
+              <CustomSelect
+                selectOptions={contentTypeSelectOptions}
+                selectId={'postContentTypeSelect'}
+                name={'contentType'}
+                styleClass={style.selectType}
+              />
+              <CustomSelect
+                selectOptions={visibleTypeSelectOptions}
+                selectId={'postVisibilitySelect'}
+                name={'visibility'}
+                styleClass={style.selectVisibility}
+              />
+            </section>
+          </div>
         </section>
         <section className={style.contentWrap}>
           <textarea
             name={'content'}
             id={''}
             className={style.content}
-            placeholder={'내용'}
+            placeholder={'수정할 내용을 입력해주세요.'}
             defaultValue={post.content}
           />
         </section>
         <section className={style.buttonWrap}>
-          <PostButton
-            styleClass={`${style.button}`}
-            type={'submit'}
-            disabled={disabled}
-            value={'수정'}
-          />
-          <PostButton
-            styleClass={`${style.button}`}
-            type={'button'}
-            disabled={disabled}
-            value={'취소'}
-            onClick={() => router.back()}
-          />
+          <div className={style.buttonBg}>
+            <PostButton
+              styleClass={style.button}
+              type={'submit'}
+              disabled={disabled}
+              value={saveIcon}
+            />
+          </div>
         </section>
       </form>
     </>
