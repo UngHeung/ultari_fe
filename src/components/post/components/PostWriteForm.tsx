@@ -1,8 +1,8 @@
+import CustomSelect from '@/components/common/elements/CustomSelect';
 import { setModal } from '@/components/stores/reducer/modalRducer';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CustomSelect from '../../common/CustomSelect';
 import {
   ModalState,
   SliceOptions,

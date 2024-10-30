@@ -1,10 +1,10 @@
+import BaseButton from '@/components/common/elements/BaseButton';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
 import { setLogged } from '@/components/stores/reducer/loggedReducer';
 import { setModal } from '@/components/stores/reducer/modalRducer';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import BaseButton from '../../common/BaseButton';
 import {
   ModalState,
   SliceOptions,
