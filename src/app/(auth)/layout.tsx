@@ -1,15 +1,14 @@
 'use client';
 
-import {
-  ModalState,
-  SliceOptions,
-} from '@/components/stores/interfaces/stateInterface';
+import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import { setModal } from '@/components/stores/reducer/modalRducer';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import style from './layout.module.css';
-import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();

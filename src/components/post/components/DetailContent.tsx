@@ -1,8 +1,10 @@
 import ImagesSlider from '@/components/common/components/ImagesSlider';
-import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import useMenuBoxChildStore, {
   MenuBoxChildStore,
-} from '@/components/stores/menuboxChildrenStore';
+} from '@/components/stores/common/menuboxChildrenStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';

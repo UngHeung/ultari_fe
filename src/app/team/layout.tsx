@@ -1,10 +1,12 @@
 'use client';
 
 import userAuthentication from '@/components/common/functions/userAuthentication';
-import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import useTitleAndDescStore, {
   TitleAndDescriptionStore,
-} from '@/components/stores/titleAndDescriptionStore';
+} from '@/components/stores/common/titleAndDescriptionStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';

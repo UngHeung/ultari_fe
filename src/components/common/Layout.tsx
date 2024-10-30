@@ -11,7 +11,7 @@ import {
 import Modal from '../modal/Modal';
 import SearchForm from '../post/components/SearchForm';
 import { SliceOptions } from '../stores/interfaces/stateInterface';
-import useLoggedStore, { LoggedStore } from '../stores/loggedStore';
+import useLoggedStore, { LoggedStore } from '../stores/user/loggedStore';
 import useProfileStore, { ProfileStore } from '../stores/user/profileStore';
 import useUserStore, {
   UserStore,

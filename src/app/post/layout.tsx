@@ -1,10 +1,10 @@
 'use client';
 
 import userAuthentication from '@/components/common/functions/userAuthentication';
-import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
 import useTitleAndDescStore, {
   TitleAndDescriptionStore,
-} from '@/components/stores/titleAndDescriptionStore';
+} from '@/components/stores/common/titleAndDescriptionStore';
+import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';

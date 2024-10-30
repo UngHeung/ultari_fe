@@ -1,6 +1,6 @@
 import useMenuBoxChildStore, {
   MenuBoxChildStore,
-} from '@/components/stores/menuboxChildrenStore';
+} from '@/components/stores/common/menuboxChildrenStore';
 import { resetPostList } from '@/components/stores/reducer/PostListReducer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

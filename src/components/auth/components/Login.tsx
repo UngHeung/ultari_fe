@@ -1,7 +1,9 @@
 import BaseButton from '@/components/common/elements/BaseButton';
 import mapModalMessage from '@/components/common/functions/mapModalMessage';
-import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import { setModal } from '@/components/stores/reducer/modalRducer';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import useProfileStore, {
   ProfileStore,
 } from '@/components/stores/user/profileStore';
