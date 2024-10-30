@@ -22,7 +22,6 @@ const initialState: TeamOptions = {
     phone: '',
     email: '',
     role: 'ROLE_ADMIN',
-    isLoggedIn: false,
   },
   subLeader: undefined,
   Member: [],

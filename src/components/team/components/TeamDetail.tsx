@@ -1,12 +1,10 @@
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { UserOptions } from '../../auth/interfaces/authInterface';
-import {
-  ModalState,
-  SliceOptions,
-} from '../../stores/interfaces/stateInterface';
+import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
 import JoinTeamButton from '../elements/JoinTeamButton';
 import TeamButton from '../elements/TeamButton';
@@ -37,7 +35,7 @@ const TeamDetail = ({ teamId }: { teamId: number }) => {
   const [memberList, setMemberList] = useState<UserOptions[]>([]);
   const [applicantList, setApplicantList] = useState<UserOptions[]>([]);
 
-  const userId = useSelector((state: SliceOptions) => state.user.id);
+  const userId = useUserStore((state: UserStore) => state.user.id);
 
   async function teamDetailProcess() {
     const { success, data, message } = await handleGetTeamById(teamId);

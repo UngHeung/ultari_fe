@@ -60,12 +60,3 @@ const SearchForm = ({
 };
 
 export default SearchForm;
-
-export function changeTextLikeKeyword(
-  text: string,
-  keyword: string,
-): [startWith: string, endWith: string] {
-  const [startWith, endWith] = text.split(keyword);
-
-  return [startWith, endWith];
-}

@@ -30,7 +30,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const setDescription = useTitleAndDescStore(
     (state: TitleAndDescriptionStore) => state.setDescription,
   );
-
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state.logged.isLoggedIn,
   );

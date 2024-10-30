@@ -1,10 +1,8 @@
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  ModalState,
-  SliceOptions,
-} from '../../stores/interfaces/stateInterface';
+import { useDispatch } from 'react-redux';
+import { ModalState } from '../../stores/interfaces/stateInterface';
 import { setModal } from '../../stores/reducer/modalRducer';
 import TeamButton from '../elements/TeamButton';
 import TeamInput from '../elements/TeamInput';
@@ -15,7 +13,7 @@ const CreateTeamForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const community = useSelector((state: SliceOptions) => state.user.community);
+  const community = useUserStore((state: UserStore) => state.user.community);
 
   const [disabled, setDisabled] = useState(false);
 

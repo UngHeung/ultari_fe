@@ -5,14 +5,12 @@ import loggedReducer from './reducer/loggedReducer';
 import modalRducer from './reducer/modalRducer';
 import PostListReducer from './reducer/PostListReducer';
 import postReducer from './reducer/postReducer';
-import userReducer from './reducer/userReducer';
 
 const reducers = combineReducers({
   logged: loggedReducer,
   modal: modalRducer,
   post: postReducer,
   postList: PostListReducer,
-  user: userReducer,
 });
 
 const persistConfig = {
