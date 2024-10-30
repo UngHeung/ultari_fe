@@ -1,0 +1,33 @@
+.searchWrap {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: calc(100vh - var(--height-header) - var(--height-footer));
+  margin-bottom: var(--height-footer);
+  background-color: #111;
+}
+
+.search {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.search>input {
+  width: 300px;
+  padding: 5px 10px;
+  background-color: #212121;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.searchListWrap {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}

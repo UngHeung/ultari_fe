@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import selectArrow from '@/public/images/select-arrow.png';
 import Image from 'next/image';
-import style from './styles/customSelect.module.css';
+import style from '../styles/customSelect.module.css';
 
 export interface CustomSelectOptionOptions {
   option: string;
@@ -19,7 +19,7 @@ export interface CustomSelectOptions {
 
 const CustomSelect = (props: CustomSelectOptions) => {
   const { selectOptions, selectId, name, styleClass, defaultSelect } = props;
-  const defaultOption = selectOptions[defaultSelect ?? 0].option;
+  const defaultOption = selectOptions[defaultSelect ?? 0]?.option;
 
   const [selectedOption, setselectedOption] = useState<string>(defaultOption);
   const [selectionActive, setSelectionActive] = useState<boolean>(false);
@@ -29,7 +29,7 @@ const CustomSelect = (props: CustomSelectOptions) => {
       <ul
         className={style.select}
         style={{
-          height: selectionActive ? 30 * (selectOptions.length + 1) : 30,
+          height: selectionActive ? 28 * (selectOptions.length + 1) : 28,
         }}
       >
         <li key={-1} className={style.selectedDisplay}>
@@ -72,7 +72,7 @@ const CustomSelect = (props: CustomSelectOptions) => {
                     setSelectionActive(false);
                   }
                 }}
-                defaultChecked={idx === 0 ? true : false}
+                defaultChecked={idx === defaultSelect ? true : false}
               />
             </li>
           );

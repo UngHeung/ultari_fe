@@ -1,8 +1,8 @@
+import CustomSelect from '@/components/common/elements/CustomSelect';
 import { setModal } from '@/components/stores/reducer/modalRducer';
-import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CustomSelect from '../../common/CustomSelect';
 import {
   ModalState,
   SliceOptions,
@@ -11,18 +11,57 @@ import { setPost } from '../../stores/reducer/postReducer';
 import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
 import handleUploadPost from '../handlers/handleUploadPost';
+import {
+  ContentTypeOptions,
+  VisibilityOptions,
+} from '../interfaces/postInterfaces';
 import style from '../styles/write.module.css';
 import ImageUploadForm from './ImageUploadForm';
-import InnerNav from './InnerNav';
 
-const PostWriteForm = () => {
+export interface ContentTypeSelectOptions {
+  option: string;
+  data: ContentTypeOptions;
+}
+export interface VisibilitySelectOptions {
+  option: string;
+  data: VisibilityOptions;
+}
+
+export const contentTypeSelectOptions: ContentTypeSelectOptions[] = [
+  { option: '자유', data: 'TYPE_FREE' },
+  { option: '감사제목', data: 'TYPE_THANKS' },
+  { option: '기도제목', data: 'TYPE_PRAYER' },
+  { option: '나눔', data: 'TYPE_SHARE' },
+];
+
+export const visibleTypeSelectOptions: VisibilitySelectOptions[] = [
+  { option: '전체공개', data: 'SCOPE_PUBLIC' },
+  { option: '목장공개', data: 'SCOPE_TEAM' },
+  { option: '비공개', data: 'SCOPE_PERSONAL' },
+];
+
+const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const dispatch = useDispatch();
+  const updatePostId = pathname.split('/')[3];
 
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
   const [disabled, setDisabled] = useState<boolean>(false);
+  const isLoggedIn = useSelector(
+    (state: SliceOptions) => state.logged.isLoggedIn,
+  );
 
+  const post = useSelector((state: SliceOptions) => state.post);
   const user = useSelector((state: SliceOptions) => state.user);
+
+  useEffect(() => {
+    if (type === 'update') {
+      if (isLoggedIn && post.author.id !== user.id) {
+        router.replace(`/post/detail/${post.id}`);
+      }
+    }
+  }, []);
 
   async function postWriteProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -31,8 +70,9 @@ const PostWriteForm = () => {
 
     const { data, success, message } = await handleUploadPost(
       event,
-      'new',
+      type,
       selectedFilenames,
+      type === 'update' ? +updatePostId : undefined,
     );
 
     dispatch(setPost({ ...data, author: user }));
@@ -63,37 +103,36 @@ const PostWriteForm = () => {
             styleClass={style.title}
             type={'text'}
             placeholder={'제목을 입력해주세요.'}
+            value={type === 'update' ? post.title : ''}
           />
 
           <div className={style.innerNavWrap}>
-            <InnerNav
-              router={router}
-              isLoggedIn={false}
-              dispatch={dispatch}
-              type="write"
-            />
-
             <section className={style.selectWrap}>
               <CustomSelect
-                selectOptions={[
-                  { option: '자유', data: 'TYPE_FREE' },
-                  { option: '감사제목', data: 'TYPE_THANKS' },
-                  { option: '기도제목', data: 'TYPE_PRAYER' },
-                  { option: '나눔', data: 'TYPE_SHARE' },
-                ]}
+                selectOptions={contentTypeSelectOptions}
                 selectId={'postContentTypeSelect'}
                 name={'contentType'}
                 styleClass={style.selectType}
+                defaultSelect={
+                  type === 'update'
+                    ? contentTypeSelectOptions.findIndex(
+                        item => item.data === post.contentType,
+                      )
+                    : 0
+                }
               />
               <CustomSelect
-                selectOptions={[
-                  { option: '전체공개', data: 'SCOPE_PUBLIC' },
-                  { option: '목장공개', data: 'SCOPE_TEAM' },
-                  { option: '비공개', data: 'SCOPE_PERSONAL' },
-                ]}
+                selectOptions={visibleTypeSelectOptions}
                 selectId={'postVisibilitySelect'}
                 name={'visibility'}
                 styleClass={style.selectVisibility}
+                defaultSelect={
+                  type === 'update'
+                    ? visibleTypeSelectOptions.findIndex(
+                        item => item.data === post.visibility,
+                      )
+                    : 0
+                }
               />
             </section>
           </div>
@@ -104,6 +143,7 @@ const PostWriteForm = () => {
             id=""
             className={style.content}
             placeholder={'내용을 입력해주세요.'}
+            defaultValue={type === 'update' ? post.content : ''}
           />
         </section>
         <section className={style.buttonWrap}>
@@ -123,7 +163,7 @@ const PostWriteForm = () => {
 
 export default PostWriteForm;
 
-const saveIcon = (
+export const saveIcon = (
   <svg
     width="40"
     height="40"

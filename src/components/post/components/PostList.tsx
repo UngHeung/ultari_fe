@@ -1,3 +1,6 @@
+import useMenuBoxChildStore, {
+  MenuBoxChildStore,
+} from '@/components/stores/menuboxChildrenStore';
 import { resetPostList } from '@/components/stores/reducer/PostListReducer';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,6 +40,12 @@ const PostList = () => {
   const postListOrderByAsc = useSelector(
     (state: SliceOptions) => state.postList.asc,
   );
+  const setMenuBoxChild = useMenuBoxChildStore(
+    (state: MenuBoxChildStore) => state.setChild,
+  );
+  const resetMenuBoxChild = useMenuBoxChildStore(
+    (state: MenuBoxChildStore) => state.resetChild,
+  );
 
   const [orderBy, setOrderBy] = useState<OrderTypes>(listOrderBy.value);
   const [sortBy, setSortBy] = useState<SortTypes>(listSortBy.value);
@@ -50,8 +59,17 @@ const PostList = () => {
   useEffect(() => {
     postListProcess();
 
+    setMenuBoxChild(
+      <ListMenu
+        setSortBy={setSortBy}
+        setOrderBy={setOrderBy}
+        setCursor={setCursor}
+      />,
+    );
+
     return () => {
       dispatch(resetPostList());
+      resetMenuBoxChild();
     };
   }, [sortBy, orderBy]);
 
@@ -106,12 +124,6 @@ const PostList = () => {
 
   return (
     <>
-      <ListMenu
-        setSortBy={setSortBy}
-        setOrderBy={setOrderBy}
-        setCursor={setCursor}
-      />
-
       <ul className={style.postList}>
         {postList ? (
           postList.map((post: PostOptions, idx: number) => {

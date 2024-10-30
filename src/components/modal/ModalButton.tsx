@@ -1,4 +1,4 @@
-import BaseButton from '../common/BaseButton';
+import BaseButton from '../common/elements/BaseButton';
 import { ModalButtonOptions } from './interfaces/modalInterface';
 
 const ModalButton = ({

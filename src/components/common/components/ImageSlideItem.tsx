@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import { postImagePath } from './constants/pathConst';
+import { postImagePath } from '../constants/pathConst';
 
 const ImageSlideItem = ({
   path,

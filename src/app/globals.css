@@ -103,22 +103,27 @@ a:focus {
 }
 
 body {
+  position: relative;
+  height: auto;
+  min-height: 100%;
+  padding-bottom: var(--height-footer);
   background-color: var(--background-color-body);
   font-family: var(--font-family-basic);
   color: var(--font-color-basic);
-  -webkit-user-select: none;
+  overflow: hidden;
+  /* -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none
+  user-select: none; */
 }
 
-
 main {
-  max-width: 100%;
+  max-width: 600px;
   min-width: var(--min-width);
   width: 100%;
-  margin: var(--height-header) auto var(--height-footer);
-  height: calc(100vh - var(--height-header) - var(--height-footer));
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto;
   overflow: hidden;
 }
 

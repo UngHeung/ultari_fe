@@ -1,4 +1,4 @@
-import BaseInput from '../../common/BaseInput';
+import BaseInput from '@/components/common/elements/BaseInput';
 import { PostInputOptions } from '../interfaces/postInterfaces';
 
 const PostInput = (props: PostInputOptions) => {
