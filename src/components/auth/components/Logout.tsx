@@ -1,5 +1,7 @@
-import useLoggedStore, { LoggedStore } from '@/components/stores/loggedStore';
 import { setModal } from '@/components/stores/reducer/modalRducer';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import useProfileStore, {
   ProfileStore,
 } from '@/components/stores/user/profileStore';
@@ -19,6 +21,8 @@ const Logout = () => {
   const resetProfile = useProfileStore(
     (state: ProfileStore) => state.resetPath,
   );
+  const clearLoggedStorage = useLoggedStore.persist.clearStorage;
+  const clearProfileStorage = useProfileStore.persist.clearStorage;
 
   useEffect(() => {
     logoutProcess();
@@ -26,9 +30,6 @@ const Logout = () => {
 
   async function logoutProcess() {
     const { success, message } = await handleLogout();
-
-    resetUser();
-    resetProfile();
 
     const modalData: ModalState = {
       title: '로그아웃',
@@ -40,7 +41,12 @@ const Logout = () => {
       leftPath: '/',
     };
 
+    resetUser();
+    resetProfile();
     resetIsLoggedIn();
+
+    clearLoggedStorage();
+    clearProfileStorage();
 
     dispatch(setModal(modalData));
   }
