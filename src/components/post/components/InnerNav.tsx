@@ -21,10 +21,6 @@ const InnerNav = ({
 }) => {
   return (
     <section className={style.menuWrap}>
-      <button type={'button'} onClick={router.back}>
-        {backIcon}
-      </button>
-      <div className={style.menuLine}></div>
       {type !== 'write' && (
         <button
           type={'button'}

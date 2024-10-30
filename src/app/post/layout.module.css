@@ -8,17 +8,8 @@
 .postWrap {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto 20px;
-  padding: 0 0 20px;
-  background-color: #1e1e1e;
-}
-
-.head {
-  position: relative;
-  width: 100%;
-  padding: 10px 16px;
-  background-color: #111111;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, .2);
+  margin: 0 auto var(--height-footer);
+  background-color: #161616;
 }
 
 .title {
@@ -35,7 +26,7 @@
 .buttonWrap {
   position: absolute;
   right: 20px;
-  bottom: calc(var(--height-footer) + 40px);
+  bottom: calc(var(--height-footer) + 20px);
 }
 
 .buttonWrap>a {

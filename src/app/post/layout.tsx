@@ -2,6 +2,9 @@
 
 import userAuthentication from '@/components/common/functions/userAuthentication';
 import { SliceOptions } from '@/components/stores/interfaces/stateInterface';
+import useTitleAndDescStore, {
+  TitleAndDescriptionStore,
+} from '@/components/stores/titleAndDescriptionStore';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -19,9 +22,14 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
   const [position, setPosition] = useState<PostPagePosition>('list');
+
+  const setTitle = useTitleAndDescStore(
+    (state: TitleAndDescriptionStore) => state.setTitle,
+  );
+  const setDescription = useTitleAndDescStore(
+    (state: TitleAndDescriptionStore) => state.setDescription,
+  );
 
   const isLoggedIn = useSelector(
     (state: SliceOptions) => state.logged.isLoggedIn,
@@ -44,10 +52,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={style.postLayout}>
       <section className={style.postWrap}>
-        <section className={style.head}>
-          <h2 className={style.title}>{title}</h2>
-          <span className={style.description}>{description}</span>
-        </section>
         <section>{children}</section>
       </section>
       <section className={style.buttonWrap}>
