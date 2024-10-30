@@ -29,7 +29,7 @@ const CustomSelect = (props: CustomSelectOptions) => {
       <ul
         className={style.select}
         style={{
-          height: selectionActive ? 30 * (selectOptions.length + 1) : 30,
+          height: selectionActive ? 28 * (selectOptions.length + 1) : 28,
         }}
       >
         <li key={-1} className={style.selectedDisplay}>
