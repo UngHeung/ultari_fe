@@ -1,12 +1,11 @@
 import { ChangeEvent, useState } from 'react';
-import { useSelector } from 'react-redux';
 import ImageInput from '../post/elements/ImageInput';
-import { SliceOptions } from '../stores/interfaces/stateInterface';
+import useProfileStore, { ProfileStore } from '../stores/user/profileStore';
 import UserProfile from './components/UserProfile';
 import style from './styles/update.module.css';
 
 const ProfileUpload = () => {
-  const path = useSelector((state: SliceOptions) => state.user.path);
+  const path = useProfileStore((state: ProfileStore) => state.path);
 
   const [profileImage, setProfileImage] = useState<string>(path ?? '');
 

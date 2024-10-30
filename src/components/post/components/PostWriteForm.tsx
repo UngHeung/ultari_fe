@@ -9,7 +9,6 @@ import useLoggedStore, {
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { ModalState } from '../../stores/interfaces/stateInterface';
 import PostButton from '../elements/PostButton';
 import PostInput from '../elements/PostInput';
@@ -46,7 +45,6 @@ export const visibleTypeSelectOptions: VisibilitySelectOptions[] = [
 const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const dispatch = useDispatch();
   const updatePostId = pathname.split('/')[3];
 
   const [selectedFilenames, setSelectedFilenames] = useState<string[]>([]);
