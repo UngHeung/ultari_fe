@@ -3,9 +3,9 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  height: calc(100vh - var(--height-header) - var(--height-footer));
+  height: calc(100svh - var(--height-header) - var(--height-footer));
   margin-bottom: var(--height-footer);
-  background-color: #111;
+  background-color: #111111;
 }
 
 .search {
@@ -71,8 +71,9 @@
 .keyword {
   padding: 2px 4px;
   border-radius: 8px;
-  background-color: #ff6b10;
-  color: #ffffff;
+  background-color: #eade00;
+  color: #111111;
+  font-weight: 600;
 }
 
 .line {
