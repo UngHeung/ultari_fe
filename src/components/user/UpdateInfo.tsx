@@ -8,6 +8,7 @@ import UserInput from './elements/UserInput';
 import handleUpdateMyData from './handlers/handleUpdateMyData';
 import ProfileUpload from './ProfileUpload';
 import style from './styles/update.module.css';
+import useProfileStore, { ProfileStore } from '../stores/user/profileStore';
 
 const UpdateInfo = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const UpdateInfo = () => {
 
   const setUser = useUserStore((state: UserStore) => state.setUser);
   const user = useUserStore((state: UserStore) => state.user);
+  const setProfile = useProfileStore((state: ProfileStore) => state.setPath);
   const setModal = useModalStore((state: ModalStore) => state.setModal);
 
   async function updateInfoProcess(event: FormEvent<HTMLFormElement>) {
@@ -38,6 +40,9 @@ const UpdateInfo = () => {
 
     if (success) {
       setUser({ ...data, path: data.profile ? data.profile.path : '' });
+      if (data.profile) {
+        setProfile(data.profile.path);
+      }
     }
 
     setDisabled(false);
