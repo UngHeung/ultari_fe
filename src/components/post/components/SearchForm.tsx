@@ -32,7 +32,6 @@ const SearchForm = ({
 
   useEffect(() => {
     if (keyword.trim() === '' || keyword.trim().length < 2) {
-      console.log('차단~!');
       setIsLoading(false);
       return resetList();
     } else {
@@ -76,7 +75,6 @@ const SearchForm = ({
 export default SearchForm;
 
 async function getSearchList(keyword: string) {
-  console.log('요청!');
   const response = await authAxios.get(`/post/find?keyword=${keyword}`);
 
   return response;
