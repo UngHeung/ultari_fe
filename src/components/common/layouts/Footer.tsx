@@ -1,13 +1,24 @@
 import Link from 'next/link';
-import { SetStateAction } from 'react';
+import { SetStateAction, useState } from 'react';
 import style from '../styles/footer.module.css';
 import Logo from './Logo';
+import UserProfile from '@/components/user/components/UserProfile';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
+import useProfileStore, {
+  ProfileStore,
+} from '@/components/stores/user/profileStore';
 
 const Footer = ({
   setIsSearching,
 }: {
   setIsSearching: React.Dispatch<SetStateAction<boolean>>;
 }) => {
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const profile = useProfileStore((state: ProfileStore) => state.path);
+  const [isShow, setIsShow] = useState(false);
+
   return (
     <footer className={style.mainFooter}>
       <div className={style.footerWrap}>
@@ -19,8 +30,16 @@ const Footer = ({
         <section>
           <Link href={'/'}>{homeIcon}</Link>
         </section>
-        <section className={style.logoWrap}>
-          <Logo width={'30px'} height={'auto'} type={'small'} />
+        <section className={style.profileWrap}>
+          {isLoggedIn ? (
+            <Link onClick={() => setIsShow(false)} href={`/user/my`}>
+              <UserProfile path={profile} size={25} />
+            </Link>
+          ) : (
+            <Link onClick={() => setIsShow(false)} href={'/login'}>
+              로그인
+            </Link>
+          )}
         </section>
       </div>
     </footer>

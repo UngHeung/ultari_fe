@@ -18,6 +18,11 @@
   padding: 0 10px;
 }
 
+.buttonWrap button,
+.logoWrap img {
+  vertical-align: middle;
+}
+
 .mobileMenuWrap {
   display: none;
   position: fixed;

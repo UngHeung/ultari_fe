@@ -1,16 +1,10 @@
-import UserProfile from '@/components/user/components/UserProfile';
 import Link from 'next/link';
 import { useState } from 'react';
 import style from '../styles/header.module.css';
+import Logo from './Logo';
 import Nav from './Nav';
 
-const Header = ({
-  isLoggedIn,
-  profile,
-}: {
-  isLoggedIn: boolean;
-  profile: string;
-}) => {
+const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const [isShow, setIsShow] = useState(false);
 
   return (
@@ -24,16 +18,8 @@ const Header = ({
             {hamburger}
           </button>
         </section>
-        <section className={style.profileWrap}>
-          {isLoggedIn ? (
-            <Link onClick={() => setIsShow(false)} href={`/user/my`}>
-              <UserProfile path={profile} size={30} />
-            </Link>
-          ) : (
-            <Link onClick={() => setIsShow(false)} href={'/login'}>
-              로그인
-            </Link>
-          )}
+        <section className={style.logoWrap}>
+          <Logo width={'80px'} height={'auto'} type={'small'} />
         </section>
       </div>
 
