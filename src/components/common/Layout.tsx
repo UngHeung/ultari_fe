@@ -41,7 +41,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} profile={profile ?? ''} />
+      <Header isLoggedIn={isLoggedIn} />
       <MenuBox />
       {children}
       <Footer setIsSearching={setIsSearching} />
