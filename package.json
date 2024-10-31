@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/lodash": "^4.17.13",
     "axios": "^1.7.7",
+    "lodash": "^4.17.21",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",

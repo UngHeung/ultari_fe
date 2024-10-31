@@ -3,7 +3,7 @@
 
 :root {
   /* background-color */
-  --background-color-body: #2c2c2c;
+  --background-color-body: #111111;
   --background-color-header: #111111;
   --background-color-footer: #111111;
   --background-color-input: #111111;
@@ -107,7 +107,7 @@ body {
   height: auto;
   min-height: 100%;
   padding-bottom: var(--height-footer);
-  background-color: var(--background-color-body);
+  background-color: #111111;
   font-family: var(--font-family-basic);
   color: var(--font-color-basic);
   overflow: hidden;
