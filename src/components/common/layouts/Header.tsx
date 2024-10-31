@@ -1,6 +1,3 @@
-import useProfileStore, {
-  ProfileStore,
-} from '@/components/stores/user/profileStore';
 import Link from 'next/link';
 import { useState } from 'react';
 import style from '../styles/header.module.css';
@@ -8,8 +5,6 @@ import Logo from './Logo';
 import Nav from './Nav';
 
 const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  const profile = useProfileStore((state: ProfileStore) => state.path);
-
   const [isShow, setIsShow] = useState(false);
 
   return (

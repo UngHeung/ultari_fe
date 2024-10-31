@@ -14,7 +14,7 @@
 }
 
 .mainNavUl>li {
-  font-size: 1.3rem;
+  font-size: 24px;
   font-weight: 600;
-  line-height: var(--height-header);
+  line-height: 50px;
 }

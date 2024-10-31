@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 600px;
+  height: calc(100svh - var(--height-header) - var(--height-footer) - 70px);
   margin: 0 auto;
 }
 
@@ -26,7 +27,7 @@
 .buttonWrap {
   position: absolute;
   right: 20px;
-  bottom: calc(var(--height-footer) + 20px);
+  bottom: calc((var(--height-footer)) + 10px);
 }
 
 .buttonWrap>a {

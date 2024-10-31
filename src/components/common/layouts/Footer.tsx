@@ -28,15 +28,35 @@ const Footer = ({
           </button>
         </section>
         <section>
-          <Link href={'/'}>{homeIcon}</Link>
+          <Link
+            onClick={() => {
+              setIsShow(false);
+              setIsSearching(false);
+            }}
+            href={'/'}
+          >
+            {homeIcon}
+          </Link>
         </section>
         <section className={style.profileWrap}>
           {isLoggedIn ? (
-            <Link onClick={() => setIsShow(false)} href={`/user/my`}>
+            <Link
+              onClick={() => {
+                setIsShow(false);
+                setIsSearching(false);
+              }}
+              href={`/user/my`}
+            >
               <UserProfile path={profile} size={25} />
             </Link>
           ) : (
-            <Link onClick={() => setIsShow(false)} href={'/login'}>
+            <Link
+              onClick={() => {
+                setIsShow(false);
+                setIsSearching(false);
+              }}
+              href={'/login'}
+            >
               로그인
             </Link>
           )}

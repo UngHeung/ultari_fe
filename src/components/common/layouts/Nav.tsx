@@ -19,12 +19,7 @@ const Nav = ({
     <nav className={style.mainNav}>
       <ul className={style.mainNavUl}>
         <li>
-          <Link
-            onClick={event => {
-              setIsShow(false);
-            }}
-            href={'/post/list'}
-          >
+          <Link onClick={() => setIsShow(false)} href={'/post/list'}>
             자유게시판
           </Link>
         </li>
