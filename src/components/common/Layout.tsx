@@ -11,7 +11,6 @@ import Modal from '../modal/Modal';
 import SearchForm from '../post/components/SearchForm';
 import useModalStore, { ModalStore } from '../stores/modal/modalStore';
 import useLoggedStore, { LoggedStore } from '../stores/user/loggedStore';
-import useProfileStore, { ProfileStore } from '../stores/user/profileStore';
 import useUserStore, {
   UserStore,
   UserStoreOption,
@@ -29,8 +28,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     (state: ModalStore) => state.modal.modalIsShow,
   );
 
-  const profile = useProfileStore((state: ProfileStore) => state.path);
-
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
   useEffect(() => {
@@ -41,7 +38,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} profile={profile ?? ''} />
+      <Header isLoggedIn={isLoggedIn} />
       <MenuBox />
       {children}
       <Footer setIsSearching={setIsSearching} />
