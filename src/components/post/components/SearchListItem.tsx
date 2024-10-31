@@ -14,9 +14,7 @@ const SearchListItem = ({
 }) => {
   const titleArray = changeTextLikeKeyword(post.title, keyword);
   const contentArray = changeTextLikeKeyword(post.content, keyword);
-
-  console.log(titleArray);
-  console.log(contentArray);
+  console.log(post);
 
   return (
     <li className={style.itemWrap}>
@@ -24,6 +22,8 @@ const SearchListItem = ({
         href={`/post/detail/${post.id}`}
         onClick={() => setIsSearching(false)}
       >
+        <span className={style.name}>{post.author?.name}</span>
+        <div className={style.line}></div>
         <strong className={style.title}>
           {titleArray.count === 1 ? (
             <>
@@ -33,19 +33,19 @@ const SearchListItem = ({
             <>
               {titleArray.splitTextArray.map((item, idx) => {
                 return (
-                  <>
+                  <span key={idx}>
                     <span>{item}</span>
                     {idx !== titleArray.count - 1 && (
                       <span className={style.keyword}>{keyword}</span>
                     )}
-                  </>
+                  </span>
                 );
               })}
             </>
           ) : null}
         </strong>
         <div className={style.line}></div>
-        <p className={style.content}>
+        <span className={style.content}>
           {contentArray.count === 1 ? (
             <>
               <span>{contentArray.splitTextArray}</span>
@@ -54,17 +54,17 @@ const SearchListItem = ({
             <>
               {contentArray.splitTextArray.map((item, idx) => {
                 return (
-                  <>
+                  <span key={idx}>
                     <span>{item}</span>
                     {idx !== contentArray.count - 1 && (
                       <span className={style.keyword}>{keyword}</span>
                     )}
-                  </>
+                  </span>
                 );
               })}
             </>
           ) : null}
-        </p>
+        </span>
       </Link>
     </li>
   );
