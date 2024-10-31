@@ -12,8 +12,11 @@ const SearchListItem = ({
   post: PostOptions;
   keyword: string;
 }) => {
-  const title = changeTextLikeKeyword(post.title, keyword);
-  const content = changeTextLikeKeyword(post.content, keyword);
+  const titleArray = changeTextLikeKeyword(post.title, keyword);
+  const contentArray = changeTextLikeKeyword(post.content, keyword);
+
+  console.log(titleArray);
+  console.log(contentArray);
 
   return (
     <li className={style.itemWrap}>
@@ -22,27 +25,45 @@ const SearchListItem = ({
         onClick={() => setIsSearching(false)}
       >
         <strong className={style.title}>
-          {title.length > 1 ? (
+          {titleArray.count === 1 ? (
             <>
-              <span>{title[0]}</span>
-              <span className={style.keyword}>{keyword}</span>
-              <span>{title[1]}</span>
+              <span>{titleArray.splitTextArray}</span>
             </>
-          ) : (
-            <span>{title[0]}</span>
-          )}
+          ) : titleArray.count > 1 ? (
+            <>
+              {titleArray.splitTextArray.map((item, idx) => {
+                return (
+                  <>
+                    <span>{item}</span>
+                    {idx !== titleArray.count - 1 && (
+                      <span className={style.keyword}>{keyword}</span>
+                    )}
+                  </>
+                );
+              })}
+            </>
+          ) : null}
         </strong>
         <div className={style.line}></div>
         <p className={style.content}>
-          {content.length > 1 ? (
+          {contentArray.count === 1 ? (
             <>
-              <span>{content[0]}</span>
-              <span className={style.keyword}>{keyword}</span>
-              <span>{content[1]}</span>
+              <span>{contentArray.splitTextArray}</span>
             </>
-          ) : (
-            <span>{content[0]}</span>
-          )}
+          ) : contentArray.count > 1 ? (
+            <>
+              {contentArray.splitTextArray.map((item, idx) => {
+                return (
+                  <>
+                    <span>{item}</span>
+                    {idx !== contentArray.count - 1 && (
+                      <span className={style.keyword}>{keyword}</span>
+                    )}
+                  </>
+                );
+              })}
+            </>
+          ) : null}
         </p>
       </Link>
     </li>
@@ -54,12 +75,19 @@ export default SearchListItem;
 export function changeTextLikeKeyword(
   text: string,
   keyword: string,
-): [startWith: string, endWith: string] | string[] {
+): { count: number; splitTextArray: string[] } {
   if (!text.includes(keyword)) {
-    return [text];
+    return {
+      splitTextArray: [text],
+      count: 1,
+    };
   } else {
-    const [startWith, endWith] = text.split(keyword);
+    const splitTextArray = text.split(keyword);
+    const count = splitTextArray.length;
 
-    return [startWith, endWith];
+    return {
+      splitTextArray,
+      count,
+    };
   }
 }
