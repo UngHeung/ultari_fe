@@ -14,7 +14,6 @@ const SearchListItem = ({
 }) => {
   const titleArray = changeTextLikeKeyword(post.title, keyword);
   const contentArray = changeTextLikeKeyword(post.content, keyword);
-  console.log(post);
 
   return (
     <li className={style.itemWrap}>
