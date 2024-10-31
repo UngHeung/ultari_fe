@@ -1,5 +1,7 @@
-import basicLogo from '@/public/images/logo_basic.png';
-import smallLogo from '@/public/images/logo_small.png';
+import {
+  default as basicLogo,
+  default as smallLogo,
+} from '@/public/images/logo.png';
 
 const getImageSrc = (type: 'basic' | 'small') => {
   return type === 'basic' ? basicLogo : smallLogo;
