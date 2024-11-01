@@ -18,7 +18,7 @@ const SearchList = ({
   return (
     <>
       <ul className={style.searchList}>
-        {keyword.trim().length < 2 && 0 < keyword.trim().length ? (
+        {keyword.trim().length < 2 ? (
           <li className={style.message}>{'검색어를 2자 이상 입력해주세요.'}</li>
         ) : searchList.length <= 0 ? (
           <li className={style.message}>{'검색 결과가 없습니다.'}</li>

@@ -31,12 +31,7 @@ const SearchForm = ({
   );
 
   useEffect(() => {
-    if (keyword.trim() === '' || keyword.trim().length < 2) {
-      setIsLoading(false);
-      return resetList();
-    } else {
-      searchProcess(keyword);
-    }
+    searchProcess(keyword);
   }, [keyword]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -44,7 +39,12 @@ const SearchForm = ({
   const searchProcess = useCallback(
     debounce(async (keyword: string) => {
       const response = await getSearchList(keyword);
-      setList(response.data);
+      if (response) {
+        setList(response.data);
+      } else {
+        resetList();
+      }
+
       setIsLoading(false);
     }, 600),
     [],
@@ -75,7 +75,10 @@ const SearchForm = ({
 export default SearchForm;
 
 async function getSearchList(keyword: string) {
-  const response = await authAxios.get(`/post/find?keyword=${keyword}`);
+  if (!keyword) return;
 
+  if (keyword?.trim() === '' || keyword?.trim().length < 2) return;
+
+  const response = await authAxios.get(`/post/find?keyword=${keyword}`);
   return response;
 }
