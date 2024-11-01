@@ -6,22 +6,12 @@ import useSearchListStore, {
   SearchListStore,
 } from '@/components/stores/common/searchDataStore';
 import { debounce } from 'lodash';
-import {
-  ChangeEvent,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import SearchInput from '../elements/SearchInput';
 import style from '../styles/search.module.css';
 import SearchList from './SearchList';
 
-const SearchForm = ({
-  setIsSearching,
-}: {
-  setIsSearching: React.Dispatch<SetStateAction<boolean>>;
-}) => {
+const SearchForm = () => {
   const keyword = useKeywordStore((state: KeywordStore) => state.keyword);
   const setKeyword = useKeywordStore((state: KeywordStore) => state.setKeyword);
   const searchList = useSearchListStore((state: SearchListStore) => state.list);
@@ -62,7 +52,6 @@ const SearchForm = ({
       </section>
       <section className={style.searchListWrap}>
         <SearchList
-          setIsSearching={setIsSearching}
           isLoading={isLoading}
           searchList={searchList}
           keyword={keyword}

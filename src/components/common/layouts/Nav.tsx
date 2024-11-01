@@ -1,25 +1,28 @@
+import useIsShowStore, {
+  IsShowStore,
+} from '@/components/stores/common/isShowStore';
 import useModalStore, {
   ModalStore,
 } from '@/components/stores/modal/modalStore';
+import useLoggedStore, {
+  LoggedStore,
+} from '@/components/stores/user/loggedStore';
 import Link from 'next/link';
-import { SetStateAction } from 'react';
 import userAuthentication from '../functions/userAuthentication';
 import style from '../styles/nav.module.css';
 
-const Nav = ({
-  setIsShow,
-  isLoggedIn,
-}: {
-  setIsShow: React.Dispatch<SetStateAction<boolean>>;
-  isLoggedIn: boolean;
-}) => {
+const Nav = () => {
   const setModal = useModalStore((state: ModalStore) => state.setModal);
+  const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const setMenuIsShow = useIsShowStore(
+    (state: IsShowStore) => state.setMenuIsShow,
+  );
 
   return (
     <nav className={style.mainNav}>
       <ul className={style.mainNavUl}>
         <li>
-          <Link onClick={() => setIsShow(false)} href={'/post/list'}>
+          <Link onClick={() => setMenuIsShow(false)} href={'/post/list'}>
             자유게시판
           </Link>
         </li>
@@ -27,7 +30,7 @@ const Nav = ({
           <Link
             onClick={event => {
               userAuthentication(isLoggedIn, setModal, event);
-              setIsShow(false);
+              setMenuIsShow(false);
             }}
             href={'/team/create'}
           >
@@ -35,7 +38,7 @@ const Nav = ({
           </Link>
         </li>
         <li>
-          <Link onClick={() => setIsShow(false)} href={'/team/list'}>
+          <Link onClick={() => setMenuIsShow(false)} href={'/team/list'}>
             목장목록
           </Link>
         </li>
@@ -43,7 +46,7 @@ const Nav = ({
           <Link
             onClick={event => {
               userAuthentication(isLoggedIn, setModal, event);
-              setIsShow(false);
+              setMenuIsShow(false);
             }}
             href={'/user/list'}
           >

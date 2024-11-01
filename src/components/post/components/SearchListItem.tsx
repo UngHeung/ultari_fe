@@ -1,17 +1,21 @@
+import useIsShowStore, {
+  IsShowStore,
+} from '@/components/stores/common/isShowStore';
 import Link from 'next/link';
-import { SetStateAction } from 'react';
 import { PostOptions } from '../interfaces/postInterfaces';
 import style from '../styles/search.module.css';
 
 const SearchListItem = ({
-  setIsSearching,
   post,
   keyword,
 }: {
-  setIsSearching: React.Dispatch<SetStateAction<boolean>>;
   post: PostOptions;
   keyword: string;
 }) => {
+  const setSearchIsShow = useIsShowStore(
+    (state: IsShowStore) => state.setSearchIsShow,
+  );
+
   const titleArray = changeTextLikeKeyword(post.title, keyword);
   const contentArray = changeTextLikeKeyword(post.content, keyword);
 
@@ -19,7 +23,7 @@ const SearchListItem = ({
     <li className={style.itemWrap}>
       <Link
         href={`/post/detail/${post.id}`}
-        onClick={() => setIsSearching(false)}
+        onClick={() => setSearchIsShow(false)}
       >
         <span className={style.name}>{post.author?.name}</span>
         <div className={style.line}></div>

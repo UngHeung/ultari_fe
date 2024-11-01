@@ -1,11 +1,22 @@
+import useIsShowStore, {
+  IsShowStore,
+} from '@/components/stores/common/isShowStore';
 import Link from 'next/link';
-import { useState } from 'react';
 import style from '../styles/header.module.css';
 import Logo from './Logo';
 import Nav from './Nav';
 
-const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  const [isShow, setIsShow] = useState(false);
+const Header = () => {
+  const menuIsShow = useIsShowStore((state: IsShowStore) => state.menuIsShow);
+  const setMenuIsShow = useIsShowStore(
+    (state: IsShowStore) => state.setMenuIsShow,
+  );
+  const toggleMenuIsShow = useIsShowStore(
+    (state: IsShowStore) => state.toggleMenuIsShow,
+  );
+  const setSearchIsShow = useIsShowStore(
+    (state: IsShowStore) => state.setSearchIsShow,
+  );
 
   return (
     <header className={style.mainHeader}>
@@ -13,7 +24,10 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <section className={style.buttonWrap}>
           <button
             className={style.hamburger}
-            onClick={() => setIsShow(prev => !prev)}
+            onClick={() => {
+              setSearchIsShow(false);
+              toggleMenuIsShow();
+            }}
           >
             {hamburger}
           </button>
@@ -23,18 +37,23 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         </section>
       </div>
 
-      <div className={`${style.mobileMenuWrap} ${isShow ? style.isShow : ''}`}>
+      <div
+        className={`${style.mobileMenuWrap} ${menuIsShow ? style.isShow : ''}`}
+      >
         <section className={style.navWrap}>
-          <Nav setIsShow={setIsShow} isLoggedIn={isLoggedIn} />
+          <Nav />
         </section>
         <section className={style.user}>
           <div className={style.isLoggedOut}>
             <div className={style.line}></div>
-            <Link onClick={() => setIsShow(false)} href={'/sign'}>
+            <Link onClick={() => setMenuIsShow(false)} href={'/sign'}>
               회원가입
             </Link>
             <div className={style.line}></div>
-            <Link onClick={() => setIsShow(false)} href={'/forgot/password'}>
+            <Link
+              onClick={() => setMenuIsShow(false)}
+              href={'/forgot/password'}
+            >
               계정 찾기
             </Link>
           </div>

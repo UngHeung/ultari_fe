@@ -1,7 +1,7 @@
 import { reissueAccessToken, reissueRefreshToken } from '@/apis/reissueToken';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import getUserDataFromToken from '../auth/functions/getUserDataFromToken';
 import {
   setAccessToken,
@@ -9,6 +9,7 @@ import {
 } from '../auth/functions/tokenInteract';
 import Modal from '../modal/Modal';
 import SearchForm from '../post/components/SearchForm';
+import useIsShowStore, { IsShowStore } from '../stores/common/isShowStore';
 import useModalStore, { ModalStore } from '../stores/modal/modalStore';
 import useLoggedStore, { LoggedStore } from '../stores/user/loggedStore';
 import useUserStore, {
@@ -23,38 +24,40 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
+  const isHydrated = useLoggedStore((state: LoggedStore) => state.isHydrated);
   const setUser = useUserStore((state: UserStore) => state.setUser);
   const modalIsShow = useModalStore(
     (state: ModalStore) => state.modal.modalIsShow,
   );
-
-  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const searchIsShow = useIsShowStore(
+    (state: IsShowStore) => state.searchIsShow,
+  );
 
   useEffect(() => {
-    (async () => {
-      await handleReload(setUser, isLoggedIn, router);
-    })();
-  }, []);
+    if (isHydrated) {
+      if (!isLoggedIn) return;
+
+      handleReload(setUser, router);
+    }
+  }, [isHydrated]);
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header />
       <MenuBox />
       {children}
-      <Footer setIsSearching={setIsSearching} />
+      <Footer />
       {modalIsShow && <Modal />}
-      {isSearching && <SearchForm setIsSearching={setIsSearching} />}
+      {searchIsShow && <SearchForm />}
     </>
   );
 };
 
-async function handleReload(
+export async function handleReload(
   setUser: (user: UserStoreOption) => void,
-  isLoggedIn: boolean,
   router: AppRouterInstance,
 ) {
-  if (!isLoggedIn) return;
-
+  console.log('refresh!');
   try {
     const accessToken = await reissueAccessToken();
     const refreshToken = await reissueRefreshToken();

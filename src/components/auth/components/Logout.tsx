@@ -43,6 +43,8 @@ const Logout = () => {
     resetProfile();
     resetIsLoggedIn();
 
+    localStorage.clear();
+
     setModal(modalData);
   }
 
