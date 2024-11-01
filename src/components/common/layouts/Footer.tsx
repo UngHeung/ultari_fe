@@ -1,3 +1,6 @@
+import useIsShowStore, {
+  IsShowStore,
+} from '@/components/stores/common/isShowStore';
 import useLoggedStore, {
   LoggedStore,
 } from '@/components/stores/user/loggedStore';
@@ -6,31 +9,39 @@ import useProfileStore, {
 } from '@/components/stores/user/profileStore';
 import UserProfile from '@/components/user/components/UserProfile';
 import Link from 'next/link';
-import { SetStateAction, useState } from 'react';
 import style from '../styles/footer.module.css';
 
-const Footer = ({
-  setIsSearching,
-}: {
-  setIsSearching: React.Dispatch<SetStateAction<boolean>>;
-}) => {
+const Footer = () => {
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
   const profile = useProfileStore((state: ProfileStore) => state.path);
-  const [isShow, setIsShow] = useState(false);
+  const toggleSearchIsShow = useIsShowStore(
+    (state: IsShowStore) => state.toggleSearchIsShow,
+  );
+  const setMenuIsShow = useIsShowStore(
+    (state: IsShowStore) => state.setMenuIsShow,
+  );
+  const setSearchIsShow = useIsShowStore(
+    (state: IsShowStore) => state.setSearchIsShow,
+  );
 
   return (
     <footer className={style.mainFooter}>
       <div className={style.footerWrap}>
         <section>
-          <button onClick={() => setIsSearching(prev => !prev)}>
+          <button
+            onClick={() => {
+              setMenuIsShow(false);
+              toggleSearchIsShow();
+            }}
+          >
             {searchIcon}
           </button>
         </section>
         <section>
           <Link
             onClick={() => {
-              setIsShow(false);
-              setIsSearching(false);
+              setMenuIsShow(false);
+              setSearchIsShow(false);
             }}
             href={'/'}
           >
@@ -41,8 +52,8 @@ const Footer = ({
           {isLoggedIn ? (
             <Link
               onClick={() => {
-                setIsShow(false);
-                setIsSearching(false);
+                setMenuIsShow(false);
+                setSearchIsShow(false);
               }}
               href={`/user/my`}
             >
@@ -51,8 +62,8 @@ const Footer = ({
           ) : (
             <Link
               onClick={() => {
-                setIsShow(false);
-                setIsSearching(false);
+                setMenuIsShow(false);
+                setSearchIsShow(false);
               }}
               href={'/login'}
             >
