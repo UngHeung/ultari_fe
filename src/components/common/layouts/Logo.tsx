@@ -29,6 +29,7 @@ const Logo = ({ id, type, width, height, setIsShow }: LogoOptions) => {
           width: width ?? 'auto',
           height: height ?? 'auto',
         }}
+        sizes={'100%'}
         priority
       />
     </Link>
