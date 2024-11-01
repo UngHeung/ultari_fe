@@ -3,7 +3,7 @@
   width: 100%;
   padding-bottom: 10px;
   max-width: 600px;
-  height: calc(100vh - var(--height-header) - var(--height-footer) - 100px);
+  height: calc(100svh - var(--height-header) - var(--height-footer) - 100px);
   overflow-y: auto;
   background-color: #1e1e1e;
 }
