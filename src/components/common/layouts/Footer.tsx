@@ -1,14 +1,13 @@
-import Link from 'next/link';
-import { SetStateAction, useState } from 'react';
-import style from '../styles/footer.module.css';
-import Logo from './Logo';
-import UserProfile from '@/components/user/components/UserProfile';
 import useLoggedStore, {
   LoggedStore,
 } from '@/components/stores/user/loggedStore';
 import useProfileStore, {
   ProfileStore,
 } from '@/components/stores/user/profileStore';
+import UserProfile from '@/components/user/components/UserProfile';
+import Link from 'next/link';
+import { SetStateAction, useState } from 'react';
+import style from '../styles/footer.module.css';
 
 const Footer = ({
   setIsSearching,
