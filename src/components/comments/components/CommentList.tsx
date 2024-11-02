@@ -28,7 +28,7 @@ const CommentList = ({
             />
           ))
         ) : (
-          <button
+          <div
             className={style.listOpenButton}
             onClick={() => setIsOpened(true)}
           >
@@ -38,7 +38,7 @@ const CommentList = ({
               setCommentList={setCommentList}
               userId={userId}
             />
-          </button>
+          </div>
         )
       ) : (
         <li className={style.isEmpty}>{'아직 댓글이 없습니다.'}</li>

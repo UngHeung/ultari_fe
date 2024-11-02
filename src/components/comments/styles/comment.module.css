@@ -17,6 +17,7 @@
   position: relative;
   width: 100%;
   text-align: inherit;
+  cursor: pointer;
 }
 
 .listOpenButton::after {
