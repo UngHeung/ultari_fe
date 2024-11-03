@@ -1,8 +1,7 @@
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { create } from 'zustand';
-import { PostState } from '../interfaces/stateInterface';
 
-const initialState: PostState = {
+const initialState: PostOptions = {
   id: -1,
   title: '',
   content: '',
@@ -20,6 +19,7 @@ const initialState: PostState = {
     role: 'ROLE_USER',
   },
   images: [],
+  comments: [],
   createAt: '',
   updateAt: '',
 };
