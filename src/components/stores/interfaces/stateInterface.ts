@@ -25,7 +25,7 @@ export interface ModalState {
 export interface PostState extends PostOptions {}
 
 export interface OrderdPostListState {
-  data: PostState[];
+  data: PostOptions[];
   cursor: CursorOption;
 }
 

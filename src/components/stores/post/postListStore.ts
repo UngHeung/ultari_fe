@@ -50,7 +50,7 @@ export interface PostListStore {
   sortBy: SortTypes;
   setSortBy: (type: SortTypes) => void;
 
-  resetList: (id: number, newPost: PostOptions) => void;
+  resetList: () => void;
 }
 
 const usePostListStore = create<PostListStore>(set => ({
