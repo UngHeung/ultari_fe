@@ -11,11 +11,11 @@ import style from '../styles/comment.module.css';
 import CommentItem from './CommentItem';
 
 const CommentList = ({
-  comments,
   setCommentList,
+  comments,
 }: {
-  comments: CommentOptions[];
   setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
+  comments?: CommentOptions[];
 }) => {
   const postId = usePostStore((state: PostStore) => state.post.id);
   const post = usePostStore((state: PostStore) => state.post);
@@ -36,10 +36,7 @@ const CommentList = ({
   const [cursor, setCursor] = useState<{ id: -1 } | null>({ id: -1 });
 
   const observerRef = useRef(null);
-
-  useEffect(() => {
-    console.log(post);
-  }, []);
+  const take = 5;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,12 +63,11 @@ const CommentList = ({
     setIsLoading(true);
     setIsOpened(true);
 
-    const url = `post/${postId}/comments?take=5`;
+    const url = `post/${postId}/comments?take=${take}`;
     const query = cursor && cursor.id >= 0 ? `&id=${cursor.id}` : '';
 
-    if (comments.length > 0 && cursor) {
+    if (comments && comments.length > 0 && cursor) {
       const response = await baseAxios(`${url}${query}`);
-      console.log('fetch!');
       const { data, nextCursor } = response.data;
 
       if (post.comments && post.comments.length > 0) {
@@ -96,16 +92,11 @@ const CommentList = ({
 
   return (
     <ul className={style.commentList}>
-      {comments.length > 0 ? (
+      {comments && comments.length > 0 ? (
         isOpened ? (
           post.comments &&
           post.comments.map((comment, idx) => (
-            <CommentItem
-              key={idx}
-              comment={comment}
-              setCommentList={setCommentList}
-              userId={userId}
-            />
+            <CommentItem key={idx} comment={comment} userId={userId} />
           ))
         ) : (
           <div
@@ -114,12 +105,7 @@ const CommentList = ({
               getCommentsByPostId();
             }}
           >
-            <CommentItem
-              key={0}
-              comment={comments[0]}
-              setCommentList={setCommentList}
-              userId={userId}
-            />
+            <CommentItem key={0} comment={comments[0]} userId={userId} />
           </div>
         )
       ) : (
