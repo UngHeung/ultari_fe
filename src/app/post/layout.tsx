@@ -54,7 +54,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       userAuthentication(isLoggedIn, setModal);
     }
 
-    setMenu(<InnerNav type={type} userId={userId} />);
+    userId !== -1 && setMenu(<InnerNav type={type} userId={userId} />);
 
     setPosition(type);
     setTitle('자유 게시판');
