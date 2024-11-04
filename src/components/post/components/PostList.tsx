@@ -17,6 +17,7 @@ import style from '../styles/list.module.css';
 import ListItem from './ListItem';
 import ListMenu from './ListMenu';
 import PostListPaginate from './PostListPaginate';
+import Loading from '@/components/common/components/Loading';
 
 const PostList = () => {
   const postListOrderByDesc = usePostListStore(
@@ -56,6 +57,7 @@ const PostList = () => {
 
   const [postList, setPostList] = useState<PostOptions[]>([]);
   const [cursor, setCursor] = useState<CursorOption>({ id: -1, value: -1 });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setMenuBoxChild(<ListMenu />);
@@ -126,22 +128,27 @@ const PostList = () => {
       <ul className={style.postList}>
         {postList ? (
           postList.map((post: PostOptions, idx: number) => {
-            return <ListItem {...post} key={idx} />;
+            return <ListItem key={idx} postData={post} />;
           })
         ) : (
           <li>게시물이 없습니다.</li>
         )}
         <li>
-          {cursor && cursor.id !== -1 && (
-            <PostListPaginate
-              orderBy={orderBy}
-              sortBy={sortBy}
-              cursor={cursor}
-              setCursor={setCursor}
-              setPostList={setPostList}
-              scope={'SCOPE_PUBLIC'}
-            />
-          )}
+          {
+            <>
+              {isLoading && <Loading />}
+              {cursor && cursor.id !== -1 && (
+                <PostListPaginate
+                  orderBy={orderBy}
+                  sortBy={sortBy}
+                  cursor={cursor}
+                  setCursor={setCursor}
+                  setPostList={setPostList}
+                  scope={'SCOPE_PUBLIC'}
+                />
+              )}
+            </>
+          }
         </li>
       </ul>
     </>

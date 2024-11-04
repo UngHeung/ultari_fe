@@ -5,18 +5,12 @@ import usePostListStore, {
 } from '@/components/stores/post/postListStore';
 import usePostStore, { PostStore } from '@/components/stores/post/postStore';
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CommentOptions } from '../../post/interfaces/postInterfaces';
 import style from '../styles/comment.module.css';
 import CommentItem from './CommentItem';
 
-const CommentList = ({
-  setCommentList,
-  comments,
-}: {
-  setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
-  comments?: CommentOptions[];
-}) => {
+const CommentList = ({ comments }: { comments?: CommentOptions[] }) => {
   const postId = usePostStore((state: PostStore) => state.post.id);
   const post = usePostStore((state: PostStore) => state.post);
   const setPost = usePostStore((state: PostStore) => state.setPost);
@@ -36,7 +30,6 @@ const CommentList = ({
   const [cursor, setCursor] = useState<{ id: -1 } | null>({ id: -1 });
 
   const observerRef = useRef(null);
-  const take = 5;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,7 +56,7 @@ const CommentList = ({
     setIsLoading(true);
     setIsOpened(true);
 
-    const url = `post/${postId}/comments?take=${take}`;
+    const url = `post/${postId}/comments?take=5`;
     const query = cursor && cursor.id >= 0 ? `&id=${cursor.id}` : '';
 
     if (comments && comments.length > 0 && cursor) {
@@ -75,6 +68,7 @@ const CommentList = ({
           ...post,
           comments: [...post.comments, ...data],
         });
+
         post.comments = [...post.comments, ...data];
       } else {
         setPost({
@@ -85,6 +79,7 @@ const CommentList = ({
 
       setCursor(nextCursor);
     }
+
     updatePost(postId, post);
 
     setIsLoading(false);
