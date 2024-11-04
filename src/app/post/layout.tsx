@@ -63,9 +63,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className={style.postLayout}>
-      <section className={style.postWrap}>
-        <section>{children}</section>
-      </section>
+      <section className={style.postWrap}>{children}</section>
       <section className={style.buttonWrap}>
         {position.includes('list') && (
           <Link

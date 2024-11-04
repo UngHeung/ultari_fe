@@ -1,10 +1,10 @@
 import { authAxios } from '@/apis/axiosInstance';
 import { makeResponseResult } from '@/components/common/functions/returnResponse';
-import { CommentOptions } from '@/components/post/interfaces/postInterfaces';
 import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import useModalStore, {
   ModalStore,
 } from '@/components/stores/modal/modalStore';
+import usePostStore, { PostStore } from '@/components/stores/post/postStore';
 import React, { FormEvent, SetStateAction, useState } from 'react';
 import CommentButton from '../elements/CommentButton';
 import CommentTextarea from '../elements/CommentTextarea';
@@ -14,18 +14,20 @@ type CommentTypes = 'write' | 'update';
 
 const CommentWriteForm = ({
   type,
-  setCommentList,
+  postId,
   setIsModify,
   id,
   value,
 }: {
   type: CommentTypes;
-  setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
+  postId?: number;
   setIsModify?: React.Dispatch<SetStateAction<boolean>>;
   id?: number;
   value?: string;
 }) => {
   const setModal = useModalStore((state: ModalStore) => state.setModal);
+  const addComment = usePostStore((state: PostStore) => state.addComment);
+  const updateComment = usePostStore((state: PostStore) => state.updateComment);
 
   const [disabled, setDisabled] = useState<boolean>(false);
   const [comment, setComment] = useState<string>(
@@ -38,7 +40,7 @@ const CommentWriteForm = ({
     setDisabled(true);
 
     const commentData = {
-      postId: id,
+      postId,
       content: comment,
     };
 
@@ -50,11 +52,9 @@ const CommentWriteForm = ({
 
     if (success) {
       if (type === 'write') {
-        setCommentList(prevList => [data, ...prevList]);
+        addComment(data);
       } else {
-        setCommentList(prevList =>
-          prevList.map(item => (item.id === id ? (item = data) : item)),
-        );
+        id && updateComment(id, data);
       }
 
       setComment('');
@@ -68,6 +68,10 @@ const CommentWriteForm = ({
       routerType: undefined,
       modalIsShow: true,
     };
+
+    if (type === 'write') {
+    } else if (type === 'update' && id) {
+    }
 
     setModal(modalData);
 

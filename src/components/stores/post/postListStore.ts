@@ -1,10 +1,10 @@
+import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import { create } from 'zustand';
 import { OrderTypes, SortTypes } from '../constants/stateOptions';
 import {
   OrderdPostListState,
   PostListState,
 } from '../interfaces/stateInterface';
-import { devtools } from 'zustand/middleware';
 
 const initialState: PostListState = {
   asc: {
@@ -30,15 +30,19 @@ const initialState: PostListState = {
 export interface PostListStore {
   asc: OrderdPostListState;
   setAsc: (state: OrderdPostListState) => void;
+  updateAsc: (id: number, newPost: PostOptions) => void;
 
   desc: OrderdPostListState;
   setDesc: (state: OrderdPostListState) => void;
+  updateDesc: (id: number, newPost: PostOptions) => void;
 
   likes: OrderdPostListState;
   setLikes: (state: OrderdPostListState) => void;
+  updateLikes: (id: number, newPost: PostOptions) => void;
 
   views: OrderdPostListState;
   setViews: (state: OrderdPostListState) => void;
+  updateViews: (id: number, newPost: PostOptions) => void;
 
   orderBy: OrderTypes;
   setOrderBy: (type: OrderTypes) => void;
@@ -52,15 +56,51 @@ export interface PostListStore {
 const usePostListStore = create<PostListStore>(set => ({
   asc: initialState.asc,
   setAsc: (asc: OrderdPostListState) => set({ asc }),
+  updateAsc: (id: number, newPost: PostOptions) =>
+    set(state => ({
+      asc: {
+        data: state.asc.data.map(item =>
+          item.id === id ? { ...item, newPost } : item,
+        ),
+        cursor: state.asc.cursor,
+      },
+    })),
 
   desc: initialState.desc,
   setDesc: (desc: OrderdPostListState) => set({ desc }),
+  updateDesc: (id: number, newPost: PostOptions) =>
+    set(state => ({
+      desc: {
+        data: state.desc.data.map(item =>
+          item.id === id ? { ...item, newPost } : item,
+        ),
+        cursor: state.desc.cursor,
+      },
+    })),
 
   likes: initialState.likes,
   setLikes: (likes: OrderdPostListState) => set({ likes }),
+  updateLikes: (id: number, newPost: PostOptions) =>
+    set(state => ({
+      likes: {
+        data: state.likes.data.map(item =>
+          item.id === id ? { ...item, newPost } : item,
+        ),
+        cursor: state.likes.cursor,
+      },
+    })),
 
   views: initialState.views,
   setViews: (views: OrderdPostListState) => set({ views }),
+  updateViews: (id: number, newPost: PostOptions) =>
+    set(state => ({
+      views: {
+        data: state.views.data.map(item =>
+          item.id === id ? { ...item, newPost } : item,
+        ),
+        cursor: state.views.cursor,
+      },
+    })),
 
   orderBy: initialState.orderBy,
   setOrderBy: (orderBy: OrderTypes) => set({ orderBy }),

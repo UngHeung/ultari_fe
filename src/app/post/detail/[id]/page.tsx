@@ -1,6 +1,6 @@
 'use server';
 
-import { authAxios } from '@/apis/axiosInstance';
+import { baseAxios } from '@/apis/axiosInstance';
 import Comment from '@/components/comments/components/Comment';
 import ImagesSlider from '@/components/common/components/ImagesSlider';
 import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
@@ -18,8 +18,8 @@ const page = async ({ params }: ParamsOptions) => {
   revalidatePath(`/post/detail/${postId}`, 'page');
 
   try {
-    const response = await authAxios.get(
-      `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_DB_HOST}/api/post/${postId}`,
+    const response = await baseAxios.get(
+      `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_DB_HOST}/api/post/${postId}/detail`,
     );
 
     const postData: PostOptions = response.data;
@@ -49,9 +49,7 @@ const page = async ({ params }: ParamsOptions) => {
           <pre className={style.content}>{postData?.content}</pre>
         </section>
         {postData && <DetailLikeCount postData={postData} />}
-        {postData && postData.comments && (
-          <Comment comments={postData.comments} targetId={postId} />
-        )}
+        <Comment comments={postData.comments} targetId={postId} />
       </section>
     );
   } catch (error: any) {
