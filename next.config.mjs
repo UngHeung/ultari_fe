@@ -4,14 +4,14 @@
 const AWS_BUCKET_HOST = process.env.NEXT_PUBLIC_BUCKET_HOST;
 const AWS_BUCKET_NAME = process.env.NEXT_PUBLIC_BUCKET_NAME;
 const AWS_DB_HOST = process.env.NEXT_PUBLIC_DB_HOST;
-const protocol = 'https'
+const protocol = process.env.NEXT_PUBLIC_PROTOCOL;
 
 const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol,
         hostname: `${AWS_BUCKET_HOST}`,
         port: '',
         pathname: `/${AWS_BUCKET_NAME}/public/**`,
