@@ -5,39 +5,39 @@ import { getPostType } from '../functions/getPostContentType';
 import { PostOptions } from '../interfaces/postInterfaces';
 import style from '../styles/list.module.css';
 
-const ListItem = (props: PostOptions, key: number) => {
+const ListItem = ({ postData }: { postData: PostOptions }) => {
   const setPost = usePostStore((state: PostStore) => state.setPost);
 
   return (
     <>
-      <li key={key}>
+      <li>
         <Link
-          href={`/post/detail/${props.id}`}
+          href={`/post/detail/${postData.id}`}
           className={style.postItem}
-          onClick={() => setPost(props)}
+          onClick={() => setPost(postData)}
         >
           <div className={style.itemLeft}>
             <div className={style.itemLeftTop}>
               <section className={style.authorWrap}>
-                <UserProfile path={props.author.profile?.path} size={25} />
-                <strong>{props.author!.name}</strong>
+                <UserProfile path={postData.author.profile?.path} size={25} />
+                <strong>{postData.author!.name}</strong>
               </section>
 
               <section className={style.typeWrap}>
                 <span
                   className={style.type}
-                >{`#${getPostType(props.contentType)}`}</span>
+                >{`#${getPostType(postData.contentType)}`}</span>
               </section>
             </div>
 
             <section className={style.contentWrap}>
-              <strong className={style.title}>{props.title}</strong>
+              <strong className={style.title}>{postData.title}</strong>
             </section>
           </div>
 
           <section className={style.countWrap}>
             <span className={style.iconWrap}>{likeIcon}</span>
-            <span className={style.countNumber}>{props.likeCount}</span>
+            <span className={style.countNumber}>{postData.likeCount}</span>
           </section>
         </Link>
       </li>
