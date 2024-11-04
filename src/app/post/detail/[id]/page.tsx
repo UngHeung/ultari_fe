@@ -19,7 +19,7 @@ const page = async ({ params }: ParamsOptions) => {
 
   try {
     const response = await baseAxios.get(
-      `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_DB_HOST}/api/post/detail/${postId}`,
+      `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_DB_HOST}/api/post/${postId}/detail`,
     );
 
     const postData: PostOptions = response.data;
@@ -49,9 +49,7 @@ const page = async ({ params }: ParamsOptions) => {
           <pre className={style.content}>{postData?.content}</pre>
         </section>
         {postData && <DetailLikeCount postData={postData} />}
-        {postData && postData.comments && (
-          <Comment comments={postData.comments} targetId={postId} />
-        )}
+        <Comment comments={postData.comments} targetId={postId} />
       </section>
     );
   } catch (error: any) {
