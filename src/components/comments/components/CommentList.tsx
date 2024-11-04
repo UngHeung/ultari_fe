@@ -1,48 +1,124 @@
+import { baseAxios } from '@/apis/axiosInstance';
+import Loading from '@/components/common/components/Loading';
+import usePostListStore, {
+  PostListStore,
+} from '@/components/stores/post/postListStore';
+import usePostStore, { PostStore } from '@/components/stores/post/postStore';
 import useUserStore, { UserStore } from '@/components/stores/user/userStore';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { CommentOptions } from '../../post/interfaces/postInterfaces';
 import style from '../styles/comment.module.css';
 import CommentItem from './CommentItem';
 
 const CommentList = ({
-  comments,
   setCommentList,
+  comments,
 }: {
-  comments: CommentOptions[];
   setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
+  comments?: CommentOptions[];
 }) => {
+  const postId = usePostStore((state: PostStore) => state.post.id);
+  const post = usePostStore((state: PostStore) => state.post);
+  const setPost = usePostStore((state: PostStore) => state.setPost);
   const userId = useUserStore((state: UserStore) => state.user.id);
+  const orderBy = usePostListStore((state: PostListStore) => state.orderBy);
+  const sortBy = usePostListStore((state: PostListStore) => state.sortBy);
+  const updatePost = usePostListStore((state: PostListStore) =>
+    orderBy === 'DESC'
+      ? sortBy === 'id'
+        ? state.updateDesc
+        : state.updateLikes
+      : state.updateAsc,
+  );
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [cursor, setCursor] = useState<{ id: -1 } | null>({ id: -1 });
+
+  const observerRef = useRef(null);
+  const take = 5;
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && !isLoading) {
+          getCommentsByPostId();
+        }
+      },
+      { threshold: 1 },
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
+      }
+    };
+  }, [isLoading]);
+
+  async function getCommentsByPostId() {
+    setIsLoading(true);
+    setIsOpened(true);
+
+    const url = `post/${postId}/comments?take=${take}`;
+    const query = cursor && cursor.id >= 0 ? `&id=${cursor.id}` : '';
+
+    if (comments && comments.length > 0 && cursor) {
+      const response = await baseAxios(`${url}${query}`);
+      const { data, nextCursor } = response.data;
+
+      if (post.comments && post.comments.length > 0) {
+        setPost({
+          ...post,
+          comments: [...post.comments, ...data],
+        });
+        post.comments = [...post.comments, ...data];
+      } else {
+        setPost({
+          ...post,
+          comments: data,
+        });
+      }
+
+      setCursor(nextCursor);
+    }
+    updatePost(postId, post);
+
+    setIsLoading(false);
+  }
 
   return (
     <ul className={style.commentList}>
-      {comments.length > 0 ? (
+      {comments && comments.length > 0 ? (
         isOpened ? (
-          comments.map((comment, idx) => (
-            <CommentItem
-              key={idx}
-              comment={comment}
-              setCommentList={setCommentList}
-              userId={userId}
-            />
+          post.comments &&
+          post.comments.map((comment, idx) => (
+            <CommentItem key={idx} comment={comment} userId={userId} />
           ))
         ) : (
-          <button
+          <div
             className={style.listOpenButton}
-            onClick={() => setIsOpened(true)}
+            onClick={() => {
+              getCommentsByPostId();
+            }}
           >
-            <CommentItem
-              key={0}
-              comment={comments[0]}
-              setCommentList={setCommentList}
-              userId={userId}
-            />
-          </button>
+            <CommentItem key={0} comment={comments[0]} userId={userId} />
+          </div>
         )
       ) : (
-        <li className={style.isEmpty}>{'아직 댓글이 없습니다.'}</li>
+        <li key={'emptykey'} className={style.isEmpty}>
+          {'아직 댓글이 없습니다.'}
+        </li>
       )}
+      {isLoading && (
+        <li key={'loadingkey'}>
+          <Loading />
+        </li>
+      )}
+      {isOpened && <div ref={observerRef}></div>}
     </ul>
   );
 };

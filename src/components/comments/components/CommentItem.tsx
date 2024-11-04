@@ -7,22 +7,22 @@ import { ModalState } from '@/components/stores/interfaces/stateInterface';
 import useModalStore, {
   ModalStore,
 } from '@/components/stores/modal/modalStore';
+import usePostStore, { PostStore } from '@/components/stores/post/postStore';
 import UserProfile from '@/components/user/components/UserProfile';
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import CommentButton from '../elements/CommentButton';
 import style from '../styles/comment.module.css';
 import CommentWriteForm from './CommentWriteForm';
 
 const CommentItem = ({
   comment,
-  setCommentList,
   userId,
 }: {
   comment: CommentOptions;
-  setCommentList: React.Dispatch<SetStateAction<CommentOptions[]>>;
   userId?: number;
 }) => {
   const setModal = useModalStore((state: ModalStore) => state.setModal);
+  const deleteComment = usePostStore((state: PostStore) => state.deleteComment);
 
   const [isModify, setIsModify] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -39,9 +39,7 @@ const CommentItem = ({
     const { message, success, data } = await handleDeleteComment(comment.id);
 
     if (success) {
-      setCommentList(prevList =>
-        prevList.filter(item => item.id !== comment.id),
-      );
+      deleteComment(comment.id);
     }
 
     const modalData: ModalState = {
@@ -103,7 +101,6 @@ const CommentItem = ({
         {isModify && (
           <CommentWriteForm
             type={'update'}
-            setCommentList={setCommentList}
             setIsModify={setIsModify}
             id={comment.id}
             value={comment.content}

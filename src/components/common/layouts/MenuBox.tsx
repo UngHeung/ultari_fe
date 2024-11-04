@@ -36,7 +36,7 @@ const MenuBox = () => {
           </button>
         </section>
 
-        {children && <menu>{children}</menu>}
+        {children && <>{children}</>}
       </section>
     </section>
   );

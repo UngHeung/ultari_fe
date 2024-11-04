@@ -1,6 +1,10 @@
 'use client';
 
 import userAuthentication from '@/components/common/functions/userAuthentication';
+import InnerNav from '@/components/post/components/InnerNav';
+import useMenuBoxChildStore, {
+  MenuBoxChildStore,
+} from '@/components/stores/common/menuboxChildrenStore';
 import useTitleAndDescStore, {
   TitleAndDescriptionStore,
 } from '@/components/stores/common/titleAndDescriptionStore';
@@ -10,6 +14,7 @@ import useModalStore, {
 import useLoggedStore, {
   LoggedStore,
 } from '@/components/stores/user/loggedStore';
+import useUserStore, { UserStore } from '@/components/stores/user/userStore';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -33,8 +38,12 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   const setDescription = useTitleAndDescStore(
     (state: TitleAndDescriptionStore) => state.setDescription,
   );
+  const userId = useUserStore((state: UserStore) => state.user.id);
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
   const setModal = useModalStore((state: ModalStore) => state.setModal);
+  const setMenu = useMenuBoxChildStore(
+    (state: MenuBoxChildStore) => state.setChild,
+  );
 
   useEffect(() => {
     const type: PostPagePosition = pathname
@@ -45,6 +54,8 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       userAuthentication(isLoggedIn, setModal);
     }
 
+    setMenu(<InnerNav type={type} userId={userId} />);
+
     setPosition(type);
     setTitle('자유 게시판');
     setDescription('자유롭게 소통해요.');
@@ -52,9 +63,7 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className={style.postLayout}>
-      <section className={style.postWrap}>
-        <section>{children}</section>
-      </section>
+      <section className={style.postWrap}>{children}</section>
       <section className={style.buttonWrap}>
         {position.includes('list') && (
           <Link

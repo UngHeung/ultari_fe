@@ -7,11 +7,11 @@ import CommentList from './CommentList';
 import CommentWriteForm from './CommentWriteForm';
 
 const Comment = ({
-  comments,
   targetId,
+  comments,
 }: {
-  comments: CommentOptions[];
   targetId: number;
+  comments?: CommentOptions[];
 }) => {
   const [commentList, setCommentList] = useState<CommentOptions[]>(
     comments ?? [],
@@ -19,11 +19,7 @@ const Comment = ({
 
   return (
     <section className={style.commentListWrap}>
-      <CommentWriteForm
-        type={'write'}
-        id={targetId}
-        setCommentList={setCommentList}
-      />
+      <CommentWriteForm type={'write'} postId={targetId} />
       <CommentList comments={commentList} setCommentList={setCommentList} />
     </section>
   );

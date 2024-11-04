@@ -1,6 +1,5 @@
 'use server';
 
-import { baseAxios } from '@/apis/axiosInstance';
 import Comment from '@/components/comments/components/Comment';
 import ImagesSlider from '@/components/common/components/ImagesSlider';
 import { ParamsOptions } from '@/components/common/interfaces/paramsOptions';
@@ -10,18 +9,15 @@ import mapVisibility from '@/components/post/functions/mapVisibility';
 import { PostOptions } from '@/components/post/interfaces/postInterfaces';
 import style from '@/components/post/styles/detail.module.css';
 import UserProfile from '@/components/user/components/UserProfile';
-import { revalidatePath } from 'next/cache';
+import axios from 'axios';
 
 const page = async ({ params }: ParamsOptions) => {
   const postId = params.id;
 
-  revalidatePath(`/post/detail/${postId}`, 'page');
-
   try {
-    const response = await baseAxios.get(
-      `${process.env.NEXT_PUBLIC_PROTOCOL}://${process.env.NEXT_PUBLIC_DB_HOST}/api/post/${postId}/detail`,
+    const response = await axios.get(
+      `http://${process.env.NEXT_PUBLIC_DB_HOST}/api/post/${postId}`,
     );
-
     const postData: PostOptions = response.data;
 
     return (
@@ -42,6 +38,10 @@ const page = async ({ params }: ParamsOptions) => {
           </div>
         </section>
 
+        <section className={'content'}>
+          <pre>{postData.content}</pre>
+        </section>
+
         <section className={style.main}>
           {postData.images && postData.images?.length > 0 && (
             <ImagesSlider folder={'post'} images={postData.images} />
@@ -49,13 +49,13 @@ const page = async ({ params }: ParamsOptions) => {
           <pre className={style.content}>{postData?.content}</pre>
         </section>
         {postData && <DetailLikeCount postData={postData} />}
-        <Comment comments={postData.comments} targetId={postId} />
+        {postData && postData.comments && (
+          <Comment comments={postData.comments} targetId={postId} />
+        )}
       </section>
     );
   } catch (error: any) {
-    <section>
-      <h2>{'Not Found 404'}</h2>
-    </section>;
+    console.log(error);
   }
 };
 
