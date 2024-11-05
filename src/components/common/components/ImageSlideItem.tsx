@@ -33,6 +33,7 @@ const ImageSlideItem = ({
           objectPosition: '50% 50%',
         }}
         onClick={toggleImageFit}
+        unoptimized
       />
     </>
   );

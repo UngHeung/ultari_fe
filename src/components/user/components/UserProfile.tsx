@@ -23,6 +23,7 @@ const UserProfile = ({ path, size }: { path?: string; size?: number }) => {
         width={size ?? 50}
         height={size ?? 50}
         sizes={'100%'}
+        unoptimized
       />
     </span>
   );
