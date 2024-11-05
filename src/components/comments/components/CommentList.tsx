@@ -57,7 +57,12 @@ const CommentList = ({ comments }: { comments?: CommentOptions[] }) => {
     setIsOpened(true);
 
     const url = `post/${postId}/comments?take=5`;
-    const query = cursor && cursor.id >= 0 ? `&id=${cursor.id}` : '';
+    const query =
+      cursor && cursor.id >= 0
+        ? `&id=${cursor.id}`
+        : comments
+          ? `&id=${comments[0].id + 1}`
+          : '';
 
     if (comments && comments.length > 0 && cursor) {
       const response = await baseAxios(`${url}${query}`);
