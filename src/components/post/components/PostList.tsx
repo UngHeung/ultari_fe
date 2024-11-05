@@ -8,7 +8,6 @@ import fetchDataFromStoreOrServer from '../functions/fetchDataFromStoreOrServer'
 import { GetPostListOptions, PostOptions } from '../interfaces/postInterfaces';
 import style from '../styles/list.module.css';
 import ListItem from './ListItem';
-import PostListPaginate from './PostListPaginate';
 
 const PostList = () => {
   const postListOrderByDesc = usePostListStore(
@@ -187,16 +186,6 @@ const PostList = () => {
                 </li>
               )}
               {<div ref={observerRef}></div>}
-              {cursor && cursor.id !== -1 && (
-                <PostListPaginate
-                  orderBy={orderBy}
-                  sortBy={sortBy}
-                  cursor={cursor}
-                  setCursor={setCursor}
-                  setPostList={setPostList}
-                  scope={'SCOPE_PUBLIC'}
-                />
-              )}
             </>
           }
         </li>
