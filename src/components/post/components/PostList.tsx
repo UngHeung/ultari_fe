@@ -1,6 +1,4 @@
-import useMenuBoxChildStore, {
-  MenuBoxChildStore,
-} from '@/components/stores/common/menuboxChildrenStore';
+import Loading from '@/components/common/components/Loading';
 import usePostListStore, {
   PostListStore,
 } from '@/components/stores/post/postListStore';
@@ -15,9 +13,7 @@ import {
 } from '../interfaces/postInterfaces';
 import style from '../styles/list.module.css';
 import ListItem from './ListItem';
-import ListMenu from './ListMenu';
 import PostListPaginate from './PostListPaginate';
-import Loading from '@/components/common/components/Loading';
 
 const PostList = () => {
   const postListOrderByDesc = usePostListStore(
@@ -41,32 +37,12 @@ const PostList = () => {
     (state: PostListStore) => state.setLikes,
   );
 
-  const setMenuBoxChild = useMenuBoxChildStore(
-    (state: MenuBoxChildStore) => state.setChild,
-  );
-  const resetMenuBoxChild = useMenuBoxChildStore(
-    (state: MenuBoxChildStore) => state.resetChild,
-  );
-
   const orderBy = usePostListStore((state: PostListStore) => state.orderBy);
   const sortBy = usePostListStore((state: PostListStore) => state.sortBy);
-
-  const resetPostList = usePostListStore(
-    (state: PostListStore) => state.resetList,
-  );
 
   const [postList, setPostList] = useState<PostOptions[]>([]);
   const [cursor, setCursor] = useState<CursorOption>({ id: -1, value: -1 });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setMenuBoxChild(<ListMenu />);
-
-    return () => {
-      resetMenuBoxChild();
-      resetPostList();
-    };
-  }, []);
 
   useEffect(() => {
     postListProcess();
