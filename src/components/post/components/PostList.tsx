@@ -157,8 +157,6 @@ const PostList = () => {
     setPostList(postData.data);
     setCursor(postData.cursor);
 
-    console.log('postData : ', postData);
-
     const setPostStore = setPostListToStore();
 
     if (setPostStore) {
