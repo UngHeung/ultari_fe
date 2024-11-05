@@ -1,16 +1,19 @@
 'use client';
 
 import userAuthentication from '@/components/common/functions/userAuthentication';
+import MenuBox from '@/components/common/layouts/MenuBox';
 import InnerNav from '@/components/post/components/InnerNav';
-import useMenuBoxChildStore, {
-  MenuBoxChildStore,
-} from '@/components/stores/common/menuboxChildrenStore';
+import ListMenu from '@/components/post/components/ListMenu';
 import useTitleAndDescStore, {
   TitleAndDescriptionStore,
 } from '@/components/stores/common/titleAndDescriptionStore';
 import useModalStore, {
   ModalStore,
 } from '@/components/stores/modal/modalStore';
+import usePostListStore, {
+  PostListStore,
+} from '@/components/stores/post/postListStore';
+import usePostStore, { PostStore } from '@/components/stores/post/postStore';
 import useLoggedStore, {
   LoggedStore,
 } from '@/components/stores/user/loggedStore';
@@ -39,14 +42,24 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   );
   const isLoggedIn = useLoggedStore((state: LoggedStore) => state.isLoggedIn);
   const setModal = useModalStore((state: ModalStore) => state.setModal);
-  const setMenu = useMenuBoxChildStore(
-    (state: MenuBoxChildStore) => state.setChild,
+  const resetPost = usePostStore((state: PostStore) => state.resetPost);
+  const resetPostList = usePostListStore(
+    (state: PostListStore) => state.resetList,
   );
 
   useEffect(() => {
     setTitle('자유 게시판');
     setDescription('자유롭게 소통해요.');
+
+    return () => {
+      resetPost();
+      resetPostList();
+    };
   }, []);
+
+  useEffect(() => {
+    console.log(position);
+  }, [position]);
 
   useEffect(() => {
     const type: PostPagePosition = pathname
@@ -57,24 +70,32 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
       userAuthentication(isLoggedIn, setModal);
     }
 
-    setMenu(<InnerNav type={type} />);
     setPosition(type);
   }, [pathname, isLoggedIn]);
 
   return (
-    <div className={style.postLayout}>
-      <section className={style.postWrap}>{children}</section>
-      <section className={style.buttonWrap}>
-        {position.includes('list') && (
-          <Link
-            href={'/post/write'}
-            onClick={event => userAuthentication(isLoggedIn, setModal, event)}
-          >
-            {writeButton}
-          </Link>
-        )}
-      </section>
-    </div>
+    <>
+      <MenuBox>
+        {position === 'list' ? (
+          <ListMenu />
+        ) : position === 'detail' ? (
+          <InnerNav type="detail" />
+        ) : null}
+      </MenuBox>
+      <div className={style.postLayout}>
+        <section className={style.postWrap}>{children}</section>
+        <section className={style.buttonWrap}>
+          {position.includes('list') && (
+            <Link
+              href={'/post/write'}
+              onClick={event => userAuthentication(isLoggedIn, setModal, event)}
+            >
+              {writeButton}
+            </Link>
+          )}
+        </section>
+      </div>
+    </>
   );
 };
 

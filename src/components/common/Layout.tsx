@@ -18,7 +18,6 @@ import useUserStore, {
 } from '../stores/user/userStore';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
-import MenuBox from './layouts/MenuBox';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -44,7 +43,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Header />
-      <MenuBox />
       {children}
       <Footer />
       {modalIsShow && <Modal />}
@@ -57,7 +55,6 @@ export async function handleReload(
   setUser: (user: UserStoreOption) => void,
   router: AppRouterInstance,
 ) {
-  console.log('refresh!');
   try {
     const accessToken = await reissueAccessToken();
     const refreshToken = await reissueRefreshToken();

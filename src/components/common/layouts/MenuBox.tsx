@@ -1,13 +1,10 @@
-import useMenuBoxChildStore, {
-  MenuBoxChildStore,
-} from '@/components/stores/common/menuboxChildrenStore';
 import useTitleAndDescStore, {
   TitleAndDescriptionStore,
 } from '@/components/stores/common/titleAndDescriptionStore';
 import { useRouter } from 'next/navigation';
 import style from '../styles/menuBox.module.css';
 
-const MenuBox = () => {
+const MenuBox = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   const title = useTitleAndDescStore(
@@ -15,9 +12,6 @@ const MenuBox = () => {
   );
   const description = useTitleAndDescStore(
     (state: TitleAndDescriptionStore) => state.description,
-  );
-  const children = useMenuBoxChildStore(
-    (state: MenuBoxChildStore) => state.children,
   );
 
   return (
