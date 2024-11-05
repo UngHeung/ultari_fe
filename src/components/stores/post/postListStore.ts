@@ -59,9 +59,7 @@ const usePostListStore = create<PostListStore>(set => ({
   updateAsc: (id: number, newPost: PostOptions) =>
     set(state => ({
       asc: {
-        data: state.asc.data.map(item =>
-          item.id === id ? { ...item, newPost } : item,
-        ),
+        data: state.asc.data.map(item => (item.id === id ? newPost : item)),
         cursor: state.asc.cursor,
       },
     })),
@@ -71,9 +69,7 @@ const usePostListStore = create<PostListStore>(set => ({
   updateDesc: (id: number, newPost: PostOptions) =>
     set(state => ({
       desc: {
-        data: state.desc.data.map(item =>
-          item.id === id ? { ...item, newPost } : item,
-        ),
+        data: state.desc.data.map(item => (item.id === id ? newPost : item)),
         cursor: state.desc.cursor,
       },
     })),
