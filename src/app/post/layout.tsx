@@ -58,10 +58,6 @@ const PostLayout = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    console.log(position);
-  }, [position]);
-
-  useEffect(() => {
     const type: PostPagePosition = pathname
       .slice(1)
       .split('/')[1] as PostPagePosition;
