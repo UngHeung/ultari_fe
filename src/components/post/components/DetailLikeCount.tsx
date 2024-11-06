@@ -7,17 +7,24 @@ import {
 import useModalStore, {
   ModalStore,
 } from '@/components/stores/modal/modalStore';
+import usePostListStore, {
+  PostListStore,
+} from '@/components/stores/post/postListStore';
 import useUserStore, {
   UserStore,
   UserStoreOption,
 } from '@/components/stores/user/userStore';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import handleUpdateLikeCount from '../handlers/handleUpdateLikeCount';
 import style from '../styles/detail.module.css';
 
 const DetailLikeCount = ({ postData }: { postData: PostState }) => {
+  const router = useRouter();
+
   const userId = useUserStore((state: UserStore) => state.user.id);
   const setModal = useModalStore((state: ModalStore) => state.setModal);
+  const resetList = usePostListStore((state: PostListStore) => state.resetList);
 
   const [likeCount, setLikeCount] = useState<number>(postData?.likeCount || 0);
   const [isAleadyLiked, setIsAleadyLiked] = useState<boolean>(
@@ -56,8 +63,10 @@ const DetailLikeCount = ({ postData }: { postData: PostState }) => {
 
       setIsAleadyLiked(prev => !prev);
 
-      if (result.success) {
+      if (result.success && userId) {
         setLikeCount(result.data);
+        router.refresh();
+        resetList();
       }
     }
 
