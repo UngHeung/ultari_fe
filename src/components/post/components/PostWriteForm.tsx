@@ -2,6 +2,9 @@ import CustomSelect from '@/components/common/elements/CustomSelect';
 import useModalStore, {
   ModalStore,
 } from '@/components/stores/modal/modalStore';
+import usePostListStore, {
+  PostListStore,
+} from '@/components/stores/post/postListStore';
 import usePostStore, { PostStore } from '@/components/stores/post/postStore';
 import useLoggedStore, {
   LoggedStore,
@@ -54,7 +57,11 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
   const setModal = useModalStore((state: ModalStore) => state.setModal);
   const post = usePostStore((state: PostStore) => state.post);
   const user = useUserStore((state: UserStore) => state.user);
-  const setPost = usePostStore((state: PostStore) => state.setPost);
+  const setOrderBy = usePostListStore(
+    (state: PostListStore) => state.setOrderBy,
+  );
+  const setSortBy = usePostListStore((state: PostListStore) => state.setSortBy);
+  const addDesc = usePostListStore((state: PostListStore) => state.addDesc);
 
   useEffect(() => {
     if (type === 'update') {
@@ -63,6 +70,10 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    console.log(post);
+  }, [post]);
 
   async function postWriteProcess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -76,8 +87,6 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
       type === 'update' ? +updatePostId : undefined,
     );
 
-    setPost({ ...data, author: user });
-
     const postId = data?.id;
 
     const modalData: ModalState = {
@@ -89,6 +98,11 @@ const PostWriteForm = ({ type }: { type: 'new' | 'update' }) => {
       routerType: 'replace',
       leftPath: success ? `/post/detail/${postId}` : '',
     };
+
+    addDesc(data);
+    setOrderBy('DESC');
+    setSortBy('id');
+    success && router.refresh();
 
     setModal(modalData);
     setDisabled(false);
