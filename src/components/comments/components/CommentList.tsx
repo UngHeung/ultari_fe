@@ -56,7 +56,7 @@ const CommentList = ({ comments }: { comments?: CommentOptions[] }) => {
     setIsLoading(true);
     setIsOpened(true);
 
-    const url = `post/${postId}/comments?take=5`;
+    const url = `post/pg/${postId}/comments?take=5`;
     const query =
       cursor && cursor.id >= 0
         ? `&id=${cursor.id}`
