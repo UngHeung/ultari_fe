@@ -175,18 +175,12 @@ const PostList = () => {
         ) : (
           <li>게시물이 없습니다.</li>
         )}
-        <li>
-          {
-            <>
-              {isLoading && (
-                <li key={'loadingkey'}>
-                  <Loading />
-                </li>
-              )}
-              {<div ref={observerRef}></div>}
-            </>
-          }
-        </li>
+        {isLoading && (
+          <li key={'loadingkey'}>
+            <Loading />
+          </li>
+        )}
+        <li>{<div ref={observerRef}></div>}</li>
       </ul>
     </>
   );
