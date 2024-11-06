@@ -31,18 +31,22 @@ export interface PostListStore {
   asc: OrderdPostListState;
   setAsc: (state: OrderdPostListState) => void;
   updateAsc: (id: number, newPost: PostOptions) => void;
+  addAsc: (newPost: PostOptions) => void;
 
   desc: OrderdPostListState;
   setDesc: (state: OrderdPostListState) => void;
   updateDesc: (id: number, newPost: PostOptions) => void;
+  addDesc: (newPost: PostOptions) => void;
 
   likes: OrderdPostListState;
   setLikes: (state: OrderdPostListState) => void;
   updateLikes: (id: number, newPost: PostOptions) => void;
+  addLikes: (newPost: PostOptions) => void;
 
   views: OrderdPostListState;
   setViews: (state: OrderdPostListState) => void;
   updateViews: (id: number, newPost: PostOptions) => void;
+  addViews: (newPost: PostOptions) => void;
 
   orderBy: OrderTypes;
   setOrderBy: (type: OrderTypes) => void;
@@ -63,6 +67,13 @@ const usePostListStore = create<PostListStore>(set => ({
         cursor: state.asc.cursor,
       },
     })),
+  addAsc: (newPost: PostOptions) =>
+    set(state => ({
+      asc: {
+        data: [newPost, ...state.asc.data],
+        cursor: state.asc.cursor,
+      },
+    })),
 
   desc: initialState.desc,
   setDesc: (desc: OrderdPostListState) => set({ desc }),
@@ -70,6 +81,13 @@ const usePostListStore = create<PostListStore>(set => ({
     set(state => ({
       desc: {
         data: state.desc.data.map(item => (item.id === id ? newPost : item)),
+        cursor: state.desc.cursor,
+      },
+    })),
+  addDesc: (newPost: PostOptions) =>
+    set(state => ({
+      desc: {
+        data: [newPost, ...state.desc.data],
         cursor: state.desc.cursor,
       },
     })),
@@ -85,6 +103,13 @@ const usePostListStore = create<PostListStore>(set => ({
         cursor: state.likes.cursor,
       },
     })),
+  addLikes: (newPost: PostOptions) =>
+    set(state => ({
+      likes: {
+        data: [newPost, ...state.likes.data],
+        cursor: state.likes.cursor,
+      },
+    })),
 
   views: initialState.views,
   setViews: (views: OrderdPostListState) => set({ views }),
@@ -94,6 +119,13 @@ const usePostListStore = create<PostListStore>(set => ({
         data: state.views.data.map(item =>
           item.id === id ? { ...item, newPost } : item,
         ),
+        cursor: state.views.cursor,
+      },
+    })),
+  addViews: (newPost: PostOptions) =>
+    set(state => ({
+      views: {
+        data: [newPost, ...state.views.data],
         cursor: state.views.cursor,
       },
     })),
