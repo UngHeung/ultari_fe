@@ -15,7 +15,7 @@ function composeUrlQuery(
   scope?: VisibilityOptions,
   type?: ContentTypeOptions,
 ): string {
-  const orderByQuery = `${target}?sort=${sort}&take=${take}&orderBy=${orderBy}`;
+  const orderByQuery = `${target}/pg?sort=${sort}&take=${take}&orderBy=${orderBy}`;
   const cursorQuery =
     cursor && cursor.id >= 0 ? `&id=${cursor.id}&value=${cursor.value}` : '';
   const typeQuery = `&scope=${scope}${type ? `&type=${type}` : ''}`;
