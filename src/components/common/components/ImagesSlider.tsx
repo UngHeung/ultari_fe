@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { ImageFolderTypes } from '../constants/commonConst';
 import { ImageOptions } from '../interfaces/commonInterface';
-import ImageItem from './ImageSlideItem';
 import style from '../styles/imageSlider.module.css';
+import ImageItem from './ImageSlideItem';
 
 const ImagesSlider = ({
   images,
@@ -68,20 +68,22 @@ const ImagesSlider = ({
             height: (width / 6) * 4,
           }}
         >
-          {images?.map((image, idx) => {
-            const filename = image.path.split('/')[3];
+          {images
+            ?.sort((item1, item2) => item1.order - item2.order)
+            .map((image, idx) => {
+              const filename = image.path.split('/')[3];
 
-            return (
-              <li key={idx} className={`${style.imageItem}`}>
-                <ImageItem
-                  path={filename}
-                  width={width}
-                  height={(width / 6) * 4}
-                  styleClass={style.image}
-                />
-              </li>
-            );
-          })}
+              return (
+                <li key={idx} className={`${style.imageItem}`}>
+                  <ImageItem
+                    path={filename}
+                    width={width}
+                    height={(width / 6) * 4}
+                    styleClass={style.image}
+                  />
+                </li>
+              );
+            })}
         </ul>
         {images.length > 1 && (
           <>
